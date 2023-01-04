@@ -79,13 +79,4 @@ class THCD():
             
         except Exception as e:
             print(f"THCD connection failed on {self.host}: {e}")
-        
-    def set_flow(self, channel, value):
-        '''Set flow for given channel.'''        
-        try:
-            tn = telnetlib.Telnet(self.host, port=self.port)
-           # tn.write(b"FM:STATE OFF\n")
-            
-        except Exception as e:
-            print(f"THCD connection failed on {self.host}: {e}")
- 
+         
