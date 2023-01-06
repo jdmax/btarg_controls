@@ -1,0 +1,6 @@
+# btarg device settings, YAML
+ioc:
+    name: 'TGT:BTARG'
+flow_controller:
+    ip: '192.168.1.180'
+    
