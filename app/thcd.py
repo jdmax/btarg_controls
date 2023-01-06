@@ -5,14 +5,13 @@ class THCD():
     '''Handle connection to Teledyne Hastings THCD-401 via Telnet. 
     
     Arguments:
-        config: Current Config object
+        host: IP address of device
     '''
-    def __init__(self):        
+    def __init__(self, host):        
         '''Open connection to R&S, send commands for all settings, and read all back to check. Close.
         '''
-        #self.host = config.settings['THCD']['ip']
-        self.host = '192.168.1.180'
-        #self.port = config.settings['THCD']['port']
+        self.host = host
+        #self.host = '192.168.1.180'
         self.port = '101'
         
         try:
@@ -38,7 +37,7 @@ class THCD():
             return values
             
         except Exception as e:
-            print(f"THCD connection failed on {self.host}: {e}")
+            print(f"THCD read failed on {self.host}: {e}")
         
     def set_setpoint(self, channel, value):
         '''Set set points for given channel. Returns list of 4 setpoints after setting.'''        
@@ -62,7 +61,7 @@ class THCD():
             return values   
             
         except Exception as e:
-            print(f"THCD connection failed on {self.host}: {e}")
+            print(f"THCD write setpoint failed on {self.host}: {e}")
         
     def read_setpoints(self):
         '''Read set points for all channels. Returns list of 4 setpoints.'''     
@@ -78,5 +77,5 @@ class THCD():
             
             
         except Exception as e:
-            print(f"THCD connection failed on {self.host}: {e}")
+            print(f"THCD read setpoint failed on {self.host}: {e}")
          
