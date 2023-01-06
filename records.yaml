@@ -6,12 +6,7 @@ flow:
     Shield_FI:
         DESC: 'Shield Flow Controller Readout'
         PREC: 6
-        SCAN: 1
         EGU: 'slpm'
-        HHSV: 'major'
-        HSV: 'minor'
-        LSV: 'minor'
-        LLSV: 'major'
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -45,7 +40,6 @@ flow:
     Shield_FC:
         DESC: 'Shield Flow Controller Set Value'
         PREC: 6
-        SCAN: 1
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
