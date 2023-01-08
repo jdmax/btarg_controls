@@ -15,16 +15,23 @@ class FlowControl():
         
         self.records = records['flow']
         #self.t = THCD(settings['ip'])
-        self.FIs = self.records['controller_FI']   # list of FI names
-        
+        self.FIs = self.records['controller_FIs']   # list of Flow Indicator names
+        self.FCs = self.records['controller_FCs']   # list of Flow Controller names        
         
         self.pvs = {}
         
-        for pv_name in self.FIs:
+        for pv_name in self.FIs:      # Make AIn PVs for all FIs
             self.pvs[pv_name] = aIn(pv_name)
             for field, value in self.records[pv_name].items():
                 if not isinstance(value, dict):   # don't do the lists of states
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV           
+        
+        for pv_name in self.FCs:      # Make AOut PVs for all FCs
+            self.pvs[pv_name] = aOut(pv_name)
+            for field, value in self.records[pv_name].items():
+                if not isinstance(value, dict):   # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        
         
     def update_FI(self):
         '''

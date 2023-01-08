@@ -1,8 +1,9 @@
 # btarg record database, YAML
 flow:
-    controller_FI:   # List of PV names for each read channel of controller in order
+    controller_FIs:   # List of PV names for each read channel of controller in order
         - Shield_FI
-    controller_FC:   # List of PV names for each set channel of controller in order
+    controller_FCs:   # List of PV names for each set channel of controller in order
+        - Shield_FC
     Shield_FI:
         DESC: 'Shield Flow Controller Readout'
         PREC: 6
