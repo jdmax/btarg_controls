@@ -13,7 +13,8 @@ async def main():
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
 
     # Set the record prefix
-    builder.SetDeviceName("TGT:BTARG")
+    device_name = settings['ioc']['name']
+    builder.SetDeviceName(device_name)
 
     # Create some records
     ai = builder.aIn('AI', initial_value=5)
