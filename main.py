@@ -16,39 +16,11 @@ async def main():
     device_name = settings['ioc']['name']
     builder.SetDeviceName(device_name)
 
-    # Create some records
-    ai = builder.aIn('AI', initial_value=5)
-    ai2 = builder.aIn('AI2', initial_value=25)
-    ao = builder.aOut('AO', initial_value=12.45, always_update=True,
-                      on_update=lambda v: ai.set(v))
-    ai.HIHI = 10  
-    ai.HIGH = 5 
-    ai.LOW = 2  
-    ai.LOLO = 1  
-
     flow = FlowControl(settings, records)
 
     # Boilerplate get the IOC started
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
-    
-    def update_as(v1,v2):
-        ai.set(v1)
-        ai2.set(v2)
-
-    # Start processes required to be run after iocInit
-    async def update():
-        while True:
-            ai.set(ai.get() + 1)
-            await asyncio.sleep(1)
-            
-    async def update2():
-        while True:
-            ai2.set(ai2.get() + 1)
-            await asyncio.sleep(1)
-
-    dispatcher(update)
-    dispatcher(update2)
 
     # Finally leave the IOC running with an interactive shell.
     softioc.interactive_ioc(globals())
