@@ -3,6 +3,8 @@ from time import sleep
 from threading import Thread
 import random
 
+from app.thcd import THCD
+
 class FlowControl():
     '''Set up PVs for flow controller and connect to device
     '''
@@ -43,10 +45,7 @@ class FlowControl():
         '''When PV updated, send to thread
         '''
         pv_name = pv.replace(self.device_name+':', '')   # remove device name from PV to get bare pv_name
-        self.fc_update[pv_name] = True
-        
-        
-        
+        self.fc_update[pv_name] = True    
         
 class FlowThread(Thread):
 
@@ -63,7 +62,7 @@ class FlowThread(Thread):
         self.values = [0]*len(self.FIs)   # list of zeroes to start return FIs
         self.setpoints = [0]*len(self.FCs)   # list of zeroes to start readback FCs
         if self.enable:                # if not enabled, don't connect
-            self.t = THCD(settings['ip'])     # open telnet connection to flow controllers
+            self.t = THCD(parent.settings['ip'])     # open telnet connection to flow controllers
 
     def run(self):
         '''
@@ -75,7 +74,7 @@ class FlowThread(Thread):
             for pv_name, bool in self.fc_update.items():
                 if bool:   # there has been a change in this FC, update it
                     if self.enable:
-                        self.t.set_setpoint(self.FCs.index(pv_name)+1, self.pvs[pv_name])
+                        self.t.set_setpoint(self.FCs.index(pv_name)+1, self.pvs[pv_name].get())
                     else:
                         self.setpoints[self.FCs.index(pv_name)] = self.pvs[pv_name].get()   # for test, just echo back
                     self.fc_update[pv_name] = False  

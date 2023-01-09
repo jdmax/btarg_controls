@@ -2,10 +2,15 @@
 flow:
     controller_FIs:   # List of PV names for each read channel of controller in order
         - Shield_FI
+        - Exhaust_FI
+        - Precool_FI
+        - Pump_FI
     controller_FCs:   # List of PV names for each set channel of controller in order
         - Shield_FC
+        - Exhaust_FC
+        - Precool_FC        
     Shield_FI:
-        DESC: 'Shield Flow Controller Readout'
+        DESC: 'Shield Flow Indicator'
         PREC: 6
         EGU: 'slpm'
         cooldown:
@@ -56,4 +61,141 @@ flow:
             VAL: 20
         warmup:
             VAL: 10
-        
+    Exhaust_FI:
+        DESC: 'Exhaust Flow Indicator'
+        PREC: 6
+        EGU: 'slpm'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2
+    Exhaust_FC:
+        DESC: 'Exhaust Flow Controller Set Value'
+        PREC: 6
+        EGU: 'slpm'
+        DRVH: 150
+        DRVL: 0
+        cooldown:
+            VAL: 95
+        condense_H:
+            VAL: 20
+        steady_H:
+            VAL: 20
+        condense_He:
+            VAL: 20
+        steady_He:
+            VAL: 20
+        warmup:
+            VAL: 10 
+    Precool_FI:
+        DESC: 'Precool Flow Indicator'
+        PREC: 6
+        EGU: 'slpm'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2
+    Precool_FC:
+        DESC: 'Precool Controller Set Value'
+        PREC: 6
+        EGU: 'slpm'
+        DRVH: 150
+        DRVL: 0
+        cooldown:
+            VAL: 95
+        condense_H:
+            VAL: 20
+        steady_H:
+            VAL: 20
+        condense_He:
+            VAL: 20
+        steady_He:
+            VAL: 20
+        warmup:
+            VAL: 10  
+    Pump_FI:
+        DESC: 'Pump Flow Indicator'
+        PREC: 6
+        EGU: 'slpm'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2            
