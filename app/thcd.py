@@ -8,14 +8,14 @@ class THCD():
     Arguments:
         host: IP address of device
     '''
-    def __init__(self, host):        
+    def __init__(self, host, port):        
         '''Open connection to R&S, send commands for all settings, and read all back to check. Close.
         Arguments:
             host: IP address
         '''
         self.host = host
         #self.host = '192.168.1.180'
-        self.port = '101'
+        self.port = port
         
         try:
             self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=2)                  

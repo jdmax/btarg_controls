@@ -61,8 +61,8 @@ flow:
             VAL: 20
         warmup:
             VAL: 10
-    Exhaust_FI:
-        DESC: 'Exhaust Flow Indicator'
+    Evaporator_FI:
+        DESC: 'Evaporator Flow Indicator'
         PREC: 6
         EGU: 'slpm'
         cooldown:
@@ -95,8 +95,8 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2
-    Exhaust_FC:
-        DESC: 'Exhaust Flow Controller Set Value'
+    Evaporator_FC:
+        DESC: 'Evaporator Flow Controller Set Value'
         PREC: 6
         EGU: 'slpm'
         DRVH: 150
@@ -199,3 +199,4 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2            
+temp:            

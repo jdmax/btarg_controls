@@ -15,7 +15,8 @@ async def main():
     # Set the record prefix
     device_name = settings['ioc']['name']
     builder.SetDeviceName(device_name)
-
+    
+    # Start up devices, make and attached PVs
     flow = FlowControl(settings, records)
 
     # Boilerplate get the IOC started
