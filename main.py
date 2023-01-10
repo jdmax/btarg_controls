@@ -1,13 +1,14 @@
 from softioc import softioc, builder, asyncio_dispatcher, alarm
 import asyncio
 import yaml
+from collections import ChainMap
 
 from app.flow import FlowControl
 
 
 async def main():
 
-    settings, records = load_settings()
+    settings, records, pids = load_settings()
 
     # Create an asyncio dispatcher, the event loop is now running
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
@@ -18,6 +19,7 @@ async def main():
     
     # Start up devices, make and attached PVs
     flow = FlowControl(settings, records)
+    pvs = ChainMap(flow)
 
     # Boilerplate get the IOC started
     builder.LoadDatabase()
@@ -37,7 +39,11 @@ def load_settings():
     with open('records.yaml') as f:                           # Load settings from YAML files
        records = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'records.yaml'}.")
-    return settings, records
+
+    with open('pids.yaml') as f:                           # Load pids from YAML files
+       records = yaml.load(f, Loader=yaml.FullLoader)
+    print(f"Loaded records from {'pids.yaml'}.")
+    return settings, records, pids
     
     
 if __name__ == "__main__":
