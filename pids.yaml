@@ -9,4 +9,6 @@ Shield_PID:    # Base PV name
         Kd: 1.0
         sample_time: 1.0
         setpoint: 1.0
+        min_change: 0.0
+        max_change: 1.0
     

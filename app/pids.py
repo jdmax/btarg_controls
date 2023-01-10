@@ -3,6 +3,7 @@ from simple_pid import PID
 from collections import ChainMap
 from threading import Thread
 from time import sleep
+import numpy as np
 
 
 class PIDSetup():
@@ -21,7 +22,7 @@ class PIDSetup():
         self.pvs = ChainMap([p.pvs for p in self.pids.values()])   # combine all the PID PVS
     
 class PIDLoop(Thread):
-    '''Instaniates a PID loop and thread, makes PVs
+    '''Instantiates a PID loop and thread, makes PVs
     '''
     
     def __init__(self, in_pv, out_pv, pid_name, pdict):    
@@ -41,10 +42,13 @@ class PIDLoop(Thread):
             self.pvs[pv_name].set('value', value)
         
         self.pid = PID()    # set up simple_pid 
-        for out in pdict[outs].keys():   # set all parameters
-            setattr(self.pid, key, self.pvs[pid_name+'_'+out].get()) 
+        for out in pdict[outs].keys():   # set all parameters to pid object except the max and min change
+            if not 'change' in out:
+                setattr(self.pid, key, self.pvs[pid_name+'_'+out].get()) 
         self.pid.output_limits = (self.out_pv.DRVL.get(), self.out_pv.DRVH.get())  # set limits based on drive limits from output PV
         self.delay = self.pvs[pid_name+'_'+'sample_time'].get()
+        self.max_change = self.pvs[pid_name+'_'+'max_change'].get())
+        self.min_change = self.pvs[pid_name+'_'+'min_change'].get())
             
     def run(self):    
         print('Started thread for', self.pid_name)
@@ -55,17 +59,29 @@ class PIDLoop(Thread):
                 if bool:   # there has been a change in this out pv, update it in the pid
                     if 'auto_mode' in pv_name:
                         self.pid.set_auto_mode( 
-                            self.pvs[pid_name+'_'+pv_name].get(), 
+                            self.pvs[pid_name+'_auto_mode'].get(), 
                             last_output = self.out_pv.get()
                         )   # if turning on, start at previous output value
+                    if 'change' in pv_name:
+                        self.min_change = self.pvs[pid_name+'_min_change'].get())
+                        self.max_change = self.pvs[pid_name+'_max_change'].get())                        
                     if 'sample_time' in pv_name:
                         self.delay = self.pvs[pid_name+'_'+pv_name].get()
                         setattr(self.pid, pv_name, self.pvs[pid_name+'_'+pv_name].get())
                     else:    
                         setattr(self.pid, pv_name, self.pvs[pid_name+'_'+pv_name].get())
 
+            last_output = self.pid._last_output
             input = self.in_pv.get()
             output = self.pid(input)
+            
+            if abs(last_output - output) > self.max_change:   # check max and min change and alter output if needed
+                output = output + self.max_change * np.sign(last_output - output)
+                self.pid._last_output = output
+            elif abs(last_output - output) < self.min_change:                
+                output = last_output
+                self.pid._last_output = output           
+            
             # write output to out PV
             self.out_pv.set(output)
         
