@@ -1,11 +1,12 @@
 # btarg pid settings, YAML
-shield_flow:
-    input: Shield_TI
+Shield_PID:    # Base PV name
+    input: Shield_TI  # PV name of control channels
     output: Shield_FC
-    pvs:
-        enabled: false
-        p: 1
-        i: 1
-        d: 1
-        DT: 1
+    outs:
+        auto_mode: false
+        Kp: 1.0
+        Ki: 1.0
+        Kd: 1.0
+        sample_time: 1.0
+        setpoint: 1.0
     

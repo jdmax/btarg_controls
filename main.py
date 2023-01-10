@@ -18,7 +18,7 @@ async def main():
     builder.SetDeviceName(device_name)
     
     # Start up devices, make and attached PVs
-    flow = FlowControl(settings, records)
+    flow = FlowControl(settings, records) 
     pvs = ChainMap(flow)
 
     # Boilerplate get the IOC started
