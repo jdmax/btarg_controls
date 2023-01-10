@@ -1,7 +1,7 @@
 from simple_pid import PID
 
 
-class PID_Setup():
+class PIDSetup():
     '''Class to setup PID loops from entries in yaml file. 
     '''
     def __init__(self, pids):
@@ -10,7 +10,7 @@ class PID_Setup():
     
     
     
-class PID_Loop():
+class PIDLoop():
     '''Instaniates a PID loop, making PVs and routing changes.
     '''
     
