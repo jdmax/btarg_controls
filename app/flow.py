@@ -42,10 +42,10 @@ class FlowControl():
         self.thread.start()
         
     def update_FC(self, value, pv):
-        '''When PV updated, send to thread
+        '''When PV updated, let thread know
         '''
         pv_name = pv.replace(self.device_name+':', '')   # remove device name from PV to get bare pv_name
-        self.fc_update[pv_name] = True    
+        self.fc_update[pv_name] = True
         
 class FlowThread(Thread):
 

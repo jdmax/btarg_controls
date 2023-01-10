@@ -1,0 +1,8 @@
+# btarg pid settings, YAML
+shield_flow:
+    enabled: false
+    p: 1
+    i: 1
+    d: 1
+    DT: 1
+    
