@@ -5,10 +5,18 @@ flow_controller:
     enable: true            # don't connect to device, use test mode
     ip: '192.168.1.180'
     port: '101'
+    timeout: 2
     delay: 1                # update delay in seconds
 lakeshore_336:
-    enable: false            # don't connect to device, use test mode
+    enable: false           
     ip: '192.168.1.180'
     port: '7777'
-    delay: 1                # update delay in seconds
+    timeout: 2
+    delay: 1            
+lakeshore_218_1:
+    enable: false            
+    ip: '192.168.1.180'
+    port: '23'
+    timeout: 2
+    delay: 1               
     

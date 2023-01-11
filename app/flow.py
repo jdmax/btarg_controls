@@ -63,7 +63,7 @@ class FlowThread(Thread):
         self.values = [0]*len(self.FIs)   # list of zeroes to start return FIs
         self.setpoints = [0]*len(self.FCs)   # list of zeroes to start readback FCs
         if self.enable:                # if not enabled, don't connect
-            self.t = THCD(parent.settings['ip'], parent.settings['port'])     # open telnet connection to flow controllers
+            self.t = THCD(parent.settings['ip'], parent.settings['port'], parent.settings['timeout'])     # open telnet connection to flow controllers
 
     def run(self):
         '''

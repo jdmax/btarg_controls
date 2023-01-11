@@ -4,17 +4,18 @@ import re
 class LS336():
     '''Handle connection to Lakeshore Model 336 via Telnet. 
     '''
-    def __init__(self, host, port):        
-        '''Open connection to R&S, send commands for all settings, and read all back to check. Close.
+    def __init__(self, host, port, timeout):        
+        '''Open connection to Lakeshore 218
         Arguments:
             host: IP address
         port: Port of device
         '''
         self.host = host
         self.port = port
+        self.timeout = timeout
         
         try:
-            self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=2)                  
+            self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=self.timeout)                  
         except Exception as e:
             print(f"LS336 connection failed on {self.host}: {e}")
             
@@ -62,7 +63,7 @@ class LS336():
             return values
             
         except Exception as e:
-            print(f"LS336 pid read  failed on {self.host}: {e}")
+            print(f"LS336 pid read failed on {self.host}: {e}")
             
     def set_outmode(self, channel, mode, in_channel, powerup_on):
         '''Setup output and readback.

@@ -4,18 +4,18 @@ import re
 class THCD():
     '''Handle connection to Teledyne Hastings THCD-401 via Telnet.     
     '''
-    def __init__(self, host, port):        
-        '''Open connection to R&S, send commands for all settings, and read all back to check. Close.
+    def __init__(self, host, port, timeout):        
+        '''Open connection to Flow Controller
         Arguments:
             host: IP address
             port: Port of device
         '''
         self.host = host
-        #self.host = '192.168.1.180'
         self.port = port
+        self.timeout = timeout
         
         try:
-            self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=2)                  
+            self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=self.timeout)                  
         except Exception as e:
             print(f"THCD connection failed on {self.host}: {e}")
             
