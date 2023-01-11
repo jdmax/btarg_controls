@@ -2,13 +2,13 @@
 flow:
     controller_FIs:   # List of PV names for each read channel of controller in order
         - Shield_FI
-        - Exhaust_FI
+        - Evaporator_FI
         - Precool_FI
         - Pump_FI
     controller_FCs:   # List of PV names for each set channel of controller in order
         - Shield_FC
-        - Exhaust_FC
-        - Precool_FC        
+        - Evaporator_FC
+        - Precool_FC    
     Shield_FI:
         DESC: 'Shield Flow Indicator'
         PREC: 6

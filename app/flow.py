@@ -38,7 +38,8 @@ class FlowControl():
                 if not isinstance(value, dict):   # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
                     
-        self.thread = FlowThread(self)
+        self.thread = FlowThread(self)  
+        self.thread.setDaemon(True)
         self.thread.start()
         
     def update_FC(self, value, pv):

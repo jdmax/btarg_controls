@@ -1,17 +1,14 @@
 import telnetlib
 import re
-from time import sleep
 
 class THCD():
-    '''Handle connection to Teledyne Hastings THCD-401 via Telnet. 
-    
-    Arguments:
-        host: IP address of device
+    '''Handle connection to Teledyne Hastings THCD-401 via Telnet.     
     '''
     def __init__(self, host, port):        
         '''Open connection to R&S, send commands for all settings, and read all back to check. Close.
         Arguments:
             host: IP address
+            port: Port of device
         '''
         self.host = host
         #self.host = '192.168.1.180'
@@ -33,8 +30,7 @@ class THCD():
             i, match, data = self.tn.expect([self.ok_response_regex], timeout = 2)   # read until ok response
             out = data.decode('ascii')
             m = self.read_regex.search(out)
-            values = m.groups()
-            values  = [float(x) for x in values]
+            values  = [float(x) for x in m.groups()]
             return values
             
         except Exception as e:
