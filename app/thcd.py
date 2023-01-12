@@ -9,6 +9,7 @@ class THCD():
         Arguments:
             host: IP address
             port: Port of device
+            timeout: Telnet timeout in secs
         '''
         self.host = host
         self.port = port
