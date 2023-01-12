@@ -18,5 +18,11 @@ lakeshore_218_1:
     ip: '192.168.1.180'
     port: '23'
     timeout: 2
+    delay: 1      
+omega_1:
+    enable: false            
+    ip: '192.168.1.200'
+    port: '2002'
+    timeout: 2
     delay: 1               
     
