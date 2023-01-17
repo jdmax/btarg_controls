@@ -41,7 +41,7 @@ def load_settings():
     print(f"Loaded records from {'records.yaml'}.")
 
     with open('pids.yaml') as f:                           # Load pids from YAML files
-       records = yaml.load(f, Loader=yaml.FullLoader)
+       pids = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'pids.yaml'}.")
     return settings, records, pids
     
