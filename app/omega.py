@@ -52,7 +52,7 @@ class Omega():
         except Exception as e:
             print(f"Omega read failed on {self.host}: {e}")
         
-    def read_temp(self):
+    def read_all(self):
         '''Read from unit.'''  
                 
         command = "*X01\r\n"        

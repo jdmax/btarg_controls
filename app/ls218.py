@@ -24,7 +24,7 @@ class LS218():
         #self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')  
         #self.ok_response_regex = re.compile(b'!a!o!\s\s')    
          
-    def read_temps(self):
+    def read_all(self):
         '''Read temperatures for all channels.'''  
         values = []
         try: 

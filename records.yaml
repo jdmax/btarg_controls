@@ -1,11 +1,11 @@
 # btarg record database, YAML
 flow:
-    controller_FIs:   # List of PV names for each read channel of controller in order
+    Indicators:   # List of PV names for each read channel of device in order
         - Shield_FI
         - Evaporator_FI
         - Precool_FI
         - Pump_FI
-    controller_FCs:   # List of PV names for each set channel of controller in order
+    Controllers:   # List of PV names for each set channel of device in order
         - Shield_FC
         - Evaporator_FC
         - Precool_FC    
@@ -199,4 +199,110 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2            
-temp:            
+ls218_1:  
+    Indicators:   # List of PV names for each read channel of 218 in order
+        - Shield_Cold_TI
+        - Shield_Mid_TI
+        - Shield_Warm_TI
+    Shield_Cold_TI:
+        DESC: 'Shield Cold End Temperature Indicator'
+        PREC: 6
+        EGU: 'K'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2  
+    Shield_Mid_TI:
+        DESC: 'Shield Middle Temperature Indicator'
+        PREC: 6
+        EGU: 'K'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2  
+    Shield_Warm_TI:
+        DESC: 'Shield Warm End Temperature Indicator'
+        PREC: 6
+        EGU: 'K'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2          
