@@ -20,8 +20,8 @@ class FlowControl():
         
         self.records = records
         self.settings = settings
-        self.device_name = device_names
-        self.Is = self.records['Indictors']   # list of Flow Indicator names in channel order 
+        self.device_name = device_name
+        self.Is = self.records['Indicators']   # list of Flow Indicator names in channel order
         self.Cs = self.records['Controllers']   # list of Flow Controller names in channel order    
         self.c_update = dict(zip(self.Cs,[False]*len(self.Cs)))    # dict of FCs with boolean to tell thread when to update
         self.pvs = {}
@@ -78,7 +78,7 @@ class FlowThread(Thread):
                         self.t.set_setpoint(self.Cs.index(pv_name)+1, self.pvs[pv_name].get())
                     else:
                         self.setpoints[self.Cs.index(pv_name)] = self.pvs[pv_name].get()   # for test, just echo back
-                    self.fc_update[pv_name] = False  
+                    self.c_update[pv_name] = False
                 
             if self.enable:
                 self.setpoints = self.t.read_setpoints()   

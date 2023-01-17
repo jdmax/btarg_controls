@@ -20,8 +20,8 @@ class ReadLS218():
         
         self.records = records
         self.settings = settings
-        self.device_name = device_names
-        self.Is = self.records['Indictors']   # list of Flow Indicator names in channel order 
+        self.device_name = device_name
+        self.Is = self.records['Indicators']   # list of Flow Indicator names in channel order
         self.pvs = {}
         
         for pv_name in self.Is:      # Make AIn PVs for all FIs
@@ -30,7 +30,7 @@ class ReadLS218():
                 if not isinstance(value, dict):   # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV        
                     
-        self.thread = FlowThread(self)  
+      #  self.thread = FlowThread(self)
         self.thread.setDaemon(True)
         self.thread.start()
         
@@ -47,8 +47,8 @@ class LS218Thread(Thread):
         self.Cs = parent.Cs
         self.values = [0]*len(self.Is)   # list of zeroes to start return FIs
         self.setpoints = [0]*len(self.Cs)   # list of zeroes to start readback FCs
-        if self.enable:                # if not enabled, don't connect
-            self.t = THCD(parent.settings['ip'], parent.settings['port'], parent.settings['timeout'])     # open telnet connection to flow controllers
+    #    if self.enable:                # if not enabled, don't connect
+  #          self.t = THCD(parent.settings['ip'], parent.settings['port'], parent.settings['timeout'])     # open telnet connection to flow controllers
 
     def run(self):
         '''
