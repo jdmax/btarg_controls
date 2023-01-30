@@ -305,4 +305,41 @@ ls218_1:
             HIHI: 30
             HIGH: 25
             LOW: 5
-            LOLO: 2          
+            LOLO: 2
+ls218_2:
+    Indicators: # List of PV names for each read channel of 218 in order
+        - Other_TI
+    Other_TI:
+        DESC: 'Shield Cold End Temperature Indicator'
+        PREC: 6
+        EGU: 'K'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2

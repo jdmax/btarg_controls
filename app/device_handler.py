@@ -3,8 +3,8 @@ from time import sleep
 from threading import Thread
 import random
 
-from app.thcd import THCD
-from app.ls218 import LS218
+from flow.thcd import THCD
+
 
 class DeviceHandler():
     '''Set up PVs for a device with a driver module and connect 

@@ -1,14 +1,35 @@
-from softioc.builder import aIn, aOut
+from softioc import softioc, builder, asyncio_dispatcher
+import asyncio
+import yaml
 from time import sleep
 from threading import Thread
 import random
 
-from app.ls218 import LS218
+from ls218 import LS218
+
+async def main():
+    '''
+    Run LS218 IOC: load settings, create dispatcher, set name, start devices, do boilerplate
+    '''
+    settings, records = load_settings()
+
+    dispatcher = asyncio_dispatcher.AsyncioDispatcher()
+    device_name = settings['ioc']['name'] + ':TEMP'
+    builder.SetDeviceName(device_name)
+
+    p = ReadLS218(device_name, settings['lakeshore_218_1'], records['ls218_1'])
+    q = ReadLS218(device_name, settings['lakeshore_218_2'], records['ls218_2'])
+
+    builder.LoadDatabase()
+    softioc.iocInit(dispatcher)
+
+    softioc.interactive_ioc(globals())
+
 
 class ReadLS218():
     '''Set up PVs for Lakeshore 218 and connect to device
     '''
-    
+
     def __init__(self, device_name, settings, records):
         '''
         Attributes:
@@ -25,7 +46,7 @@ class ReadLS218():
         self.pvs = {}
         
         for pv_name in self.Is:      # Make AIn PVs for all FIs
-            self.pvs[pv_name] = aIn(pv_name)
+            self.pvs[pv_name] = builder.aIn(pv_name)
             for field, value in self.records[pv_name].items():
                 if not isinstance(value, dict):   # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV        
@@ -63,4 +84,18 @@ class LS218Thread(Thread):
             for i, pv_name in enumerate(self.Is):
                 self.pvs[pv_name].set(self.values[i])
 
-  
+def load_settings():
+    '''Load device settings and records from YAML settings file'''
+
+    with open('../settings.yaml') as f:  # Load settings from YAML files
+        settings = yaml.load(f, Loader=yaml.FullLoader)
+    print(f"Loaded device settings from {'settings.yaml'}.")
+
+    with open('../records.yaml') as f:  # Load settings from YAML files
+        records = yaml.load(f, Loader=yaml.FullLoader)
+    print(f"Loaded records from {'records.yaml'}.")
+
+    return settings, records
+
+if __name__ == "__main__":
+    asyncio.run(main())
