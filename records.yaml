@@ -343,3 +343,55 @@ ls218_2:
             HIGH: 25
             LOW: 5
             LOLO: 2
+ls336:
+    Indicators: # List of PV names for each read channel of 218 in order
+        - Coolant_TI
+        - Coolant_Heater
+    Controllers:
+        - Coolant_kP
+        - Coolant_kI
+        - Coolant_kD
+        - Coolant_SP
+    Choices:
+        Coolant_Mode:
+            - ['Off', 0]
+            - ['Closed Loop', 1]
+        Coolant_Range:
+            - ['Off', 0]
+            - ['Low', 1]
+            - ['Med', 1]
+            - ['High', 1]
+    Other_TI:
+        DESC: 'Shield Cold End Temperature Indicator'
+        PREC: 6
+        EGU: 'K'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2

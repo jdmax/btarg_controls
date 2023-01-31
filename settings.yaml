@@ -1,18 +1,12 @@
 # btarg device settings, YAML
 ioc:
-    name: 'TGT:BTARG'
+    name: TGT:BTARG
 flow_controller:
     enable: false            # don't connect to device, use test mode
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
     delay: 1                # update delay in seconds
-lakeshore_336:
-    enable: false           
-    ip: '192.168.1.180'
-    port: '7777'
-    timeout: 2
-    delay: 1            
 lakeshore_218_1:
     enable: false            
     ip: '192.168.1.180'
@@ -23,6 +17,12 @@ lakeshore_218_2:
     enable: false
     ip: '192.168.1.180'
     port: '23'
+    timeout: 2
+    delay: 1
+lakeshore_336:
+    enable: false
+    ip: '192.168.1.180'
+    port: '7777'
     timeout: 2
     delay: 1
 omega_1:
