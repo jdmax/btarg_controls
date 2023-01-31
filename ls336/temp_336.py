@@ -5,7 +5,7 @@ from time import sleep
 from threading import Thread
 import random
 
-from thcd import THCD
+from ls336 import LS336
 
 
 async def main():
@@ -26,7 +26,7 @@ async def main():
     softioc.interactive_ioc(globals())
 
 
-class LS336():
+class ReadLS336():
     '''Set up PVs for Lakeshore 336 controller and connect to device
     '''
 
@@ -86,7 +86,7 @@ class LS336Thread(Thread):
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         self.setpoints = [0] * len(self.Cs)  # list of zeroes to start readback FCs
         if self.enable:  # if not enabled, don't connect
-            self.t = THCD(parent.settings['ip'], parent.settings['port'],
+            self.t = LS336(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):

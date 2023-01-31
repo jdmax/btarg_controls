@@ -63,18 +63,21 @@ class LS336():
 
         except Exception as e:
             print(f"LS336 pid read failed on {self.host}: {e}")
-def read_heater(self, channel):
-        '''Read Heater output (%) for given channel (1 or 2).'''
-        try:
-            self.tn.write(bytes(f"HTR?\n",'ascii'))
-            data = self.tn.read_until(b'\n', timeout = 2).decode('ascii')   # read until carriage return
-            m = self.setp_regex.search(data)
-            values  = [float(x) for x in m.groups()]
-            return values
 
-        except Exception as e:
-            print(f"LS336 heater read failed on {self.host}: {e}")
-            
+
+    def read_heater(self, channel):
+            '''Read Heater output (%) for given channel (1 or 2).'''
+            try:
+                self.tn.write(bytes(f"HTR?\n",'ascii'))
+                data = self.tn.read_until(b'\n', timeout = 2).decode('ascii')   # read until carriage return
+                m = self.setp_regex.search(data)
+                values  = [float(x) for x in m.groups()]
+                return values
+
+            except Exception as e:
+                print(f"LS336 heater read failed on {self.host}: {e}")
+
+
     def set_outmode(self, channel, mode, in_channel, powerup_on):
         '''Setup output and readback.
         Arguments:
@@ -93,6 +96,7 @@ def read_heater(self, channel):
             
         except Exception as e:
             print(f"LS336 outmode set  failed on {self.host}: {e}")
+
             
     def set_range(self, channel, hrange):
         '''Setup output and readback. Has no effect if outmode is off.

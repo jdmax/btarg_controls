@@ -7,6 +7,7 @@ import random
 
 from ls218 import LS218
 
+
 async def main():
     '''
     Run LS218 IOC: load settings, create dispatcher, set name, start devices, do boilerplate
@@ -54,7 +55,8 @@ class ReadLS218():
         self.thread = LS218Thread(self)
         self.thread.setDaemon(True)
         self.thread.start()
-        
+
+
 class LS218Thread(Thread):
 
     def __init__(self, parent):     
@@ -84,6 +86,7 @@ class LS218Thread(Thread):
             for i, pv_name in enumerate(self.Is):
                 self.pvs[pv_name].set(self.values[i])
 
+
 def load_settings():
     '''Load device settings and records from YAML settings file'''
 
@@ -96,6 +99,7 @@ def load_settings():
     print(f"Loaded records from {'records.yaml'}.")
 
     return settings, records
+
 
 if __name__ == "__main__":
     asyncio.run(main())
