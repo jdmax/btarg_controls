@@ -15,7 +15,7 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['ioc']['name'] + ':TEMP'
+    device_name = settings['ioc']['name'] + ':TEMP218'
     builder.SetDeviceName(device_name)
 
     p = ReadLS218(device_name, settings['lakeshore_218_1'], records['ls218_1'])
@@ -46,7 +46,7 @@ class ReadLS218():
         self.Is = self.records['Indicators']   # list of Indicator names in channel order to associate PV with channel
         self.pvs = {}
         
-        for pv_name in self.Is:      # Make AIn PVs for all FIs
+        for pv_name in self.Is:      # Make AIn PVs for all Is
             self.pvs[pv_name] = builder.aIn(pv_name)
             for field, value in self.records[pv_name].items():
                 if not isinstance(value, dict):   # don't do the lists of states
@@ -78,7 +78,6 @@ class LS218Thread(Thread):
         while True:
             sleep(self.delay)
 
-                
             if self.enable:
                 self.values = self.t.read_all()
             else:

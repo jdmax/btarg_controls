@@ -344,23 +344,45 @@ ls218_2:
             LOW: 5
             LOLO: 2
 ls336:
-    Indicators: # List of PV names for each read channel of 218 in order
-        - Coolant_TI
-        - Coolant_Heater
-    Controllers:
-        - Coolant_kP
-        - Coolant_kI
-        - Coolant_kD
-        - Coolant_SP
-    Choices:
-        Coolant_Mode:
-            - ['Off', 0]
-            - ['Closed Loop', 1]
-        Coolant_Range:
-            - ['Off', 0]
-            - ['Low', 1]
-            - ['Med', 1]
-            - ['High', 1]
+    Channels:     # List of channels in order, with dict in each position
+        - Indicators: # Dict of PVs
+            - Coolant_TI
+            - Coolant_Heater
+          Controllers:
+            - Coolant_kP
+            - Coolant_kI
+            - Coolant_kD
+            - Coolant_SP
+          Mults:
+            Coolant_Mode:
+                - ['Off', 0]
+                - ['Closed Loop', 1]
+            Coolant_Range:
+                - ['Off', 0]
+                - ['Low', 1]
+                - ['Med', 1]
+                - ['High', 1]
+        - Indicators: # Dict of PVs
+            - Target_TI
+            - Target_Heater
+          Controllers:
+            - Target_kP
+            - Target_kI
+            - Target_kD
+            - Target_SP
+          Mults:
+            Target_Mode:
+                - ['Off', 0]
+                - ['Closed Loop', 1]
+            Target_Range:
+                - ['Off', 0]
+                - ['Low', 1]
+                - ['Med', 1]
+                - ['High', 1]
+        - Indicators: # Dict of PVs
+            - Other1_TI
+        - Indicators: # Dict of PVs
+            - Other2_TI
     Other_TI:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6

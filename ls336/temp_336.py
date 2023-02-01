@@ -15,10 +15,10 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['ioc']['name'] + ':FLOW'
+    device_name = settings['ioc']['name'] + ':TEMP336'
     builder.SetDeviceName(device_name)
 
-    p = LS336(device_name, settings['lakeshore_336'], records['flow'])
+    p = LS336(device_name, settings['lakeshore_336'], records['ls336'])
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -42,20 +42,21 @@ class ReadLS336():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.records['Indicators']  # list of Flow Indicator names in channel order
-        self.Cs = self.records['Controllers']  # list of Flow Controller names in channel order
-        self.c_update = dict(
-            zip(self.Cs, [False] * len(self.Cs)))  # dict of FCs with boolean to tell thread when to update
+        self.Is = self.records['Indicators']  # list of Indicator names in channel order
+        self.Cs = self.records['Controllers']  # list of Controller names in channel order
+        self.Ms = self.records['Mults']  # list of Choice Menu names in channel order
+
+        self.update = dict(zip(self.Cs + self.Ms, [False] * (len(self.Cs)+len(self.Ms))))  # dict with boolean to tell thread when to update
         self.pvs = {}
 
-        for pv_name in self.Is:  # Make AIn PVs for all FIs
+        for pv_name in self.Is:  # Make AIn PVs for all Is
             self.pvs[pv_name] = builder.aIn(pv_name)
             for field, value in self.records[pv_name].items():
                 if not isinstance(value, dict):  # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
-        for pv_name in self.Cs:  # Make AOut PVs for all FCs
-            self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update_C)
+        for pv_name in self.Cs:  # Make AOut PVs for all Cs
+            self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update_pv)
             for field, value in self.records[pv_name].items():
                 if not isinstance(value, dict):  # don't do the lists of states
                     setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
@@ -64,11 +65,11 @@ class ReadLS336():
         self.thread.setDaemon(True)
         self.thread.start()
 
-    def update_C(self, value, pv):
+    def update_pv(self, value, pv):
         '''When PV updated, let thread know
         '''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
-        self.c_update[pv_name] = True
+        self.update[pv_name] = True
 
 
 class LS336Thread(Thread):
@@ -80,11 +81,13 @@ class LS336Thread(Thread):
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
-        self.c_update = parent.c_update
+        self.update = parent.update
         self.Is = parent.Is
         self.Cs = parent.Cs
+        self.Ms = parent.Ms
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         self.setpoints = [0] * len(self.Cs)  # list of zeroes to start readback FCs
+        self.mults = [0] * len(self.Ms)  # list of zeroes to start readback Multiple choice
         if self.enable:  # if not enabled, don't connect
             self.t = LS336(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection to flow controllers
@@ -96,13 +99,13 @@ class LS336Thread(Thread):
         while True:
             sleep(self.delay)
 
-            for pv_name, bool in self.c_update.items():
+            for pv_name, bool in self.update.items():
                 if bool:  # there has been a change in this FC, update it
                     if self.enable:
                         self.t.set_setpoint(self.Cs.index(pv_name) + 1, self.pvs[pv_name].get())
                     else:
                         self.setpoints[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
-                    self.c_update[pv_name] = False
+                    self.update[pv_name] = False
 
             if self.enable:
                 self.setpoints = self.t.read_setpoints()
