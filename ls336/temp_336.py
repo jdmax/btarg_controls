@@ -15,7 +15,7 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['ioc']['name'] + ':TEMP336'
+    device_name = settings['prefix'] + ':TEMP336'
     builder.SetDeviceName(device_name)
 
     p = LS336(device_name, settings['lakeshore_336'], records['ls336'])

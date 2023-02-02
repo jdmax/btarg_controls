@@ -15,7 +15,7 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['ioc']['name'] + ':FLOW'
+    device_name = settings['prefix'] + ':FLOW'
     builder.SetDeviceName(device_name)
 
     p = FlowControl(device_name, settings['flow_controller'], records['flow'])

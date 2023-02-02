@@ -15,7 +15,7 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['ioc']['name'] + ':TEMP218'
+    device_name = settings['prefix'] + ':TEMP218'
     builder.SetDeviceName(device_name)
 
     p = ReadLS218(device_name, settings['lakeshore_218_1'], records['ls218_1'])
@@ -27,7 +27,7 @@ async def main():
     softioc.interactive_ioc(globals())
 
 
-class ReadLS218():
+class ReadLS218:
     '''Set up PVs for Lakeshore 218 and connect to device
     '''
 
