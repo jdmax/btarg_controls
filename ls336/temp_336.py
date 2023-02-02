@@ -121,11 +121,11 @@ class LS336Thread(Thread):
 def load_settings():
     '''Load device settings and records from YAML settings file'''
 
-    with open('../settings.yaml') as f:  # Load settings from YAML files
+    with open('settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {'settings.yaml'}.")
 
-    with open('../records.yaml') as f:  # Load settings from YAML files
+    with open('records.yaml') as f:  # Load settings from YAML files
         records = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'records.yaml'}.")
 

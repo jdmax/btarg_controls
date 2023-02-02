@@ -1,2 +1,8 @@
-flow: 'flow/flow.py'
-ls218: 'ls218/temp_218.py'
+venv: 'None'   #  path of virtual environment source or 'None'
+screens:
+  flow:
+    exec: 'flow/flow.py'
+    log: 'flow/log'
+  ls218:
+    exec: 'ls218/temp_218.py'
+    log: 'ls218/log'

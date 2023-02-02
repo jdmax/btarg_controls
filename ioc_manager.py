@@ -20,7 +20,6 @@ async def main():
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
-
     softioc.interactive_ioc(globals())
 
 
@@ -31,35 +30,85 @@ class IOCManager:
 
     def __init__(self, device_name, screen_config):
         """
-        Make control PVs for each IOC
+        Make control PVs for each IOC. "pvs" dict is keyed on name (e.g. flow), PV is labeled as name + 'control' (e.g. flow_control)
         """
         self.device_name = device_name
+        self.screen_config = screen_config
         self.pvs = {}
         self.screens = {}    # Dict of all screens made for the iocs
-        for key, value in screen_config.items():  # each IOC has controls to start, stop or reset
-            self.pvs[key] = builder.mbbOut(key + '_control',
-                                           ("Start",0),
-                                           ("Stop",1),
+
+        #
+        for name, value in screen_config['screens'].items():  # each IOC has controls to start, stop or reset
+            self.pvs[name] = builder.mbbOut(name + '_control',
+                                           ("Stop",0),
+                                           ("Start",1),
                                            ("Reset",2),
                                            on_update_name=self.update
                                            )
+        self.pv_all = builder.mbbOut('all',
+                                       ("Stop",0),
+                                       ("Start",1),
+                                       ("Reset",2),
+                                       on_update=self.all_update
+                                       )
 
     def update(self, i, pv):
         """
-        Multiple Choice has changed, do the command. 0=Start, 1=Stop, 2=Reset
+        Multiple Choice has changed for the given control PV. Follow command. 0=Stop, 1=Start, 2=Reset
         """
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         if i==0:
+            self.stop_ioc(pv_name)
+        elif i==1:
             self.start_ioc(pv_name)
+        elif i==2:
+            self.reset_ioc(pv_name)
+
+    def all_update(self, i):
+        """
+        Do command on all iocs in config file.  0=Stop, 1=Start, 2=Reset
+        """
+        for pv in self.screen_config['screens'].keys():
+            pv_name = pv.replace(self.device_name + ':', '')
+            if i==0:
+                self.stop_ioc(pv_name)
+            elif i==1:
+                self.start_ioc(pv_name)
+            elif i==2:
+                self.reset_ioc(pv_name)
 
     def start_ioc(self, pv_name):
         """
         Start screen to run ioc, then run ioc.
         """
-        screen_name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
-        self.screens[screen_name] = Screen(screen_name, True)
+        name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
+        self.screens[name] = Screen(name, True)
 
-        self.screens[screen_name].send_commands()  # first need to enter virtual environment to run, then start ioc
+        if not 'None' in self.screen_config:  # If we need to enter virtual environment to run
+            self.screens[name].send_commands()
+
+        self.screens[name].send_commands(f'python {self.screen_config["screens"][name]["exec"]}')
+        self.pvs[name].set(1)
+
+    def stop_ioc(self, pv_name):
+        """
+        Kill screen and ioc running within it.
+        """
+        name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
+
+        if Screen(name).exists:
+            self.screens[name].kill()
+            self.pvs[name].set(0)
+    def reset_ioc(self, pv_name):
+        """
+        Kill screen and ioc running within it, then restart.
+        """
+        name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
+
+        self.stop_ioc(pv_name)
+        self.start_ioc(pv_name)
+        self.pvs[name].set(1)
+
 
 
 if __name__ == "__main__":
