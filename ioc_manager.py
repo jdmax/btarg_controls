@@ -54,7 +54,7 @@ class IOCManager:
 
     def update(self, i, pv):
         """
-        Multiple Choice has changed for the given control PV. Follow command. 0=Stop, 1=Start, 2=Reset
+        Multiple Choice PV has changed for the given control PV. Follow command. 0=Stop, 1=Start, 2=Reset
         """
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         if i==0:

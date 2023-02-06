@@ -383,7 +383,7 @@ ls336:
             - Other1_TI
         - Indicators: # Dict of PVs
             - Other2_TI
-    Other_TI:
+    Other1_TI:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'

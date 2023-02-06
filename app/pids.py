@@ -1,4 +1,4 @@
-from softioc.builder import aIn, aOut
+from softioc.builder import aOut
 from simple_pid import PID
 from collections import ChainMap
 from threading import Thread
@@ -14,8 +14,8 @@ class PIDSetup():
         '''
         self.pids = {}
         for pid_name, pdict in pids.items():
-            in_pv = parent.pvs[input]    # get PVs from parent using pv_names
-            out_pv = parent.pvs[output]
+            in_pv = parent.pvs['input']    # get PVs from parent using pv_names
+            out_pv = parent.pvs['output']  # this needs to be from config file now, not parent!
             self.pids[pid_name] = PIDLoop(in_pv, out_pv, pid_name, pdict)    
             self.pids[pid_name].start()    # start thread to monitor pid
             
