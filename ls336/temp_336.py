@@ -42,80 +42,116 @@ class ReadLS336():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.records['Indicators']  # list of Indicator names in channel order
-        self.Cs = self.records['Controllers']  # list of Controller names in channel order
-        self.Ms = self.records['Mults']  # list of Choice Menu names in channel order
-
-        self.update = dict(zip(self.Cs + self.Ms, [False] * (len(self.Cs)+len(self.Ms))))  # dict with boolean to tell thread when to update
+        self.channels = self.records['Channels']  # ordered list of 336 channels dicts
+        self.update_flags = {}     # build update flag dict from records
+        for channel in self.channels:
+            for pv_name in channel['Controllers']:
+                self.update_flags[pv_name] = False
+            for pv_name in channel['Mults']:
+                self.update_flags[pv_name] = False
         self.pvs = {}
 
-        for pv_name in self.Is:  # Make AIn PVs for all Is
-            self.pvs[pv_name] = builder.aIn(pv_name)
-            for field, value in self.records[pv_name].items():
-                if not isinstance(value, dict):  # don't do the lists of states
-                    setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+        for channel in self.channels:
+            for pv_name in channel['Indicators']:  # Make AIn PVs for all Is
+                self.pvs[pv_name] = builder.aIn(pv_name)
+                for field, value in self.records[pv_name].items():
+                    if not isinstance(value, dict):  # don't do the dicts of states
+                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
-        for pv_name in self.Cs:  # Make AOut PVs for all Cs
-            self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update_pv)
-            for field, value in self.records[pv_name].items():
-                if not isinstance(value, dict):  # don't do the lists of states
-                    setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+            for pv_name in channel['Controllers']:  # Make AOut PVs for all Cs
+                self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update)
+                for field, value in self.records[pv_name].items():
+                    if not isinstance(value, dict):  # don't do the lists of states
+                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+
+            for pv_name, list in channel['Mults']:  # Make mbbOut PVs for all Ms
+                self.pvs[pv_name] = builder.mbbOut(pv_name, *list, on_update_name=self.update)
+                for field, value in self.records[pv_name].items():
+                    if not isinstance(value, dict):  # don't do the lists of states
+                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
         self.thread = LS336Thread(self)
         self.thread.setDaemon(True)
         self.thread.start()
 
-    def update_pv(self, value, pv):
+    def update(self, value, pv):
         '''When PV updated, let thread know
         '''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
-        self.update[pv_name] = True
+        self.update_flags[pv_name] = True
 
 
 class LS336Thread(Thread):
 
     def __init__(self, parent):
-        ''' Thread reads every iteration, gets settings from parent. fc_update is boolean telling thread to change set points also.
+        ''' Thread reads every iteration, gets settings from parent. update_pv is boolean telling thread to change set points also.
         '''
         Thread.__init__(self)
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
-        self.update = parent.update
-        self.Is = parent.Is
-        self.Cs = parent.Cs
-        self.Ms = parent.Ms
-        self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
-        self.setpoints = [0] * len(self.Cs)  # list of zeroes to start readback FCs
-        self.mults = [0] * len(self.Ms)  # list of zeroes to start readback Multiple choice
+        self.update_flags = parent.update_flags
+        self.channels = parent.channels
+        self.temps = [0] * len(self.channels)  # list of zeroes to start return Is
+        self.heats = [0] * len(self.channels)
         if self.enable:  # if not enabled, don't connect
             self.t = LS336(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):
         '''
-        Thread to read indicator PVS from controller channels. Delay time between measurements is in seconds.
+        Thread to read indicator PVS from controller channels. Identifies driver method to use from PV name. Delay time between measurements is in seconds.
         '''
         while True:
             sleep(self.delay)
-
-            for pv_name, bool in self.update.items():
+            chan = 0               # device channel of the current PV
+            for pv_name, bool in self.update_flags.items():
                 if bool:  # there has been a change in this FC, update it
-                    if self.enable:
-                        self.t.set_setpoint(self.Cs.index(pv_name) + 1, self.pvs[pv_name].get())
+                    p = pv_name[:-2]  # pv_name without kP, kI or kD
+                    for i, channel in self.channels.enumerate():  # determine what channel we are on
+                        if pv_name in channel['Controllers']:
+                            chan = i + 1
+                        elif pv_name in channel['Mults']:
+                            chan = i + 1
+                    # figure out what type of PV this is, and send it to the right method
+                    if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
+                        if self.enable:
+                            dict = {}
+                            k_list = ['kP','kI','kD']
+                            for k in k_list:
+                                dict[k] = self.pvs[p+k].get()               # read pvs to send to device
+                            values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                            [self.pvs[p+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
+                    elif 'SP' in pv_name:   # is this a setpoint?
+                        if self.enable:
+                            value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
+                            self.pvs[pv_name].set(value)   # set returned value
+                    elif 'Mode' in pv_name:
+                        if self.enable:
+                            value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
+                            self.pvs[pv_name].set(value)   # set returned value
+                    elif 'Range' in pv_name:
+                        if self.enable:
+                            value = self.t.set_range(chan, self.pvs[pv_name].get())
+                            self.pvs[pv_name].set(value)   # set returned value
                     else:
-                        self.setpoints[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
-                    self.update[pv_name] = False
+                        print('Error, control PV not categorized.')
+                    self.update_flags[pv_name] = False
 
             if self.enable:
-                self.setpoints = self.t.read_setpoints()
-                self.values = self.t.read_all()
+                self.temps = self.t.read_temps()
+                self.heats[0] = self.t.read_heater(1)
+                self.heats[1] = self.t.read_heater(2)
             else:
-                self.values = [random.random() for l in self.values]  # return random number when we are not enabled
-            for i, pv_name in enumerate(self.Is):
-                self.pvs[pv_name].set(self.values[i])
-            for i, pv_name in enumerate(self.Cs):
-                self.pvs[pv_name].set(self.setpoints[i])
+                self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
+                self.heats = [random.random()]*2  # return random number when we are not enabled
+
+            for i, channel in enumerate(self.channels):
+                for pv_name in channel['Indicators']: # find the indicator PV and set from reading
+                    if '_TI' in pv_name:
+                        self.pvs[pv_name].set(self.temps[i])
+                    if '_Heater' in pv_name:
+                        self.pvs[pv_name].set(self.heats[i])
 
 
 def load_settings():

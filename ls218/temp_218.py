@@ -60,7 +60,7 @@ class ReadLS218:
 class LS218Thread(Thread):
 
     def __init__(self, parent):     
-        ''' Thread reads every iteration, gets settings from parent. c_update is boolean telling thread to change set points also.
+        ''' Thread reads every iteration, gets settings from parent.
         '''
         Thread.__init__(self)
         self.enable = parent.settings['enable'] 

@@ -343,9 +343,9 @@ ls218_2:
             HIGH: 25
             LOW: 5
             LOLO: 2
-ls336:
+ls336:            # Form of PV name matters. You can change prefix, but ending (eg '_kP') is used to identify PV
     Channels:     # List of channels in order, with dict in each position
-        - Indicators: # Dict of PVs
+        - Indicators: # Dict of PV names
             - Coolant_TI
             - Coolant_Heater
           Controllers:
@@ -360,9 +360,9 @@ ls336:
             Coolant_Range:
                 - ['Off', 0]
                 - ['Low', 1]
-                - ['Med', 1]
-                - ['High', 1]
-        - Indicators: # Dict of PVs
+                - ['Med', 2]
+                - ['High', 3]
+        - Indicators: # Dict of PV names
             - Target_TI
             - Target_Heater
           Controllers:
@@ -370,15 +370,15 @@ ls336:
             - Target_kI
             - Target_kD
             - Target_SP
-          Mults:
+          Mults: # Dict of option dicts
             Target_Mode:
                 - ['Off', 0]
                 - ['Closed Loop', 1]
             Target_Range:
                 - ['Off', 0]
                 - ['Low', 1]
-                - ['Med', 1]
-                - ['High', 1]
+                - ['Med', 2]
+                - ['High', 3]
         - Indicators: # Dict of PVs
             - Other1_TI
         - Indicators: # Dict of PVs

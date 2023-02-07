@@ -74,7 +74,7 @@ class FlowControl():
 class FlowThread(Thread):
 
     def __init__(self, parent):
-        ''' Thread reads every iteration, gets settings from parent. fc_update is boolean telling thread to change set points also.
+        ''' Thread reads every iteration, gets settings from parent. update is boolean telling thread to change set points also.
         '''
         Thread.__init__(self)
         self.enable = parent.settings['enable']
