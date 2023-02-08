@@ -96,7 +96,7 @@ class LS336Thread(Thread):
         self.heats = [0] * len(self.channels)
         if self.enable:  # if not enabled, don't connect
             self.t = LS336(parent.settings['ip'], parent.settings['port'],
-                          parent.settings['timeout'])  # open telnet connection to flow controllers
+                          parent.settings['timeout'])  # open telnet connection
 
     def run(self):
         '''

@@ -18,11 +18,9 @@ class LS218():
         try:
             self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=self.timeout)                  
         except Exception as e:
-            print(f"LS336 connection failed on {self.host}: {e}")
+            print(f"LS218 connection failed on {self.host}: {e}")
             
-        self.read_regex = re.compile('([+-]\d+.\d+)')   
-        #self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')  
-        #self.ok_response_regex = re.compile(b'!a!o!\s\s')    
+        self.read_regex = re.compile('([+-]\d+.\d+)')
          
     def read_all(self):
         '''Read temperatures for all channels.'''  

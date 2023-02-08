@@ -29,6 +29,18 @@ omega_1:
     enable: false            
     ip: '192.168.1.200'
     port: '2002'
-    timeout: 2
-    delay: 1               
+    timeout: 15
+    delay: 10
+dat8017-i:
+    enable: false
+    ip: '192.168.1.150'
+    port: '502'
+    timeout: 10
+    delay: 1
+dat8017-v:
+    enable: false
+    ip: '192.168.1.151'
+    port: '502'
+    timeout: 10
+    delay: 1
     
