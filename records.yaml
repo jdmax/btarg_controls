@@ -454,3 +454,40 @@ dat8017-i:
             HIGH: 25
             LOW: 5
             LOLO: 2
+dat8017-v:
+    Indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Bot_PI: 1
+    Bot_PI:
+        DESC: 'Bottom Pressure Indicator'
+        PREC: 6
+        EGU: 'mbar'
+        cooldown:
+            HIHI: 120
+            HIGH: 100
+            LOW: 90
+            LOLO: 80
+        condense_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_H:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        condense_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        steady_He:
+            HIHI: 30
+            HIGH: 25
+            LOW: 15
+            LOLO: 10
+        warmup:
+            HIHI: 30
+            HIGH: 25
+            LOW: 5
+            LOLO: 2

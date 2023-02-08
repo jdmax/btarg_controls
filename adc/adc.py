@@ -84,18 +84,18 @@ class DAT8017Thread(Thread):
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             for i, pv_name in enumerate(self.Is.keys()):
-                calibrated = self.values[i] * self.Is[pv_name]
+                calibrated = self.values[i] * self.Is[pv_name]  # set value times calibration from
                 self.pvs[pv_name].set(calibrated)
 
 
 def load_settings():
     '''Load device settings and records from YAML settings file'''
 
-    with open('settings.yaml') as f:  # Load settings from YAML files
+    with open('../settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {'settings.yaml'}.")
 
-    with open('records.yaml') as f:  # Load settings from YAML files
+    with open('../records.yaml') as f:  # Load settings from YAML files
         records = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'records.yaml'}.")
 
