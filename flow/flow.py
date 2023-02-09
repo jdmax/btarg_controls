@@ -42,8 +42,8 @@ class FlowControl():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.records['Indicators']  # list of Flow Indicator names in channel order
-        self.Cs = self.records['Controllers']  # list of Flow Controller names in channel order
+        self.Is = self.settings['indicators']  # list of Flow Indicator names in channel order
+        self.Cs = self.settings['controllers']  # list of Flow Controller names in channel order
         self.update = dict(
             zip(self.Cs, [False] * len(self.Cs)))  # dict of FCs with boolean to tell thread when to update
         self.pvs = {}

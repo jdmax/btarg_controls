@@ -7,40 +7,100 @@ flow_controller:
     port: '101'
     timeout: 2
     delay: 1                # update delay in seconds
+    indicators:   # List of PV names for each read channel of device in order
+        - Shield_FI
+        - Evaporator_FI
+        - Precool_FI
+        - Pump_FI
+    controllers:   # List of PV names for each set channel of device in order
+        - Shield_FC
+        - Evaporator_FC
+        - Precool_FC
 lakeshore_218_1:
     enable: false            
     ip: '192.168.1.180'
     port: '23'
     timeout: 2
     delay: 1
+    indicators:   # List of PV names for each read channel of 218 in order
+        - Shield_Cold_TI
+        - Shield_Mid_TI
+        - Shield_Warm_TI
 lakeshore_218_2:
     enable: false
     ip: '192.168.1.180'
     port: '23'
     timeout: 2
     delay: 1
+    indicators: # List of PV names for each read channel of 218 in order
+        - Other_TI
 lakeshore_336:
     enable: false
     ip: '192.168.1.180'
     port: '7777'
     timeout: 2
     delay: 1
+    channels: # List of channels in order, with dict in each position
+        - indicators: # Dict of PV names for channel 1
+              - Coolant_TI
+              - Coolant_Heater
+          controllers:
+              - Coolant_kP
+              - Coolant_kI
+              - Coolant_kD
+              - Coolant_SP
+          mults:
+              Coolant_Mode:
+                  - [ 'Off', 0 ]
+                  - [ 'Closed Loop', 1 ]
+              Coolant_Range:
+                  - [ 'Off', 0 ]
+                  - [ 'Low', 1 ]
+                  - [ 'Med', 2 ]
+                  - [ 'High', 3 ]
+        - indicators: # Dict of PV names for channel 2
+              - Target_TI
+              - Target_Heater
+          controllers:
+              - Target_kP
+              - Target_kI
+              - Target_kD
+              - Target_SP
+          mults: # Dict of option dicts
+              Target_Mode:
+                  - [ 'Off', 0 ]
+                  - [ 'Closed Loop', 1 ]
+              Target_Range:
+                  - [ 'Off', 0 ]
+                  - [ 'Low', 1 ]
+                  - [ 'Med', 2 ]
+                  - [ 'High', 3 ]
+        - indicators: # Dict of PVs for channel 3
+              - Other1_TI
+        - indicators: # Dict of PVs for channel 4
+              - Other2_TI
 omega_1:
     enable: false            
     ip: '192.168.1.200'
     port: '2002'
     timeout: 15
     delay: 10
+    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Exhaust_TI: 1
 dat8017-i:
     enable: false
     ip: '192.168.1.150'
     port: '502'
     timeout: 10
     delay: 1
+    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Top_PI: 1
 dat8017-v:
     enable: false
     ip: '192.168.1.151'
     port: '502'
     timeout: 10
     delay: 1
+    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Bot_PI: 1
     

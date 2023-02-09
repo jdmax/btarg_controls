@@ -1,14 +1,5 @@
 # btarg record database, YAML
 flow:
-    Indicators:   # List of PV names for each read channel of device in order
-        - Shield_FI
-        - Evaporator_FI
-        - Precool_FI
-        - Pump_FI
-    Controllers:   # List of PV names for each set channel of device in order
-        - Shield_FC
-        - Evaporator_FC
-        - Precool_FC    
     Shield_FI:
         DESC: 'Shield Flow Indicator'
         PREC: 6
@@ -200,10 +191,6 @@ flow:
             LOW: 5
             LOLO: 2            
 ls218_1:  
-    Indicators:   # List of PV names for each read channel of 218 in order
-        - Shield_Cold_TI
-        - Shield_Mid_TI
-        - Shield_Warm_TI
     Shield_Cold_TI:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
@@ -307,8 +294,6 @@ ls218_1:
             LOW: 5
             LOLO: 2
 ls218_2:
-    Indicators: # List of PV names for each read channel of 218 in order
-        - Other_TI
     Other_TI:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
@@ -344,45 +329,6 @@ ls218_2:
             LOW: 5
             LOLO: 2
 ls336:            # Form of PV name matters. You can change prefix, but ending (eg '_kP') is used to identify PV
-    Channels:     # List of channels in order, with dict in each position
-        - Indicators: # Dict of PV names for channel 1
-            - Coolant_TI
-            - Coolant_Heater
-          Controllers:
-            - Coolant_kP
-            - Coolant_kI
-            - Coolant_kD
-            - Coolant_SP
-          Mults:
-            Coolant_Mode:
-                - ['Off', 0]
-                - ['Closed Loop', 1]
-            Coolant_Range:
-                - ['Off', 0]
-                - ['Low', 1]
-                - ['Med', 2]
-                - ['High', 3]
-        - Indicators: # Dict of PV names for channel 2
-            - Target_TI
-            - Target_Heater
-          Controllers:
-            - Target_kP
-            - Target_kI
-            - Target_kD
-            - Target_SP
-          Mults: # Dict of option dicts
-            Target_Mode:
-                - ['Off', 0]
-                - ['Closed Loop', 1]
-            Target_Range:
-                - ['Off', 0]
-                - ['Low', 1]
-                - ['Med', 2]
-                - ['High', 3]
-        - Indicators: # Dict of PVs for channel 3
-            - Other1_TI
-        - Indicators: # Dict of PVs for channel 4
-            - Other2_TI
     Other1_TI:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
@@ -418,8 +364,6 @@ ls336:            # Form of PV name matters. You can change prefix, but ending (
             LOW: 5
             LOLO: 2
 dat8017-i:
-    Indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Top_PI: 1
     Top_PI:
         DESC: 'Top Pressure Indicator'
         PREC: 6
@@ -455,8 +399,6 @@ dat8017-i:
             LOW: 5
             LOLO: 2
 dat8017-v:
-    Indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Bot_PI: 1
     Bot_PI:
         DESC: 'Bottom Pressure Indicator'
         PREC: 6

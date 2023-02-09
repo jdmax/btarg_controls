@@ -42,29 +42,29 @@ class ReadLS336():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.channels = self.records['Channels']  # ordered list of 336 channels dicts
+        self.channels = self.settings['channels']  # ordered list of 336 channels dicts
         self.update_flags = {}     # build update flag dict from records
         for channel in self.channels:
-            for pv_name in channel['Controllers']:
+            for pv_name in channel['controllers']:
                 self.update_flags[pv_name] = False
-            for pv_name in channel['Mults']:
+            for pv_name in channel['mults']:
                 self.update_flags[pv_name] = False
         self.pvs = {}
 
         for channel in self.channels:
-            for pv_name in channel['Indicators']:  # Make AIn PVs for all Is
+            for pv_name in channel['indicators']:  # Make AIn PVs for all Is
                 self.pvs[pv_name] = builder.aIn(pv_name)
                 for field, value in self.records[pv_name].items():
                     if not isinstance(value, dict):  # don't do the dicts of states
                         setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
-            for pv_name in channel['Controllers']:  # Make AOut PVs for all Cs
+            for pv_name in channel['controllers']:  # Make AOut PVs for all Cs
                 self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update)
                 for field, value in self.records[pv_name].items():
                     if not isinstance(value, dict):  # don't do the lists of states
                         setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
-            for pv_name, list in channel['Mults']:  # Make mbbOut PVs for all Ms
+            for pv_name, list in channel['mults']:  # Make mbbOut PVs for all Ms
                 self.pvs[pv_name] = builder.mbbOut(pv_name, *list, on_update_name=self.update)
                 for field, value in self.records[pv_name].items():
                     if not isinstance(value, dict):  # don't do the lists of states
@@ -109,9 +109,9 @@ class LS336Thread(Thread):
                 if bool:  # there has been a change in this FC, update it
                     p = pv_name[:-2]  # pv_name without kP, kI or kD
                     for i, channel in self.channels.enumerate():  # determine what channel we are on
-                        if pv_name in channel['Controllers']:
+                        if pv_name in channel['controllers']:
                             chan = i + 1
-                        elif pv_name in channel['Mults']:
+                        elif pv_name in channel['mults']:
                             chan = i + 1
                     # figure out what type of PV this is, and send it to the right method
                     if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
@@ -147,7 +147,7 @@ class LS336Thread(Thread):
                 self.heats = [random.random()]*2  # return random number when we are not enabled
 
             for i, channel in enumerate(self.channels):
-                for pv_name in channel['Indicators']: # find the indicator PV and set from reading
+                for pv_name in channel['indicators']: # find the indicator PV and set from reading
                     if '_TI' in pv_name:
                         self.pvs[pv_name].set(self.temps[i])
                     if '_Heater' in pv_name:

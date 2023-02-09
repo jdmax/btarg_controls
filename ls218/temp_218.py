@@ -43,7 +43,7 @@ class ReadLS218:
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.records['Indicators']   # list of Indicator names in channel order to associate PV with channel
+        self.Is = self.settings['indicators']   # list of Indicator names in channel order to associate PV with channel
         self.pvs = {}
         
         for pv_name in self.Is:      # Make AIn PVs for all Is
