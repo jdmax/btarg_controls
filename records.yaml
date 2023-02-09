@@ -1,9 +1,10 @@
 # btarg record database, YAML
-flow:
-    Shield_FI:
+Shield_FI:
+    fields:
         DESC: 'Shield Flow Indicator'
         PREC: 6
         EGU: 'slpm'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -34,12 +35,14 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2
-    Shield_FC:
+Shield_FC:
+    fields:
         DESC: 'Shield Flow Controller Set Value'
         PREC: 6
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
+    states:
         cooldown:
             VAL: 95
         condense_H:
@@ -52,10 +55,12 @@ flow:
             VAL: 20
         warmup:
             VAL: 10
-    Evaporator_FI:
+Evaporator_FI:
+    fields:
         DESC: 'Evaporator Flow Indicator'
         PREC: 6
         EGU: 'slpm'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -86,12 +91,14 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2
-    Evaporator_FC:
+Evaporator_FC:
+    fields:
         DESC: 'Evaporator Flow Controller Set Value'
         PREC: 6
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
+    states:
         cooldown:
             VAL: 95
         condense_H:
@@ -103,11 +110,13 @@ flow:
         steady_He:
             VAL: 20
         warmup:
-            VAL: 10 
-    Precool_FI:
+            VAL: 10
+Precool_FI:
+    fields:
         DESC: 'Precool Flow Indicator'
         PREC: 6
         EGU: 'slpm'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -138,12 +147,14 @@ flow:
             HIGH: 25
             LOW: 5
             LOLO: 2
-    Precool_FC:
+Precool_FC:
+    fields:
         DESC: 'Precool Controller Set Value'
         PREC: 6
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
+    states:
         cooldown:
             VAL: 95
         condense_H:
@@ -155,11 +166,13 @@ flow:
         steady_He:
             VAL: 20
         warmup:
-            VAL: 10  
-    Pump_FI:
+            VAL: 10
+Pump_FI:
+    fields:
         DESC: 'Pump Flow Indicator'
         PREC: 6
         EGU: 'slpm'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -189,12 +202,13 @@ flow:
             HIHI: 30
             HIGH: 25
             LOW: 5
-            LOLO: 2            
-ls218_1:  
-    Shield_Cold_TI:
+            LOLO: 2
+Shield_Cold_TI:
+    fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -224,11 +238,13 @@ ls218_1:
             HIHI: 30
             HIGH: 25
             LOW: 5
-            LOLO: 2  
-    Shield_Mid_TI:
+            LOLO: 2
+Shield_Mid_TI:
+    fields:
         DESC: 'Shield Middle Temperature Indicator'
         PREC: 6
         EGU: 'K'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -258,11 +274,13 @@ ls218_1:
             HIHI: 30
             HIGH: 25
             LOW: 5
-            LOLO: 2  
-    Shield_Warm_TI:
+            LOLO: 2
+Shield_Warm_TI:
+    fields:
         DESC: 'Shield Warm End Temperature Indicator'
         PREC: 6
         EGU: 'K'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -293,11 +311,12 @@ ls218_1:
             HIGH: 25
             LOW: 5
             LOLO: 2
-ls218_2:
-    Other_TI:
+Other_TI:
+    fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -328,11 +347,12 @@ ls218_2:
             HIGH: 25
             LOW: 5
             LOLO: 2
-ls336:            # Form of PV name matters. You can change prefix, but ending (eg '_kP') is used to identify PV
-    Other1_TI:
+Other1_TI:
+    fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -363,11 +383,12 @@ ls336:            # Form of PV name matters. You can change prefix, but ending (
             HIGH: 25
             LOW: 5
             LOLO: 2
-dat8017-i:
-    Top_PI:
+Top_PI:
+    fields:
         DESC: 'Top Pressure Indicator'
         PREC: 6
         EGU: 'mbar'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100
@@ -398,11 +419,12 @@ dat8017-i:
             HIGH: 25
             LOW: 5
             LOLO: 2
-dat8017-v:
-    Bot_PI:
+Bot_PI:
+    fields:
         DESC: 'Bottom Pressure Indicator'
         PREC: 6
         EGU: 'mbar'
+    states:
         cooldown:
             HIHI: 120
             HIGH: 100

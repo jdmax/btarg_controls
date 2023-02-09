@@ -50,15 +50,13 @@ class FlowControl():
 
         for pv_name in self.Is:  # Make AIn PVs for all FIs
             self.pvs[pv_name] = builder.aIn(pv_name)
-            for field, value in self.records[pv_name].items():
-                if not isinstance(value, dict):  # don't do the lists of states
-                    setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+            for field, value in self.records[pv_name]['fields'].items():
+                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         for pv_name in self.Cs:  # Make AOut PVs for all FCs
             self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update_pv)
-            for field, value in self.records[pv_name].items():
-                if not isinstance(value, dict):  # don't do the lists of states
-                    setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+            for field, value in self.records[pv_name]['fields'].items():
+                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = FlowThread(self)
         self.thread.setDaemon(True)

@@ -18,7 +18,7 @@ async def main():
     device_name = settings['prefix'] + ':TEMP336'
     builder.SetDeviceName(device_name)
 
-    p = LS336(device_name, settings['lakeshore_336'], records['ls336'])
+    p = LS336(device_name, settings['lakeshore_336'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -54,21 +54,18 @@ class ReadLS336():
         for channel in self.channels:
             for pv_name in channel['indicators']:  # Make AIn PVs for all Is
                 self.pvs[pv_name] = builder.aIn(pv_name)
-                for field, value in self.records[pv_name].items():
-                    if not isinstance(value, dict):  # don't do the dicts of states
-                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
             for pv_name in channel['controllers']:  # Make AOut PVs for all Cs
                 self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update)
-                for field, value in self.records[pv_name].items():
-                    if not isinstance(value, dict):  # don't do the lists of states
-                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
             for pv_name, list in channel['mults']:  # Make mbbOut PVs for all Ms
                 self.pvs[pv_name] = builder.mbbOut(pv_name, *list, on_update_name=self.update)
-                for field, value in self.records[pv_name].items():
-                    if not isinstance(value, dict):  # don't do the lists of states
-                        setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = LS336Thread(self)
         self.thread.setDaemon(True)
