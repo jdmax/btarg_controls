@@ -16,7 +16,7 @@ async def main():
     device_name = settings['prefix'] + ':MAN'
     builder.SetDeviceName(device_name)
 
-    i = IOCManager(device_name, screen_config)
+    i = IOCManager(device_name, settings, screen_config)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -28,14 +28,17 @@ class IOCManager:
     Handles screens which run iocs. Make PVs to control each ioc.
     """
 
-    def __init__(self, device_name, screen_config):
+    def __init__(self, device_name, settings, screen_config):
         """
         Make control PVs for each IOC. "pvs" dict is keyed on name (e.g. flow), PV is labeled as name + 'control' (e.g. flow_control)
         """
         self.device_name = device_name
+        self.settings = settings
         self.screen_config = screen_config
         self.pvs = {}
         self.screens = {}    # Dict of all screens made for the iocs
+        self.states = [(name,i) for i, name in self.settings['states'].enumerate()]  # make list of tuples for mbbout call
+        self.species = [(name,i) for i, name in self.settings['species'].enumerate()]
 
         #
         for name, value in screen_config['screens'].items():  # each IOC has controls to start, stop or reset
@@ -43,16 +46,29 @@ class IOCManager:
                                            ("Stop",0),
                                            ("Start",1),
                                            ("Reset",2),
-                                           on_update_name=self.update
+                                           on_update_name=self.screen_update
                                            )
         self.pv_all = builder.mbbOut('all',
                                        ("Stop",0),
                                        ("Start",1),
                                        ("Reset",2),
-                                       on_update=self.all_update
+                                       on_update=self.all_screen_update
                                        )
+        self.pv_spec = builder.mbbOut('species', *self.species, on_update=self.spec_update)
+        self.pv_stat = builder.mbbOut('state', *self.states, on_update=self.stat_update)
 
-    def update(self, i, pv):
+
+    def spec_update(self, i, pv):
+        """
+        Multiple Choice PV has changed for the species
+        """
+
+    def stat_update(self, i, pv):
+        """
+        Multiple Choice PV has changed for the state
+        """
+
+    def screen_update(self, i, pv):
         """
         Multiple Choice PV has changed for the given control PV. Follow command. 0=Stop, 1=Start, 2=Reset
         """
@@ -64,7 +80,7 @@ class IOCManager:
         elif i==2:
             self.reset_ioc(pv_name)
 
-    def all_update(self, i):
+    def all_screen_update(self, i):
         """
         Do command on all iocs in config file.  0=Stop, 1=Start, 2=Reset
         """
