@@ -18,8 +18,8 @@ flow_controller:
         - Precool_FC
 lakeshore_218_1:
     enable: false            
-    ip: '192.168.1.180'
-    port: '23'
+    ip: '192.168.1.107'
+    port: '1023'
     timeout: 2
     delay: 1
     indicators:   # List of PV names for each read channel of 218 in order
@@ -28,8 +28,8 @@ lakeshore_218_1:
         - Shield_Warm_TI
 lakeshore_218_2:
     enable: false
-    ip: '192.168.1.180'
-    port: '23'
+    ip: '192.168.1.107'
+    port: '1024'
     timeout: 2
     delay: 1
     indicators: # List of PV names for each read channel of 218 in order
