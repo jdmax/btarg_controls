@@ -28,9 +28,9 @@ class LS218():
         try: 
             self.tn.write(bytes(f"SRDG? 0\n",'ascii'))     # 0 means it will return all channels
             data = self.tn.read_until(b'\n', timeout = 2).decode('ascii')   # read until carriage return
-            ms = self.read_regex.find_all(data)
+            ms = self.read_regex.findall(data)
             for m in ms:
-                values.append(float(m[1])) 
+                values.append(float(m))
             return values
             
         except Exception as e:
