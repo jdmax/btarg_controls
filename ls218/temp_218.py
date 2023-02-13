@@ -18,8 +18,8 @@ async def main():
     device_name = settings['prefix'] + ':TEMP218'
     builder.SetDeviceName(device_name)
 
-    p = ReadLS218(device_name, settings['lakeshore_218_1'], records['ls218_1'])
-    q = ReadLS218(device_name, settings['lakeshore_218_2'], records['ls218_2'])
+    p = ReadLS218(device_name, settings['lakeshore_218_1'], records)
+    q = ReadLS218(device_name, settings['lakeshore_218_2'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -43,14 +43,13 @@ class ReadLS218:
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.records['Indicators']   # list of Indicator names in channel order to associate PV with channel
+        self.Is = self.settings['indicators']   # list of Indicator names in channel order to associate PV with channel
         self.pvs = {}
         
         for pv_name in self.Is:      # Make AIn PVs for all Is
             self.pvs[pv_name] = builder.aIn(pv_name)
-            for field, value in self.records[pv_name].items():
-                if not isinstance(value, dict):   # don't do the lists of states
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV        
+            for field, value in self.records[pv_name]['fields'].items():
+                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
                     
         self.thread = LS218Thread(self)
         self.thread.setDaemon(True)
