@@ -87,6 +87,7 @@
 #                A  0                    Cloud service enabled if = '1'.
 #
 #    #21000,192.168.1.201;
+#    #61000,1;  #71000;
 #    #Di,F;    Set the state whose ID is 'D' to value 'F'.  For example:
 #
 #                #61234,1;      Persist relay state across power cycle.
