@@ -65,7 +65,7 @@
 #
 #    Commands are ASCII strings that must be sent in one TCP packet.  'i'
 #    is a random number in the range '1000' .. '9999':
-#
+#  #11000;
 #    #1i;       Query State.  Response is a comma separated list of fields
 #               terminated by a semicolon (';').  Example response:
 #
@@ -86,7 +86,7 @@
 #                9  connect.tutuuu.com   Cloud service.
 #                A  0                    Cloud service enabled if = '1'.
 #
-#
+#    #21000,192.168.1.201;
 #    #Di,F;    Set the state whose ID is 'D' to value 'F'.  For example:
 #
 #                #61234,1;      Persist relay state across power cycle.
