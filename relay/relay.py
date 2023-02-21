@@ -89,7 +89,7 @@ class RelayThread(Thread):
             for pv_name, bool in self.update.items():
                 if bool:  # there has been a change in this FC, update it
                     if self.enable:
-                        self.states = self.t.switch(self.pvs[pv_name].get(), self.Cs.index(pv_name) + 1)
+                        self.states = self.t.switch(self.pvs[pv_name].get(), str(self.Cs.index(pv_name) + 1))
                     else:
                         self.states[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
                     self.update[pv_name] = False

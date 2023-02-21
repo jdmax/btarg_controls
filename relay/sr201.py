@@ -17,7 +17,8 @@ class SR201():
         self.port = port
         self.timeout = timeout
 
-        self.read_regex = re.compile('([+-]\d+.\d+)')
+        self.ok_regex = re.compile(b'(\d{8})')
+        self.read_regex = re.compile('(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)')
 
     def open_telnet(self):
         '''
@@ -47,7 +48,7 @@ class SR201():
         else:
             command = '2' + chan
         self.tn.write(bytes(command,'ascii'))
-        i, match, data = self.tn.expect([self.ok_response_regex], timeout = 2)   # read full response
+        i, match, data = self.tn.expect([self.ok_regex], timeout = 2)   # read full response
         self.close_telnet()
         out = data.decode('ascii')
         m = self.read_regex.search(out)

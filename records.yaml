@@ -455,3 +455,11 @@ Bot_PI:
             HIGH: 25
             LOW: 5
             LOLO: 2
+Flip_VC:
+    fields:
+        DESC: 'Flip Flop Valve 1'
+    states:
+Flop_VC:
+    fields:
+        DESC: 'Flip Flop Valve 2'
+    states:
