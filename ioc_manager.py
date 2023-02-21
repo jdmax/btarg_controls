@@ -76,7 +76,7 @@ class IOCManager:
         if i==0:
             self.stop_ioc(pv_name)
         elif i==1:
-            if Screen(name).exists:
+            if Screen(pv_name).exists:
                 self.reset_ioc(pv_name)   # if it already exists, restart it instead
             else:
                 self.start_ioc(pv_name)
