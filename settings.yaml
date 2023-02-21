@@ -28,7 +28,7 @@ flow_controller:
 lakeshore_218_1:
     enable: false            
     ip: '192.168.1.107'
-    port: '1023'
+    port: '1023'    # channel 1 of serial to ethernet
     timeout: 2
     delay: 1
     indicators:   # List of PV names for each read channel of 218 in order
@@ -38,7 +38,7 @@ lakeshore_218_1:
 lakeshore_218_2:
     enable: false
     ip: '192.168.1.107'
-    port: '1024'
+    port: '1024'      # channel 2 of serial to ethernet
     timeout: 2
     delay: 1
     indicators: # List of PV names for each read channel of 218 in order
@@ -94,7 +94,7 @@ omega_1:
     port: '2002'
     timeout: 15
     delay: 10
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    indicators: # Dict of PV names for each read channel in order, values are calibration factors
         Exhaust_TI: 1
 dat8017-i:
     enable: false
@@ -112,4 +112,22 @@ dat8017-v:
     delay: 1
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
+sr-201:
+    enable: false
+    ip: '192.168.1.201'
+    port: '6722'           # TCP control port of relay
+    timeout: 2
+    delay: 1
+    controllers:
+        - Flip_VC
+        - Flop_VC
+mks937b:
+    enable: false
+    ip: '192.168.1.107'
+    port: '1025'            # channel 3 of serial to ethernet
+    address: '003'          # serial address set on device
+    timeout: 2
+    delay: 1
+    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        - Some_PI
     

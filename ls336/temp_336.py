@@ -103,7 +103,7 @@ class LS336Thread(Thread):
             sleep(self.delay)
             chan = 0               # device channel of the current PV
             for pv_name, bool in self.update_flags.items():
-                if bool:  # there has been a change in this FC, update it
+                if bool:  # there has been a change, update it
                     p = pv_name[:-2]  # pv_name without kP, kI or kD
                     for i, channel in self.channels.enumerate():  # determine what channel we are on
                         if pv_name in channel['controllers']:

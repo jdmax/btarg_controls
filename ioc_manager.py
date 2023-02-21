@@ -76,22 +76,19 @@ class IOCManager:
         if i==0:
             self.stop_ioc(pv_name)
         elif i==1:
-            self.start_ioc(pv_name)
+            if Screen(name).exists:
+                self.reset_ioc(pv_name)   # if it already exists, restart it instead
+            else:
+                self.start_ioc(pv_name)
         elif i==2:
             self.reset_ioc(pv_name)
 
     def all_screen_update(self, i):
         """
-        Do command on all iocs in config file.  0=Stop, 1=Start, 2=Reset
+        Do update for all iocs in config file.
         """
         for pv in self.screen_config['screens'].keys():
-            pv_name = pv.replace(self.device_name + ':', '')
-            if i==0:
-                self.stop_ioc(pv_name)
-            elif i==1:
-                self.start_ioc(pv_name)
-            elif i==2:
-                self.reset_ioc(pv_name)
+            self.update(i, pv)
 
     def start_ioc(self, pv_name):
         """
@@ -115,6 +112,8 @@ class IOCManager:
         if Screen(name).exists:
             self.screens[name].kill()
             self.pvs[name].set(0)
+        del self.screens[name]
+
     def reset_ioc(self, pv_name):
         """
         Kill screen and ioc running within it, then restart.

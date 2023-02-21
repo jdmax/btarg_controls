@@ -18,8 +18,8 @@ async def main():
     device_name = settings['prefix'] + ':ADC'
     builder.SetDeviceName(device_name)
 
-    p = ReadADC(device_name, settings['dat8017-i'], records['dat8017-i'])
-    q = ReadADC(device_name, settings['dat8017-v'], records['dat8017-v'])
+    p = ReadADC(device_name, settings['dat8017-i'], records)
+    q = ReadADC(device_name, settings['dat8017-v'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
