@@ -463,3 +463,7 @@ Flop_VC:
     fields:
         DESC: 'Flip Flop Valve 2'
     states:
+Some_PI:
+    fields:
+        DESC: 'Some Pressure Indicator'
+    states:

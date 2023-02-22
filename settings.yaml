@@ -100,7 +100,7 @@ dat8017-i:
     enable: false
     ip: '192.168.1.150'
     port: '502'
-    timeout: 10
+    timeout: 2
     delay: 1
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
@@ -108,12 +108,20 @@ dat8017-v:
     enable: false
     ip: '192.168.1.151'
     port: '502'
-    timeout: 10
+    timeout: 2
+    delay: 1
+    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Bot_PI: 1
+dat8148:
+    enable: false
+    ip: '192.168.1.152'
+    port: 502
+    timeout: 2
     delay: 1
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 sr-201:
-    enable: true
+    enable: false
     ip: '192.168.1.100'
     port: '6722'           # TCP control port of relay
     timeout: 2
@@ -122,7 +130,7 @@ sr-201:
         - Flip_VC
         - Flop_VC
 mks937b:
-    enable: false
+    enable: true
     ip: '192.168.1.107'
     port: '1025'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
