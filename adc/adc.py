@@ -51,12 +51,12 @@ class ReadADC:
             for field, value in self.records[pv_name]['fields'].items():
                 setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
-        self.thread = DAT8017Thread(self)
+        self.thread = DATThread(self)
         self.thread.setDaemon(True)
         self.thread.start()
 
 
-class DAT8017Thread(Thread):
+class DATThread(Thread):
 
     def __init__(self, parent):
         ''' Thread reads every iteration, gets settings from parent.

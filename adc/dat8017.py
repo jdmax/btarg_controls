@@ -23,7 +23,6 @@ class DAT8017():
 
     def read_all(self):
         '''Read all channels.'''
-        values = []
         try:
             values = self.m.read_input_registers(40,8)  # read all 8 channels starting at 40
             return values
