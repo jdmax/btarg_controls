@@ -7,5 +7,5 @@ screens:
     exec: 'ls218/temp_218.py'
     log_dir: 'ls218/log'
   adc:
-    exec: 'adc/adc.py'
+    exec: 'adc/adc_iv.py'
     log_dir: 'adc/log'

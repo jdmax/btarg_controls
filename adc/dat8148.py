@@ -16,7 +16,7 @@ class DAT8148():
         self.timeout = timeout
 
         try:
-            self.m = ModbusClient(host=self.host, port=self.port, unit_id=1, auto_open=True)
+            self.m = ModbusClient(host=self.host, port=int(self.port), unit_id=1, auto_open=True)
         except Exception as e:
             print(f"Datexel 8148 connection failed on {self.host}: {e}")
 

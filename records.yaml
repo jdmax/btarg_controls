@@ -467,3 +467,7 @@ Some_PI:
     fields:
         DESC: 'Some Pressure Indicator'
     states:
+Some_DI:
+    fields:
+        DESC: 'Some Digital Indicator'
+    states:

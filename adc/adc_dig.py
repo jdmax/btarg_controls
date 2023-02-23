@@ -5,7 +5,7 @@ from time import sleep
 from threading import Thread
 import random
 
-from dat8017 import DAT8017
+from dat8148 import DAT8148
 
 
 async def main():
@@ -18,8 +18,7 @@ async def main():
     device_name = settings['prefix'] + ':ADC'
     builder.SetDeviceName(device_name)
 
-    p = ReadADC(device_name, settings['dat8017-i'], records)
-    q = ReadADC(device_name, settings['dat8017-v'], records)
+    p = ReadADC(device_name, settings['dat8148'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -46,8 +45,8 @@ class ReadADC:
         self.Is = self.settings['indicators']  # Dict of Indicator names in channel order to associate PV with channel
         self.pvs = {}
 
-        for pv_name in self.Is.keys():  # Make AIn PVs for all Is
-            self.pvs[pv_name] = builder.aIn(pv_name)
+        for pv_name in self.Is:  # Make PVs for all Is
+            self.pvs[pv_name] = builder.boolIn(pv_name)
             for field, value in self.records[pv_name]['fields'].items():
                 setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
@@ -66,9 +65,9 @@ class DATThread(Thread):
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
         self.Is = parent.Is
-        self.values = [0] * len(self.Is.keys())  # list of zeroes to start return Is
+        self.values = [0] * len(self.Is)  # list of zeroes to start return Is
         if self.enable:  # if not enabled, don't connect
-            self.t = DAT8017(parent.settings['ip'], parent.settings['port'],
+            self.t = DAT8148(parent.settings['ip'], parent.settings['port'],
                            parent.settings['timeout'])  # open connection to adc
 
     def run(self):
@@ -82,10 +81,9 @@ class DATThread(Thread):
                 self.values = self.t.read_all()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
-            for i, pv_name in enumerate(self.Is.keys()):
-                calibrated = self.values[i] * self.Is[pv_name]  # set value times calibration from
-                self.pvs[pv_name].set(calibrated)
-
+            for i, pv_name in enumerate(self.Is):
+                out = True if self.values[i] else False
+                self.pvs[pv_name].set(out)
 
 def load_settings():
     '''Load device settings and records from YAML settings file'''

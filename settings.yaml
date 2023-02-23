@@ -96,13 +96,21 @@ omega_1:
     delay: 10
     indicators: # Dict of PV names for each read channel in order, values are calibration factors
         Exhaust_TI: 1
-dat8017-i:
+dat8017-i1:
+    enable: false
+    ip: '192.168.1.149'
+    port: '502'
+    timeout: 2
+    delay: 1
+    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
+        Top_PI: 1
+dat8017-i2:
     enable: false
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
 dat8017-v:
     enable: false
@@ -113,13 +121,13 @@ dat8017-v:
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 dat8148:
-    enable: false
+    enable: true
     ip: '192.168.1.152'
-    port: 502
+    port: '502'
     timeout: 2
     delay: 1
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Bot_PI: 1
+        - Some_DI    # DI: Digital In
 sr-201:
     enable: false
     ip: '192.168.1.100'
