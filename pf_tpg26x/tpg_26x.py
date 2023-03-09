@@ -23,18 +23,14 @@ class TPG26x():
         self.read_regex = re.compile('READ:(\d+.\d+),(\d+.\d+),(\d+.\d+),(\d+.\d+),')
         
     def read_all(self):
-        '''Read all channels. Returns list of 4 readings.'''
-        enq = "\05"
+        '''Read all channels. Returns list of 2 readings.'''
+        enq = b"\x05"
         try:
-            self.tn.write(b"PRX {enq}\r\n")
+            self.tn.write(b"PRX \r\n")
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
             out = data.decode('ascii')
             print(data)
-            self.tn.write(b"{enq}")
-            i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
-            out = data.decode('ascii')
-            print(data)
-            self.tn.write(b"{enq}")
+            self.tn.write(enq)
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
             out = data.decode('ascii')
             print(data)
