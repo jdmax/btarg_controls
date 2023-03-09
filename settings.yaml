@@ -144,6 +144,14 @@ mks937b:
     address: '003'          # serial address set on device
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    indicators:
         - Some_PI
+pfeiffer-261:
+    enable: true
+    ip: '192.168.1.108'
+    port: '1023'            # channel 3 of serial to ethernet
+    timeout: 2
+    delay: 1
+    indicators:
+        - Return_PI
     
