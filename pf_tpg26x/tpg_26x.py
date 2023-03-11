@@ -20,7 +20,7 @@ class TPG26x():
         except Exception as e:
             print(f"TPG26x connection failed on {self.host}: {e}")
             
-        self.read_regex = re.compile('READ:(\d+.\d+),(\d+.\d+),(\d+.\d+),(\d+.\d+),')
+        self.read_regex = re.compile('\d.\d{4}E[+-]\d{2}')
         
     def read_all(self):
         '''Read all channels. Returns list of 2 readings.'''
@@ -29,14 +29,12 @@ class TPG26x():
             self.tn.write(b"PRX \r\n")
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
             out = data.decode('ascii')
-            print(data)
             self.tn.write(enq)
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
             out = data.decode('ascii')
-            print(data)
-            #m = self.read_regex.search(out)
-            #values  = [float(x) for x in m.groups()]
-            return data
+            m = self.read_regex.findall(out)
+            values  = [float(x) for x in m]
+            return values
             
         except Exception as e:
             print(f"TPG26x read failed on {self.host}: {e}")

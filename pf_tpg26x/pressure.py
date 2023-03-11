@@ -18,7 +18,7 @@ async def main():
     device_name = settings['prefix'] + ':PRES'
     builder.SetDeviceName(device_name)
 
-    p = TPG26x(device_name, settings['pfeiffer-261'], records)
+    p = PressureReadback(device_name, settings['pfeiffer-261'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -65,11 +65,10 @@ class PresThread(Thread):
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
-        self.update = parent.update
         self.Is = parent.Is
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         if self.enable:  # if not enabled, don't connect
-            self.t = THCD(parent.settings['ip'], parent.settings['port'],
+            self.t = TPG26x(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):

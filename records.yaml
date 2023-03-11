@@ -471,3 +471,9 @@ Some_DI:
     fields:
         DESC: 'Some Digital Indicator'
     states:
+Return_PI:
+    fields:
+        DESC: 'Pressure on Return from Magnet'
+        PREC: 6
+        EGU: 'mbar'
+    states:

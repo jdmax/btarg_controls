@@ -149,9 +149,9 @@ mks937b:
 pfeiffer-261:
     enable: true
     ip: '192.168.1.108'
-    port: '1023'            # channel 3 of serial to ethernet
+    port: '1001'
     timeout: 2
-    delay: 1
+    delay: 5
     indicators:
         - Return_PI
     
