@@ -474,6 +474,12 @@ Some_DI:
 Return_PI:
     fields:
         DESC: 'Pressure on Return from Magnet'
-        PREC: 6
+        PREC: 1
+        EGU: 'mbar'
+    states:
+Supply_PI:
+    fields:
+        DESC: 'Pressure on Supply to Magnet'
+        PREC: 1
         EGU: 'mbar'
     states:
