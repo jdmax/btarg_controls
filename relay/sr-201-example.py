@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #
 # SYNOPSIS
-#   sr-201-relay.py relay-hostname [command...]
+#   sr-201-relay_ioc.py relay-hostname [command...]
 #
 #
 # DESCRIPTION
