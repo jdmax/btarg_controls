@@ -28,7 +28,6 @@ class TPG26x():
         try:
             self.tn.write(b"PRX \r\n")
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
-            out = data.decode('ascii')
             self.tn.write(enq)
             i, match, data = self.tn.expect([b"\r\n"], timeout = 2)   # read until ok response
             out = data.decode('ascii')

@@ -483,3 +483,9 @@ Supply_PI:
         PREC: 1
         EGU: 'mbar'
     states:
+Heater_HI:
+    fields:
+        DESC: 'Cryocooler Heater Output %'
+        PREC: 2
+        EGU: '%'
+    states:

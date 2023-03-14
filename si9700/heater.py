@@ -5,7 +5,7 @@ from time import sleep
 from threading import Thread
 import random
 
-from tpg_26x import TPG26x
+from si9700 import SI9700
 
 
 async def main():
@@ -18,8 +18,7 @@ async def main():
     device_name = settings['prefix'] + ':PRES'
     builder.SetDeviceName(device_name)
 
-    p = PressureReadback(device_name, settings['pfeiffer-261'], records)
-    q = PressureReadback(device_name, settings['pfeiffer-262'], records)
+    p = HeaterReadback(device_name, settings['si9700'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -27,8 +26,8 @@ async def main():
     softioc.interactive_ioc(globals())
 
 
-class PressureReadback():
-    '''Set up PVs for pressure controller and connect to device
+class HeaterReadback():
+    '''Set up PVs for heater controller and connect to device
     '''
 
     def __init__(self, device_name, settings, records):
@@ -52,12 +51,12 @@ class PressureReadback():
                 setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
 
-        self.thread = PresThread(self)
+        self.thread = HeatThread(self)
         self.thread.setDaemon(True)
         self.thread.start()
 
 
-class PresThread(Thread):
+class HeatThread(Thread):
 
     def __init__(self, parent):
         ''' Thread reads every iteration, gets settings from parent. update is boolean telling thread to change set points also.
@@ -69,7 +68,7 @@ class PresThread(Thread):
         self.Is = parent.Is
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         if self.enable:  # if not enabled, don't connect
-            self.t = TPG26x(parent.settings['ip'], parent.settings['port'],
+            self.t = SI9700(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):
@@ -80,7 +79,7 @@ class PresThread(Thread):
             sleep(self.delay)
 
             if self.enable:
-                self.values = self.t.read_all()
+                self.values = self.t.read_heater()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             for i, pv_name in enumerate(self.Is):

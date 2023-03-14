@@ -138,7 +138,7 @@ sr-201:
         - Flip_VC
         - Flop_VC
 mks937b:
-    enable: true
+    enable: false
     ip: '192.168.1.107'
     port: '1025'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
@@ -162,4 +162,12 @@ pfeiffer-262:
     delay: 5
     indicators:
         - Supply_PI
+si9700:
+    enable: true
+    ip: '192.168.1.108'
+    port: '1003'
+    timeout: 2
+    delay: 10
+    indicators:
+        - Heater_HI
     
