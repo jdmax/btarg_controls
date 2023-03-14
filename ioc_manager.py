@@ -2,6 +2,7 @@ from screenutils import Screen
 import yaml
 from softioc import softioc, builder, asyncio_dispatcher
 import asyncio
+import re
 
 
 async def main():
@@ -36,11 +37,13 @@ class IOCManager:
         self.settings = settings
         self.screen_config = screen_config
         self.pvs = {}
-        self.screens = {}    # Dict of all screens made for the iocs
-        self.states = [(name,i) for i, name in self.settings['states'].enumerate()]  # make list of tuples for mbbout call
-        self.species = [(name,i) for i, name in self.settings['species'].enumerate()]
+        self.screens = {}     # Dict of all screens made for the iocs, keyed by screen name
+        self.screen_pvs = {}  # Dict of lists of all PVs in each screen instance, keyed by screen name
 
-        #
+
+        self.states = [(name,i) for i, name in enumerate(self.settings['states'])]  # make list of tuples for mbbout call
+        self.species = [(name,i) for i, name in enumerate(self.settings['species'])]
+
         for name, value in screen_config['screens'].items():  # each IOC has controls to start, stop or reset
             self.pvs[name] = builder.mbbOut(name + '_control',
                                            ("Stop",0),
@@ -57,6 +60,7 @@ class IOCManager:
         self.pv_spec = builder.mbbOut('species', *self.species, on_update=self.spec_update)
         self.pv_stat = builder.mbbOut('state', *self.states, on_update=self.stat_update)
 
+        self.ioc_regex = re.compile(f'{device_name}')
 
     def spec_update(self, i, pv):
         """
@@ -92,15 +96,18 @@ class IOCManager:
 
     def start_ioc(self, pv_name):
         """
-        Start screen to run ioc, then run ioc.
+        Start screen to run ioc, then run ioc. Get PV names from IOC after run.
         """
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
         self.screens[name] = Screen(name, True)
-
-        if not 'None' in self.screen_config:  # If we need to enter virtual environment to run
-            self.screens[name].send_commands()
+        s = Screen(name,True)
+        #if not 'None' in self.screen_config:  # If we need to enter virtual environment to run
+        #    self.screens[name].send_commands()
 
         self.screens[name].send_commands(f'python {self.screen_config["screens"][name]["exec"]}')
+        self.screens[name].enable_logs(self.screen_config['screens'][name]['log_dir'])
+        self.screens[name].send_commands('softioc.dbl()')
+        print(next(self.screens[name].logs))
         self.pvs[name].set(1)
 
     def stop_ioc(self, pv_name):
