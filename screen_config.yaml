@@ -1,11 +1,11 @@
 venv: 'None'   #  path of virtual environment source or 'None'
 screens:
   flow:
-    exec: 'flow/flow_ioc.py'
+    exec: 'flow/flow_ioc.py -s .'
     log_dir: 'flow/log'
   ls218:
-    exec: 'ls218/temp_218_ioc.py'
+    exec: 'ls218/temp_218_ioc.py -s .'
     log_dir: 'ls218/log'
   adc:
-    exec: 'adc/adc_iv_ioc.py'
+    exec: 'adc/adc_iv_ioc.py -s .'
     log_dir: 'adc/log'

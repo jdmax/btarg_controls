@@ -84,11 +84,10 @@ class PIDLoop(Thread):
             
             # write output to out PV
             self.out_pv.set(output)
-        
-        
     
     def update_attr(value, out):
-        '''PV value has changed for one of the pid atttributes, update PIDLoop
+        '''
+        PV value has changed for one of the pid atttributes, update PIDLoop
         '''
         pv_name = pv.replace(self.device_name+':'+self.pid_name, '')   # remove device name from PV to get bare out pv name
         self.update[pv_name] = True
