@@ -142,19 +142,18 @@ class StartThread(Thread):
         '''
         Start screen to run ioc, then run ioc. Get PV names from IOC after run.
         '''
+        name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
+        screen = Screen(name, True)
+
         while True:
-
-            name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
-            self.screens[name] = Screen(name, True)
-
-            self.screens[name].send_commands(f'python {self.screen_config["screens"][name]["exec"]}')
-            self.screens[name].enable_logs(self.screen_config['screens'][name]['log_file'])
-            self.screens[name].send_commands('softioc.dbl()')
+            screen.send_commands(f'python {self.parent.screen_config["screens"][name]["exec"]}')
+            screen.enable_logs(self.parent.screen_config['screens'][name]['log_file'])
+            screens.send_commands('softioc.dbl()')
             time.sleep(10)
-            with open(self.screen_config['screens'][name]['log_file']) as f:
+            with open(self.parent.screen_config['screens'][name]['log_file']) as f:
                 for line in f:
                     print(line)
-
+            break
         self.parent.pvs[name].set(1)
 
 
