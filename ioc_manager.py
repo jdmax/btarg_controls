@@ -84,7 +84,8 @@ class IOCManager:
             self.stop_ioc(pv_name)
         elif i==1:
             if Screen(pv_name).exists:
-                self.reset_ioc(pv_name)   # if it already exists, restart it instead
+                #self.reset_ioc(pv_name)   # if it already exists, restart it instead
+                pass        # if it already exists, do nothing
             else:
                 self.start_ioc(pv_name)
         elif i==2:
@@ -103,7 +104,8 @@ class IOCManager:
         """
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
 
-        self.st = StartThread(self)
+        self.st = StartThread(self, name)
+        print("Starting thread", name)
         self.st.daemon = True
         self.st.start()
 
@@ -113,8 +115,11 @@ class IOCManager:
         """
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
 
+        print('Starting to kill', name)
         if Screen(name).exists:
-            Screen(name).kill()
+            #Screen(name).kill()
+            Screen(name).send_commands(f'screen - X - S {name} kill')
+            print('Killing', name)
             self.pvs[name].set(0)
         if name in self.screens:
             del self.screens[name]
@@ -127,35 +132,45 @@ class IOCManager:
 
         self.stop_ioc(pv_name)
         self.start_ioc(pv_name)
-        self.pvs[name].set(1)
 
 
 class StartThread(Thread):
-    '''Thread to interact with IOCs in screens'''
+    '''Thread to interact with IOCs in screens. Each thread starts one ioc.'''
 
-    def __init__(self, parent):
+    def __init__(self, parent, name):
         Thread.__init__(self)
         self.parent = parent
-        self.start_update = parent.start_update
+        self.name = name
 
+        print("Init thread", self.name)
     def run(self):
         '''
-        Start screen to run ioc, then run ioc. Get PV names from IOC after run.
+        Start screen to run ioc, then run ioc. Wait until started, then get PV names from IOC after run.
         '''
-        name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
-        screen = Screen(name, True)
+        screen = Screen(self.name, True)
 
-        while True:
-            screen.send_commands(f'python {self.parent.screen_config["screens"][name]["exec"]}')
-            screen.enable_logs(self.parent.screen_config['screens'][name]['log_file'])
-            screens.send_commands('softioc.dbl()')
-            time.sleep(10)
-            with open(self.parent.screen_config['screens'][name]['log_file']) as f:
-                for line in f:
-                    print(line)
-            break
-        self.parent.pvs[name].set(1)
+        screen.send_commands(f'python {self.parent.screen_config["screens"][self.name]["exec"]}')
+        screen.enable_logs(self.parent.screen_config['screens'][self.name]['log_file'])
+        screen.send_commands('softioc.dbl()')
 
+        elapsed = 0
+        pvs = []
+        while True:           # wait until ioc starts to get response
+            print("Waiting for logfile for", self.name)
+            if os.path.getsize(self.parent.screen_config['screens'][self.name]['log_file']) > 200:
+                with open(self.parent.screen_config['screens'][self.name]['log_file']) as f:
+                    for line in f:
+                        match = re.search(f'({self.parent.device_name}.+)\s', line)
+                        if match:
+                            pvs.append(match.group(0))
+                self.parent.pvs[self.name].set(1)
+                print(pvs)
+                break
+            time.sleep(1)
+            elapsed += 1
+            if elapsed > 20:
+                print("Failed to start ioc, died waiting on log file.", self.name)
+                break
 
 if __name__ == "__main__":
     asyncio.run(main())
