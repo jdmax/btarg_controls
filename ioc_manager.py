@@ -3,6 +3,9 @@ import yaml
 from softioc import softioc, builder, asyncio_dispatcher
 import asyncio
 import re
+import time
+import os.path
+from threading import Thread
 
 
 async def main():
@@ -92,23 +95,17 @@ class IOCManager:
         Do update for all iocs in config file.
         """
         for pv in self.screen_config['screens'].keys():
-            self.update(i, pv)
+            self.screen_update(i, pv)
 
     def start_ioc(self, pv_name):
         """
         Start screen to run ioc, then run ioc. Get PV names from IOC after run.
         """
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
-        self.screens[name] = Screen(name, True)
-        s = Screen(name,True)
-        #if not 'None' in self.screen_config:  # If we need to enter virtual environment to run
-        #    self.screens[name].send_commands()
 
-        self.screens[name].send_commands(f'python {self.screen_config["screens"][name]["exec"]}')
-        self.screens[name].enable_logs(self.screen_config['screens'][name]['log_dir'])
-        self.screens[name].send_commands('softioc.dbl()')
-        print(next(self.screens[name].logs))
-        self.pvs[name].set(1)
+        self.st = StartThread(self)
+        self.st.daemon = True
+        self.st.start()
 
     def stop_ioc(self, pv_name):
         """
@@ -117,9 +114,10 @@ class IOCManager:
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
 
         if Screen(name).exists:
-            self.screens[name].kill()
+            Screen(name).kill()
             self.pvs[name].set(0)
-        del self.screens[name]
+        if name in self.screens:
+            del self.screens[name]
 
     def reset_ioc(self, pv_name):
         """
@@ -130,6 +128,34 @@ class IOCManager:
         self.stop_ioc(pv_name)
         self.start_ioc(pv_name)
         self.pvs[name].set(1)
+
+
+class StartThread(Thread):
+    '''Thread to interact with IOCs in screens'''
+
+    def __init__(self, parent):
+        Thread.__init__(self)
+        self.parent = parent
+        self.start_update = parent.start_update
+
+    def run(self):
+        '''
+        Start screen to run ioc, then run ioc. Get PV names from IOC after run.
+        '''
+        while True:
+
+            name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
+            self.screens[name] = Screen(name, True)
+
+            self.screens[name].send_commands(f'python {self.screen_config["screens"][name]["exec"]}')
+            self.screens[name].enable_logs(self.screen_config['screens'][name]['log_file'])
+            self.screens[name].send_commands('softioc.dbl()')
+            time.sleep(10)
+            with open(self.screen_config['screens'][name]['log_file']) as f:
+                for line in f:
+                    print(line)
+
+        self.parent.pvs[name].set(1)
 
 
 if __name__ == "__main__":
