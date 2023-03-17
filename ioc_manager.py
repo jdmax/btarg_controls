@@ -63,20 +63,21 @@ class IOCManager:
                                        ("Kill",3),
                                        on_update=self.all_screen_update
                                        )
-        self.pv_spec = builder.mbbOut('species', *self.species, on_update=self.spec_update)
+        self.pv_spec = builder.mbbOut('species', *self.species, on_update=self.stat_update)
         self.pv_stat = builder.mbbOut('state', *self.states, on_update=self.stat_update)
 
         self.ioc_regex = re.compile(f'{device_name}')
 
-    def spec_update(self, i, pv):
-        """
-        Multiple Choice PV has changed for the species
-        """
 
-    def stat_update(self, i, pv):
+    def stat_update(self, i):
         """
-        Multiple Choice PV has changed for the state
+        Multiple Choice PV has changed for the state or species
         """
+        species = self.species[self.pv_spec.get()][0]
+        state = self.states[self.pv_stat.get()][0]
+        print(state,species)
+
+
 
     def screen_update(self, i, pv):
         """
@@ -189,31 +190,7 @@ class StartThread(Thread):
         '''
         Start screen to run ioc, then run ioc. Wait until started, then get PV names from IOC after run.
         '''
-        screen = Screen(self.name, True)
 
-        screen.send_commands('bash')
-        screen.send_commands(f'python {self.parent.screen_config["screens"][self.name]["exec"]}')
-        screen.enable_logs(self.parent.screen_config['screens'][self.name]['log_file'])
-        screen.send_commands('softioc.dbl()')
-
-        elapsed = 0
-        pvs = []
-        while True:           # wait until ioc starts to get response
-            #print("Waiting for logfile for", self.name)
-            if os.path.getsize(self.parent.screen_config['screens'][self.name]['log_file']) > 10:
-                with open(self.parent.screen_config['screens'][self.name]['log_file']) as f:
-                    for line in f:
-                        match = re.search(f"({self.parent.settings['prefix']}.+)\s", line)
-                        if match:
-                            pvs.append(match.group(1))
-                self.parent.ioc_pvs[self.name] = pvs   # send the list of pvs back to manager
-                self.parent.pvs[self.name].set(1)
-                break
-            time.sleep(1)
-            elapsed += 1
-            if elapsed > 20:
-                print(f"Failed to start {self.name} ioc, died waiting on log file after {elapsed} seconds.")
-                break
 
 
 if __name__ == "__main__":
