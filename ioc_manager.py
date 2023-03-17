@@ -149,6 +149,7 @@ class StartThread(Thread):
         '''
         screen = Screen(self.name, True)
 
+        screen.send_commands('bash')
         screen.send_commands(f'python {self.parent.screen_config["screens"][self.name]["exec"]}')
         screen.enable_logs(self.parent.screen_config['screens'][self.name]['log_file'])
         screen.send_commands('softioc.dbl()')
