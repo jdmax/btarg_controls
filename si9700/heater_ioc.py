@@ -4,6 +4,7 @@ import yaml
 from time import sleep
 from threading import Thread
 import random
+import argparse
 
 from si9700 import SI9700
 

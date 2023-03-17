@@ -4,6 +4,7 @@ import yaml
 from time import sleep
 from threading import Thread
 import random
+import argparse
 
 from dat8017 import DAT8017
 
@@ -18,7 +19,8 @@ async def main():
     device_name = settings['prefix'] + ':ADC'
     builder.SetDeviceName(device_name)
 
-    p = ReadADC(device_name, settings['dat8017-i'], records)
+    p1 = ReadADC(device_name, settings['dat8017-i1'], records)
+    p2 = ReadADC(device_name, settings['dat8017-i2'], records)
     q = ReadADC(device_name, settings['dat8017-v'], records)
 
     builder.LoadDatabase()
