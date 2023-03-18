@@ -6,35 +6,17 @@ Shield_FI:
         EGU: 'slpm'
     states:
         cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
+            ALARMS: [80, 90, 100, 120]
         condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
+            ALARMS: [10, 15, 25, 30]
         steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
+            ALARMS: [10, 15, 25, 30]
         condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
+            ALARMS: [10, 15, 25, 30]
         steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
+            ALARMS: [10, 15, 25, 30]
         warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
+            ALARMS: [2, 5, 25, 30]
 Shield_FC:
     fields:
         DESC: 'Shield Flow Controller Set Value'

@@ -1,7 +1,7 @@
 # btarg pid settings, YAML
 Shield_PID:    # Base PV name
-    input: Shield_TI  # PV name of control channels
-    output: Shield_FC
+    input: TGT:BTARG:TEMP218:Shield_TI  # PV name of control channels
+    output: TGT:BTARG:FLOW:Shield_FC
     outs:
         auto_mode: false
         Kp: 1.0

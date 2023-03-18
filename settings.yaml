@@ -1,7 +1,7 @@
 # btarg device settings, YAML
 prefix: TGT:BTARG
 log_dir: 'logs'   # path of logs directory
-states:   # list of state options for target
+states:   # list of state options for target. Needs to match state entries in records.yaml
     - Empty
     - Full
     - Warm
