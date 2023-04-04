@@ -1,33 +1,42 @@
-from softioc.builder import aOut, boolOut
-from epics import caget
+from softioc import softioc, builder, asyncio_dispatcher
+import asyncio
+import yaml
+import epics
 from simple_pid import PID
-from collections import ChainMap
 from threading import Thread
 from time import sleep
 import numpy as np
 import argparse
 
 
-class PIDSetup():
-    '''Class to setup PID loops from entries in yaml file. Makes pids and threads to run them.
+async def main():
     '''
-    def __init__(self, parent, pids):
-        '''Takes pids, a dictionary from config file
-        '''
-        self.pids = {}
-        self.pid_settings = load_settings()
-        for pid_name, pdict in self.pid_settings.items():
-            self.pids[pid_name] = PIDLoop(pid_name, pdict)
-            self.pids[pid_name].start()    # start thread to monitor pid
-            
-        #self.pvs = ChainMap([p.pvs for p in self.pids.values()])   # combine all the PID PVS
-    
+    Run PID IOC: load settings, create dispatcher, set name, start loops, do IOC boilerplate
+    '''
+
+    pids = {}
+    settings, pid_settings = load_settings()
+    dispatcher = asyncio_dispatcher.AsyncioDispatcher()
+    device_name = settings['prefix'] + ':PID'
+    builder.SetDeviceName(device_name)
+
+    for pid_name, pdict in pid_settings.items():
+        pids[pid_name] = PIDLoop(device_name, pid_name, pdict)
+        pids[pid_name].start()  # start thread to monitor pid
+
+    builder.LoadDatabase()
+    softioc.iocInit(dispatcher)
+
+    softioc.interactive_ioc(globals())
+
+
 class PIDLoop(Thread):
     '''Instantiates a PID loop and thread, makes PVs
     '''
     
-    def __init__(self, pid_name, pdict):
+    def __init__(self, device_name, pid_name, pdict):
         Thread.__init__(self)
+        self.device_name = device_name
         self.pvs = {}   # dict of PVs for this PID
         self.pid_name = pid_name
         self.in_pv = pdict['input']
@@ -37,21 +46,28 @@ class PIDLoop(Thread):
         for out, value in pdict['outs'].items():   # make and set pvs with values from settings
             pv_name = pid_name+'_'+out      # PV names start with PID name
             if isinstance(value, bool):             # setup PVs as boolean or analog
-                self.pvs[pv_name] = boolOut(pv_name, on_update_name = self.update_attr)
+                self.pvs[pv_name] = builder.boolOut(pv_name, on_update_name = self.update_attr)
             else:
-                self.pvs[pv_name] = aOut(pv_name, on_update_name = self.update_attr)
-            self.pvs[pv_name].set('value', value)
+                self.pvs[pv_name] = builder.aOut(pv_name, on_update_name = self.update_attr)
+            self.pvs[pv_name].set(value)  # put this is try statement to catch errors from epics
         
         self.pid = PID()    # set up simple_pid 
         for out in pdict['outs'].keys():   # set all parameters to pid object except the max and min change
             if not 'change' in out:
                 setattr(self.pid, out, self.pvs[pid_name+'_'+out].get())
-        low = caget(self.out_pv+'DRVL')
-        high = caget(self.out_pv+'DRVH')
+        low = epics.caget(self.out_pv + 'DRVL')  # put this is try statement to catch errors from epics
+        high = epics.caget(self.out_pv + 'DRVH')
         self.pid.output_limits = (low, high)  # set limits based on drive limits from output PV
         self.delay = self.pvs[pid_name+'_'+'sample_time'].get()
         self.max_change = self.pvs[self.pid_name+'_'+'max_change'].get()
         self.min_change = self.pvs[self.pid_name+'_'+'min_change'].get()
+
+    def update_attr(self, value, pv):
+        '''
+        PV value has changed for one of the pid atttributes, update PIDLoop
+        '''
+        pv_name = pv.replace(self.device_name+':'+self.pid_name, '')   # remove device name from PV to get bare out pv name
+        self.update[pv_name] = True
             
     def run(self):    
         print('Started thread for', self.pid_name)
@@ -75,7 +91,7 @@ class PIDLoop(Thread):
                         setattr(self.pid, pv_name, self.pvs[self.pid_name+'_'+pv_name].get())
 
             last_output = self.pid._last_output
-            input = self.in_pv.get()
+            input = epics.caget(self.in_pv)
             output = self.pid(input)
             
             if abs(last_output - output) > self.max_change:   # check max and min change and alter output if needed
@@ -86,14 +102,8 @@ class PIDLoop(Thread):
                 self.pid._last_output = output           
             
             # write output to out PV
-            self.out_pv.set(output)
-    
-    def update_attr(value, out):
-        '''
-        PV value has changed for one of the pid atttributes, update PIDLoop
-        '''
-        pv_name = pv.replace(self.device_name+':'+self.pid_name, '')   # remove device name from PV to get bare out pv name
-        self.update[pv_name] = True
+            epics.caput(self.out_pv)
+
 
 def load_settings():
     '''Load pid settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''
@@ -103,7 +113,16 @@ def load_settings():
     args = parser.parse_args()
     folder = args.Settings if args.Settings else '..'   # default is directory above
 
+    with open(f'{folder}/settings.yaml') as f:  # Load settings from YAML files
+        settings = yaml.load(f, Loader=yaml.FullLoader)
+    print(f"Loaded device settings from {folder}/settings.yaml.")
+
     with open(f'{folder}/pids.yaml') as f:  # Load settings from YAML files
         pids = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {folder}/pids.yaml.")
-    return pids
+
+    return settings, pids
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

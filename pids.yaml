@@ -2,8 +2,8 @@
 Shield_PID:    # Base PV name
     input: TGT:BTARG:TEMP218:Shield_TI  # PV name of control channels
     output: TGT:BTARG:FLOW:Shield_FC
-    outs:
-        auto_mode: false
+    outs:   # key is name, value is starting value
+        auto_mode: False   # key names match simple_pid attribute names
         Kp: 1.0
         Ki: 1.0
         Kd: 1.0
