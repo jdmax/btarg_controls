@@ -74,12 +74,12 @@ class PIDLoop(Thread):
         
         while True:
             sleep(self.delay)
-            for pv_name, bool in self.update.items():
-                if bool:   # there has been a change in this out pv, update it in the pid
+            for pv_name, b in self.update.items():
+                if b:   # there has been a change in this out pv, update it in the pid
                     if 'auto_mode' in pv_name:
                         self.pid.set_auto_mode( 
                             self.pvs[self.pid_name+'_auto_mode'].get(),
-                            last_output = self.out_pv.get()
+                            last_output = caget(self.out_pv)
                         )   # if turning on, start at previous output value
                     if 'change' in pv_name:
                         self.min_change = self.pvs[self.pid_name+'_min_change'].get()
