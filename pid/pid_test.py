@@ -31,19 +31,19 @@ class BoilerControl():
 
         self.water_temp = 20
         self.dt = 1
-        print(device_name)
         self.in_pv = builder.aIn('Test_Temp')
-        self.out_pv = builder.aOut('Test_Power', DRVL = 0.1, DRVH = 10.0, on_update=self.update)
+        self.out_pv = builder.aOut('Test_Power', DRVL = 0.0, DRVH = 50.0, on_update=self.update, always_update=True)
 
 
     def update(self, boiler_power):
-        if boiler_power > 0:
+        #if boiler_power > 0:
             # Boiler can only produce heat, not cold
-            self.water_temp += 1 * boiler_power * dt
+        self.water_temp += 1 * boiler_power * self.dt
 
         # Some heat dissipation
-        self.water_temp -= 0.02 * dt
-        self.in_pv = self.water_temp
+        self.water_temp -= 2 * self.dt
+        self.in_pv.set(self.water_temp)
+        print('Temp', self.water_temp)
 
 
 def load_settings():

@@ -17,5 +17,8 @@ async def main():
 
     #softioc.interactive_ioc(globals())
 
+    temp = await caget('TGT:BTARG:PID:Test_Power')
+    print(temp < 1)
+
 if __name__ == "__main__":
     asyncio.run(main())

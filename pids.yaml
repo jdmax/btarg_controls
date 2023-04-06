@@ -4,11 +4,11 @@ Test_PID:    # Base PV name
     output: TGT:BTARG:PID:Test_Power
     outs:   # key is name, value is starting value
         auto_mode: False   # key names match simple_pid attribute names
-        Kp: 1.0
-        Ki: 1.0
-        Kd: 1.0
+        Kp: 0.01
+        Ki: 0.1
+        Kd: 0.0
         sample_time: 1.0
-        setpoint: 1.0
+        setpoint: 30.0
         min_change: 0.0
         max_change: 1.0
 #Shield_PID:    # Base PV name
