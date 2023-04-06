@@ -19,7 +19,7 @@ async def main():
     device_name = settings['prefix'] + ':TEMP336'
     builder.SetDeviceName(device_name)
 
-    p = LS336(device_name, settings['lakeshore_336'], records)
+    p = ReadLS336(device_name, settings['lakeshore_336'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
