@@ -1,11 +1,14 @@
 from softioc import softioc, builder, asyncio_dispatcher
+import asyncio
 import yaml
+import argparse
+import os
 
 async def main():
     '''
     Run PI Test IOC: load settings, create dispatcher, set name, start devices, do boilerplate
     '''
-    settings, records = load_settings()
+    settings = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     device_name = settings['prefix'] + ':PID'
@@ -23,32 +26,24 @@ class BoilerControl():
     '''Set up PVs for relays and connect to device
     '''
 
-    def __init__(self, device_name, settings, records):
-        '''
-        Attributes:
-            pvs: list of builder process variables created
-        Arguments:
-            settings: dict of device settings
-            records: dict of record settings
-        '''
+    def __init__(self, device_name):
+        '''   '''
 
-class WaterBoiler:
-    """
-    Simple simulation of a water boiler which can heat up water
-    and where the heat dissipates slowly over time
-    """
-
-    def __init__(self):
         self.water_temp = 20
+        self.dt = 1
+        print(device_name)
+        self.in_pv = builder.aIn('Test_Temp')
+        self.out_pv = builder.aOut('Test_Power', DRVL = 0.1, DRVH = 10.0, on_update=self.update)
 
-    def update(self, boiler_power, dt):
+
+    def update(self, boiler_power):
         if boiler_power > 0:
             # Boiler can only produce heat, not cold
             self.water_temp += 1 * boiler_power * dt
 
         # Some heat dissipation
         self.water_temp -= 0.02 * dt
-        return self.water_temp
+        self.in_pv = self.water_temp
 
 
 def load_settings():
@@ -63,8 +58,8 @@ def load_settings():
         settings = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {folder}/settings.yaml.")
 
-    with open(f'{folder}/records.yaml') as f:  # Load settings from YAML files
-        records = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded records from {folder}/records.yaml.")
+    return settings
 
-    return settings, records
+
+if __name__ == "__main__":
+    asyncio.run(main())

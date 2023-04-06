@@ -7,13 +7,15 @@ from threading import Thread
 from time import sleep
 import numpy as np
 import argparse
+import os
+
 
 
 async def main():
     '''
     Run PID IOC: load settings, create dispatcher, set name, start loops, do IOC boilerplate
     '''
-
+    print('TGT:BTARG:PID:Test_Power', epics.caget('TGT:BTARG:PID:Test_Power'))
     pids = {}
     settings, pid_settings = load_settings()
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
@@ -55,16 +57,20 @@ class PIDLoop(Thread):
         for out in pdict['outs'].keys():   # set all parameters to pid object except the max and min change
             if not 'change' in out:
                 setattr(self.pid, out, self.pvs[pid_name+'_'+out].get())
-        low = epics.caget(self.out_pv + 'DRVL')  # put this is try statement to catch errors from epics
-        high = epics.caget(self.out_pv + 'DRVH')
-        self.pid.output_limits = (low, high)  # set limits based on drive limits from output PV
+        try:
+            print(epics.cainfo(self.out_pv), self.out_pv)
+            high = epics.caget(self.out_pv + '.DRVH')
+            low = epics.caget(self.out_pv + '.DRVL')  # put this is try statement to catch errors from epics
+            self.pid.output_limits = (low, high)  # set limits based on drive limits from output PV
+        except Exception as e:
+            print(e)
         self.delay = self.pvs[pid_name+'_'+'sample_time'].get()
         self.max_change = self.pvs[self.pid_name+'_'+'max_change'].get()
         self.min_change = self.pvs[self.pid_name+'_'+'min_change'].get()
 
     def update_attr(self, value, pv):
         '''
-        PV value has changed for one of the pid atttributes, update PIDLoop
+        PV value has changed for one of the pid attributes, update PIDLoop
         '''
         pv_name = pv.replace(self.device_name+':'+self.pid_name, '')   # remove device name from PV to get bare out pv name
         self.update[pv_name] = True

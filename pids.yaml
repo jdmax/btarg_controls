@@ -1,7 +1,7 @@
 # btarg pid settings, YAML
 Test_PID:    # Base PV name
-    input: TGT:BTARG:PID:Test_In  # PV name of control channels
-    output: TGT:BTARG:PID:Test_Out
+    input: TGT:BTARG:PID:Test_Temp  # PV name of control channels
+    output: TGT:BTARG:PID:Test_Power
     outs:   # key is name, value is starting value
         auto_mode: False   # key names match simple_pid attribute names
         Kp: 1.0
