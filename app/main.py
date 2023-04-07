@@ -3,7 +3,7 @@ import asyncio
 import yaml
 from collections import ChainMap
 
-from flow.flow import FlowControl
+from flow.flow_ioc import FlowControl
 
 
 async def main():

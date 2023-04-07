@@ -4,21 +4,22 @@ import yaml
 from time import sleep
 from threading import Thread
 import random
+import argparse
 
-from dat8148 import DAT8148
+from mks937b import MKS937B
 
 
 async def main():
     '''
-    Run ADC IOC: load settings, create dispatcher, set name, start devices, do boilerplate
+    Run LS218 IOC: load settings, create dispatcher, set name, start devices, do boilerplate
     '''
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['prefix'] + ':ADC'
+    device_name = settings['prefix'] + ':PRES'
     builder.SetDeviceName(device_name)
 
-    p = ReadADC(device_name, settings['dat8148'], records)
+    p = ReadMKS(device_name, settings['mks937b'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -26,8 +27,8 @@ async def main():
     softioc.interactive_ioc(globals())
 
 
-class ReadADC:
-    '''Set up PVs for Datexel ADC and connect to device
+class ReadMKS:
+    '''Set up PVs for MKS 937B and connect to device
     '''
 
     def __init__(self, device_name, settings, records):
@@ -42,20 +43,20 @@ class ReadADC:
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.settings['indicators']  # Dict of Indicator names in channel order to associate PV with channel
+        self.Is = self.settings['indicators']  # list of Indicator names in channel order to associate PV with channel
         self.pvs = {}
 
-        for pv_name in self.Is:  # Make PVs for all Is
-            self.pvs[pv_name] = builder.boolIn(pv_name)
+        for pv_name in self.Is:  # Make AIn PVs for all Is
+            self.pvs[pv_name] = builder.aIn(pv_name)
             for field, value in self.records[pv_name]['fields'].items():
-                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+                setattr(self.pvs[pv_name], field, value)  # set the attributes of the PV
 
-        self.thread = DATThread(self)
+        self.thread = MKSThread(self)
         self.thread.setDaemon(True)
         self.thread.start()
 
 
-class DATThread(Thread):
+class MKSThread(Thread):
 
     def __init__(self, parent):
         ''' Thread reads every iteration, gets settings from parent.
@@ -67,8 +68,8 @@ class DATThread(Thread):
         self.Is = parent.Is
         self.values = [0] * len(self.Is)  # list of zeroes to start return Is
         if self.enable:  # if not enabled, don't connect
-            self.t = DAT8148(parent.settings['ip'], parent.settings['port'],
-                           parent.settings['timeout'])  # open connection to adc
+            self.t = MKS937B(parent.settings['ip'], parent.settings['port'], parent.settings['address'],
+                           parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):
         '''
@@ -82,21 +83,27 @@ class DATThread(Thread):
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             for i, pv_name in enumerate(self.Is):
-                out = True if self.values[i] else False
-                self.pvs[pv_name].set(out)
+                self.pvs[pv_name].set(self.values[i])
+
 
 def load_settings():
-    '''Load device settings and records from YAML settings file'''
+    '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''
 
-    with open('../settings.yaml') as f:  # Load settings from YAML files
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--Settings", help = "Settings files folder")
+    args = parser.parse_args()
+    folder = args.Settings if args.Settings else '..'
+
+    with open(f'{folder}/settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded device settings from {'settings.yaml'}.")
+    print(f"Loaded device settings from {folder}/settings.yaml.")
 
-    with open('../records.yaml') as f:  # Load settings from YAML files
+    with open(f'{folder}/records.yaml') as f:  # Load settings from YAML files
         records = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded records from {'records.yaml'}.")
+    print(f"Loaded records from {folder}/records.yaml.")
 
     return settings, records
+
 
 
 if __name__ == "__main__":

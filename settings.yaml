@@ -1,7 +1,7 @@
 # btarg device settings, YAML
 prefix: TGT:BTARG
 log_dir: 'logs'   # path of logs directory
-states:   # list of state options for target
+states:   # list of state options for target. Needs to match state entries in records.yaml
     - Empty
     - Full
     - Warm
@@ -111,7 +111,7 @@ dat8017-i2:
     timeout: 2
     delay: 1
     indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Top_PI: 1
+        Top2_PI: 1
 dat8017-v:
     enable: false
     ip: '192.168.1.151'
@@ -121,7 +121,7 @@ dat8017-v:
     indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 dat8148:
-    enable: true
+    enable: false
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
@@ -147,7 +147,7 @@ mks937b:
     indicators:
         - Some_PI
 pfeiffer-261:
-    enable: true
+    enable: false
     ip: '192.168.1.108'
     port: '1001'
     timeout: 2
@@ -155,7 +155,7 @@ pfeiffer-261:
     indicators:
         - Return_PI
 pfeiffer-262:
-    enable: true
+    enable: false
     ip: '192.168.1.108'
     port: '1002'
     timeout: 2
@@ -163,7 +163,7 @@ pfeiffer-262:
     indicators:
         - Supply_PI
 si9700:
-    enable: true
+    enable: false
     ip: '192.168.1.108'
     port: '1003'
     timeout: 2

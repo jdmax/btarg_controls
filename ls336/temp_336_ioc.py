@@ -4,6 +4,7 @@ import yaml
 from time import sleep
 from threading import Thread
 import random
+import argparse
 
 from ls336 import LS336
 
@@ -152,17 +153,23 @@ class LS336Thread(Thread):
 
 
 def load_settings():
-    '''Load device settings and records from YAML settings file'''
+    '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''
 
-    with open('../settings.yaml') as f:  # Load settings from YAML files
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--Settings", help = "Settings files folder")
+    args = parser.parse_args()
+    folder = args.Settings if args.Settings else '..'
+
+    with open(f'{folder}/settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded device settings from {'settings.yaml'}.")
+    print(f"Loaded device settings from {folder}/settings.yaml.")
 
-    with open('../records.yaml') as f:  # Load settings from YAML files
+    with open(f'{folder}/records.yaml') as f:  # Load settings from YAML files
         records = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded records from {'records.yaml'}.")
+    print(f"Loaded records from {folder}/records.yaml.")
 
     return settings, records
+
 
 
 if __name__ == "__main__":
