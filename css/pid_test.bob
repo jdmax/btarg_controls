@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-04-06 23:42:08 by jmaxwell-->
+<!--Saved on 2023-04-07 10:37:52 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="label" version="2.0.0">
@@ -22,25 +22,25 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
-    <text>Temp:</text>
-    <y>50</y>
+    <text>Input</text>
+    <y>100</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
     <pv_name>pva://TGT:BTARG:PID:Test_Temp</pv_name>
     <x>100</x>
-    <y>50</y>
+    <y>100</y>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
-    <text>Power Out:</text>
+    <text>Output</text>
     <y>80</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Auto Mode:</text>
-    <y>140</y>
+    <y>130</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
@@ -78,20 +78,20 @@
   <widget type="label" version="2.0.0">
     <name>Label_9</name>
     <text>Setpoint:</text>
-    <y>110</y>
+    <y>60</y>
   </widget>
   <widget type="spinner" version="2.0.0">
     <name>Spinner_1</name>
     <pv_name>pva://TGT:BTARG:PID:Test_PID_setpoint</pv_name>
     <x>100</x>
-    <y>110</y>
+    <y>60</y>
     <width>130</width>
     <precision>3</precision>
   </widget>
   <widget type="stripchart" version="2.1.0">
     <name>Strip Chart</name>
-    <x>290</x>
-    <y>40</y>
+    <x>340</x>
+    <y>31</y>
     <width>440</width>
     <height>320</height>
     <y_axes>
@@ -198,8 +198,47 @@
     <name>Boolean Button_1</name>
     <pv_name>pva://TGT:BTARG:PID:Test_PID_auto_mode</pv_name>
     <x>100</x>
-    <y>140</y>
+    <y>130</y>
     <width>130</width>
     <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Drive low:</text>
+    <y>270</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_11</name>
+    <text>Drive High:</text>
+    <y>290</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_7</name>
+    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVL</pv_name>
+    <x>100</x>
+    <y>270</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_8</name>
+    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVH</pv_name>
+    <x>100</x>
+    <y>290</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_12</name>
+    <text>Sample time:</text>
+    <y>310</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_9</name>
+    <pv_name>pva://TGT:BTARG:PID:Test_PID_sample_time</pv_name>
+    <x>100</x>
+    <y>310</y>
+    <width>130</width>
+    <precision>3</precision>
   </widget>
 </display>

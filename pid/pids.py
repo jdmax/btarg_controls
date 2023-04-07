@@ -53,7 +53,7 @@ class PIDLoop():
             else:
                 self.pvs[pv_name] = builder.aOut(pv_name, on_update_name = self.update_attr)
             self.pvs[pv_name].set(value)  # put this in try statement to catch errors from epics
-            print(self.pvs[pv_name].name, self.pvs[pv_name].get())
+            #print(self.pvs[pv_name].name, self.pvs[pv_name].get())
 
     async def pid_setup(self):
         self.pid = PID()    # set up simple_pid 
@@ -65,12 +65,12 @@ class PIDLoop():
             low = await aioca.caget(self.out_pv + '.DRVL')  # put this is try statement to catch errors from epics
             self.pid.output_limits = (low, high)  # set limits based on drive limits from output PV
         except Exception as e:
-            print(e)
+            print('Exception',e)
         self.delay = self.pvs[self.pid_name+'_'+'sample_time'].get()
         self.max_change = self.pvs[self.pid_name+'_'+'max_change'].get()
         self.min_change = self.pvs[self.pid_name+'_'+'min_change'].get()
         self.last_output = await aioca.caget(self.out_pv)
-        print('PID setup', self.pid_name, self.last_output)
+        #print('PID setup', self.pid_name, self.last_output)
 
     def update_attr(self, value, pv):
         '''
@@ -84,7 +84,7 @@ class PIDLoop():
             await asyncio.sleep(self.delay)
             for pv_name, b in self.update.items():
                 if b:   # there has been a change in this out pv, update it in the pid
-                    print(pv_name, b)
+                    #print(pv_name, b)
                     if 'auto_mode' in pv_name:
                         self.last_output = await aioca.caget(self.out_pv)
                         print('last', self.last_output)
@@ -105,7 +105,7 @@ class PIDLoop():
                 self.last_output = self.pid._last_output
             input = await aioca.caget(self.in_pv)
             output = self.pid(input)
-            print(self.last_output, output, input)
+            #print(self.last_output, output, input)
             if self.pid.auto_mode:
                 if abs(self.last_output - output) > self.max_change:   # check max and min change and alter output if needed
                     output = output + self.max_change * np.sign(self.last_output - output)
