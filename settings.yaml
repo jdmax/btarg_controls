@@ -11,7 +11,7 @@ species:   # list of species options for target
     - 4He
     - 3He
 flow_controller:
-    enable: false            # don't connect to device, use test mode
+    enable: true            # don't connect to device, use test mode
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
@@ -44,8 +44,8 @@ lakeshore_218_2:
     indicators: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
-    enable: false
-    ip: '192.168.1.180'
+    enable: true
+    ip: '192.168.1.12'
     port: '7777'
     timeout: 2
     delay: 1
@@ -67,27 +67,27 @@ lakeshore_336:
                   - [ 'Low', 1 ]
                   - [ 'Med', 2 ]
                   - [ 'High', 3 ]
-        - indicators: # Dict of PV names for channel 2
-              - Target_TI
-              - Target_Heater
-          controllers:
-              - Target_kP
-              - Target_kI
-              - Target_kD
-              - Target_SP
-          mults: # Dict of option dicts
-              Target_Mode:
-                  - [ 'Off', 0 ]
-                  - [ 'Closed Loop', 1 ]
-              Target_Range:
-                  - [ 'Off', 0 ]
-                  - [ 'Low', 1 ]
-                  - [ 'Med', 2 ]
-                  - [ 'High', 3 ]
-        - indicators: # Dict of PVs for channel 3
-              - Other1_TI
-        - indicators: # Dict of PVs for channel 4
-              - Other2_TI
+#        - indicators: # Dict of PV names for channel 2
+#              - Target_TI
+#              - Target_Heater
+#          controllers:
+#              - Target_kP
+#              - Target_kI
+#              - Target_kD
+#              - Target_SP
+#          mults: # Dict of option dicts
+#              Target_Mode:
+#                  - [ 'Off', 0 ]
+#                  - [ 'Closed Loop', 1 ]
+#              Target_Range:
+#                  - [ 'Off', 0 ]
+#                  - [ 'Low', 1 ]
+#                  - [ 'Med', 2 ]
+#                  - [ 'High', 3 ]
+#        - indicators: # Dict of PVs for channel 3
+#              - Other1_TI
+#        - indicators: # Dict of PVs for channel 4
+#              - Other2_TI
 omega_1:
     enable: false            
     ip: '192.168.1.200'

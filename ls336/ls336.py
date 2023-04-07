@@ -73,7 +73,7 @@ class LS336():
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
             m = self.setp_regex.search(data)
             values = [float(x) for x in m.groups()]
-            return values
+            return values[0]
 
         except Exception as e:
             print(f"LS336 heater read failed on {self.host}: {e}")

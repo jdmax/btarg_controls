@@ -471,3 +471,30 @@ Heater_HI:
         PREC: 2
         EGU: '%'
     states:
+Coolant_TI:
+    fields:
+        DESC: ''
+        PREC: 2
+        EGU: 'K'
+    states:
+Coolant_Heater:
+    fields:
+        DESC: ''
+Coolant_kP:
+    fields:
+        DESC: ''
+Coolant_kI:
+    fields:
+        DESC: ''
+Coolant_kD:
+    fields:
+        DESC: ''
+Coolant_SP:
+    fields:
+        DESC: ''
+Coolant_Mode:
+    fields:
+        DESC: ''
+Coolant_Range:
+    fields:
+        DESC: ''

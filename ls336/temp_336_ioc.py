@@ -16,10 +16,10 @@ async def main():
     settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['prefix'] + ':TEMP336'
+    device_name = settings['prefix'] + ':TEMP'
     builder.SetDeviceName(device_name)
 
-    p = LS336(device_name, settings['lakeshore_336'], records)
+    p = ReadLS336(device_name, settings['lakeshore_336'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -46,10 +46,11 @@ class ReadLS336():
         self.channels = self.settings['channels']  # ordered list of 336 channels dicts
         self.update_flags = {}     # build update flag dict from records
         for channel in self.channels:
-            for pv_name in channel['controllers']:
-                self.update_flags[pv_name] = False
-            for pv_name in channel['mults']:
-                self.update_flags[pv_name] = False
+            if 'controllers' in channel:
+                for pv_name in channel['controllers']:
+                    self.update_flags[pv_name] = False
+                for pv_name in channel['mults']:
+                    self.update_flags[pv_name] = False
         self.pvs = {}
 
         for channel in self.channels:
@@ -63,13 +64,13 @@ class ReadLS336():
                 for field, value in self.records[pv_name]['fields'].items():
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
-            for pv_name, list in channel['mults']:  # Make mbbOut PVs for all Ms
-                self.pvs[pv_name] = builder.mbbOut(pv_name, *list, on_update_name=self.update)
+            for pv_name, olist in channel['mults'].items():  # Make mbbOut PVs for all Ms
+                self.pvs[pv_name] = builder.mbbOut(pv_name, *olist, on_update_name=self.update)
                 for field, value in self.records[pv_name]['fields'].items():
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = LS336Thread(self)
-        self.thread.setDaemon(True)
+        self.thread.daemon = True
         self.thread.start()
 
     def update(self, value, pv):
@@ -139,7 +140,8 @@ class LS336Thread(Thread):
             if self.enable:
                 self.temps = self.t.read_temps()
                 self.heats[0] = self.t.read_heater(1)
-                self.heats[1] = self.t.read_heater(2)
+                if len(self.heats) >1:
+                    self.heats[1] = self.t.read_heater(2)
             else:
                 self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
                 self.heats = [random.random()]*2  # return random number when we are not enabled
