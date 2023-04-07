@@ -53,7 +53,7 @@ class PIDLoop():
             else:
                 self.pvs[pv_name] = builder.aOut(pv_name, on_update_name = self.update_attr)
             self.pvs[pv_name].set(value)  # put this in try statement to catch errors from epics
-
+            print(self.pvs[pv_name].name, self.pvs[pv_name].get())
 
     async def pid_setup(self):
         self.pid = PID()    # set up simple_pid 
@@ -80,10 +80,8 @@ class PIDLoop():
         self.update[pv_name] = True
 
     async def run_pid(self):
-        print('test')
         while True:
             await asyncio.sleep(self.delay)
-            print('Run loop iteration')
             for pv_name, b in self.update.items():
                 if b:   # there has been a change in this out pv, update it in the pid
                     print(pv_name, b)

@@ -30,7 +30,7 @@ class BoilerControl():
         '''   '''
 
         self.water_temp = 20
-        self.dt = 1
+        self.dt = 0.5
         self.in_pv = builder.aIn('Test_Temp')
         self.out_pv = builder.aOut('Test_Power', DRVL = 0.0, DRVH = 50.0, on_update=self.update, always_update=True)
 
@@ -41,7 +41,7 @@ class BoilerControl():
         self.water_temp += 1 * boiler_power * self.dt
 
         # Some heat dissipation
-        self.water_temp -= 2 * self.dt
+        self.water_temp -= 5 * self.dt
         self.in_pv.set(self.water_temp)
         print('Temp', self.water_temp)
 
