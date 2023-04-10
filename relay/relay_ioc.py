@@ -94,11 +94,14 @@ class RelayThread(Thread):
                         self.states[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
                     self.update[pv_name] = False
 
-            for i, pv_name in enumerate(self.Cs):    # set the PV to the value returned to be sure we switched
-                if self.states[i]==1:
-                    self.pvs[pv_name].set(True)
-                else:
-                    self.pvs[pv_name].set(False)
+            try:
+                for i, pv_name in enumerate(self.Cs):    # set the PV to the value returned to be sure we switched
+                    if self.states[i]==1:
+                        self.pvs[pv_name].set(True)
+                    else:
+                        self.pvs[pv_name].set(False)
+            except Exception as e:
+                print(f"PV set failed: {e}")
 
 
 def load_settings():

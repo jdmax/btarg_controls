@@ -71,7 +71,7 @@ class PresThread(Thread):
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         if self.enable:  # if not enabled, don't connect
             self.t = TPG26x(parent.settings['ip'], parent.settings['port'],
-                          parent.settings['timeout'])  # open telnet connection to flow controllers
+                parent.settings['timeout'])  # open telnet connection to flow controllers
 
     def run(self):
         '''
@@ -88,7 +88,7 @@ class PresThread(Thread):
                 for i, pv_name in enumerate(self.Is):
                     self.pvs[pv_name].set(self.values[i])
             except Exception as e:
-                print(f"Pressure Thread read failed: {e}")
+                print(f"PV set failed: {e}")
 
 
 def load_settings():

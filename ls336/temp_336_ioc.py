@@ -146,12 +146,15 @@ class LS336Thread(Thread):
                 self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
                 self.heats = [random.random()]*2  # return random number when we are not enabled
 
+            try:
             for i, channel in enumerate(self.channels):
                 for pv_name in channel['indicators']: # find the indicator PV and set from reading
                     if '_TI' in pv_name:
                         self.pvs[pv_name].set(self.temps[i])
                     if '_Heater' in pv_name:
                         self.pvs[pv_name].set(self.heats[i])
+            except Exception as e:
+                print(f"PV set failed: {e}")
 
 
 def load_settings():

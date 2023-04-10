@@ -82,9 +82,12 @@ class DATThread(Thread):
                 self.values = self.t.read_all()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
-            for i, pv_name in enumerate(self.Is):
-                out = True if self.values[i] else False
-                self.pvs[pv_name].set(out)
+            try:
+                for i, pv_name in enumerate(self.Is):
+                    out = True if self.values[i] else False
+                    self.pvs[pv_name].set(out)
+            except Exception as e:
+                print(f"PV set failed: {e}")
 
 def load_settings():
     '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''

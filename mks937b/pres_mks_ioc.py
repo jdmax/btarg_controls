@@ -82,8 +82,11 @@ class MKSThread(Thread):
                 self.values = self.t.read_all()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
-            for i, pv_name in enumerate(self.Is):
-                self.pvs[pv_name].set(self.values[i])
+            try:
+                for i, pv_name in enumerate(self.Is):
+                    self.pvs[pv_name].set(self.values[i])
+            except Exception as e:
+                print(f"PV set failed: {e}")
 
 
 def load_settings():
