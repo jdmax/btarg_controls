@@ -53,7 +53,7 @@ class ReadLS218:
                 setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
                     
         self.thread = LS218Thread(self)
-        self.thread.setDaemon(True)
+        self.thread.daemon = True
         self.thread.start()
 
 
