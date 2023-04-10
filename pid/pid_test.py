@@ -32,6 +32,14 @@ class BoilerControl():
         self.water_temp = 20
         self.dt = 0.5
         self.in_pv = builder.aIn('Test_Temp')
+        setattr(self.in_pv, 'HIHI', 50.0)
+        setattr(self.in_pv, 'HHSV', 'MAJOR')
+        setattr(self.in_pv, 'HIGH', 40.0)
+        setattr(self.in_pv, 'HSV', 'MINOR')
+        setattr(self.in_pv, 'LOW', 20.0)
+        setattr(self.in_pv, 'LSV', 'MINOR')
+        setattr(self.in_pv, 'LOLO', 10.0)
+        setattr(self.in_pv, 'LLSV', 'MAJOR')
         self.out_pv = builder.aOut('Test_Power', DRVL = 0.0, DRVH = 50.0, on_update=self.update, always_update=True)
 
 

@@ -109,11 +109,9 @@ class PIDLoop():
             output = self.pid(input)
             #print(self.last_output, output, input)
             if self.pid.auto_mode:
-                print('change amount:',abs(self.last_output - output))
                 if abs(self.last_output - output) > self.max_change:   # check max and min change and alter output if needed
                     output = self.last_output - self.max_change * np.sign(self.last_output - output)
                     self.pid._last_output = output
-                    print('over max_change, instead send', output)
                 elif abs(self.last_output - output) < self.min_change:
                     output = self.last_output
                     self.pid._last_output = output
