@@ -77,8 +77,6 @@ class IOCManager:
         state = self.states[self.pv_stat.get()][0]
         print(state,species)
 
-
-
     def screen_update(self, i, pv):
         """
         Multiple Choice PV has changed for the given control PV. Follow command. 0=Stop, 1=Start, 2=Reset
@@ -113,6 +111,10 @@ class IOCManager:
         self.st = StartThread(self, name)
         self.st.daemon = True
         self.st.start()
+
+
+
+        # need to have separate thread name for each, and need to clean up after
 
     def stop_ioc(self, pv_name):
         """
@@ -178,18 +180,6 @@ class StartThread(Thread):
                 print(f"Failed to start {self.name} ioc, died waiting on log file after {elapsed} seconds.")
                 break
 
-class StartThread(Thread):
-    '''Thread to interact with IOCs in screens. Each thread starts one ioc.'''
-
-    def __init__(self, parent, name):
-        Thread.__init__(self)
-        self.parent = parent
-        self.name = name
-
-    def run(self):
-        '''
-        Start screen to run ioc, then run ioc. Wait until started, then get PV names from IOC after run.
-        '''
 
 
 

@@ -93,6 +93,10 @@ class LS336Thread(Thread):
         self.channels = parent.channels
         self.temps = [0] * len(self.channels)  # list of zeroes to start return Is
         self.heats = [0] * len(self.channels)
+        self.pids = [0] * len(self.channels)
+        self.outmodes = [0] * len(self.channels)
+        self.ranges = [0] * len(self.channels)
+        self.sps = [0] * len(self.channels)
         if self.enable:  # if not enabled, don't connect
             self.t = LS336(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection
@@ -137,22 +141,42 @@ class LS336Thread(Thread):
                         print('Error, control PV not categorized.')
                     self.update_flags[pv_name] = False
 
-            if self.enable:
+            if self.enable:    # read all values from 336
                 self.temps = self.t.read_temps()
                 self.heats[0] = self.t.read_heater(1)
+                self.pids[0] = self.t.read_pid(1)
+                self.outmodes[0] = self.t.read_outmode(1)
+                self.ranges[0] = self.t.read_range(1)
+                self.sps[0] = self.t.read_setpoint(1)
                 if len(self.heats) >1:
                     self.heats[1] = self.t.read_heater(2)
+                    self.heats[1] = self.t.read_pid(2)
+                    self.outmodes[1] = self.t.read_outmode(2)
+                    self.ranges[1] = self.t.read_range(2)
+                    self.sps[1] = self.t.read_setpoint(2)
             else:
                 self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
                 self.heats = [random.random()]*2  # return random number when we are not enabled
 
             try:
                 for i, channel in enumerate(self.channels):
-                    for pv_name in channel['indicators']: # find the indicator PV and set from reading
+                    for pv_name in channel['indicators']: # find the indicator PV and set from new reading
                         if '_TI' in pv_name:
                             self.pvs[pv_name].set(self.temps[i])
                         if '_Heater' in pv_name:
                             self.pvs[pv_name].set(self.heats[i])
+                        if '_kP' in pv_name:
+                            self.pvs[pv_name].set(self.pids[i][0])
+                        if '_kI' in pv_name:
+                            self.pvs[pv_name].set(self.pids[i][1])
+                        if '_kD' in pv_name:
+                            self.pvs[pv_name].set(self.pids[i][2])
+                        if '_Mode' in pv_name:
+                            self.pvs[pv_name].set(int(self.outmodes[i]))
+                        if '_Range' in pv_name:
+                            self.pvs[pv_name].set(int(self.ranges[i]))
+                        if '_SP' in pv_name:
+                            self.pvs[pv_name].set(self.sps[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
 

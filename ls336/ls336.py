@@ -97,6 +97,21 @@ class LS336():
         except Exception as e:
             print(f"LS336 outmode set  failed on {self.host}: {e}")
 
+    def read_outmode(self, channel):
+        '''Read output.
+        Arguments:
+            channel: out put channel (1 to 4)
+        '''
+        try:
+            self.tn.write(bytes(f"OUTMODE? {channel}\n", 'ascii'))
+            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            m = self.out_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values[0]
+
+        except Exception as e:
+            print(f"LS336 outmode set  failed on {self.host}: {e}")
+
     def set_range(self, channel, hrange):
         '''Setup output and readback. Has no effect if outmode is off.
         Arguments:
@@ -112,7 +127,22 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 range set failed on {self.host}: {e}")
+            print(f"LS336 range read failed on {self.host}: {e}")
+
+    def read_range(self, channel):
+        '''Read range. Has no effect if outmode is off.
+        Arguments:
+            channel: output channel (1 to 4)
+        '''
+        try:
+            self.tn.write(bytes(f"RANGE? {channel}\n", 'ascii'))
+            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            m = self.range_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values[0]
+
+        except Exception as e:
+            print(f"LS336 range read failed on {self.host}: {e}")
 
     def set_setpoint(self, channel, value):
         '''Setup setpoint and read back.
@@ -122,6 +152,21 @@ class LS336():
         '''
         try:
             self.tn.write(bytes(f"SETP {channel},{value}\n", 'ascii'))
+            self.tn.write(bytes(f"SETP? {channel}\n", 'ascii'))
+            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            m = self.setp_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values[0]
+
+        except Exception as e:
+            print(f"LS336 range set failed on {self.host}: {e}")
+
+    def read_setpoint(self, channel):
+        '''Setup setpoint and read back.
+        Arguments:
+            channel: output channel (1 to 4)
+        '''
+        try:
             self.tn.write(bytes(f"SETP? {channel}\n", 'ascii'))
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
             m = self.setp_regex.search(data)
