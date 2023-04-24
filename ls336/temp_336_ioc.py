@@ -107,7 +107,7 @@ class LS336Thread(Thread):
             for pv_name, bool in self.update_flags.items():
                 if bool:  # there has been a change, update it
                     p = pv_name[:-2]  # pv_name without kP, kI or kD
-                    for i, channel in self.channels.enumerate():  # determine what channel we are on
+                    for i, channel in enumerate(self.channels):  # determine what channel we are on
                         if pv_name in channel['controllers']:
                             chan = i + 1
                         elif pv_name in channel['mults']:
@@ -147,12 +147,12 @@ class LS336Thread(Thread):
                 self.heats = [random.random()]*2  # return random number when we are not enabled
 
             try:
-            for i, channel in enumerate(self.channels):
-                for pv_name in channel['indicators']: # find the indicator PV and set from reading
-                    if '_TI' in pv_name:
-                        self.pvs[pv_name].set(self.temps[i])
-                    if '_Heater' in pv_name:
-                        self.pvs[pv_name].set(self.heats[i])
+                for i, channel in enumerate(self.channels):
+                    for pv_name in channel['indicators']: # find the indicator PV and set from reading
+                        if '_TI' in pv_name:
+                            self.pvs[pv_name].set(self.temps[i])
+                        if '_Heater' in pv_name:
+                            self.pvs[pv_name].set(self.heats[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
 

@@ -32,7 +32,7 @@ class LS336():
     def read_temps(self):
         '''Read temperatures for all channels.'''
         try:
-            self.tn.write(bytes(f"SRDG? 0\n", 'ascii'))
+            self.tn.write(bytes(f"KRDG? 0\n", 'ascii'))   # Kelvin reading
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
             m = self.read_regex.search(data)
             values = [float(x) for x in m.groups()]

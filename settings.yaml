@@ -15,7 +15,7 @@ flow_controller:
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
-    delay: 1                # update delay in seconds
+    delay: 3                # update delay in seconds
     indicators:   # List of PV names for each read channel of device in order
         - Shield_FI
         - Evaporator_FI
@@ -30,7 +30,7 @@ lakeshore_218_1:
     ip: '192.168.1.107'
     port: '1023'    # channel 1 of serial to ethernet
     timeout: 2
-    delay: 1
+    delay: 2
     indicators:   # List of PV names for each read channel of 218 in order
         - Shield_Cold_TI
         - Shield_Mid_TI
@@ -40,15 +40,15 @@ lakeshore_218_2:
     ip: '192.168.1.107'
     port: '1024'      # channel 2 of serial to ethernet
     timeout: 2
-    delay: 1
+    delay: 2
     indicators: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
     enable: true
-    ip: '192.168.1.12'
+    ip: '192.168.1.36'
     port: '7777'
     timeout: 2
-    delay: 1
+    delay: 2
     channels: # List of channels in order, with dict in each position
         - indicators: # Dict of PV names for channel 1
               - Coolant_TI

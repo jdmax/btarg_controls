@@ -20,7 +20,7 @@ class THCD():
         except Exception as e:
             print(f"THCD connection failed on {self.host}: {e}")
             
-        self.read_regex = re.compile('READ:(\d+.\d+|!RANGE!),(\d+.\d+|!RANGE!),(\d+.\d+|!RANGE!),(\d+.\d+)|!RANGE!,')
+        self.read_regex = re.compile('READ:(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+)|!RANGE!,')
         self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')  
         self.ok_response_regex = re.compile(b'!a!o!\s\s')    
         
@@ -54,7 +54,7 @@ class THCD():
             self.tn.write(bytes(f"aspv?\n",'ascii'))
             i, match, data = self.tn.expect([self.ok_response_regex], timeout = 2) 
             out = data.decode('ascii')
-            print(out)
+            #print(out)
             ms = self.set_regex.findall(out)
             for m in ms:
                 values.append(float(m[1]))
