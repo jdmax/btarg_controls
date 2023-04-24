@@ -62,6 +62,8 @@ lakeshore_336:
               Coolant_Mode:
                   - [ 'Off', 0 ]
                   - [ 'Closed Loop', 1 ]
+                  - [ 'Zone', 2 ]
+                  - [ 'Open Loop', 3 ]
               Coolant_Range:
                   - [ 'Off', 0 ]
                   - [ 'Low', 1 ]

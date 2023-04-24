@@ -132,11 +132,11 @@ class LS336Thread(Thread):
                     elif 'Mode' in pv_name:
                         if self.enable:
                             value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
-                            self.pvs[pv_name].set(value)   # set returned value
+                            self.pvs[pv_name].set(int(value))   # set returned value
                     elif 'Range' in pv_name:
                         if self.enable:
                             value = self.t.set_range(chan, self.pvs[pv_name].get())
-                            self.pvs[pv_name].set(value)   # set returned value
+                            self.pvs[pv_name].set(int(value))   # set returned value
                     else:
                         print('Error, control PV not categorized.')
                     self.update_flags[pv_name] = False
