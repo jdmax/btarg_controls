@@ -49,47 +49,29 @@ lakeshore_336:
     port: '7777'
     timeout: 2
     delay: 2
-    channels: # List of channels in order, with dict in each position
-        - indicators: # Dict of PV names for channel 1
-              - Coolant_TI
-              - Coolant_Heater
-          controllers:
-              - Coolant_kP
-              - Coolant_kI
-              - Coolant_kD
-              - Coolant_SP
-          mults:
-              Coolant_Mode:
-                  - [ 'Off', 0 ]
-                  - [ 'Closed Loop', 1 ]
-                  - [ 'Zone', 2 ]
-                  - [ 'Open Loop', 3 ]
-              Coolant_Range:
-                  - [ 'Off', 0 ]
-                  - [ 'Low', 1 ]
-                  - [ 'Med', 2 ]
-                  - [ 'High', 3 ]
-#        - indicators: # Dict of PV names for channel 2
-#              - Target_TI
-#              - Target_Heater
+    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made.
+        - Coolant
+        - Target
+        - Test1_TI
+#        - indicators: # Dict of PV names for channel 1
+#              - Coolant_TI
+#              - Coolant_Heater
 #          controllers:
-#              - Target_kP
-#              - Target_kI
-#              - Target_kD
-#              - Target_SP
-#          mults: # Dict of option dicts
-#              Target_Mode:
+#              - Coolant_kP
+#              - Coolant_kI
+#              - Coolant_kD
+#              - Coolant_SP
+#          mults:
+#              Coolant_Mode:
 #                  - [ 'Off', 0 ]
 #                  - [ 'Closed Loop', 1 ]
-#              Target_Range:
+#                  - [ 'Zone', 2 ]
+#                  - [ 'Open Loop', 3 ]
+#              Coolant_Range:
 #                  - [ 'Off', 0 ]
 #                  - [ 'Low', 1 ]
 #                  - [ 'Med', 2 ]
 #                  - [ 'High', 3 ]
-#        - indicators: # Dict of PVs for channel 3
-#              - Other1_TI
-#        - indicators: # Dict of PVs for channel 4
-#              - Other2_TI
 omega_1:
     enable: false            
     ip: '192.168.1.200'

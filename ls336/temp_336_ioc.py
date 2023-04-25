@@ -43,31 +43,33 @@ class ReadLS336():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.channels = self.settings['channels']  # ordered list of 336 channels dicts
+        self.channels = self.settings['channels']  # ordered list of 336 channels
         self.update_flags = {}     # build update flag dict from records
-        for channel in self.channels:
-            if 'controllers' in channel:
-                for pv_name in channel['controllers']:
-                    self.update_flags[pv_name] = False
-                for pv_name in channel['mults']:
-                    self.update_flags[pv_name] = False
         self.pvs = {}
 
-        for channel in self.channels:
-            for pv_name in channel['indicators']:  # Make AIn PVs for all Is
-                self.pvs[pv_name] = builder.aIn(pv_name)
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        mode_list = [['Off', 0], [ 'Closed Loop', 1 ], [ 'Zone', 2 ], [ 'Open Loop', 3 ]]
+        range_list = [['Off', 0], [ 'Low', 1 ], [ 'Med', 2 ], [ 'High', 3 ]]
 
-            for pv_name in channel['controllers']:  # Make AOut PVs for all Cs
-                self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update)
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        for channel in self.channels:    # set up PVs for each channel
 
-            for pv_name, olist in channel['mults'].items():  # Make mbbOut PVs for all Ms
-                self.pvs[pv_name] = builder.mbbOut(pv_name, *olist, on_update_name=self.update)
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+            if "_TI" in channel:
+                self.pvs[channel] = builder.aIn(channel)
+            else:
+                self.pvs[channel+"_TI"] = builder.aIn(channel+"_TI")
+                self.pvs[channel+"_Heater"] = builder.aIn(channel+"_Heater")
+
+                self.pvs[channel+"_kP"] = builder.aOut(channel+"_kP", on_update_name=self.update)
+                self.pvs[channel+"_kI"] = builder.aOut(channel+"_kI", on_update_name=self.update)
+                self.pvs[channel+"_kD"] = builder.aOut(channel+"_kD", on_update_name=self.update)
+                self.pvs[channel+"_SP"] = builder.aOut(channel+"_SP", on_update_name=self.update)
+
+                self.pvs[channel+"_Mode"] = builder.mbbOut(channel+"_Mode", *mode_list, on_update_name=self.update)
+                self.pvs[channel+"_Range"] = builder.mbbOut(channel+"_Range", *range_list, on_update_name=self.update)
+
+        for name, entry in self.pvs.items():
+            if name in self.records:
+                for field, value in self.records[name]['fields'].items():
+                    setattr(self.pvs[name], field, value)   # set the attributes of the PV
 
         self.thread = LS336Thread(self)
         self.thread.daemon = True
@@ -110,19 +112,15 @@ class LS336Thread(Thread):
             chan = 0               # device channel of the current PV
             for pv_name, bool in self.update_flags.items():
                 if bool:  # there has been a change, update it
-                    p = pv_name[:-2]  # pv_name without kP, kI or kD
-                    for i, channel in enumerate(self.channels):  # determine what channel we are on
-                        if pv_name in channel['controllers']:
-                            chan = i + 1
-                        elif pv_name in channel['mults']:
-                            chan = i + 1
+                    p = pv_name.split("_")[0]   # pv_name root
+                    chan = self.channels.index(p) + 1  # determine what channel we are on
                     # figure out what type of PV this is, and send it to the right method
                     if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
                         if self.enable:
                             dict = {}
                             k_list = ['kP','kI','kD']
                             for k in k_list:
-                                dict[k] = self.pvs[p+k].get()               # read pvs to send to device
+                                dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
                             values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
                             [self.pvs[p+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
                     elif 'SP' in pv_name:   # is this a setpoint?
@@ -148,7 +146,7 @@ class LS336Thread(Thread):
                 self.outmodes[0] = self.t.read_outmode(1)
                 self.ranges[0] = self.t.read_range(1)
                 self.sps[0] = self.t.read_setpoint(1)
-                if len(self.heats) >1:
+                if len(self.channels) > 1:
                     self.heats[1] = self.t.read_heater(2)
                     self.heats[1] = self.t.read_pid(2)
                     self.outmodes[1] = self.t.read_outmode(2)
