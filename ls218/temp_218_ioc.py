@@ -49,8 +49,9 @@ class ReadLS218:
         
         for pv_name in self.Is:      # Make AIn PVs for all Is
             self.pvs[pv_name] = builder.aIn(pv_name)
-            for field, value in self.records[pv_name]['fields'].items():
-                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+            if pv_name in self.records:
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
                     
         self.thread = LS218Thread(self)
         self.thread.daemon = True

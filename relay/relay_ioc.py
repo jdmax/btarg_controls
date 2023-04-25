@@ -49,8 +49,9 @@ class RelayControl():
 
         for pv_name in self.Cs:  # Make boolOut PVs for all switches
             self.pvs[pv_name] = builder.boolOut(pv_name, on_update_name=self.update_pv)
-            for field, value in self.records[pv_name]['fields'].items():
-                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+            if pv_name in self.records:
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = RelayThread(self)
         self.thread.setDaemon(True)

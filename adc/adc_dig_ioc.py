@@ -48,8 +48,9 @@ class ReadADC:
 
         for pv_name in self.Is:  # Make PVs for all Is
             self.pvs[pv_name] = builder.boolIn(pv_name)
-            for field, value in self.records[pv_name]['fields'].items():
-                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+            if pv_name in self.records:
+                for field, value in self.records[pv_name]['fields'].items():
+                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = DATThread(self)
         self.thread.setDaemon(True)
