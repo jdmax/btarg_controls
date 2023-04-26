@@ -54,10 +54,13 @@ class ReadLS336():
 
             if "_TI" in channel:
                 self.pvs[channel] = builder.aIn(channel)
+            elif "None" in channel:
+                pass
             else:
                 self.pvs[channel+"_TI"] = builder.aIn(channel+"_TI")
                 self.pvs[channel+"_Heater"] = builder.aIn(channel+"_Heater")
 
+                self.pvs[channel+"_Manual"] = builder.aOut(channel+"_Manual", on_update_name=self.update)
                 self.pvs[channel+"_kP"] = builder.aOut(channel+"_kP", on_update_name=self.update)
                 self.pvs[channel+"_kI"] = builder.aOut(channel+"_kI", on_update_name=self.update)
                 self.pvs[channel+"_kD"] = builder.aOut(channel+"_kD", on_update_name=self.update)
@@ -93,12 +96,19 @@ class LS336Thread(Thread):
         self.pvs = parent.pvs
         self.update_flags = parent.update_flags
         self.channels = parent.channels
-        self.temps = [0] * len(self.channels)  # list of zeroes to start return Is
-        self.heats = [0] * len(self.channels)
-        self.pids = [0] * len(self.channels)
-        self.outmodes = [0] * len(self.channels)
-        self.ranges = [0] * len(self.channels)
-        self.sps = [0] * len(self.channels)
+        self.temps = [0] * len(self.channels)  # list of zeroes to start
+        self.num_full = 0    # number of channels with full heater controls
+        for chan in self.channels:
+            if "_TI" in chan or "None" in chan:
+                pass
+            else:
+                self.num_full += 1
+        self.heats = [0] * self.num_full
+        self.pids = [0] * self.num_full
+        self.outmodes = [0] * self.num_full
+        self.ranges = [0] * self.num_full
+        self.sps = [0] * self.num_full
+        self.manuals = [0] * self.num_full
         if self.enable:  # if not enabled, don't connect
             self.t = LS336(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])  # open telnet connection
@@ -109,32 +119,30 @@ class LS336Thread(Thread):
         '''
         while True:
             sleep(self.delay)
-            chan = 0               # device channel of the current PV
             for pv_name, bool in self.update_flags.items():
-                if bool:  # there has been a change, update it
+                if bool and self.enable:  # there has been a change, update it
                     p = pv_name.split("_")[0]   # pv_name root
                     chan = self.channels.index(p) + 1  # determine what channel we are on
                     # figure out what type of PV this is, and send it to the right method
                     if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
-                        if self.enable:
-                            dict = {}
-                            k_list = ['kP','kI','kD']
-                            for k in k_list:
-                                dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
-                            values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
-                            [self.pvs[p+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
+                        dict = {}
+                        k_list = ['kP','kI','kD']
+                        for k in k_list:
+                            dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
+                        values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                        [self.pvs[p+"_"+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
                     elif 'SP' in pv_name:   # is this a setpoint?
-                        if self.enable:
-                            value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
-                            self.pvs[pv_name].set(value)   # set returned value
+                        value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
+                        self.pvs[pv_name].set(value)   # set returned value
+                    elif 'Manual' in pv_name:  # is this a manual out?
+                        value = self.t.set_man_heater(chan, self.pvs[pv_name].get())
+                        self.pvs[pv_name].set(value)  # set returned value
                     elif 'Mode' in pv_name:
-                        if self.enable:
-                            value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
-                            self.pvs[pv_name].set(int(value))   # set returned value
+                        value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
+                        self.pvs[pv_name].set(int(value))   # set returned value
                     elif 'Range' in pv_name:
-                        if self.enable:
-                            value = self.t.set_range(chan, self.pvs[pv_name].get())
-                            self.pvs[pv_name].set(int(value))   # set returned value
+                        value = self.t.set_range(chan, self.pvs[pv_name].get())
+                        self.pvs[pv_name].set(int(value))   # set returned value
                     else:
                         print('Error, control PV not categorized.')
                     self.update_flags[pv_name] = False
@@ -146,37 +154,37 @@ class LS336Thread(Thread):
                 self.outmodes[0] = self.t.read_outmode(1)
                 self.ranges[0] = self.t.read_range(1)
                 self.sps[0] = self.t.read_setpoint(1)
-                if len(self.channels) > 1:
+                self.manuals[0] = self.t.read_man_heater(1)
+
+                if self.num_full > 1:
                     self.heats[1] = self.t.read_heater(2)
                     self.heats[1] = self.t.read_pid(2)
                     self.outmodes[1] = self.t.read_outmode(2)
                     self.ranges[1] = self.t.read_range(2)
                     self.sps[1] = self.t.read_setpoint(2)
+                    self.manuals[1] = self.t.read_man_heater(2)
             else:
                 self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
                 self.heats = [random.random()]*2  # return random number when we are not enabled
 
-            try:
+            try:   # set new values to PVs
                 for i, channel in enumerate(self.channels):
-                    for pv_name in channel['indicators']: # find the indicator PV and set from new reading
-                        if '_TI' in pv_name:
-                            self.pvs[pv_name].set(self.temps[i])
-                        if '_Heater' in pv_name:
-                            self.pvs[pv_name].set(self.heats[i])
-                        if '_kP' in pv_name:
-                            self.pvs[pv_name].set(self.pids[i][0])
-                        if '_kI' in pv_name:
-                            self.pvs[pv_name].set(self.pids[i][1])
-                        if '_kD' in pv_name:
-                            self.pvs[pv_name].set(self.pids[i][2])
-                        if '_Mode' in pv_name:
-                            self.pvs[pv_name].set(int(self.outmodes[i]))
-                        if '_Range' in pv_name:
-                            self.pvs[pv_name].set(int(self.ranges[i]))
-                        if '_SP' in pv_name:
-                            self.pvs[pv_name].set(self.sps[i])
+                    if "_TI" in channel:
+                        self.pvs[channel].set(self.temps[i])
+                    elif "None" in channel:
+                        pass
+                    else:
+                        self.pvs[channel+'_TI'].set(self.temps[i])
+                        self.pvs[channel+'_Heater'].set(self.heats[i])
+                        self.pvs[channel+'_kP'].set(self.pids[i][0])
+                        self.pvs[channel+'_kI'].set(self.pids[i][1])
+                        self.pvs[channel+'_kD'].set(self.pids[i][2])
+                        self.pvs[channel+'_Mode'].set(int(self.outmodes[i]))
+                        self.pvs[channel+'_Range'].set(int(self.ranges[i]))
+                        self.pvs[channel+'_SP'].set(self.sps[i])
+                        self.pvs[channel+'_Manual'].set(self.manuals[i])
             except Exception as e:
-                print(f"PV set failed: {e}")
+                print(f"PV set failed: {e}", channel)
 
 
 def load_settings():

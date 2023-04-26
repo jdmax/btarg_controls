@@ -78,6 +78,31 @@ class LS336():
         except Exception as e:
             print(f"LS336 heater read failed on {self.host}: {e}")
 
+    def read_man_heater(self, channel):
+        '''Read Manual Heater output (%) for given channel (1 or 2).'''
+        try:
+            self.tn.write(bytes(f"MOUT? {channel}\n", 'ascii'))
+            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            m = self.setp_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values[0]
+
+        except Exception as e:
+            print(f"LS336 heater read failed on {self.host}: {e}")
+
+    def set_man_heater(self, channel, value):
+        '''Read Manual Heater output (%) for given channel (1 or 2).'''
+        try:
+            self.tn.write(bytes(f"MOUT {channel},{value}\n", 'ascii'))
+            self.tn.write(bytes(f"MOUT? {channel}\n", 'ascii'))
+            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            m = self.setp_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values[0]
+
+        except Exception as e:
+            print(f"LS336 heater read failed on {self.host}: {e}")
+
     def set_outmode(self, channel, mode, in_channel, powerup_on):
         '''Setup output and readback.
         Arguments:

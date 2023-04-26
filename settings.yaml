@@ -49,29 +49,10 @@ lakeshore_336:
     port: '7777'
     timeout: 2
     delay: 2
-    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made.
+    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel.
         - Coolant
-        - Target
+        - None
         - Test1_TI
-#        - indicators: # Dict of PV names for channel 1
-#              - Coolant_TI
-#              - Coolant_Heater
-#          controllers:
-#              - Coolant_kP
-#              - Coolant_kI
-#              - Coolant_kD
-#              - Coolant_SP
-#          mults:
-#              Coolant_Mode:
-#                  - [ 'Off', 0 ]
-#                  - [ 'Closed Loop', 1 ]
-#                  - [ 'Zone', 2 ]
-#                  - [ 'Open Loop', 3 ]
-#              Coolant_Range:
-#                  - [ 'Off', 0 ]
-#                  - [ 'Low', 1 ]
-#                  - [ 'Med', 2 ]
-#                  - [ 'High', 3 ]
 omega_1:
     enable: false            
     ip: '192.168.1.200'
