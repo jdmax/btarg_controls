@@ -1,6 +1,7 @@
 import telnetlib
 import re
 
+
 class TPG26x():
     '''Handle connection to Pfeiffer TPG-26x via RS232 to Ethernet.
     '''
