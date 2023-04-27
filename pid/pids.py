@@ -27,6 +27,7 @@ async def main():
         pids[pid_name] = PIDLoop(device_name, pid_name, pdict)
         await pids[pid_name].pid_setup()    # wait to get pids set up
         task = loop.create_task(pids[pid_name].run_pid())  # Run all pids concurrently
+        print(pids[pid_name].pvs)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)

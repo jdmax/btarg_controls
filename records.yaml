@@ -476,3 +476,10 @@ Coolant_TI:
         DESC: ''
         PREC: 2
         EGU: 'K'
+Coolant_Manual:
+    fields:
+        DESC: 'Manual Heater Output'
+        PREC: 4
+        EGU: '%'
+        DRVH: 100
+        DRVL: 0
