@@ -91,6 +91,7 @@ class LS336Thread(Thread):
         ''' Thread reads every iteration, gets settings from parent. update_pv is boolean telling thread to change set points also.
         '''
         Thread.__init__(self)
+        self.settings = parent.settings
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
@@ -110,9 +111,8 @@ class LS336Thread(Thread):
         self.sps = [0] * self.num_full
         self.manuals = [0] * self.num_full
         if self.enable:  # if not enabled, don't connect
-            self.t = LS336(parent.settings['ip'], parent.settings['port'],
-                          parent.settings['timeout'])  # open telnet connection
-
+            self.t = LS336(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # open telnet connection
     def run(self):
         '''
         Thread to read indicator PVS from controller channels. Identifies driver method to use from PV name. Delay time between measurements is in seconds.
@@ -148,21 +148,24 @@ class LS336Thread(Thread):
                     self.update_flags[pv_name] = False
 
             if self.enable:    # read all values from 336
-                self.temps = self.t.read_temps()
-                self.heats[0] = self.t.read_heater(1)
-                self.pids[0] = self.t.read_pid(1)
-                self.outmodes[0] = self.t.read_outmode(1)
-                self.ranges[0] = self.t.read_range(1)
-                self.sps[0] = self.t.read_setpoint(1)
-                self.manuals[0] = self.t.read_man_heater(1)
+                try:
+                    self.temps = self.t.read_temps()
+                    self.heats[0] = self.t.read_heater(1)
+                    self.pids[0] = self.t.read_pid(1)
+                    self.outmodes[0] = self.t.read_outmode(1)
+                    self.ranges[0] = self.t.read_range(1)
+                    self.sps[0] = self.t.read_setpoint(1)
+                    self.manuals[0] = self.t.read_man_heater(1)
 
-                if self.num_full > 1:
-                    self.heats[1] = self.t.read_heater(2)
-                    self.heats[1] = self.t.read_pid(2)
-                    self.outmodes[1] = self.t.read_outmode(2)
-                    self.ranges[1] = self.t.read_range(2)
-                    self.sps[1] = self.t.read_setpoint(2)
-                    self.manuals[1] = self.t.read_man_heater(2)
+                    if self.num_full > 1:
+                        self.heats[1] = self.t.read_heater(2)
+                        self.heats[1] = self.t.read_pid(2)
+                        self.outmodes[1] = self.t.read_outmode(2)
+                        self.ranges[1] = self.t.read_range(2)
+                        self.sps[1] = self.t.read_setpoint(2)
+                        self.manuals[1] = self.t.read_man_heater(2)
+                except OSError:
+                    self.reconnect()
             else:
                 self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
                 self.heats = [random.random()]*2  # return random number when we are not enabled
@@ -183,8 +186,19 @@ class LS336Thread(Thread):
                         self.pvs[channel+'_Range'].set(int(self.ranges[i]))
                         self.pvs[channel+'_SP'].set(self.sps[i])
                         self.pvs[channel+'_Manual'].set(self.manuals[i])
+            except OSError:
+                self.reconnect()
             except Exception as e:
                 print(f"PV set failed: {e}", channel)
+
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        try:
+            self.t = LS336(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # open telnet connection
+        except Exception as e:
+            print("Failed reconnect")
 
 
 def load_settings():

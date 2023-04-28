@@ -39,6 +39,7 @@ class LS336():
             return values
 
         except Exception as e:
+            raise OSError('LS336 read')
             print(f"LS336 pid read  failed on {self.host}: {e}")
 
     def set_pid(self, channel, P, I, D):
@@ -52,6 +53,7 @@ class LS336():
             return values
 
         except Exception as e:
+            raise OSError('LS336 pid set')
             print(f"LS336 pid set failed on {self.host}: {e}")
 
     def read_pid(self, channel):
@@ -64,6 +66,7 @@ class LS336():
             return values
 
         except Exception as e:
+            raise OSError('LS336 heater pid read')
             print(f"LS336 pid read failed on {self.host}: {e}")
 
     def read_heater(self, channel):
@@ -76,6 +79,7 @@ class LS336():
             return values[0]
 
         except Exception as e:
+            raise OSError('LS336 heater read')
             print(f"LS336 heater read failed on {self.host}: {e}")
 
     def read_man_heater(self, channel):
@@ -88,7 +92,8 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 heater read failed on {self.host}: {e}")
+            raise OSError('LS336 heater manual read')
+            print(f"LS336 heater manual read failed on {self.host}: {e}")
 
     def set_man_heater(self, channel, value):
         '''Read Manual Heater output (%) for given channel (1 or 2).'''
@@ -101,7 +106,8 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 heater read failed on {self.host}: {e}")
+            raise OSError('LS336 heater manual set')
+            print(f"LS336 heater manual set  failed on {self.host}: {e}")
 
     def set_outmode(self, channel, mode, in_channel, powerup_on):
         '''Setup output and readback.
@@ -120,6 +126,7 @@ class LS336():
             return values[0]
 
         except Exception as e:
+            raise OSError('LS336 outmode set')
             print(f"LS336 outmode set  failed on {self.host}: {e}")
 
     def read_outmode(self, channel):
@@ -135,7 +142,8 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 outmode set  failed on {self.host}: {e}")
+            raise OSError('LS336 outmode read')
+            print(f"LS336 outmode read failed on {self.host}: {e}")
 
     def set_range(self, channel, hrange):
         '''Setup output and readback. Has no effect if outmode is off.
@@ -152,7 +160,8 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 range read failed on {self.host}: {e}")
+            raise OSError('LS336 range set')
+            print(f"LS336 range set failed on {self.host}: {e}")
 
     def read_range(self, channel):
         '''Read range. Has no effect if outmode is off.
@@ -167,6 +176,7 @@ class LS336():
             return values[0]
 
         except Exception as e:
+            raise OSError('LS336 range read')
             print(f"LS336 range read failed on {self.host}: {e}")
 
     def set_setpoint(self, channel, value):
@@ -184,6 +194,7 @@ class LS336():
             return values[0]
 
         except Exception as e:
+            raise OSError('LS336 range set')
             print(f"LS336 range set failed on {self.host}: {e}")
 
     def read_setpoint(self, channel):
@@ -199,4 +210,5 @@ class LS336():
             return values[0]
 
         except Exception as e:
-            print(f"LS336 range set failed on {self.host}: {e}")
+            raise OSError('LS336 setpoint set')
+            print(f"LS336 setpoint set failed on {self.host}: {e}")
