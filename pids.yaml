@@ -1,7 +1,7 @@
 # btarg pid settings, YAML
-Coolant_PID:    # Base PV name
-    input: TGT:BTARG:TEMP:Coolant_TI  # PV name of control channels
-    output: TGT:BTARG:TEMP:Coolant_Manual
+Shield_PID:    # Base PV name
+    input: TGT:BTARG:TEMP:Shield_TI  # PV name of control channels
+    output: TGT:BTARG:FLOW:Shield_FC
     outs:   # key is name, value is starting value
         auto_mode: False   # key names match simple_pid attribute names
         Kp: 1.0
@@ -11,16 +11,28 @@ Coolant_PID:    # Base PV name
         setpoint: 300.0
         min_change: 0.01
         max_change: 10.0
-#Shield_PID:    # Base PV name
-#    input: TGT:BTARG:TEMP218:Shield_TI  # PV name of control channels
-#    output: TGT:BTARG:FLOW:Shield_FC
-#    outs:
-#        auto_mode: false
-#        Kp: 1.0
-#        Ki: 1.0
-#        Kd: 1.0
-#        sample_time: 1.0
-#        setpoint: 1.0
-#        min_change: 0.0
-#        max_change: 1.0
+Coolant_PID:    # Base PV name
+    input: TGT:BTARG:TEMP:Coolant_TI  # PV name of control channels
+    output: TGT:BTARG:FLOW:Coolant_FC
+    outs:   # key is name, value is starting value
+        auto_mode: False   # key names match simple_pid attribute names
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.0
+        sample_time: 2
+        setpoint: 300.0
+        min_change: 0.01
+        max_change: 10.0
+Precool_PID:    # Base PV name
+    input: TGT:BTARG:TEMP:Precool_TI  # PV name of control channels
+    output: TGT:BTARG:FLOW:Precool_FC
+    outs:   # key is name, value is starting value
+        auto_mode: False   # key names match simple_pid attribute names
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.0
+        sample_time: 2
+        setpoint: 300.0
+        min_change: 0.01
+        max_change: 10.0
     

@@ -1,0 +1,312 @@
+# Target states with alarms and values for each PV.
+# A list is assumed to be alarms [HIHI,HIGH,LOW,LOLO], a scalar assumed to be a value.
+# None is taken as inf or -inf
+Cooldown:
+    Evaporator_TI:
+        H2: [None, None, 23, 22]
+        D2: [None, None, 23, 22]
+        4He: [None, None, 6, 5]
+        3He: [None, None, 6, 5]
+    Condenser_TI:
+        H2: [None, None, 23, 22]
+        D2: [None, None, 23, 22]
+        4He: [None, None, 6, 5]
+        3He: [None, None, 6, 5]
+    Tank_PI:
+        H2: [33, 31, 16, 15]
+        D2: [33, 31, 16, 15]
+        4He: [33, 31, 16, 15]
+        3He: [90, 70, 30, None]
+    Reservoir_LI:
+        H2: [90, 70, 30, None]
+        D2: [90, 70, 30, None]
+        4He: [90, 70, 30, None]
+        3He: [90, 70, 30, None]
+    Dewar_PI:
+        H2: [1.6, 1.4, 1.2, 1.18]
+        D2: [1.6, 1.4, 1.2, 1.18]
+        4He: [1.6, 1.4, 1.2, 1.18]
+        3He: [1.6, 1.4, 1.2, 1.18]
+    Warm_Return_PI:
+        H2: [1.3, 1.18, None, None]
+        D2: [1.3, 1.18, None, None]
+        4He: [1.3, 1.18, None, None]
+        3He: [1.3, 1.18, None, None]
+    Exhaust_TI:
+        H2: [None, None, 23, 22]
+        D2: [None, None, 23, 22]
+        4He: [None, None, 8, 6]
+        3He: [None, None, 8, 6]
+    OVC_PI:
+        H2: [1E-4, 1E-5, 1E-8, 1E-9]
+        D2: [1E-4, 1E-5, 1E-8, 1E-9]
+        4He: [1E-4, 1E-5, 1E-8, 1E-9]
+        3He: [1E-4, 1E-5, 1E-8, 1E-9]
+    Shield_FI:
+        H2: [99, 95, 5, None]
+        D2: [99, 95, 5, None]
+        4He: [99, 95, 5, None]
+        3He: [99, 95, 5, None]
+    Shield_FC:
+        H2: 90
+        D2: 90
+        4He: 90
+        3He: 90
+    Shield_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    Coolant_FI:
+        H2: [99, 95, 5, None]
+        D2: [99, 95, 5, None]
+        4He: [99, 95, 5, None]
+        3He: [99, 95, 5, None]
+    Coolant_FC:
+        H2: 90
+        D2: 90
+        4He: 90
+        3He: 90
+    Coolant_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    Precool_FI:
+        H2: [99, 95, 5, None]
+        D2: [99, 95, 5, None]
+        4He: [99, 95, 5, None]
+        3He: [99, 95, 5, None]
+    Precool_FC:
+        H2: 90
+        D2: 90
+        4He: 90
+        3He: 90
+    Precool_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    He_Coolant_VC:  # True is open, false is closed
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+Empty:
+    Evaporator_TI:
+        H2: [32, 30, 23, 22]
+        D2: [32, 30, 23, 22]
+        4He: [15, 12, 6, 5]
+        3He: [15, 12, 6, 5]
+    Condenser_TI:
+        H2: [32, 30, 23, 22]
+        D2: [32, 30, 23, 22]
+        4He: [15, 12, 6, 5]
+        3He: [15, 12, 6, 5]
+    Tank_PI:
+        H2: [33, 31, 16, 15]
+        D2: [33, 31, 16, 15]
+        4He: [33, 31, 16, 15]
+        3He: [90, 70, 30, None]
+    Reservoir_LI:
+        H2: [90, 70, 30, 20]
+        D2: [90, 70, 30, 20]
+        4He: [90, 70, 30, 20]
+        3He: [90, 70, 30, 20]
+    Dewar_PI:
+        H2: [1.6, 1.4, 1.2, 1.18]
+        D2: [1.6, 1.4, 1.2, 1.18]
+        4He: [1.6, 1.4, 1.2, 1.18]
+        3He: [1.6, 1.4, 1.2, 1.18]
+    Warm_Return_PI:
+        H2: [1.3, 1.18, None, None]
+        D2: [1.3, 1.18, None, None]
+        4He: [1.3, 1.18, None, None]
+        3He: [1.3, 1.18, None, None]
+    Exhaust_TI:
+        H2: [35, 32, 23, 22]
+        D2: [35, 32, 23, 22]
+        4He: [25, 20, 6, 5]
+        3He: [25, 20, 6, 5]
+    OVC_PI:
+        H2: [1E-4, 1E-5, 1E-8, 1E-9]
+        D2: [1E-4, 1E-5, 1E-8, 1E-9]
+        4He: [1E-4, 1E-5, 1E-8, 1E-9]
+        3He: [1E-4, 1E-5, 1E-8, 1E-9]
+    Shield_FI:
+        H2: [99, 40, 4, 0]
+        D2: [99, 40, 4, 0]
+        4He: [99, 40, 4, 0]
+        3He: [99, 40, 4, 0]
+    Shield_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Shield_PID_setpoint:
+        H2: 30
+        D2: 30
+        4He: 30
+        3He: 30
+    Coolant_FI:
+        H2: [99, 95, 2, 0]
+        D2: [99, 95, 2, 0]
+        4He: [99, 95, 2, 0]
+        3He: [99, 95, 2, 0]
+    Coolant_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Coolant_PID_setpoint:
+        H2: 28
+        D2: 28
+        4He: 8
+        3He: 8
+    Precool_FI:
+        H2: [99, 95, 2, 0]
+        D2: [99, 95, 2, 0]
+        4He: [99, 95, 2, 0]
+        3He: [99, 95, 2, 0]
+    Precool_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Precool_PID_setpoint:
+        H2: 18
+        D2: 18
+        4He: 6
+        3He: 6
+    He_Coolant_VC:  # True is open, false is closed
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+Full:
+    Evaporator_TI:
+        H2: [ 21, 20, 16, 15 ]
+        D2: [ 21, 20, 16, 15 ]
+        4He: [ 5, 4, 2, 0 ]
+        3He: [ 5, 4, 2, 0 ]
+    Condenser_TI:
+        H2: [ 21, 20, 16, 15 ]
+        D2: [ 21, 20, 16, 15 ]
+        4He: [ 5, 4, 2, 0 ]
+        3He: [ 5, 4, 2, 0 ]
+    Tank_PI:
+        H2: [ 33, 31, 16, 15 ]
+        D2: [ 33, 31, 16, 15 ]
+        4He: [ 33, 31, 16, 15 ]
+        3He: [ 90, 70, 30, None ]
+    Reservoir_LI:
+        H2: [ 90, 70, 30, 20 ]
+        D2: [ 90, 70, 30, 20 ]
+        4He: [ 90, 70, 30, 20 ]
+        3He: [ 90, 70, 30, 20 ]
+    Dewar_PI:
+        H2: [ 1.6, 1.4, 1.2, 1.18 ]
+        D2: [ 1.6, 1.4, 1.2, 1.18 ]
+        4He: [ 1.6, 1.4, 1.2, 1.18 ]
+        3He: [ 1.6, 1.4, 1.2, 1.18 ]
+    Warm_Return_PI:
+        H2: [ 1.3, 1.18, None, None ]
+        D2: [ 1.3, 1.18, None, None ]
+        4He: [ 1.3, 1.18, None, None ]
+        3He: [ 1.3, 1.18, None, None ]
+    Exhaust_TI:
+        H2: [ 35, 32, 23, 22 ]
+        D2: [ 35, 32, 23, 22 ]
+        4He: [ 25, 20, 6, 5 ]
+        3He: [ 25, 20, 6, 5 ]
+    OVC_PI:
+        H2: [ 1E-4, 1E-5, 1E-8, 1E-9 ]
+        D2: [ 1E-4, 1E-5, 1E-8, 1E-9 ]
+        4He: [ 1E-4, 1E-5, 1E-8, 1E-9 ]
+        3He: [ 1E-4, 1E-5, 1E-8, 1E-9 ]
+    Shield_FI:
+        H2: [ 99, 40, 4, 0 ]
+        D2: [ 99, 40, 4, 0 ]
+        4He: [ 99, 40, 4, 0 ]
+        3He: [ 99, 40, 4, 0 ]
+    Shield_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Shield_PID_setpoint:
+        H2: 30
+        D2: 30
+        4He: 30
+        3He: 30
+    Coolant_FI:
+        H2: [ 99, 95, 2, 0 ]
+        D2: [ 99, 95, 2, 0 ]
+        4He: [ 99, 95, 2, 0 ]
+        3He: [ 99, 95, 2, 0 ]
+    Coolant_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Coolant_PID_setpoint:
+        H2: 17
+        D2: 17
+        4He: 2.5
+        3He: 2.5
+    Precool_FI:
+        H2: [ 99, 95, 2, 0 ]
+        D2: [ 99, 95, 2, 0 ]
+        4He: [ 99, 95, 2, 0 ]
+        3He: [ 99, 95, 2, 0 ]
+    Precool_PID_auto_mode:
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+    Precool_PID_setpoint:
+        H2: 25
+        D2: 25
+        4He: 5
+        3He: 5
+    He_Coolant_VC: # True is open, false is closed
+        H2: True
+        D2: True
+        4He: True
+        3He: True
+Safe:
+    Shield_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
+    Coolant_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    Coolant_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
+    Precool_PID_auto_mode:
+        H2: False
+        D2: False
+        4He: False
+        3He: False
+    Precool_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
+    He_Coolant_VC: # True is open, false is closed
+        H2: False
+        D2: False
+        4He: False
+        3He: False
