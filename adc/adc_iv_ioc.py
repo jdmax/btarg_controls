@@ -66,6 +66,7 @@ class DATThread(Thread):
         Thread.__init__(self)
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
+        self.settings = parent.settings
         self.pvs = parent.pvs
         self.Is = parent.Is
         self.values = [0] * len(self.Is.keys())  # list of zeroes to start return Is
@@ -81,13 +82,24 @@ class DATThread(Thread):
             sleep(self.delay)
 
             if self.enable:
-                self.values = self.t.read_all()
+                try:
+                    self.values = self.t.read_all()
+                except OSError:
+                    self.reconnect()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             for i, pv_name in enumerate(self.Is.keys()):
                 calibrated = self.values[i] * self.Is[pv_name]  # set value times calibration from
                 self.pvs[pv_name].set(calibrated)
 
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        try:
+            self.t = DAT8017(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # open connection to adc
+        except Exception as e:
+            print("Failed reconnect")
 
 def load_settings():
     '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''

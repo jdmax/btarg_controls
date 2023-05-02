@@ -28,4 +28,5 @@ class DAT8017():
             return values
 
         except Exception as e:
+            raise OSError('8017 read')
             print(f"Datexel 8017 read failed on {self.host}: {e}")

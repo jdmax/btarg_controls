@@ -42,15 +42,20 @@ class SR201():
         Open connection, then send command, then close connection.
         state is boolean (false is open), chan is channel string '1' or '2'.
         '''
-        self.open_telnet()
-        if state:
-            command = '1' + chan
-        else:
-            command = '2' + chan
-        self.tn.write(bytes(command,'ascii'))
-        i, match, data = self.tn.expect([self.ok_regex], timeout = 2)   # read full response
-        self.close_telnet()
-        out = data.decode('ascii')
-        m = self.read_regex.search(out)
-        values = [float(x) for x in m.groups()]
-        return values
+        try:
+            self.open_telnet()
+            if state:
+                command = '1' + chan
+            else:
+                command = '2' + chan
+            self.tn.write(bytes(command,'ascii'))
+            i, match, data = self.tn.expect([self.ok_regex], timeout = 2)   # read full response
+            self.close_telnet()
+            out = data.decode('ascii')
+            m = self.read_regex.search(out)
+            values = [float(x) for x in m.groups()]
+            return values
+        except Exception as e:
+            raise OSError('SR201 set')
+            print(f"SR201 set failed on {self.host}: {e}")
+

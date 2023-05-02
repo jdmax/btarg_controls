@@ -34,5 +34,6 @@ class LS218():
             return values
             
         except Exception as e:
+            raise OSError('LS218 read')
             print(f"LS218 read failed on {self.host}: {e}")
         

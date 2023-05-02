@@ -27,4 +27,5 @@ class DAT8148():
             return values[8:] + values[:8]  # switch around order to get 0-15
 
         except Exception as e:
+            raise OSError('8148 read')
             print(f"Datexel 8148 read failed on {self.host}: {e}")

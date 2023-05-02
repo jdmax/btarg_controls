@@ -35,6 +35,7 @@ class THCD():
             return values
             
         except Exception as e:
+            raise OSError('THCD read')
             print(f"THCD read failed on {self.host}: {e}")
         
     def set_setpoint(self, channel, value):
@@ -45,6 +46,7 @@ class THCD():
             return True
             
         except Exception as e:
+            raise OSError('THCD write SP')
             print(f"THCD write setpoint failed on {self.host}: {e}")
         
     def read_setpoints(self):
@@ -61,5 +63,6 @@ class THCD():
             return values              
             
         except Exception as e:
+            raise OSError('THCD read SP')
             print(f"THCD read setpoint failed on {self.host}: {e}")
          

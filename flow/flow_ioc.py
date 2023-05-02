@@ -100,14 +100,20 @@ class FlowThread(Thread):
             for pv_name, bool in self.update.items():
                 if bool:  # there has been a change in this FC, update it
                     if self.enable:
-                        self.t.set_setpoint(self.Cs.index(pv_name) + 1, self.pvs[pv_name].get())
+                        try:
+                            self.t.set_setpoint(self.Cs.index(pv_name) + 1, self.pvs[pv_name].get())
+                        except OSError:
+                            self.reconnect()
                     else:
                         self.setpoints[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
                     self.update[pv_name] = False
 
             if self.enable:
-                self.setpoints = self.t.read_setpoints()
-                self.values = self.t.read_all()
+                try:
+                    self.setpoints = self.t.read_setpoints()
+                    self.values = self.t.read_all()
+                except OSError:
+                    self.reconnect()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             try:
@@ -117,6 +123,15 @@ class FlowThread(Thread):
                     self.pvs[pv_name].set(self.setpoints[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
+
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        try:
+            self.t = THCD(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # repen telnet connection
+        except Exception as e:
+            print("Failed reconnect")
 
 
 def load_settings():

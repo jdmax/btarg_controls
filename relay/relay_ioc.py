@@ -54,7 +54,7 @@ class RelayControl():
                     setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = RelayThread(self)
-        self.thread.setDaemon(True)
+        self.thread.daemon = True
         self.thread.start()
 
     def update_pv(self, value, pv):
@@ -70,6 +70,7 @@ class RelayThread(Thread):
         ''' Thread reads every iteration, gets settings from parent. update is boolean telling thread to change set points also.
         '''
         Thread.__init__(self)
+        self.settings = parent.settings
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
@@ -90,7 +91,10 @@ class RelayThread(Thread):
             for pv_name, bool in self.update.items():
                 if bool:  # there has been a change in this FC, update it
                     if self.enable:
-                        self.states = self.t.switch(self.pvs[pv_name].get(), str(self.Cs.index(pv_name) + 1))
+                        try:
+                            self.states = self.t.switch(self.pvs[pv_name].get(), str(self.Cs.index(pv_name) + 1))
+                        except OSError:
+                            self.reconnect()
                     else:
                         self.states[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
                     self.update[pv_name] = False
@@ -104,6 +108,14 @@ class RelayThread(Thread):
             except Exception as e:
                 print(f"PV set failed: {e}")
 
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        try:
+            self.t = SR201(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # open telnet connection
+        except Exception as e:
+            print("Failed reconnect")
 
 def load_settings():
     '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''
