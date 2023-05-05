@@ -1,6 +1,5 @@
 import telnetlib
 import re
-import serial
 
 class THCD():
     '''Handle connection to Teledyne Hastings THCD-401 via Telnet.     
@@ -66,4 +65,10 @@ class THCD():
         except Exception as e:
             raise OSError('THCD read SP')
             print(f"THCD read setpoint failed on {self.host}: {e}")
+
+    def __del__(self):
+        try:
+            self.tn.close()
+        except Exception as e:
+            print(e)
          

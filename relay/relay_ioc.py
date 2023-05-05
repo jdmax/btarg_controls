@@ -115,7 +115,7 @@ class RelayThread(Thread):
             self.t = SR201(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # open telnet connection
         except Exception as e:
-            print("Failed reconnect")
+            print("Failed reconnect", e)
 
 def load_settings():
     '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''

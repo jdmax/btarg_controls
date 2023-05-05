@@ -79,6 +79,7 @@ class FlowThread(Thread):
         ''' Thread reads every iteration, gets settings from parent. update is boolean telling thread to change set points also.
         '''
         Thread.__init__(self)
+        self.settings = parent.settings
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
@@ -126,18 +127,21 @@ class FlowThread(Thread):
             except Exception as e:
                 print(f"PV set failed: {e}")
 
-            if datetime.now() - now > 300:    # trying fix to THCD falling off network
+            diff = datetime.now() - now
+            if diff.total_seconds() > 150:    # trying fix to THCD falling off network
+                print(diff)
                 self.reconnect()
                 now = datetime.now()
 
     def reconnect(self):
         del self.t
+        sleep(1)
         print("Attempting reconnect.")
         try:
             self.t = THCD(self.settings['ip'], self.settings['port'],
-                           self.settings['timeout'])  # repen telnet connection
+                           self.settings['timeout'])  # reopen telnet connection
         except Exception as e:
-            print("Failed reconnect")
+            print("Failed reconnect", e)
 
 
 def load_settings():

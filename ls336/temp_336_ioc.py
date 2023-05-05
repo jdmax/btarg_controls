@@ -198,7 +198,7 @@ class LS336Thread(Thread):
             self.t = LS336(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # open telnet connection
         except Exception as e:
-            print("Failed reconnect")
+            print("Failed reconnect", e)
 
 
 def load_settings():

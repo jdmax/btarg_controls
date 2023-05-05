@@ -86,10 +86,8 @@ class PIDLoop():
             await asyncio.sleep(self.delay)
             for pv_name, b in self.update.items():
                 if b:   # there has been a change in this out pv, update it in the pid
-                    print(pv_name, b)
                     if 'auto_mode' in pv_name:
                         self.last_output = await aioca.caget(self.out_pv)
-                        print('last', self.last_output)
                         self.pid.set_auto_mode( 
                             self.pvs[self.pid_name+'_auto_mode'].get(),
                             last_output = self.last_output

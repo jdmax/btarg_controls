@@ -99,7 +99,7 @@ class DATThread(Thread):
             self.t = DAT8017(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # open connection to adc
         except Exception as e:
-            print("Failed reconnect")
+            print("Failed reconnect", e)
 
 def load_settings():
     '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''

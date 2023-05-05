@@ -40,7 +40,7 @@ class LS336():
 
         except Exception as e:
             raise OSError('LS336 read')
-            print(f"LS336 pid read  failed on {self.host}: {e}")
+            print(f"LS336 pid read failed on {self.host}: {e}")
 
     def set_pid(self, channel, P, I, D):
         '''Setup PID for given channel (1 or 2).'''
