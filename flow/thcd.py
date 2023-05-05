@@ -1,5 +1,6 @@
 import telnetlib
 import re
+import serial
 
 class THCD():
     '''Handle connection to Teledyne Hastings THCD-401 via Telnet.     

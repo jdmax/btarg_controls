@@ -2,6 +2,7 @@ from softioc import softioc, builder, asyncio_dispatcher
 import asyncio
 import yaml
 from time import sleep
+from datetime import datetime
 from threading import Thread
 import random
 import argparse
@@ -94,6 +95,7 @@ class FlowThread(Thread):
         '''
         Thread to read indicator PVS from controller channels. Delay time between measurements is in seconds.
         '''
+        now = datetime.now()
         while True:
             sleep(self.delay)
 
@@ -124,9 +126,13 @@ class FlowThread(Thread):
             except Exception as e:
                 print(f"PV set failed: {e}")
 
+            if datetime.now() - now > 300:    # trying fix to THCD falling off network
+                self.reconnect()
+                now = datetime.now()
+
     def reconnect(self):
         del self.t
-        print("Connection failed. Attempting reconnect.")
+        print("Attempting reconnect.")
         try:
             self.t = THCD(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # repen telnet connection
