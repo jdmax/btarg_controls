@@ -51,7 +51,6 @@ class ReadLS336():
         range_list = [['Off', 0], [ 'Low', 1 ], [ 'Med', 2 ], [ 'High', 3 ]]
 
         for channel in self.channels:    # set up PVs for each channel
-
             if "_TI" in channel:
                 self.pvs[channel] = builder.aIn(channel)
             elif "None" in channel:

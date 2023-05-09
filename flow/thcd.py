@@ -155,6 +155,45 @@ class THCDserial():
             raise OSError('THCD read SP')
             print(f"THCD read setpoint failed on {self.host}: {e}")
 
+    def set_mode(self, channel, value):
+        '''Set mode for given channel.'''
+        try:
+            self.s.flushInput()
+            self.s.flushOutput()
+            self.s.write((f"aspm {channel},{value}\n").encode())
+            self.s.readline().decode("utf-8")    # read back command
+            out = self.s.readline().decode("utf-8")   # read back ok
+            return True
+
+        except Exception as e:
+            raise OSError('THCD write mode')
+            print(f"THCD write mode failed on {self.host}: {e}")
+
+    def read_modes(self):
+        '''Read modes for all channels. Returns list of 4.'''
+        values = []
+        try:
+            self.s.flushInput()
+            self.s.flushOutput()
+
+            self.s.write((f"aspm?\n").encode())
+            self.s.readline().decode("utf-8")    # read back command
+            out = self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+
+            self.s.readline().decode("utf-8")   # read back ok
+
+            ms = self.set_regex.findall(out)
+            for m in ms:
+                values.append(int(m[1]))
+            return values
+
+        except Exception as e:
+            raise OSError('THCD read mode')
+            print(f"THCD read modes failed on {self.host}: {e}")
+
     def __del__(self):
         try:
             self.s.close()

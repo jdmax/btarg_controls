@@ -44,33 +44,36 @@ class FlowControl():
         self.records = records
         self.settings = settings
         self.device_name = device_name
-        self.Is = self.settings['indicators']  # list of Flow Indicator names in channel order
-        self.Cs = self.settings['controllers']  # list of Flow Controller names in channel order
-        self.update = dict(
-            zip(self.Cs, [False] * len(self.Cs)))  # dict of FCs with boolean to tell thread when to update
+        self.channels = self.settings['channels']  # ordered list of channels
+        self.update_flags = {}     # build update flag dict from records
         self.pvs = {}
 
-        for pv_name in self.Is:  # Make AIn PVs for all FIs
-            self.pvs[pv_name] = builder.aIn(pv_name)
-            if pv_name in self.records:
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        mode_list = [['Auto', 0], [ 'Open', 1 ], [ 'Closed', 2 ]]
 
-        for pv_name in self.Cs:  # Make AOut PVs for all FCs
-            self.pvs[pv_name] = builder.aOut(pv_name, on_update_name=self.update_pv)
-            if pv_name in self.records:
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        for channel in self.channels:    # set up PVs for each channel
+            if "_FI" in channel:
+                self.pvs[channel] = builder.aIn(channel)
+            elif "None" in channel:
+                pass
+            else:
+                self.pvs[channel+"_FI"] = builder.aIn(channel+"_FI")
+                self.pvs[channel+"_FC"] = builder.aOut(channel+"_FC", on_update_name=self.update)
+                self.pvs[channel+"_Mode"] = builder.mbbOut(channel+"_Mode", *mode_list, on_update_name=self.update)
+
+        for name, entry in self.pvs.items():
+            if name in self.records:
+                for field, value in self.records[name]['fields'].items():
+                    setattr(self.pvs[name], field, value)   # set the attributes of the PV
 
         self.thread = FlowThread(self)
         self.thread.daemon = True
         self.thread.start()
 
-    def update_pv(self, value, pv):
+    def update(self, value, pv):
         '''When PV updated, let thread know
         '''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
-        self.update[pv_name] = True
+        self.update_flags[pv_name] = True
 
 
 class FlowThread(Thread):
@@ -84,10 +87,10 @@ class FlowThread(Thread):
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
         self.update = parent.update
-        self.Is = parent.Is
-        self.Cs = parent.Cs
-        self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
-        self.setpoints = [0] * len(self.Cs)  # list of zeroes to start readback FCs
+        self.channels = parent.channels
+        self.values = [0] * len(self.channels)  # list of zeroes to start return FIs
+        self.setpoints = [0] * len(self.channels)  # list of zeroes to start readback FCs
+        self.outmodes = [0] * len(self.channels)  # list of zeroes to start readback modes
         if self.enable:  # if not enabled, don't connect
             #self.t = THCD(parent.settings['ip'], parent.settings['port'],
                           #parent.settings['timeout'])
@@ -102,37 +105,41 @@ class FlowThread(Thread):
             sleep(self.delay)
 
             for pv_name, bool in self.update.items():
-                if bool:  # there has been a change in this FC, update it
-                    if self.enable:
+                if bool and self.enable:  # there has been a change in this controller, update it
+                    if '_FC' in pv_name:
                         try:
-                            self.t.set_setpoint(self.Cs.index(pv_name) + 1, self.pvs[pv_name].get())
+                            self.t.set_setpoint(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
                         except OSError:
                             self.reconnect()
-                    else:
-                        self.setpoints[self.Cs.index(pv_name)] = self.pvs[pv_name].get()  # for test, just echo back
+                    elif '_Mode' in pv_name:
+                        try:
+                            self.t.set_mode(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
+                        except OSError:
+                            self.reconnect()
                     self.update[pv_name] = False
 
             if self.enable:
                 try:
                     self.setpoints = self.t.read_setpoints()
                     self.values = self.t.read_all()
+                    self.outmodes = self.t.read_modes()
                 except OSError:
                     self.reconnect()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             try:
-                for i, pv_name in enumerate(self.Is):
-                    self.pvs[pv_name].set(self.values[i])
-                for i, pv_name in enumerate(self.Cs):
-                    self.pvs[pv_name].set(self.setpoints[i])
+                for i, channel in enumerate(self.channels):
+                    self.pvs[channel + "_FI"].set(self.values[i])
+                    self.pvs[channel + "_FC"].set(self.setpoints[i])
+                    self.pvs[channel + "_Mode"].set(self.outmodes[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
 
-            diff = datetime.now() - now
-            if diff.total_seconds() > 150:    # trying fix to THCD falling off network
-                print(diff)
-                self.reconnect()
-                now = datetime.now()
+            #diff = datetime.now() - now
+            #if diff.total_seconds() > 150:    # trying fix to THCD falling off network
+            #    print(diff)
+            #    self.reconnect()
+            #    now = datetime.now()
 
     def reconnect(self):
         del self.t

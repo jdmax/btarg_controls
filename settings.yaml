@@ -16,15 +16,11 @@ flow_controller:
     port: '101'
     timeout: 2
     delay: 3                # update delay in seconds
-    indicators:   # List of PV names for each read channel of device in order
+    channels:   # List of PV names for each read channel. If FI is suffic, only one PV made. Others make three: FI, FC, Mode
         - Shield_FI
         - Evaporator_FI
         - Precool_FI
         - Pump_FI
-    controllers:   # List of PV names for each set channel of device in order
-        - Shield_FC
-        - Evaporator_FC
-        - Precool_FC
 lakeshore_218_1:
     enable: false            
     ip: '192.168.1.107'
