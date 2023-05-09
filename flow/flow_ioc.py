@@ -7,7 +7,7 @@ from threading import Thread
 import random
 import argparse
 
-from thcd import THCD
+from thcd import THCD, THCDserial
 
 
 async def main():
@@ -89,8 +89,9 @@ class FlowThread(Thread):
         self.values = [0] * len(self.Is)  # list of zeroes to start return FIs
         self.setpoints = [0] * len(self.Cs)  # list of zeroes to start readback FCs
         if self.enable:  # if not enabled, don't connect
-            self.t = THCD(parent.settings['ip'], parent.settings['port'],
-                          parent.settings['timeout'])  # open telnet connection to flow controllers
+            #self.t = THCD(parent.settings['ip'], parent.settings['port'],
+                          #parent.settings['timeout'])
+            self.t = THCDserial()  # open serial connection to flow controllers
 
     def run(self):
         '''
@@ -138,8 +139,9 @@ class FlowThread(Thread):
         sleep(1)
         print("Attempting reconnect.")
         try:
-            self.t = THCD(self.settings['ip'], self.settings['port'],
-                           self.settings['timeout'])  # reopen telnet connection
+            self.t = THCDserial()  # open serial connection to flow controllers
+            #self.t = THCDserial(self.settings['ip'], self.settings['port'],
+            #               self.settings['timeout'])  # reopen telnet connection
         except Exception as e:
             print("Failed reconnect", e)
 

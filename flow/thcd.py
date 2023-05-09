@@ -121,10 +121,9 @@ class THCDserial():
         try:
             self.s.flushInput()
             self.s.flushOutput()
-
-            self.s.write((f"aspv {channel}, {value}\n").encode())
+            self.s.write((f"aspv {channel},{value}\n").encode())
             self.s.readline().decode("utf-8")    # read back command
-            self.s.readline().decode("utf-8")   # read back ok
+            out = self.s.readline().decode("utf-8")   # read back ok
             return True
 
         except Exception as e:
@@ -141,6 +140,10 @@ class THCDserial():
             self.s.write((f"aspv?\n").encode())
             self.s.readline().decode("utf-8")    # read back command
             out = self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+            out += self.s.readline().decode("utf-8")  # read back result
+
             self.s.readline().decode("utf-8")   # read back ok
 
             ms = self.set_regex.findall(out)
