@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-05-11 15:18:50 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="label" version="2.0.0">
@@ -142,5 +143,17 @@
     <x>100</x>
     <y>170</y>
     <maximum>500.0</maximum>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Liquid Level:</text>
+    <y>320</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>pva://TGT:BTARG:LL:Reservoir_LI</pv_name>
+    <x>100</x>
+    <y>320</y>
+    <precision>2</precision>
   </widget>
 </display>

@@ -95,6 +95,7 @@ class THCDserial():
         self.read_regex = re.compile(
             'READ:(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+)|!RANGE!,')
         self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')
+        self.mode_regex = re.compile('SP(\d) MODE: \((\d)\)')
         self.ok_response_regex = re.compile(b'!a!o!\s\s')
 
     def read_all(self):
@@ -145,7 +146,6 @@ class THCDserial():
             out += self.s.readline().decode("utf-8")  # read back result
 
             self.s.readline().decode("utf-8")   # read back ok
-
             ms = self.set_regex.findall(out)
             for m in ms:
                 values.append(float(m[1]))
@@ -185,7 +185,7 @@ class THCDserial():
 
             self.s.readline().decode("utf-8")   # read back ok
 
-            ms = self.set_regex.findall(out)
+            ms = self.mode_regex.findall(out)
             for m in ms:
                 values.append(int(m[1]))
             return values
