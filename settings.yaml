@@ -139,5 +139,14 @@ ami136:
     delay: 5
     indicators:
         - Reservoir_LI
-
+rigol_dp832:
+    enable: true
+    ip: '192.168.1.32'
+    port: '5555'
+    timeout: 2
+    delay: 2
+    voltage_limit: 30.0
+    channels: # List of channel names in order. None indicates unused channel.
+        - None
+        - Reservoir
     
