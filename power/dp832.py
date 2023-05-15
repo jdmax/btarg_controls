@@ -34,8 +34,8 @@ class DP832():
             return values   # return voltage, current as list
 
         except Exception as e:
-            raise OSError('DP832 read sp')
             print(f"DP832 read sp failed on {self.host}: {e}")
+            raise OSError('DP832 read sp')
 
     def read(self, channel):
         '''Read voltage, current measured for given channel (1,2,3).'''
@@ -47,24 +47,23 @@ class DP832():
             return values   # return voltage, current as list
 
         except Exception as e:
-            raise OSError('DP832 read')
             print(f"DP832 read failed on {self.host}: {e}")
+            raise OSError('DP832 read')
 
     def set(self, channel, voltage, current):
         '''Set current and voltage for given channel'''
         try:
-            print(channel, voltage, current)
             self.tn.write(bytes(f":APPLY CH{channel},{voltage},{current}\n", 'ascii'))
-            self.tn.write(bytes(f":APPLY? CH{channel}\n", 'ascii'))   # Reading
-            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
-            print(f":APPLY CH{channel},{voltage},{current}\n","2",data)
-            m = self.read_regex.search(data)
-            values = [float(x) for x in m.groups()]
-            return values   # return voltage, current as list
+            #self.tn.write(bytes(f":APPLY? CH{channel}\n", 'ascii'))   # Reading
+            #data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            #print(f":APPLY CH{channel},{voltage},{current}\n","2",data)
+            #m = self.read_regex.search(data)
+            #values = [float(x) for x in m.groups()]
+            return True   # return voltage, current as list
 
         except Exception as e:
-            raise OSError('DP832 set')
             print(f"DP832 set failed on {self.host}: {e}")
+            raise OSError('DP832 set')
 
 
     def read_state(self, channel):
@@ -79,8 +78,8 @@ class DP832():
             return state
 
         except Exception as e:
-            raise OSError('DP832 outmode read')
             print(f"DP832 outmode read failed on {self.host}: {e}")
+            raise OSError('DP832 outmode read')
 
     def set_state(self, channel, state):
         '''Setup output state on (true) or off (false).
@@ -93,5 +92,5 @@ class DP832():
             self.tn.write(bytes(f":OUTPUT CH{channel},{out}\n", 'ascii'))
             return True
         except Exception as e:
-            raise OSError('DP832 out set')
             print(f"DP832 out set failed on {self.host}: {e}")
+            raise OSError('DP832 out set')

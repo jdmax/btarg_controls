@@ -38,5 +38,5 @@ class AMI136():
             return values
 
         except Exception as e:
-            raise OSError('AMI136 read')
             print(f"AMI136 read failed on {self.host}: {e}")
+            raise OSError('AMI136 read')

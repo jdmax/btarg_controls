@@ -35,5 +35,5 @@ class MKS937B():
             return values
 
         except Exception as e:
-            raise OSError('MKS 937B read')
             print(f"MKS 937B read failed on {self.host}: {e}")
+            raise OSError('MKS 937B read')

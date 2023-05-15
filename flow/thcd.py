@@ -114,8 +114,8 @@ class THCDserial():
             return values
 
         except Exception as e:
-            raise OSError('THCD read')
             print(f"THCD read failed on {self.host}: {e}")
+            raise OSError('THCD read')
 
     def set_setpoint(self, channel, value):
         '''Set set points for given channel. Returns list of 4 setpoints after setting.'''
@@ -128,8 +128,8 @@ class THCDserial():
             return True
 
         except Exception as e:
-            raise OSError('THCD write SP')
             print(f"THCD write setpoint failed on {self.host}: {e}")
+            raise OSError('THCD write SP')
 
     def read_setpoints(self):
         '''Read set points for all channels. Returns list of 4 setpoints.'''
@@ -152,8 +152,8 @@ class THCDserial():
             return values
 
         except Exception as e:
-            raise OSError('THCD read SP')
             print(f"THCD read setpoint failed on {self.host}: {e}")
+            raise OSError('THCD read SP')
 
     def set_mode(self, channel, value):
         '''Set mode for given channel.'''
@@ -166,8 +166,8 @@ class THCDserial():
             return True
 
         except Exception as e:
-            raise OSError('THCD write mode')
             print(f"THCD write mode failed on {self.host}: {e}")
+            raise OSError('THCD write mode')
 
     def read_modes(self):
         '''Read modes for all channels. Returns list of 4.'''
@@ -191,8 +191,8 @@ class THCDserial():
             return values
 
         except Exception as e:
-            raise OSError('THCD read mode')
             print(f"THCD read modes failed on {self.host}: {e}")
+            raise OSError('THCD read mode')
 
     def __del__(self):
         try:

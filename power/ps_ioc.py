@@ -107,7 +107,7 @@ class DP832Thread(Thread):
                     # figure out what type of PV this is, and send it to the right method
                     if 'CC' in pv_name:   # is this a current set? Voltage set from settings file
                         value = self.t.set(chan, self.volt_lim, self.pvs[pv_name].get())
-                        self.pvs[pv_name].set(value[1])   # set returned current
+                        self.pvs[pv_name].set(value)   # set returned current
                     elif 'Mode' in pv_name:
                         value = self.t.set_state(chan, self.pvs[pv_name].get())
                         self.pvs[pv_name].set(int(value))   # set returned value
@@ -125,7 +125,7 @@ class DP832Thread(Thread):
                     except OSError:
                         self.reconnect()
             else:
-                self.volt_outs = [random.random() for l in self.volt_outs]  # return random number when we are not enabled
+                self.volt_outs = [random.random() for l in self.channels]  # return random number when we are not enabled
 
             try:   # set new values to PVs
                 for i, channel in enumerate(self.channels):
