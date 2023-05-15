@@ -1,5 +1,6 @@
 import telnetlib
 import re
+import time
 
 class DP832():
     '''Handle connection to Rigol DP832 via Telnet.
@@ -27,39 +28,37 @@ class DP832():
     def read_sp(self, channel):
         '''Read voltage, current measured for given channel (1,2,3).'''
         try:
-            self.tn.write(bytes(f":APPLY? CH{channel}\n", 'ascii'))   # Reading
-            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            command = f":APPLY? CH{channel}\n"
+            self.tn.write(bytes(command, 'ascii'))   # Reading
+            data = self.tn.read_until(b'\n', timeout=self.timeout).decode('ascii')  # read until carriage return
             m = self.read_regex.search(data)
             values = [float(x) for x in m.groups()]
             return values   # return voltage, current as list
 
         except Exception as e:
-            print(f"DP832 read sp failed on {self.host}: {e}")
+            print(f"DP832 read sp failed on {self.host}: {e},{command},{data}")
             raise OSError('DP832 read sp')
 
     def read(self, channel):
         '''Read voltage, current measured for given channel (1,2,3).'''
         try:
-            self.tn.write(bytes(f":MEASURE:ALL? CH{channel}\n", 'ascii'))   # Reading
-            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            command = f":MEASURE:ALL? CH{channel}\n"
+            self.tn.write(bytes(command, 'ascii'))   # Reading
+            data = self.tn.read_until(b'\n', timeout=self.timeout).decode('ascii')  # read until carriage return
             m = self.read_sp_regex.search(data)
             values = [float(x) for x in m.groups()]
             return values   # return voltage, current as list
 
         except Exception as e:
-            print(f"DP832 read failed on {self.host}: {e}")
+            print(f"DP832 read failed on {self.host}: {e}, {command},{data}")
             raise OSError('DP832 read')
 
     def set(self, channel, voltage, current):
         '''Set current and voltage for given channel'''
         try:
             self.tn.write(bytes(f":APPLY CH{channel},{voltage},{current}\n", 'ascii'))
-            #self.tn.write(bytes(f":APPLY? CH{channel}\n", 'ascii'))   # Reading
-            #data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
-            #print(f":APPLY CH{channel},{voltage},{current}\n","2",data)
-            #m = self.read_regex.search(data)
-            #values = [float(x) for x in m.groups()]
-            return True   # return voltage, current as list
+            time.sleep(0.2)
+            return self.read_sp(channel)   # return voltage, current as list
 
         except Exception as e:
             print(f"DP832 set failed on {self.host}: {e}")
@@ -73,7 +72,7 @@ class DP832():
         '''
         try:
             self.tn.write(bytes(f"OUTPUT? CH{channel}\n", 'ascii'))
-            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            data = self.tn.read_until(b'\n', timeout=self.timeout).decode('ascii')  # read until carriage return
             state = True if 'ON' in data else False
             return state
 
@@ -90,7 +89,8 @@ class DP832():
         out = 'ON' if state else 'OFF'
         try:
             self.tn.write(bytes(f":OUTPUT CH{channel},{out}\n", 'ascii'))
-            return True
+            time.sleep(0.2)
+            return self.read_state(channel)
         except Exception as e:
             print(f"DP832 out set failed on {self.host}: {e}")
             raise OSError('DP832 out set')

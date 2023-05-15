@@ -53,6 +53,7 @@ class ReadDP832():
             self.pvs[channel+"_CI"] = builder.aIn(channel+"_CI")   # Current
 
             self.pvs[channel + "_CC"] = builder.aOut(channel + "_CC", on_update_name=self.update)
+            self.pvs[channel + "_VC"] = builder.aOut(channel + "_VC", on_update_name=self.update)
 
             self.pvs[channel + "_Mode"] = builder.boolOut(channel + "_Mode", on_update_name=self.update)
 
@@ -101,13 +102,13 @@ class DP832Thread(Thread):
             sleep(self.delay)
             for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change, update it
-                    print(pv_name)
                     p = pv_name.split("_")[0]   # pv_name root
                     chan = self.channels.index(p) + 1  # determine what channel we are on
                     # figure out what type of PV this is, and send it to the right method
-                    if 'CC' in pv_name:   # is this a current set? Voltage set from settings file
-                        value = self.t.set(chan, self.volt_lim, self.pvs[pv_name].get())
-                        self.pvs[pv_name].set(value)   # set returned current
+                    if 'CC' in pv_name or 'VC' in pv_name:   # is this a current set? Voltage set from settings file
+                        values = self.t.set(chan, self.pvs[p+'_VC'].get(), self.pvs[p+'_CC'].get())
+                        self.pvs[p+'_VC'].set(values[0])   # set returned voltage
+                        self.pvs[p+'_CC'].set(values[1])   # set returned current
                     elif 'Mode' in pv_name:
                         value = self.t.set_state(chan, self.pvs[pv_name].get())
                         self.pvs[pv_name].set(int(value))   # set returned value
@@ -133,8 +134,8 @@ class DP832Thread(Thread):
                     self.pvs[channel+'_VI'].set(self.volt_outs[i])
                     self.pvs[channel+'_CI'].set(self.current_outs[i])
                     self.pvs[channel+'_CC'].set(self.current_sets[i])
+                    self.pvs[channel+'_VC'].set(self.volt_sets[i])
                     self.pvs[channel+'_Mode'].set(self.states[i])
-
             except OSError:
                 self.reconnect()
             except Exception as e:
