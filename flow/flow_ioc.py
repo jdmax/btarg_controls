@@ -109,19 +109,23 @@ class FlowThread(Thread):
                     if '_FC' in pv_name:
                         try:
                             self.t.set_setpoint(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
+                            sleep(0.1)
                         except OSError:
                             self.reconnect()
                     elif '_Mode' in pv_name:
                         try:
                             self.t.set_mode(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
+                            sleep(0.1)
                         except OSError:
                             self.reconnect()
                     self.update[pv_name] = False
 
             if self.enable:
-                try:
+                try:   # Do reads from device, with short delays between
                     self.setpoints = self.t.read_setpoints()
+                    sleep(0.1)
                     self.values = self.t.read_all()
+                    sleep(0.1)
                     self.outmodes = self.t.read_modes()
                 except OSError:
                     self.reconnect()
