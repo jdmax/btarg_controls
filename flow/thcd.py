@@ -95,6 +95,7 @@ class THCDserial():
         self.read_regex = re.compile(
             'READ:(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+)|!RANGE!,')
         self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')
+        self.mode_regex = re.compile('SP(\d) MODE: \((\d)\)')
         self.ok_response_regex = re.compile(b'!a!o!\s\s')
 
     def read_all(self):
@@ -113,8 +114,8 @@ class THCDserial():
             return values
 
         except Exception as e:
-            raise OSError('THCD read')
             print(f"THCD read failed on {self.host}: {e}")
+            raise OSError('THCD read')
 
     def set_setpoint(self, channel, value):
         '''Set set points for given channel. Returns list of 4 setpoints after setting.'''
@@ -127,8 +128,8 @@ class THCDserial():
             return True
 
         except Exception as e:
-            raise OSError('THCD write SP')
             print(f"THCD write setpoint failed on {self.host}: {e}")
+            raise OSError('THCD write SP')
 
     def read_setpoints(self):
         '''Read set points for all channels. Returns list of 4 setpoints.'''
@@ -145,15 +146,14 @@ class THCDserial():
             out += self.s.readline().decode("utf-8")  # read back result
 
             self.s.readline().decode("utf-8")   # read back ok
-
             ms = self.set_regex.findall(out)
             for m in ms:
                 values.append(float(m[1]))
             return values
 
         except Exception as e:
-            raise OSError('THCD read SP')
             print(f"THCD read setpoint failed on {self.host}: {e}")
+            raise OSError('THCD read SP')
 
     def set_mode(self, channel, value):
         '''Set mode for given channel.'''
@@ -166,8 +166,8 @@ class THCDserial():
             return True
 
         except Exception as e:
-            raise OSError('THCD write mode')
             print(f"THCD write mode failed on {self.host}: {e}")
+            raise OSError('THCD write mode')
 
     def read_modes(self):
         '''Read modes for all channels. Returns list of 4.'''
@@ -185,14 +185,14 @@ class THCDserial():
 
             self.s.readline().decode("utf-8")   # read back ok
 
-            ms = self.set_regex.findall(out)
+            ms = self.mode_regex.findall(out)
             for m in ms:
                 values.append(int(m[1]))
             return values
 
         except Exception as e:
-            raise OSError('THCD read mode')
             print(f"THCD read modes failed on {self.host}: {e}")
+            raise OSError('THCD read mode')
 
     def __del__(self):
         try:

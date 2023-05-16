@@ -86,7 +86,7 @@ class FlowThread(Thread):
         self.enable = parent.settings['enable']
         self.delay = parent.settings['delay']
         self.pvs = parent.pvs
-        self.update = parent.update
+        self.update_flags = parent.update_flags
         self.channels = parent.channels
         self.values = [0] * len(self.channels)  # list of zeroes to start return FIs
         self.setpoints = [0] * len(self.channels)  # list of zeroes to start readback FCs
@@ -104,7 +104,7 @@ class FlowThread(Thread):
         while True:
             sleep(self.delay)
 
-            for pv_name, bool in self.update.items():
+            for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change in this controller, update it
                     if '_FC' in pv_name:
                         try:
@@ -133,17 +133,22 @@ class FlowThread(Thread):
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             try:
                 for i, channel in enumerate(self.channels):
-                    self.pvs[channel + "_FI"].set(self.values[i])
-                    self.pvs[channel + "_FC"].set(self.setpoints[i])
-                    self.pvs[channel + "_Mode"].set(self.outmodes[i])
+                    if "_FI" in channel:
+                        self.pvs[channel].set(self.values[i])
+                    elif "None" in channel:
+                        pass
+                    else:
+                        self.pvs[channel + "_FI"].set(self.values[i])
+                        self.pvs[channel + "_FC"].set(self.setpoints[i])
+                        self.pvs[channel + "_Mode"].set(self.outmodes[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
 
-            #diff = datetime.now() - now
-            #if diff.total_seconds() > 150:    # trying fix to THCD falling off network
-            #    print(diff)
-            #    self.reconnect()
-            #    now = datetime.now()
+            diff = datetime.now() - now
+            if diff.total_seconds() > 150:    # trying fix to THCD falling off network
+                print(diff)
+                self.reconnect()
+                now = datetime.now()
 
     def reconnect(self):
         del self.t

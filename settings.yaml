@@ -16,10 +16,10 @@ flow_controller:
     port: '101'
     timeout: 2
     delay: 3                # update delay in seconds
-    channels:   # List of PV names for each read channel. If FI is suffic, only one PV made. Others make three: FI, FC, Mode
-        - Shield_FI
-        - Evaporator_FI
-        - Precool_FI
+    channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
+        - Shield
+        - Evaporator
+        - Precool
         - Pump_FI
 lakeshore_218_1:
     enable: false            
@@ -131,4 +131,22 @@ si9700:
     delay: 10
     indicators:
         - Heater_HI
+ami136:
+    enable: true
+    ip: '192.168.1.108'
+    port: '1004'
+    timeout: 1
+    delay: 5
+    indicators:
+        - Reservoir_LI
+rigol_dp832:
+    enable: true
+    ip: '192.168.1.32'
+    port: '5555'
+    timeout: 2
+    delay: 3
+    voltage_limit: 30.0
+    channels: # List of channel names in order. None indicates unused channel.
+        - None
+        - ReservoirHeater
     

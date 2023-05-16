@@ -56,6 +56,6 @@ class SR201():
             values = [float(x) for x in m.groups()]
             return values
         except Exception as e:
-            raise OSError('SR201 set')
             print(f"SR201 set failed on {self.host}: {e}")
+            raise OSError('SR201 set')
 
