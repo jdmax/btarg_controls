@@ -92,9 +92,9 @@ class FlowThread(Thread):
         self.setpoints = [0] * len(self.channels)  # list of zeroes to start readback FCs
         self.outmodes = [0] * len(self.channels)  # list of zeroes to start readback modes
         if self.enable:  # if not enabled, don't connect
-            #self.t = THCD(parent.settings['ip'], parent.settings['port'],
-                          #parent.settings['timeout'])
-            self.t = THCDserial()  # open serial connection to flow controllers
+            self.t = THCD(parent.settings['ip'], parent.settings['port'],
+                          parent.settings['timeout'])
+            #self.t = THCDserial()  # open serial connection to flow controllers
 
     def run(self):
         '''
@@ -106,19 +106,20 @@ class FlowThread(Thread):
 
             for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change in this controller, update it
+                    p = pv_name.split("_")[0]   # pv_name root
                     if '_FC' in pv_name:
                         try:
-                            self.t.set_setpoint(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
+                            self.t.set_setpoint(self.channels.index(p) + 1, self.pvs[pv_name].get())
                             sleep(0.1)
                         except OSError:
                             self.reconnect()
                     elif '_Mode' in pv_name:
                         try:
-                            self.t.set_mode(self.channels.index(pv_name) + 1, self.pvs[pv_name].get())
+                            self.t.set_mode(self.channels.index(p) + 1, self.pvs[pv_name].get())
                             sleep(0.1)
                         except OSError:
                             self.reconnect()
-                    self.update[pv_name] = False
+                    self.update_flags[pv_name] = False
 
             if self.enable:
                 try:   # Do reads from device, with short delays between
@@ -144,20 +145,20 @@ class FlowThread(Thread):
             except Exception as e:
                 print(f"PV set failed: {e}")
 
-            diff = datetime.now() - now
-            if diff.total_seconds() > 150:    # trying fix to THCD falling off network
-                print(diff)
-                self.reconnect()
-                now = datetime.now()
+            #diff = datetime.now() - now
+            #if diff.total_seconds() > 150:    # trying fix to THCD falling off network
+            #    print(diff)
+            #    self.reconnect()
+            #    now = datetime.now()
 
     def reconnect(self):
         del self.t
         sleep(1)
         print("Attempting reconnect.")
         try:
-            self.t = THCDserial()  # open serial connection to flow controllers
-            #self.t = THCDserial(self.settings['ip'], self.settings['port'],
-            #               self.settings['timeout'])  # reopen telnet connection
+            #self.t = THCDserial()  # open serial connection to flow controllers
+            self.t = THCD(self.settings['ip'], self.settings['port'],
+                           self.settings['timeout'])  # reopen telnet connection
         except Exception as e:
             print("Failed reconnect", e)
 

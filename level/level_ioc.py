@@ -79,7 +79,6 @@ class AMI136Thread(Thread):
         '''
         while True:
             sleep(self.delay)
-
             if self.enable:
                 try:
                     self.values = self.t.read()

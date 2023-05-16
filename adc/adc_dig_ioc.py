@@ -79,7 +79,6 @@ class DATThread(Thread):
         '''
         while True:
             sleep(self.delay)
-
             if self.enable:
                 try:
                     self.values = self.t.read_all()
