@@ -116,79 +116,87 @@ class LS336Thread(Thread):
         '''
         Thread to read indicator PVS from controller channels. Identifies driver method to use from PV name. Delay time between measurements is in seconds.
         '''
+        ticks = 2     # times per seconds to do device sets
+        tocks = self.delay * tick  # only run reads every tock
+        i=0
         while True:
-            sleep(self.delay)
-            for pv_name, bool in self.update_flags.items():
-                if bool and self.enable:  # there has been a change, update it
-                    p = pv_name.split("_")[0]   # pv_name root
-                    chan = self.channels.index(p) + 1  # determine what channel we are on
-                    # figure out what type of PV this is, and send it to the right method
-                    if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
-                        dict = {}
-                        k_list = ['kP','kI','kD']
-                        for k in k_list:
-                            dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
-                        values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
-                        [self.pvs[p+"_"+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
-                    elif 'SP' in pv_name:   # is this a setpoint?
-                        value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
-                        self.pvs[pv_name].set(value)   # set returned value
-                    elif 'Manual' in pv_name:  # is this a manual out?
-                        value = self.t.set_man_heater(chan, self.pvs[pv_name].get())
-                        self.pvs[pv_name].set(value)  # set returned value
-                    elif 'Mode' in pv_name:
-                        value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
-                        self.pvs[pv_name].set(int(value))   # set returned value
-                    elif 'Range' in pv_name:
-                        value = self.t.set_range(chan, self.pvs[pv_name].get())
-                        self.pvs[pv_name].set(int(value))   # set returned value
-                    else:
-                        print('Error, control PV not categorized.')
-                    self.update_flags[pv_name] = False
+            sleep(1/ticks)
+            i+=1
+            if self.enable:
+                self.do_sets()
+                if i == tocks:
+                    self.do_reads()
+                    i = 0
+                self.update_pvs()
 
-            if self.enable:    # read all values from 336
-                try:
-                    self.temps = self.t.read_temps()
-                    self.heats[0] = self.t.read_heater(1)
-                    self.pids[0] = self.t.read_pid(1)
-                    self.outmodes[0] = self.t.read_outmode(1)
-                    self.ranges[0] = self.t.read_range(1)
-                    self.sps[0] = self.t.read_setpoint(1)
-                    self.manuals[0] = self.t.read_man_heater(1)
+    def do_sets(self):
+        '''If PV has changed, find the correct method to set it on the device'''
+        for pv_name, bool in self.update_flags.items():
+            if bool and self.enable:  # there has been a change, update it
+                p = pv_name.split("_")[0]   # pv_name root
+                chan = self.channels.index(p) + 1  # determine what channel we are on
+                # figure out what type of PV this is, and send it to the right method
+                if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
+                    dict = {}
+                    k_list = ['kP','kI','kD']
+                    for k in k_list:
+                        dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
+                    values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                    [self.pvs[p+"_"+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
+                elif 'SP' in pv_name:   # is this a setpoint?
+                    value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(value)   # set returned value
+                elif 'Manual' in pv_name:  # is this a manual out?
+                    value = self.t.set_man_heater(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(value)  # set returned value
+                elif 'Mode' in pv_name:
+                    value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
+                    self.pvs[pv_name].set(int(value))   # set returned value
+                elif 'Range' in pv_name:
+                    value = self.t.set_range(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(int(value))   # set returned value
+                else:
+                    print('Error, control PV not categorized.')
+                self.update_flags[pv_name] = False
 
-                    if self.num_full > 1:
-                        self.heats[1] = self.t.read_heater(2)
-                        self.heats[1] = self.t.read_pid(2)
-                        self.outmodes[1] = self.t.read_outmode(2)
-                        self.ranges[1] = self.t.read_range(2)
-                        self.sps[1] = self.t.read_setpoint(2)
-                        self.manuals[1] = self.t.read_man_heater(2)
-                except OSError:
-                    self.reconnect()
-            else:
-                self.temps = [random.random() for l in self.temps]  # return random number when we are not enabled
-                self.heats = [random.random()]*2  # return random number when we are not enabled
+    def do_reads(self):
+        '''Match '''
+        try:
+            self.temps = self.t.read_temps()
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.heats[i] = self.t.read_heater(i+1)
+                self.pids[i] = self.t.read_pid(i+1)
+                self.outmodes[i] = self.t.read_outmode(i+1)
+                self.ranges[i] = self.t.read_range(i+1)
+                self.sps[i] = self.t.read_setpoint(i+1)
+                self.manuals[i] = self.t.read_man_heater(i+1)
+        except OSError:
+            self.reconnect()
+        return
 
-            try:   # set new values to PVs
-                for i, channel in enumerate(self.channels):
-                    if "_TI" in channel:
-                        self.pvs[channel].set(self.temps[i])
-                    elif "None" in channel:
-                        pass
-                    else:
-                        self.pvs[channel+'_TI'].set(self.temps[i])
-                        self.pvs[channel+'_Heater'].set(self.heats[i])
-                        self.pvs[channel+'_kP'].set(self.pids[i][0])
-                        self.pvs[channel+'_kI'].set(self.pids[i][1])
-                        self.pvs[channel+'_kD'].set(self.pids[i][2])
-                        self.pvs[channel+'_Mode'].set(int(self.outmodes[i]))
-                        self.pvs[channel+'_Range'].set(int(self.ranges[i]))
-                        self.pvs[channel+'_SP'].set(self.sps[i])
-                        self.pvs[channel+'_Manual'].set(self.manuals[i])
-            except OSError:
-                self.reconnect()
-            except Exception as e:
-                print(f"PV set failed: {e}", channel)
+    def update_pvs(self):
+        try:  # set new values to PVs
+            for i, channel in enumerate(self.channels):
+                if "_TI" in channel:
+                    self.pvs[channel].set(self.temps[i])
+                elif "None" in channel:
+                    pass
+                else:
+                    self.pvs[channel + '_TI'].set(self.temps[i])
+                    self.pvs[channel + '_Heater'].set(self.heats[i])
+                    self.pvs[channel + '_kP'].set(self.pids[i][0])
+                    self.pvs[channel + '_kI'].set(self.pids[i][1])
+                    self.pvs[channel + '_kD'].set(self.pids[i][2])
+                    self.pvs[channel + '_Mode'].set(int(self.outmodes[i]))
+                    self.pvs[channel + '_Range'].set(int(self.ranges[i]))
+                    self.pvs[channel + '_SP'].set(self.sps[i])
+                    self.pvs[channel + '_Manual'].set(self.manuals[i])
+        except OSError:
+            self.reconnect()
+        except Exception as e:
+            print(f"PV set failed: {e}", channel)
+
 
     def reconnect(self):
         del self.t
