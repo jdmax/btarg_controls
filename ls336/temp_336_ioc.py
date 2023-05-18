@@ -160,7 +160,7 @@ class LS336Thread(Thread):
                 self.update_flags[pv_name] = False
 
     def do_reads(self):
-        '''Match '''
+        '''Match variables to methods in device driver'''
         try:
             self.temps = self.t.read_temps()
             for i, channel in enumerate(self.channels):
@@ -176,7 +176,8 @@ class LS336Thread(Thread):
         return
 
     def update_pvs(self):
-        try:  # set new values to PVs
+        '''Set new values from the reads to the PVs'''
+        try:
             for i, channel in enumerate(self.channels):
                 if "_TI" in channel:
                     self.pvs[channel].set(self.temps[i])
