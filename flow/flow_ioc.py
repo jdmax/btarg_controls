@@ -101,33 +101,44 @@ class FlowThread(Thread):
         Thread to read indicator PVS from controller channels. Delay time between measurements is in seconds.
         '''
         now = datetime.now()
+        if self.enable:
+            try:  # Do first reads from device, with short delays between
+                self.setpoints = self.t.read_setpoints()
+                sleep(0.2)
+                self.outmodes = self.t.read_modes()
+                sleep(0.2)
+            except OSError:
+                self.reconnect()
+
         while True:
             sleep(self.delay)
-
             for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change in this controller, update it
                     p = pv_name.split("_")[0]   # pv_name root
                     if '_FC' in pv_name:
                         try:
                             self.t.set_setpoint(self.channels.index(p) + 1, self.pvs[pv_name].get())
-                            sleep(0.1)
+                            sleep(0.2)
+                            self.setpoints = self.t.read_setpoints()
                         except OSError:
                             self.reconnect()
                     elif '_Mode' in pv_name:
                         try:
                             self.t.set_mode(self.channels.index(p) + 1, self.pvs[pv_name].get())
-                            sleep(0.1)
+                            sleep(0.2)
+                            self.outmodes = self.t.read_modes()
                         except OSError:
                             self.reconnect()
                     self.update_flags[pv_name] = False
 
             if self.enable:
                 try:   # Do reads from device, with short delays between
-                    self.setpoints = self.t.read_setpoints()
-                    sleep(0.1)
+                    #self.setpoints = self.t.read_setpoints()
+                    #sleep(0.2)
                     self.values = self.t.read_all()
-                    sleep(0.1)
-                    self.outmodes = self.t.read_modes()
+                    sleep(0.2)
+                    #self.outmodes = self.t.read_modes()
+                    #sleep(0.2)
                 except OSError:
                     self.reconnect()
             else:
@@ -154,7 +165,7 @@ class FlowThread(Thread):
     def reconnect(self):
         del self.t
         sleep(1)
-        print("Attempting reconnect.")
+        print("Attempting reconnect.", datetime.now())
         try:
             #self.t = THCDserial()  # open serial connection to flow controllers
             self.t = THCD(self.settings['ip'], self.settings['port'],
