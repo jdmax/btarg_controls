@@ -43,7 +43,9 @@ class THCD():
     def set_setpoint(self, channel, value):
         '''Set set points for given channel.'''
         try:
-            self.tn.write(bytes(f"aspv {channel},{value}\n",'ascii'))   
+            command = f"aspv {channel},{value:.2f}\n"
+            self.tn.write(bytes(command,'ascii'))
+            print(command)
             i, match, data = self.tn.expect([self.ok_response_regex], timeout = 2) 
             return True
             

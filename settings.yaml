@@ -149,4 +149,14 @@ rigol_dp832:
     channels: # List of channel names in order. None indicates unused channel.
         - None
         - ReservoirHeater
+zaber_xmcc:
+    enable: true
+    ip: '192.168.1.40'
+    port: '55551'
+    timeout: 1
+    delay: 5
+    channels:
+        - Valve1
+        - Valve2
+        - Flag
     

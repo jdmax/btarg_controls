@@ -6,6 +6,7 @@ from datetime import datetime
 from threading import Thread
 import random
 import argparse
+import sys
 
 from thcd import THCD, THCDserial
 
@@ -112,21 +113,33 @@ class FlowThread(Thread):
 
         while True:
             sleep(self.delay)
+
+        # Test code to change setpoint every x seconds
+            diff = datetime.now() - now
+            if diff.total_seconds() > 30:
+                rand = random.random()*10
+                print(f"{now}, {rand:.2f}")
+                self.pvs['Shield_FC'].set(rand)
+                now = datetime.now()
+                sleep(0.1)
+
             for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change in this controller, update it
                     p = pv_name.split("_")[0]   # pv_name root
                     if '_FC' in pv_name:
                         try:
-                            self.t.set_setpoint(self.channels.index(p) + 1, self.pvs[pv_name].get())
-                            sleep(0.2)
+                            print(self.t.set_setpoint(self.channels.index(p) + 1, self.pvs[pv_name].get()))
+                            sleep(0.5)
                             self.setpoints = self.t.read_setpoints()
+                            sleep(0.2)
                         except OSError:
                             self.reconnect()
                     elif '_Mode' in pv_name:
                         try:
                             self.t.set_mode(self.channels.index(p) + 1, self.pvs[pv_name].get())
-                            sleep(0.2)
+                            sleep(0.5)
                             self.outmodes = self.t.read_modes()
+                            sleep(0.2)
                         except OSError:
                             self.reconnect()
                     self.update_flags[pv_name] = False
@@ -156,16 +169,12 @@ class FlowThread(Thread):
             except Exception as e:
                 print(f"PV set failed: {e}")
 
-            #diff = datetime.now() - now
-            #if diff.total_seconds() > 150:    # trying fix to THCD falling off network
-            #    print(diff)
-            #    self.reconnect()
-            #    now = datetime.now()
 
     def reconnect(self):
         del self.t
         sleep(1)
         print("Attempting reconnect.", datetime.now())
+        sys.exit("Telnet connection failed.")
         try:
             #self.t = THCDserial()  # open serial connection to flow controllers
             self.t = THCD(self.settings['ip'], self.settings['port'],

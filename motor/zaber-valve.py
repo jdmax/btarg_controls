@@ -2,11 +2,11 @@ import asyncio
 from zaber_motion.ascii import Connection
 
 
-class Motor():
-    '''Handle connection to Zaber motor controller.
+class MotorController():
+    '''Handle connection to Zaber motor controller for all axes
     '''
 
-    def __init__(self, host, port, timeout):
+    def __init__(self, host, port,  timeout):
         '''Open connection to motor controller
         Arguments:
             host: IP address
@@ -16,16 +16,22 @@ class Motor():
         self.host = host
         self.port = port
         self.timeout = timeout
+        self.axes = []
 
         try:
-            self.con = Connection.open_tcp(host, Connection.TCP_PORT_CHAIN)
+            con = Connection.open_tcp(host, Connection.TCP_PORT_CHAIN)
+            device_list = con.detect_devices()
+            device = device_list[0]
+            for i in range(1, device.axis_count()+1):
+                self.axes[i] = device.get_axis(i)
         except Exception as e:
             print(f"Zaber motor connection failed on {self.host}: {e}")
 
 
-    def home(self, channel):
+    def move_to(self, axis, location):
+        self.axes[axis].move_absolute(location, Units.ANGLE_DEGREES)
 
-    def move_to(self):
+
 # from zaber example:
 axis1_coroutine = axis1.move_absolute_async(3, Units.LENGTH_CENTIMETRES)
 axis2_coroutine = axis2.move_absolute_async(3, Units.LENGTH_CENTIMETRES)
