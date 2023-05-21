@@ -3,9 +3,9 @@ all_iocs:
     prefix: TGT:BTARG
     log_dir: 'logs'   # path of logs directory
 flow_controller:
-    enable: true            # don't connect to device, use test mode
+    enable: true
     prefix: 'FLOW'
-    module: 'flow/flow'
+    module: 'flow/ls336'
     ip: '192.168.1.180'
     port: '101'
     timeout: 2

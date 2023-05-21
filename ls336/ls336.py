@@ -1,8 +1,134 @@
 import telnetlib
 import re
+from softioc import builder
 
 
-class LS336():
+class Device():
+    '''Makes library of PVs needed for LS336 and provides methods connect them to the device
+
+    Attributes:
+        pvs: dict of Process Variables keyed by name
+        channels: channels from device
+        update_flags: dict of bools keyed by PV name, marked when a control PV needs to be updated on device
+        new_reads: dict of most recent reads from device to set into PVs
+    '''
+    def __init__(self, device_name, settings, pvs):
+        '''Make PVs needed for this device and put in pvs dict keyed by name
+        '''
+        self.device_name = device_name
+        self.settings = settings
+        self.channels = settings['channels']
+        self.enable = settings['enable']
+        self.pvs = pvs
+        self.update_flags = {}     # build update flag dict from records
+        self.new_reads = {}
+
+        mode_list = [['Off', 0], ['Closed Loop', 1], ['Zone', 2], ['Open Loop', 3]]
+        range_list = [['Off', 0], ['Low', 1], ['Med', 2], ['High', 3]]
+
+        for channel in settings['channels']:  # set up PVs for each channel
+            if "_TI" in channel:
+                self.pvs[channel] = builder.aIn(channel)
+            elif "None" in channel:
+                pass
+            else:
+                self.pvs[channel + "_TI"] = builder.aIn(channel + "_TI")
+                self.pvs[channel + "_Heater"] = builder.aIn(channel + "_Heater")
+
+                self.pvs[channel + "_Manual"] = builder.aOut(channel + "_Manual", on_update_name=self.update)
+                self.pvs[channel + "_kP"] = builder.aOut(channel + "_kP", on_update_name=self.update)
+                self.pvs[channel + "_kI"] = builder.aOut(channel + "_kI", on_update_name=self.update)
+                self.pvs[channel + "_kD"] = builder.aOut(channel + "_kD", on_update_name=self.update)
+                self.pvs[channel + "_SP"] = builder.aOut(channel + "_SP", on_update_name=self.update)
+
+                self.pvs[channel + "_Mode"] = builder.mbbOut(channel + "_Mode", *mode_list, on_update_name=self.update)
+                self.pvs[channel + "_Range"] = builder.mbbOut(channel + "_Range", *range_list, on_update_name=self.update)
+
+    def connect(self):
+        '''Open connection to device'''
+        try:
+            self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+        except Exception as e:
+            print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        self.connect()
+
+    def update(self, value, pv):
+        '''When PV updated, let thread know
+        '''
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        self.update_flags[pv_name] = True
+
+    def do_sets(self):
+        '''If PV has changed, find the correct method to set it on the device'''
+        for pv_name, flag in self.update_flags.items():
+            if flag and self.enable:  # there has been a change, update it
+                p = pv_name.split("_")[0]   # pv_name root
+                chan = self.channels.index(p) + 1  # determine what channel we are on
+                # figure out what type of PV this is, and send it to the right method
+                if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
+                    dict = {}
+                    k_list = ['kP','kI','kD']
+                    for k in k_list:
+                        dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
+                    values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                    [self.pvs[p+"_"+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
+                elif 'SP' in pv_name:   # is this a setpoint?
+                    value = self.t.set_setpoint(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(value)   # set returned value
+                elif 'Manual' in pv_name:  # is this a manual out?
+                    value = self.t.set_man_heater(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(value)  # set returned value
+                elif 'Mode' in pv_name:
+                    value = self.t.set_outmode(chan, self.pvs[pv_name].get(), chan, 0)
+                    self.pvs[pv_name].set(int(value))   # set returned value
+                elif 'Range' in pv_name:
+                    value = self.t.set_range(chan, self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(int(value))   # set returned value
+                else:
+                    print('Error, control PV not categorized.')
+                self.update_flags[pv_name] = False
+
+    def do_reads(self):
+        '''Match variables to methods in device driver and get reads from device'''
+        try:
+            self.temps = self.t.read_temps()
+            for i, channel in enumerate(self.channels):
+                if "_TI" in channel:
+                    self.new_reads[channel].set(self.temps[i])
+                elif "None" in channel:
+                    pass
+                else:
+                    self.new_reads[channel + '_TI'] = self.temps[i]
+                    self.new_reads[channel + '_Heater'] = self.t.read_heater(i + 1)
+                    pids = self.t.read_pid(i + 1)
+                    self.new_reads[channel + '_kP'] = pids[0]
+                    self.new_reads[channel + '_kI'] = pids[1]
+                    self.new_reads[channel + '_kD'] = pids[2]
+                    self.new_reads[channel + '_Mode'] = int(self.t.read_outmode(i + 1))
+                    self.new_reads[channel + '_Range'] = int(self.t.read_range(i + 1))
+                    self.new_reads[channel + '_SP'] = self.t.read_setpoint(i + 1)
+                    self.new_reads[channel + '_Manual'] = self.t.read_man_heater(i + 1)
+
+        except OSError:
+            self.reconnect()
+        return
+
+    def update_pvs(self):
+        '''Set new values from the reads to the PVs'''
+        try:
+            for key, value in self.new_reads.items():
+                self.pvs[key] = value
+        except OSError:
+            self.reconnect()
+        except Exception as e:
+            print(f"PV set failed: {e}")
+
+
+class DeviceConnection():
     '''Handle connection to Lakeshore Model 336 via Telnet. 
     '''
 
