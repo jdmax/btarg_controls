@@ -1,17 +1,11 @@
 # btarg device settings, YAML
-prefix: TGT:BTARG
-log_dir: 'logs'   # path of logs directory
-states:   # list of state options for target. Needs to match state entries in records.yaml
-    - Empty
-    - Full
-    - Warm
-species:   # list of species options for target
-    - H2
-    - D2
-    - 4He
-    - 3He
+all_iocs:
+    prefix: TGT:BTARG
+    log_dir: 'logs'   # path of logs directory
 flow_controller:
     enable: true            # don't connect to device, use test mode
+    prefix: 'FLOW'
+    module: 'flow/flow'
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
