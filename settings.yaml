@@ -10,17 +10,25 @@ species:   # list of species options for target
     - D2
     - 4He
     - 3He
-flow_controller:
+flow_controller1:
     enable: true            # don't connect to device, use test mode
-    ip: '192.168.1.180'
-    port: '101'
+    ip: '192.168.1.107'
+    port: '1001'
     timeout: 2
-    delay: 3                # update delay in seconds
+    delay: 2                # update delay in seconds
     channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
         - Shield
-        - Evaporator
-        - Precool
-        - Pump_FI
+#flow_controller:
+#    enable: true            # don't connect to device, use test mode
+#    ip: '192.168.1.180'
+#    port: '101'
+#    timeout: 2
+#    delay: 3                # update delay in seconds
+#    channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
+#        - Shield
+#        - Evaporator
+#        - Precool
+#        - Pump_FI
 lakeshore_218_1:
     enable: false            
     ip: '192.168.1.107'

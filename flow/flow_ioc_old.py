@@ -8,7 +8,7 @@ import random
 import argparse
 import re
 
-from hfc import HFC
+from thcd import THCD, THCDserial
 
 
 async def main():
@@ -91,11 +91,11 @@ class FlowThread(Thread):
         self.pvs = parent.pvs
         self.update_flags = parent.update_flags
         self.channels = parent.channels
-        self.value = 0
-        self.setpoint = 0
-        self.outmode = 0
+        self.values = [0] * len(self.channels)  # list of zeroes to start return FIs
+        self.setpoints = [0] * len(self.channels)  # list of zeroes to start readback FCs
+        self.outmodes = [0] * len(self.channels)  # list of zeroes to start readback modes
         if self.enable:  # if not enabled, don't connect
-            self.t = HFC(parent.settings['ip'], parent.settings['port'],
+            self.t = THCD(parent.settings['ip'], parent.settings['port'],
                           parent.settings['timeout'])
             #self.t = THCDserial()  # open serial connection to flow controllers
 
@@ -106,9 +106,9 @@ class FlowThread(Thread):
         now = datetime.now()
         if self.enable:
             try:  # Do first reads from device, with short delays between
-                self.setpoint = self.t.read_setpoint()
+                self.setpoints = self.t.read_setpoints()
                 sleep(0.2)
-                self.outmode = self.t.read_mode()
+                self.outmodes = self.t.read_modes()
                 sleep(0.2)
             except OSError:
                 self.reconnect()
@@ -117,46 +117,57 @@ class FlowThread(Thread):
             sleep(self.delay)
 
         # Test code to change setpoint every x seconds
-        #    diff = datetime.now() - now
-        #    if diff.total_seconds() > 30:
-        #        rand = random.random()*10
-        #        print(f"{now}, {rand:.2f}")
-        #        self.pvs['Shield_FC'].set(rand)
-        #        now = datetime.now()
-        #        sleep(0.1)
+            diff = datetime.now() - now
+            if diff.total_seconds() > 30:
+                rand = random.random()*10
+                print(f"{now}, {rand:.2f}")
+                self.pvs['Shield_FC'].set(rand)
+                now = datetime.now()
+                sleep(0.1)
 
             for pv_name, bool in self.update_flags.items():
                 if bool and self.enable:  # there has been a change in this controller, update it
                     p = pv_name.split("_")[0]   # pv_name root
                     if '_FC' in pv_name:
                         try:
-                            self.t.set_setpoint(self.pvs[pv_name].get())
+                            print(self.t.set_setpoint(self.channels.index(p) + 1, self.pvs[pv_name].get()))
+                            sleep(0.5)
+                            self.setpoints = self.t.read_setpoints()
+                            sleep(0.2)
                         except OSError:
                             self.reconnect()
                     elif '_Mode' in pv_name:
                         try:
-                            self.t.set_mode(self.pvs[pv_name].get())
+                            self.t.set_mode(self.channels.index(p) + 1, self.pvs[pv_name].get())
+                            sleep(0.5)
+                            self.outmodes = self.t.read_modes()
+                            sleep(0.2)
                         except OSError:
                             self.reconnect()
                     self.update_flags[pv_name] = False
 
             if self.enable:
                 try:   # Do reads from device, with short delays between
-                    self.setpoint = self.t.read_setpoint()
-                    self.value = self.t.read()
-                    self.outmode = self.t.read_mode()
+                    #self.setpoints = self.t.read_setpoints()
+                    #sleep(0.2)
+                    self.values = self.t.read_all()
+                    sleep(0.2)
+                    #self.outmodes = self.t.read_modes()
+                    #sleep(0.2)
                 except OSError:
                     self.reconnect()
+            else:
+                self.values = [random.random() for l in self.values]  # return random number when we are not enabled
             try:
                 for i, channel in enumerate(self.channels):
                     if "_FI" in channel:
-                        self.pvs[channel].set(self.value)
+                        self.pvs[channel].set(self.values[i])
                     elif "None" in channel:
                         pass
                     else:
-                        self.pvs[channel + "_FI"].set(self.value)
-                        self.pvs[channel + "_FC"].set(self.setpoint)
-                        self.pvs[channel + "_Mode"].set(self.outmode)
+                        self.pvs[channel + "_FI"].set(self.values[i])
+                        self.pvs[channel + "_FC"].set(self.setpoints[i])
+                        self.pvs[channel + "_Mode"].set(self.outmodes[i])
             except Exception as e:
                 print(f"PV set failed: {e}")
 
