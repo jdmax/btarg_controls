@@ -17,86 +17,101 @@ class HFC():
         self.port = port
         self.timeout = timeout
 
+        self.read_regex = re.compile('Flow:\s+(-*\d+.\d+)\s')
+        self.set_regex = re.compile('SetPoint:\s+(\d+.\d+)\s')
+        self.mode_regex = re.compile('Valve Position:\s+x(\d)(\d)')
+        self.ok_response_regex = re.compile(b'>')
+
         try:
             self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=self.timeout)
+            self.tn.write(b"S112=1\r")   # set verbose on
+            i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)  # read until ok response
+
         except Exception as e:
-            print(f"THCD connection failed on {self.host}: {e}")
+            print(f"HFC connection failed on {self.host}: {e}")
 
-        self.read_regex = re.compile(
-            'READ:(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+)|!RANGE!,')
-        self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')
-        self.mode_regex = re.compile('SP(\d) MODE: \((\d)\)')
-        self.ok_response_regex = re.compile(b'!a!o!\s\s')
-
-    def read_all(self):
-        '''Read all channels. Returns list of 4 readings.'''
+    def read(self):
+        '''Read channel. Returns flow reading.'''
         try:
-            self.tn.write(b"ar\n")
+            self.tn.write(b"f\r")
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)  # read until ok response
             out = data.decode('ascii')
             m = self.read_regex.search(out)
-            values = [float(x) if not 'RANGE' in x else 999 for x in m.groups()]
-            return values
+            value = float(m.groups()[0])
+            return value
 
         except Exception as e:
-            print(f"THCD read failed on {self.host}: {e}")
-            raise OSError('THCD read')
+            print(f"HFC read failed on {self.host}: {e}")
+            raise OSError('HFC read')
 
-    def set_setpoint(self, channel, value):
-        '''Set set points for given channel.'''
+    def set_setpoint(self, value):
+        '''Set set point this channel.'''
         try:
-            command = f"aspv {channel},{value:.2f}\n"
+            command = f"V4={value:.2f}\r"
             self.tn.write(bytes(command, 'ascii'))
-            print(command)
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)
             return True
 
         except Exception as e:
-            print(f"THCD write setpoint failed on {self.host}: {e}")
-            raise OSError('THCD write SP')
+            print(f"HFC write setpoint failed on {self.host}: {e}")
+            raise OSError('HFC write SP')
 
-    def read_setpoints(self):
-        '''Read set points for all channels. Returns list of 4 setpoints.'''
+    def read_setpoint(self):
+        '''Read set points and return it.'''
         values = []
         try:
-            self.tn.write(bytes(f"aspv?\n", 'ascii'))
+            self.tn.write(bytes(f"V4\r", 'ascii'))
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)
             out = data.decode('ascii')
-            # print(out)
-            ms = self.set_regex.findall(out)
-            for m in ms:
-                values.append(float(m[1]))
-            return values
+            m = self.set_regex.search(out)
+            value = float(m.groups()[0])
+            return value
 
         except Exception as e:
-            print(f"THCD read setpoint failed on {self.host}: {e}")
-            raise OSError('THCD read SP')
+            print(f"HFC read setpoint failed on {self.host}: {e}")
+            raise OSError('HFC read SP')
 
-    def set_mode(self, channel, value):
-        '''Set mode for given channel.'''
+    def set_mode(self, value):
+        '''Set mode
+         0 = DEFAULT
+         1 = AUTO
+         2 = HOLD
+         3 = SHUT
+         4 = PURGE
+         5 = VARIABLE
+         6 = ERROR'''
         try:
-            self.tn.write(bytes(f"aspm {channel},{value}\n", 'ascii'))
+            command = f"V1={value:.2f}\r"
+            self.tn.write(bytes(command, 'ascii'))
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)
             return True
 
         except Exception as e:
-            print(f"THCD write mode failed on {self.host}: {e}")
-            raise OSError('THCD write mode')
+            print(f"HFC write mode failed on {self.host}: {e}")
+            raise OSError('HFC write mode')
 
-    def read_modes(self):
+    def read_mode(self):
         '''Read modes for all channels. Returns list of 4.'''
-        values = []
         try:
-            self.tn.write(bytes(f"aspm?\n", 'ascii'))
+            self.tn.write(bytes(f"V3\r", 'ascii'))
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)
             out = data.decode('ascii')
-            ms = self.mode_regex.findall(out)
-            for m in ms:
-                values.append(int(m[1]))
-            return values
+            m = self.mode_regex.search(out)
+            value1 = m.groups()[0]
+            value2 = m.groups()[1]
+            if '1' in value1:  # get value return to match set mode values
+                return 3   # closed
+            elif '2' in value1:
+                return 4   # open
+            elif '3' in value1:
+                return 2  # hold
+            elif '4' in value1:
+                return 5  # manual
+            elif '5' in value1:
+                return 1  # manual
         except Exception as e:
-            print(f"THCD read modes failed on {self.host}: {e}")
-            raise OSError('THCD read mode')
+            print(f"HFC read modes failed on {self.host}: {e}")
+            raise OSError('HFC read mode')
 
     def __del__(self):
         try:
