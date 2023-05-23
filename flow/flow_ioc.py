@@ -4,9 +4,7 @@ import yaml
 from time import sleep
 from datetime import datetime
 from threading import Thread
-import random
 import argparse
-import re
 
 from hfc import HFC
 
@@ -168,7 +166,7 @@ class FlowThread(Thread):
         #sys.exit("Telnet connection failed.")
         try:
             #self.t = THCDserial()  # open serial connection to flow controllers
-            self.t = THCD(self.settings['ip'], self.settings['port'],
+            self.t = HFC(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # reopen telnet connection
         except Exception as e:
             print("Failed reconnect", e)
