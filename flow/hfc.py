@@ -41,7 +41,7 @@ class HFC():
             return value
 
         except Exception as e:
-            print(f"HFC read failed on {self.host}: {e}")
+            print(f"HFC read failed on {self.host}: {e}, {data}")
             raise OSError('HFC read')
 
     def set_setpoint(self, value):
@@ -58,11 +58,11 @@ class HFC():
 
     def read_setpoint(self):
         '''Read set points and return it.'''
-        values = []
         try:
             self.tn.write(bytes(f"V4\r", 'ascii'))
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)
             out = data.decode('ascii')
+            print(out)
             m = self.set_regex.search(out)
             value = float(m.groups()[0])
             return value

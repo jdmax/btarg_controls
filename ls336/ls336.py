@@ -12,14 +12,14 @@ class Device():
         update_flags: dict of bools keyed by PV name, marked when a control PV needs to be updated on device
         new_reads: dict of most recent reads from device to set into PVs
     '''
-    def __init__(self, device_name, settings, pvs):
+    def __init__(self, device_name, settings):
         '''Make PVs needed for this device and put in pvs dict keyed by name
         '''
         self.device_name = device_name
         self.settings = settings
         self.channels = settings['channels']
         self.enable = settings['enable']
-        self.pvs = pvs
+        self.pvs = {}
         self.update_flags = {}     # build update flag dict from records
         self.new_reads = {}
 
