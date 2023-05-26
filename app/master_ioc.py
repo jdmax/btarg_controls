@@ -7,23 +7,23 @@ import argparse
 import importlib
 
 
-
 async def main():
-    '''
+    """
     Run IOC: load settings, create dispatcher, set name, start devices, do boilerplate
-    '''
+    """
     ioc, settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     device_name = settings['prefix'] + ":" + settings[ioc]['prefix']
     builder.SetDeviceName(device_name)
 
-    p = DeviceIOC(device_name, settings[ioc], records)
+    d = DeviceIOC(device_name, settings[ioc], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
 
     softioc.interactive_ioc(globals())
+
 
 class DeviceIOC():
     '''Set up PVs for device IOC, run thread to interact with device
@@ -78,18 +78,19 @@ class IOCThread(Thread):
             sleep(1/ticks)
             i+=1
             if self.enable:
-                self.device.do_sets()
+                self.device.do_sets()    # set changed PVs to device
                 if i == tocks:
-                    self.device.do_reads()
+                    self.device.do_reads()   # get new readings from device
                     i = 0
-                self.device.update_pvs()
+                self.device.update_pvs()  # put new readings into PVs
 
 
 def load_settings():
-    '''Load device settings and records from YAML settings files. Argument parser allows '-s' to give a different folder'''
+    """Load device settings and records from YAML settings files.
+    Argument parser allows '-s' to give a different folder"""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--Settings", help = "Settings files folder")
+    parser.add_argument("-s", "--Settings", help = "Settings file folder")
     parser.add_argument("-i", "--IOC", help = "Name of IOC to start")
     args = parser.parse_args()
     folder = args.Settings if args.Settings else '..'
@@ -102,7 +103,7 @@ def load_settings():
         records = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {folder}/records.yaml.")
 
-    ioc_list = settings.keys()
+    ioc_list = list(settings.keys())
     ioc_list.remove('all_iocs')
 
     if args.IOC:

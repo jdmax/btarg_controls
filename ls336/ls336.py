@@ -8,7 +8,7 @@ class Device():
 
     Attributes:
         pvs: dict of Process Variables keyed by name
-        channels: channels from device
+        channels: channels of device
         update_flags: dict of bools keyed by PV name, marked when a control PV needs to be updated on device
         new_reads: dict of most recent reads from device to set into PVs
     '''
@@ -95,14 +95,15 @@ class Device():
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            self.temps = self.t.read_temps()
+            self.new_reads = {}
+            temps = self.t.read_temps()
             for i, channel in enumerate(self.channels):
                 if "_TI" in channel:
-                    self.new_reads[channel].set(self.temps[i])
+                    self.new_reads[channel] = temps[i]
                 elif "None" in channel:
                     pass
                 else:
-                    self.new_reads[channel + '_TI'] = self.temps[i]
+                    self.new_reads[channel + '_TI'] = temps[i]
                     self.new_reads[channel + '_Heater'] = self.t.read_heater(i + 1)
                     pids = self.t.read_pid(i + 1)
                     self.new_reads[channel + '_kP'] = pids[0]

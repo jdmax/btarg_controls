@@ -1,15 +1,7 @@
 # btarg device settings, YAML
-prefix: TGT:BTARG
-log_dir: 'logs'   # path of logs directory
-states:   # list of state options for target. Needs to match state entries in records.yaml
-    - Empty
-    - Full
-    - Warm
-species:   # list of species options for target
-    - H2
-    - D2
-    - 4He
-    - 3He
+all_iocs:
+    prefix: TGT:BTARG
+    log_dir: 'logs'   # path of logs directory
 flow_controller1:
     enable: true            # don't connect to device, use test mode
     ip: '192.168.1.107'
@@ -49,6 +41,8 @@ lakeshore_218_2:
         - Other_TI
 lakeshore_336:
     enable: true
+    prefix: TEMP
+    module: temp.ls336
     ip: '192.168.1.36'
     port: '7777'
     timeout: 2
