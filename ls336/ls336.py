@@ -122,7 +122,7 @@ class Device():
         '''Set new values from the reads to the PVs'''
         try:
             for key, value in self.new_reads.items():
-                self.pvs[key] = value
+                self.pvs[key].set(value)
         except OSError:
             self.reconnect()
         except Exception as e:

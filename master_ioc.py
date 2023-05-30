@@ -16,9 +16,9 @@ async def main():
     builder.SetDeviceName(device_name)
 
     d = DeviceIOC(device_name, settings[ioc], records)
-    print(d.device.pvs['Coolant_Mode'],d.device.pvs['Coolant_Mode'].get())
+    print(repr(d.device.pvs['Coolant_Mode']))
     builder.LoadDatabase()
-    print(d.device.pvs['Coolant_Mode'],d.device.pvs['Coolant_Mode'].get())
+    print(repr(d.device.pvs['Coolant_Mode']))
     softioc.iocInit(dispatcher)
     async def loop():
         while True:
