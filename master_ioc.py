@@ -16,9 +16,7 @@ async def main():
     builder.SetDeviceName(device_name)
 
     d = DeviceIOC(device_name, settings[ioc], records)
-    print(repr(d.device.pvs['Coolant_Mode']))
     builder.LoadDatabase()
-    print(repr(d.device.pvs['Coolant_Mode']))
     softioc.iocInit(dispatcher)
     async def loop():
         while True:
@@ -42,10 +40,6 @@ class DeviceIOC():
         self.records = records
         self.settings = settings
         self.delay = self.settings['delay']
-        self.enable = self.settings['enable']
-        self.ticks = 2  # times per seconds to do device sets
-        self.tocks = self.delay * self.ticks  # only run reads every tock
-        self.i = 0
 
         self.device = self.module.Device(device_name, self.settings)
         self.device.connect()
@@ -59,16 +53,9 @@ class DeviceIOC():
         '''
          Coroutine to read indicator PVS from controller channels. Identifies driver method to use from PV name. Delay time between measurements is in seconds.
          '''
-        await asyncio.sleep(1 / self.ticks)
-        self.i += 1
-
-        if self.enable:
-            self.device.do_sets()  # set changed PVs to device
-
-            if self.i == self.tocks:
-                self.device.do_reads()  # get new readings from device
-                self.i = 0
-            self.device.update_pvs()  # put new readings into PVs
+        await asyncio.sleep(self.delay)
+        self.device.do_reads()  # get new readings from device
+        self.device.update_pvs()  # put new readings into PVs
 
 
 def load_settings():

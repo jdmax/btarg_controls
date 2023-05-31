@@ -40,7 +40,6 @@ lakeshore_218_2:
     indicators: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
-    enable: true
     prefix: TEMP
     module: 'ls336.ls336'
     ip: '192.168.1.36'

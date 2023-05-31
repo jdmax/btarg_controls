@@ -8,12 +8,7 @@ async def main():
     builder.SetDeviceName('device_name')
 
     d = DeviceIOC()
-    print(d.device.pvs['Test'].get())  # Prints the name of the PV
-    print(d.device.pvs['Test'].set(1))  # Prints the name of the PV
-    print(d.device.pvs['Test'].get())  # Prints the name of the PV
-
     builder.LoadDatabase()
-    print(d.device.pvs['Test'].get()) # Prints "None"
 
     softioc.iocInit(dispatcher)
     async def loop():
