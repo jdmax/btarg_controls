@@ -4,14 +4,14 @@ from softioc import builder
 
 
 class Device():
-    '''Makes library of PVs needed for LS336 and provides methods connect them to the device
+    """Makes library of PVs needed for LS336 and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
         channels: channels of device
-        update_flags: dict of bools keyed by PV name, marked when a control PV needs to be updated on device
         new_reads: dict of most recent reads from device to set into PVs
-    '''
+    """
+
     def __init__(self, device_name, settings):
         '''Make PVs needed for this device and put in pvs dict keyed by name
         '''
@@ -40,7 +40,8 @@ class Device():
                 self.pvs[channel + "_SP"] = builder.aOut(channel + "_SP", on_update_name=self.do_sets)
 
                 self.pvs[channel + "_Mode"] = builder.mbbOut(channel + "_Mode", *mode_list, on_update_name=self.do_sets)
-                self.pvs[channel + "_Range"] = builder.mbbOut(channel + "_Range", *range_list, on_update_name=self.do_sets)
+                self.pvs[channel + "_Range"] = builder.mbbOut(channel + "_Range", *range_list,
+                                                              on_update_name=self.do_sets)
 
     def connect(self):
         '''Open connection to device'''
@@ -57,28 +58,28 @@ class Device():
     def do_sets(self, new_value, pv):
         '''If PV has changed, find the correct method to set it on the device'''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
-        p = pv_name.split("_")[0]   # pv_name root
+        p = pv_name.split("_")[0]  # pv_name root
         chan = self.channels.index(p) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
-        if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name: # is this a PID control record?
+        if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
             dict = {}
-            k_list = ['kP','kI','kD']
+            k_list = ['kP', 'kI', 'kD']
             for k in k_list:
-                dict[k] = self.pvs[p+"_"+k].get()               # read pvs to send to device
+                dict[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
             values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
-            [self.pvs[p+"_"+k].set(values[i]) for i, k in enumerate(k_list)]   # set values read back
-        elif 'SP' in pv_name:   # is this a setpoint?
+            [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
+        elif 'SP' in pv_name:  # is this a setpoint?
             value = self.t.set_setpoint(chan, new_value)
-            self.pvs[pv_name].set(value)   # set returned value
+            self.pvs[pv_name].set(value)  # set returned value
         elif 'Manual' in pv_name:  # is this a manual out?
             value = self.t.set_man_heater(chan, new_value)
             self.pvs[pv_name].set(value)  # set returned value
         elif 'Mode' in pv_name:
             value = self.t.set_outmode(chan, new_value, chan, 0)
-            self.pvs[pv_name].set(int(value))   # set returned value
+            self.pvs[pv_name].set(int(value))  # set returned value
         elif 'Range' in pv_name:
             value = self.t.set_range(chan, new_value)
-            self.pvs[pv_name].set(int(value))   # set returned value
+            self.pvs[pv_name].set(int(value))  # set returned value
         else:
             print('Error, control PV not categorized.')
 
@@ -149,7 +150,7 @@ class DeviceConnection():
     def read_temps(self):
         '''Read temperatures for all channels.'''
         try:
-            self.tn.write(bytes(f"KRDG? 0\n", 'ascii'))   # Kelvin reading
+            self.tn.write(bytes(f"KRDG? 0\n", 'ascii'))  # Kelvin reading
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
             m = self.read_regex.search(data)
             values = [float(x) for x in m.groups()]
