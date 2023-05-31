@@ -25,18 +25,19 @@ lakeshore_218_1:
     prefix: TEMP
     module: 'devices.ls218'
     ip: '192.168.1.107'
-    port: '1023'    # channel 1 of serial to ethernet
+    port: '1001'    # channel 1 of serial to ethernet
     timeout: 2
     delay: 2
     channels:   # List of PV names for each read channel of 218 in order
         - Shield_Cold_TI
         - Shield_Mid_TI
         - Shield_Warm_TI
+        - None
 lakeshore_218_2:
     prefix: TEMP
     module: 'devices.ls218'
     ip: '192.168.1.107'
-    port: '1024'      # channel 2 of serial to ethernet
+    port: '1002'      # channel 2 of serial to ethernet
     timeout: 2
     delay: 2
     channels: # List of PV names for each read channel of 218 in order

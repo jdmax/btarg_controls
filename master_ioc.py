@@ -83,11 +83,12 @@ def load_settings():
         ioc = args.i
     else:
         print("Select IOC to run from these entries in settings file using -i flag:")
-        [print(f"-{x}") for x in ioc_list]
+        [print(f"  {x}") for x in ioc_list]
         exit()
     if ioc not in ioc_list:
         print("Given IOC not in settings file. Select from these:")
-        [print(f"-{x}") for x in ioc_list]
+        [print(f"  {x}") for x in ioc_list]
+        exit()
 
     return ioc, settings, records
 
