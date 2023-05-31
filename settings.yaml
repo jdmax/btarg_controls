@@ -22,26 +22,28 @@ flow_controller1:
 #        - Precool
 #        - Pump_FI
 lakeshore_218_1:
-    enable: false            
+    prefix: TEMP
+    module: 'devices.ls218'
     ip: '192.168.1.107'
     port: '1023'    # channel 1 of serial to ethernet
     timeout: 2
     delay: 2
-    indicators:   # List of PV names for each read channel of 218 in order
+    channels:   # List of PV names for each read channel of 218 in order
         - Shield_Cold_TI
         - Shield_Mid_TI
         - Shield_Warm_TI
 lakeshore_218_2:
-    enable: false
+    prefix: TEMP
+    module: 'devices.ls218'
     ip: '192.168.1.107'
     port: '1024'      # channel 2 of serial to ethernet
     timeout: 2
     delay: 2
-    indicators: # List of PV names for each read channel of 218 in order
+    channels: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
     prefix: TEMP
-    module: 'ls336.ls336'
+    module: 'devices.ls336'
     ip: '192.168.1.36'
     port: '7777'
     timeout: 2

@@ -9,7 +9,6 @@ class Device():
     Attributes:
         pvs: dict of Process Variables keyed by name
         channels: channels of device
-        update_flags: dict of bools keyed by PV name, marked when a control PV needs to be updated on device
         new_reads: dict of most recent reads from device to set into PVs
     '''
     def __init__(self, device_name, settings):

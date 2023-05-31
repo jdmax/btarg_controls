@@ -6,7 +6,7 @@ from threading import Thread
 import random
 import argparse
 
-from ls218 import LS218
+from devices.ls218 import LS218
 
 
 async def main():
