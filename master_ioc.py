@@ -38,16 +38,15 @@ class DeviceIOC():
 
         self.module = importlib.import_module(settings['module'])
         self.records = records
-        self.settings = settings
-        self.delay = self.settings['delay']
+        self.delay = settings['delay']
 
-        self.device = self.module.Device(device_name, self.settings)
+        self.device = self.module.Device(device_name, settings)
         self.device.connect()
 
-        for name, entry in self.device.pvs.items():
+        for name, entry in self.device.pvs.items():  # set the attributes of the PV (optional)
             if name in self.records:
                 for field, value in self.records[name]['fields'].items():
-                    setattr(self.device.pvs[name], field, value)   # set the attributes of the PV
+                    setattr(self.device.pvs[name], field, value)
 
     async def loop(self):
         '''
