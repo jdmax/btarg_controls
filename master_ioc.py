@@ -38,16 +38,15 @@ class DeviceIOC():
 
         self.module = importlib.import_module(settings['module'])
         self.records = records
-        self.settings = settings
-        self.delay = self.settings['delay']
+        self.delay = settings['delay']
 
-        self.device = self.module.Device(device_name, self.settings)
+        self.device = self.module.Device(device_name, settings)
         self.device.connect()
 
-        for name, entry in self.device.pvs.items():
+        for name, entry in self.device.pvs.items():  # set the attributes of the PV (optional)
             if name in self.records:
                 for field, value in self.records[name]['fields'].items():
-                    setattr(self.device.pvs[name], field, value)   # set the attributes of the PV
+                    setattr(self.device.pvs[name], field, value)
 
     async def loop(self):
         '''
@@ -58,15 +57,16 @@ class DeviceIOC():
         self.device.update_pvs()  # put new readings into PVs
 
 
+
 def load_settings():
     """Load device settings and records from YAML settings files.
     Argument parser allows '-s' to give a different folder"""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--Settings", help = "Settings file folder")
-    parser.add_argument("-i", "--IOC", help = "Name of IOC to start")
+    parser.add_argument("-s", help = "Settings file folder, default is here.")
+    parser.add_argument("-i", help = "Name of IOC to start")
     args = parser.parse_args()
-    folder = args.Settings if args.Settings else '.'
+    folder = args.s if args.s else '.'
 
     with open(f'{folder}/settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
@@ -79,10 +79,10 @@ def load_settings():
     ioc_list = list(settings.keys())
     ioc_list.remove('all_iocs')
 
-    if args.IOC:
-        ioc = args.IOC
+    if args.i:
+        ioc = args.i
     else:
-        print("Select IOC to run from these entries in settings file:")
+        print("Select IOC to run from these entries in settings file using -i flag:")
         [print(f"-{x}") for x in ioc_list]
         exit()
     if ioc not in ioc_list:
