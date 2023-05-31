@@ -5,7 +5,7 @@ from time import sleep
 from threading import Thread
 import argparse
 
-from sr201 import SR201
+from devices.sr201 import SR201
 
 
 async def main():

@@ -6,7 +6,7 @@ from threading import Thread
 import random
 import argparse
 
-from dat8148 import DAT8148
+from devices.dat8017 import DAT8017
 
 
 async def main():
@@ -19,7 +19,9 @@ async def main():
     device_name = settings['prefix'] + ':ADC'
     builder.SetDeviceName(device_name)
 
-    p = ReadADC(device_name, settings['dat8148'], records)
+    p1 = ReadADC(device_name, settings['dat8017-i1'], records)
+    p2 = ReadADC(device_name, settings['dat8017-i2'], records)
+    q = ReadADC(device_name, settings['dat8017-v'], records)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -46,14 +48,13 @@ class ReadADC:
         self.Is = self.settings['indicators']  # Dict of Indicator names in channel order to associate PV with channel
         self.pvs = {}
 
-        for pv_name in self.Is:  # Make PVs for all Is
-            self.pvs[pv_name] = builder.boolIn(pv_name)
-            if pv_name in self.records:
-                for field, value in self.records[pv_name]['fields'].items():
-                    setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
+        for pv_name in self.Is.keys():  # Make PVs for all Is
+            self.pvs[pv_name] = builder.aIn(pv_name)
+            for field, value in self.records[pv_name]['fields'].items():
+                setattr(self.pvs[pv_name], field, value)   # set the attributes of the PV
 
         self.thread = DATThread(self)
-        self.thread.setDaemon(True)
+        self.thread.daemon = True
         self.thread.start()
 
 
@@ -68,9 +69,9 @@ class DATThread(Thread):
         self.settings = parent.settings
         self.pvs = parent.pvs
         self.Is = parent.Is
-        self.values = [0] * len(self.Is)  # list of zeroes to start return Is
+        self.values = [0] * len(self.Is.keys())  # list of zeroes to start return Is
         if self.enable:  # if not enabled, don't connect
-            self.t = DAT8148(parent.settings['ip'], parent.settings['port'],
+            self.t = DAT8017(parent.settings['ip'], parent.settings['port'],
                            parent.settings['timeout'])  # open connection to adc
 
     def run(self):
@@ -79,6 +80,7 @@ class DATThread(Thread):
         '''
         while True:
             sleep(self.delay)
+
             if self.enable:
                 try:
                     self.values = self.t.read_all()
@@ -86,18 +88,15 @@ class DATThread(Thread):
                     self.reconnect()
             else:
                 self.values = [random.random() for l in self.values]  # return random number when we are not enabled
-            try:
-                for i, pv_name in enumerate(self.Is):
-                    out = True if self.values[i] else False
-                    self.pvs[pv_name].set(out)
-            except Exception as e:
-                print(f"PV set failed: {e}")
+            for i, pv_name in enumerate(self.Is.keys()):
+                calibrated = self.values[i] * self.Is[pv_name]  # set value times calibration from
+                self.pvs[pv_name].set(calibrated)
 
     def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
         try:
-            self.t = DAT8148(self.settings['ip'], self.settings['port'],
+            self.t = DAT8017(self.settings['ip'], self.settings['port'],
                            self.settings['timeout'])  # open connection to adc
         except Exception as e:
             print("Failed reconnect", e)

@@ -54,51 +54,57 @@ lakeshore_336:
         - None
         - Test1_TI
 omega_1:
-    enable: false            
+    prefix: TEMP
+    module: 'devices.omega'
     ip: '192.168.1.200'
     port: '2002'
     timeout: 15
     delay: 10
-    indicators: # Dict of PV names for each read channel in order, values are calibration factors
-        Exhaust_TI: 1
+    channels:
+        - Exhaust
 dat8017-i1:
-    enable: false
+    prefix: PRES
+    module: 'devices.dat8017'
     ip: '192.168.1.149'
     port: '502'
     timeout: 2
     delay: 1
-    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
 dat8017-i2:
-    enable: false
+    prefix: PRES
+    module: 'devices.dat8017'
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
     delay: 1
-    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top2_PI: 1
 dat8017-v:
-    enable: false
+    prefix: PRES
+    module: 'devices.dat8017'
     ip: '192.168.1.151'
     port: '502'
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 dat8148:
-    enable: false
+    prefix: PRES
+    module: 'devices.dat8148'
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels: # Dict of PV names for each read channel of datexel in order
         - Some_DI    # DI: Digital In
 sr-201:
-    enable: false
+    prefix: RELAY
+    module: 'devices.sr201'
     ip: '192.168.1.100'
     port: '6722'           # TCP control port of relay
     timeout: 2
-    delay: 1
+    delay: 10
     controllers:
         - Flip_VC
         - Flop_VC
