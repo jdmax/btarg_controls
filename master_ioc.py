@@ -33,9 +33,8 @@ class DeviceIOC():
 
     def __init__(self, device_name, settings, records):
         '''
-        Attributes:
-            pvs: list of builder process variables created
         Arguments:
+            device_name: name of device for PV prefix
             settings: dict of device settings
             records: dict of record settings
         '''

@@ -3,11 +3,8 @@ import asyncio
 import yaml
 import aioca
 from simple_pid import PID
-from threading import Thread
-from time import sleep
 import numpy as np
 import argparse
-import os
 
 
 async def main():

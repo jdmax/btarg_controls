@@ -11,8 +11,6 @@ from threading import Thread
 
 async def main():
 
-    with open('screen_config.yaml') as f:  # Load settings from YAML config file
-        screen_config = yaml.load(f, Loader=yaml.FullLoader)
     with open('settings.yaml') as f:  # Load settings from YAML config file
         settings = yaml.load(f, Loader=yaml.FullLoader)
 
@@ -21,7 +19,7 @@ async def main():
     device_name = settings['prefix'] + ':MAN'
     builder.SetDeviceName(device_name)
 
-    i = IOCManager(device_name, settings, screen_config)
+    i = IOCManager(device_name, settings)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -33,17 +31,15 @@ class IOCManager:
     Handles screens which run iocs. Make PVs to control each ioc.
     """
 
-    def __init__(self, device_name, settings, screen_config):
+    def __init__(self, device_name, settings):
         """
         Make control PVs for each IOC. "pvs" dict is keyed on name (e.g. flow), PV is labeled as name + 'control' (e.g. flow_control)
         """
         self.device_name = device_name
         self.settings = settings
-        self.screen_config = screen_config
         self.pvs = {}
         self.screens = {}     # Dict of all screens made for the iocs, keyed by screen name
         self.ioc_pvs = {}  # Dict of lists of all PVs in each screen instance, keyed by screen name
-
 
         self.states = [(name,i) for i, name in enumerate(self.settings['states'])]  # make list of tuples for mbbout call
         self.species = [(name,i) for i, name in enumerate(self.settings['species'])]

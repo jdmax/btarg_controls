@@ -5,6 +5,7 @@ all_iocs:
 flow_controller:
     prefix: FLOW
     module: 'devices.thcd'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
@@ -28,6 +29,7 @@ flow_controller:
 lakeshore_218_1:
     prefix: TEMP
     module: 'devices.ls218'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1001'    # channel 1 of serial to ethernet
     timeout: 2
@@ -40,6 +42,7 @@ lakeshore_218_1:
 lakeshore_218_2:
     prefix: TEMP
     module: 'devices.ls218'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1002'      # channel 2 of serial to ethernet
     timeout: 2
@@ -49,6 +52,7 @@ lakeshore_218_2:
 lakeshore_336:
     prefix: TEMP
     module: 'devices.ls336'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.36'
     port: '7777'
     timeout: 2
@@ -60,6 +64,7 @@ lakeshore_336:
 omega_1:
     prefix: TEMP
     module: 'devices.omega'
+    autostart: False         # Should IOC Manager try to start this?
     ip: '192.168.1.200'
     port: '2002'
     timeout: 15
@@ -69,6 +74,7 @@ omega_1:
 dat8017-i1:
     prefix: PRES
     module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.149'
     port: '502'
     timeout: 2
@@ -78,6 +84,7 @@ dat8017-i1:
 dat8017-i2:
     prefix: PRES
     module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
@@ -87,6 +94,7 @@ dat8017-i2:
 dat8017-v:
     prefix: PRES
     module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.151'
     port: '502'
     timeout: 2
@@ -96,6 +104,7 @@ dat8017-v:
 dat8148:
     prefix: PRES
     module: 'devices.dat8148'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
@@ -105,6 +114,7 @@ dat8148:
 sr-201:
     prefix: RELAY
     module: 'devices.sr201'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.100'
     port: '6722'           # TCP control port of relay
     timeout: 2
@@ -115,6 +125,7 @@ sr-201:
 mks937b:
     prefix: PRES
     module: 'devices.mks937b'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1025'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
@@ -125,6 +136,7 @@ mks937b:
 ami136:
     prefix: LEV
     module: 'devices.ami136'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.108'
     port: '1004'
     timeout: 1
@@ -134,6 +146,7 @@ ami136:
 rigol_dp832:
     prefix: LEV
     module: 'devices.dp832'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.32'
     port: '5555'
     timeout: 2
@@ -145,6 +158,7 @@ rigol_dp832:
 zaber_xmcc:
     enable: true
     ip: '192.168.1.40'
+    autostart: False          # Should IOC Manager try to start this?
     port: '55551'
     timeout: 1
     delay: 5
