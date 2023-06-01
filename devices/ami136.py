@@ -9,7 +9,6 @@ class Device():
     Attributes:
         pvs: dict of Process Variables keyed by name
         channels: channels of device
-        new_reads: dict of most recent reads from device to set into PVs
     """
 
     def __init__(self, device_name, settings):
@@ -19,7 +18,6 @@ class Device():
         self.settings = settings
         self.channels = settings['channels']
         self.pvs = {}
-        self.new_reads = {}
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
@@ -44,24 +42,17 @@ class Device():
     def do_reads(self):
         """Match variables to methods in device driver and get reads from device"""
         try:
-            self.new_reads = {}
+            new_reads = {}
             levels = self.t.read()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.new_reads[channel] = levels[i]
-        except OSError:
-            self.reconnect()
-        return
+                new_reads[channel] = levels[i]
 
-    def update_pvs(self):
-        """Set new values from the reads to the PVs"""
-        try:
-            for key, value in self.new_reads.items():
+            for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
             self.reconnect()
-        except Exception as e:
-            print(f"PV set failed: {e}")
+        return
 
 
 class DeviceConnection():

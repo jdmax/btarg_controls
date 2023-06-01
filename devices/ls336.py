@@ -86,38 +86,30 @@ class Device():
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            self.new_reads = {}
+            new_reads = {}
             temps = self.t.read_temps()
             for i, channel in enumerate(self.channels):
                 if "_TI" in channel:
-                    self.new_reads[channel] = temps[i]
+                    new_reads[channel] = temps[i]
                 elif "None" in channel:
                     pass
                 else:
-                    self.new_reads[channel + '_TI'] = temps[i]
-                    self.new_reads[channel + '_Heater'] = self.t.read_heater(i + 1)
+                    new_reads[channel + '_TI'] = temps[i]
+                    new_reads[channel + '_Heater'] = self.t.read_heater(i + 1)
                     pids = self.t.read_pid(i + 1)
-                    self.new_reads[channel + '_kP'] = pids[0]
-                    self.new_reads[channel + '_kI'] = pids[1]
-                    self.new_reads[channel + '_kD'] = pids[2]
-                    self.new_reads[channel + '_Mode'] = int(self.t.read_outmode(i + 1))
-                    self.new_reads[channel + '_Range'] = int(self.t.read_range(i + 1))
-                    self.new_reads[channel + '_SP'] = self.t.read_setpoint(i + 1)
-                    self.new_reads[channel + '_Manual'] = self.t.read_man_heater(i + 1)
+                    new_reads[channel + '_kP'] = pids[0]
+                    new_reads[channel + '_kI'] = pids[1]
+                    new_reads[channel + '_kD'] = pids[2]
+                    new_reads[channel + '_Mode'] = int(self.t.read_outmode(i + 1))
+                    new_reads[channel + '_Range'] = int(self.t.read_range(i + 1))
+                    new_reads[channel + '_SP'] = self.t.read_setpoint(i + 1)
+                    new_reads[channel + '_Manual'] = self.t.read_man_heater(i + 1)
 
-        except OSError:
-            self.reconnect()
-        return
-
-    def update_pvs(self):
-        '''Set new values from the reads to the PVs'''
-        try:
-            for key, value in self.new_reads.items():
+            for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
             self.reconnect()
-        except Exception as e:
-            print(f"PV set failed: {e}")
+        return
 
 
 class DeviceConnection():

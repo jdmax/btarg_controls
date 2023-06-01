@@ -56,8 +56,7 @@ class DeviceIOC():
         """Read indicator PVS from controller channels. Delay time between measurements is in seconds.
          """
         await asyncio.sleep(self.delay)
-        self.device.do_reads()  # get new readings from device
-        self.device.update_pvs()  # put new readings into PVs
+        self.device.do_reads()  # get new readings from device and set into PVs
 
 
 def load_settings():

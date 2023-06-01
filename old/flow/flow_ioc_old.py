@@ -6,9 +6,8 @@ from datetime import datetime
 from threading import Thread
 import random
 import argparse
-import re
 
-from thcd import THCD, THCDserial
+from devices.thcd import THCD
 
 
 async def main():

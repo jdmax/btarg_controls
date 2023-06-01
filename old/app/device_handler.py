@@ -3,7 +3,7 @@ from time import sleep
 from threading import Thread
 import random
 
-from flow.thcd import THCD
+from devices.thcd import THCD
 
 
 class DeviceHandler():

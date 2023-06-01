@@ -44,24 +44,17 @@ class Device():
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            self.new_reads = {}
+            new_reads = {}
             pres = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.new_reads[channel] = pres[i]
-        except OSError:
-            self.reconnect()
-        return
+                new_reads[channel] = pres[i]
 
-    def update_pvs(self):
-        '''Set new values from the reads to the PVs'''
-        try:
-            for key, value in self.new_reads.items():
+            for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
             self.reconnect()
-        except Exception as e:
-            print(f"PV set failed: {e}")
+        return
 
 
 class DeviceConnection():
