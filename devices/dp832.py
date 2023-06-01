@@ -1,8 +1,90 @@
 import telnetlib
 import re
 import time
+from softioc import builder
 
-class DP832():
+
+class Device():
+    '''Makes library of PVs needed for Rigol DP832 and provides methods connect them to the device
+
+    Attributes:
+        pvs: dict of Process Variables keyed by name
+        channels: channels of device
+        new_reads: dict of most recent reads from device to set into PVs
+    '''
+    def __init__(self, device_name, settings):
+        '''Make PVs needed for this device and put in pvs dict keyed by name
+        '''
+        self.device_name = device_name
+        self.settings = settings
+        self.channels = settings['channels']
+        self.pvs = {}
+        self.new_reads = {}
+
+        for channel in settings['channels']:  # set up PVs for each channel
+            if "None" in channel: continue
+            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI")   # Voltage
+            self.pvs[channel+"_CI"] = builder.aIn(channel+"_CI")   # Current
+
+            self.pvs[channel + "_CC"] = builder.aOut(channel + "_CC", on_update_name=self.do_sets)
+            self.pvs[channel + "_VC"] = builder.aOut(channel + "_VC", on_update_name=self.do_sets)
+
+            self.pvs[channel + "_Mode"] = builder.boolOut(channel + "_Mode", on_update_name=self.do_sets)
+
+
+    def connect(self):
+        '''Open connection to device'''
+        try:
+            self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+        except Exception as e:
+            print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def reconnect(self):
+        del self.t
+        print("Connection failed. Attempting reconnect.")
+        self.connect()
+
+    def do_sets(self, new_value, pv):
+        """Set PVs values to device"""
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        p = pv_name.split("_")[0]  # pv_name root
+        chan = self.channels.index(p) + 1  # determine what channel we are on
+        # figure out what type of PV this is, and send it to the right method
+        if 'CC' in pv_name or 'VC' in pv_name:  # is this a current set? Voltage set from settings file
+            values = self.t.set(chan, self.pvs[p + '_VC'].get(), self.pvs[p + '_CC'].get())
+            self.pvs[p + '_VC'].set(values[0])  # set returned voltage
+            self.pvs[p + '_CC'].set(values[1])  # set returned current
+        elif 'Mode' in pv_name:
+            value = self.t.set_state(chan, self.pvs[pv_name].get())
+            self.pvs[pv_name].set(int(value))  # set returned value
+        else:
+            print('Error, control PV not categorized.', pv_name)
+
+    def do_reads(self):
+        '''Match variables to methods in device driver and get reads from device'''
+        try:
+            self.new_reads = {}
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.new_reads[channel+'_VI'], self.new_reads[channel+'_CI'], power = self.t.read(i+1)
+                self.new_reads[channel+'_VC'], self.new_reads[channel+'_CC'] = self.t.read_sp(i+1)
+                self.new_reads[channel+'_Mode'] = self.t.read_state(i+1)
+        except OSError:
+            self.reconnect()
+        return
+
+    def update_pvs(self):
+        '''Set new values from the reads to the PVs'''
+        try:
+            for key, value in self.new_reads.items():
+                self.pvs[key].set(value)
+        except OSError:
+            self.reconnect()
+        except Exception as e:
+            print(f"PV set failed: {e}")
+
+
+class DeviceConnection():
     '''Handle connection to Rigol DP832 via Telnet.
     '''
 

@@ -1,8 +1,10 @@
-from pyModbusTCP.client import ModbusClient
+import telnetlib
+import re
 from softioc import builder
 
+
 class Device():
-    """Makes library of PVs needed for LS336 and provides methods connect them to the device
+    """Makes library of PVs needed for MKS937b and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
@@ -19,12 +21,12 @@ class Device():
         self.pvs = {}
         self.new_reads = {}
 
-        for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
+        for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel)
 
     def connect(self):
-        '''Open connection to device'''
+        """Open connection to device"""
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
         except Exception as e:
@@ -36,17 +38,17 @@ class Device():
         self.connect()
 
     def do_sets(self, new_value, pv):
-        """8017 has no sets"""
+        """MKS937b has no sets"""
         pass
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
             self.new_reads = {}
-            readings = self.t.read_all()
+            pres = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.new_reads[channel] = readings[i]
+                self.new_reads[channel] = pres[i]
         except OSError:
             self.reconnect()
         return
@@ -63,31 +65,37 @@ class Device():
 
 
 class DeviceConnection():
-    '''Handle connection to Datexel 8148 digital input. Unit has 16 digital read channels.
+    '''Handle connection to MKS 937B pressure gauge controller via ethernet to serial adapter.
     '''
 
-    def __init__(self, host, port, timeout):
-        '''Open connection to DAT8148
+    def __init__(self, host, port, address, timeout):
+        '''Open connection to MKS
         Arguments:
             host: IP address
-            port: Port of device
-            timeout: Telnet timeout in secs
+        port: Port of device
         '''
         self.host = host
         self.port = port
+        self.address = address
         self.timeout = timeout
 
         try:
-            self.m = ModbusClient(host=self.host, port=int(self.port), unit_id=1, auto_open=True)
+            self.tn = telnetlib.Telnet(self.host, port=self.port, timeout=self.timeout)
         except Exception as e:
-            print(f"Datexel 8148 connection failed on {self.host}: {e}")
+            print(f"MKS 937B connection failed on {self.host}: {e}")
+
+        self.read_regex = re.compile('ACK(.*)\s(.*)\s(.*)\s(.*)\s(.*)\s(.*);FF')
 
     def read_all(self):
-        '''Read all input coils.'''
+        '''Read pressures for all channels.'''
         try:
-            values = self.m.read_coils(496,16)  # read all 16 channels starting at 496. Order is 8-16 then 0-7.
-            return values[8:] + values[:8]  # switch around order to get 0-15
+            command = "@" + self.address + "PRZ?;FF"  # @003PRZ?;FF
+            self.tn.write(bytes(command, 'ascii'))
+            data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            m = self.read_regex.search(data)
+            values = [float(x) for x in m.groups()]
+            return values
 
         except Exception as e:
-            print(f"Datexel 8148 read failed on {self.host}: {e}")
-            raise OSError('8148 read')
+            print(f"MKS 937B read failed on {self.host}: {e}")
+            raise OSError('MKS 937B read')

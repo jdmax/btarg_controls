@@ -6,7 +6,7 @@ from threading import Thread
 import random
 import argparse
 
-from ami136 import AMI136
+from devices.ami136 import AMI136
 
 
 async def main():

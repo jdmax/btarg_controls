@@ -109,40 +109,18 @@ sr-201:
         - Flip_VC
         - Flop_VC
 mks937b:
-    enable: false
+    prefix: PRES
+    module: 'devices.mks937b'
     ip: '192.168.1.107'
     port: '1025'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
     timeout: 2
-    delay: 1
+    delay: 2
     indicators:
         - Some_PI
-pfeiffer-261:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1001'
-    timeout: 2
-    delay: 5
-    indicators:
-        - Return_PI
-pfeiffer-262:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1002'
-    timeout: 2
-    delay: 5
-    indicators:
-        - Supply_PI
-si9700:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1003'
-    timeout: 2
-    delay: 10
-    indicators:
-        - Heater_HI
 ami136:
-    enable: true
+    prefix: LEV
+    module: 'devices.ami136'
     ip: '192.168.1.108'
     port: '1004'
     timeout: 1
@@ -150,11 +128,12 @@ ami136:
     indicators:
         - Reservoir_LI
 rigol_dp832:
-    enable: true
+    prefix: LEV
+    module: 'devices.dp832'
     ip: '192.168.1.32'
     port: '5555'
     timeout: 2
-    delay: 3
+    delay: 5
     voltage_limit: 30.0
     channels: # List of channel names in order. None indicates unused channel.
         - None

@@ -20,12 +20,9 @@ class Device():
         self.pvs = {}
         self.new_reads = {}
 
-
         for channel in settings['channels']:  # set up PVs for each channel
-            if "None" in channel:
-                pass
-            else:
-                self.pvs[channel] = builder.aIn(channel)
+            if "None" in channel: continue
+            self.pvs[channel] = builder.aIn(channel)
 
     def connect(self):
         '''Open connection to device'''
@@ -49,10 +46,8 @@ class Device():
             self.new_reads = {}
             temps = self.t.read_all()
             for i, channel in enumerate(self.channels):
-                if "None" in channel:
-                    pass
-                else:
-                    self.new_reads[channel] = temps[i]
+                if "None" in channel: continue
+                self.new_reads[channel] = temps[i]
         except OSError:
             self.reconnect()
         return
@@ -66,7 +61,6 @@ class Device():
             self.reconnect()
         except Exception as e:
             print(f"PV set failed: {e}")
-
 
 
 class DeviceConnection():

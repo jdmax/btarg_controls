@@ -21,6 +21,7 @@ class Device():
         self.new_reads = {}
 
         for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
+            if "None" in channel: continue
             self.pvs[channel] = builder.aOut(channel, on_update_name=self.do_sets)
 
     def connect(self):
@@ -51,10 +52,8 @@ class Device():
             self.new_reads = {}
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
-                if "None" in channel:
-                    pass
-                else:
-                    self.new_reads[channel] = readings[i]
+                if "None" in channel: continue
+                self.new_reads[channel] = readings[i]
         except OSError:
             self.reconnect()
         return

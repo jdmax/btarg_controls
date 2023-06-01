@@ -6,7 +6,7 @@ from threading import Thread
 import random
 import argparse
 
-from dp832 import DP832
+from devices.dp832 import DP832
 
 
 async def main():

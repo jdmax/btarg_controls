@@ -6,7 +6,7 @@ from threading import Thread
 import random
 import argparse
 
-from mks937b import MKS937B
+from devices.mks937b import MKS937B
 
 
 async def main():

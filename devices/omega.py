@@ -23,6 +23,7 @@ class Device():
         self.new_reads = {}
 
         for channel in settings['channels']:  # set up PVs for each channel
+            if "None" in channel: continue
             self.pvs[channel+'_TI'] = builder.aIn(channel+'_TI')
             self.pvs[channel+'_TC'] = builder.aOut(channel+'_TC', on_update_name=self.do_sets)
 
@@ -53,6 +54,7 @@ class Device():
         try:
             self.new_reads = {}
             for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
                 self.new_reads[channel + '_TI'] = self.t.read()
         except OSError:
             self.reconnect()

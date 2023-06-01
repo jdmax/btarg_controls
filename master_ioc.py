@@ -18,15 +18,19 @@ async def main():
     d = DeviceIOC(device_name, settings[ioc], records)
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
+
     async def loop():
         while True:
             await d.loop()
+
     dispatcher(loop)  # put functions to loop in here
     softioc.interactive_ioc(globals())
 
+
 class DeviceIOC():
-    '''Set up PVs for device IOC, run thread to interact with device
-    '''
+    """Set up PVs for device IOC, run thread to interact with device
+    """
+
     def __init__(self, device_name, settings, records):
         '''
         Attributes:
@@ -49,22 +53,20 @@ class DeviceIOC():
                     setattr(self.device.pvs[name], field, value)
 
     async def loop(self):
-        '''
-         Coroutine to read indicator PVS from controller channels. Identifies driver method to use from PV name. Delay time between measurements is in seconds.
-         '''
+        """Read indicator PVS from controller channels. Delay time between measurements is in seconds.
+         """
         await asyncio.sleep(self.delay)
         self.device.do_reads()  # get new readings from device
         self.device.update_pvs()  # put new readings into PVs
 
 
-
 def load_settings():
     """Load device settings and records from YAML settings files.
-    Argument parser allows '-s' to give a different folder"""
+    Argument parser allows '-s' to give a different folder, '-i' tells which IOC to run"""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", help = "Settings file folder, default is here.")
-    parser.add_argument("-i", help = "Name of IOC to start")
+    parser.add_argument("-s", help="Settings file folder, default is here.")
+    parser.add_argument("-i", help="Name of IOC to start")
     args = parser.parse_args()
     folder = args.s if args.s else '.'
 
@@ -95,5 +97,3 @@ def load_settings():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-
