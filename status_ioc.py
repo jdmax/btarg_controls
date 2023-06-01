@@ -16,7 +16,7 @@ async def main():
     device_name = settings['all_iocs']['prefix'] + ':STAT'
     builder.SetDeviceName(device_name)
 
-    i = StatusIOC(settings, states)
+    i = StatusIOC(device_name, settings, states)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
@@ -35,12 +35,13 @@ class StatusIOC:
     Handles status changes. Make PVs to control each states changes.
     """
 
-    def __init__(self, settings, states):
+    def __init__(self, device_name, settings, states):
         """
         Make control PVs for status changes
         """
         self.settings = settings
         self.states = states
+        self.device_name = device_name
         self.pvs = {}
         self.status = self.states['options']['status']
         self.species = self.states['options']['species']
@@ -56,10 +57,18 @@ class StatusIOC:
         """
         Multiple Choice PV has changed for the state or species
         """
-        print(i,pv)
-        self.pv_spec.get()][0]
-        state = self.states[self.pv_stat.get()][0]
-        print(state,species)
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        print(i,pv, pv_name)
+        status = self.states['options']['status'][i]
+        species = self.states['options']['species'][i]
+
+        for pv in self.states[status]:  # set alarm values
+            if isinstance(self.states[status][pv][species], list):
+
+                caput(pv+'HIHI', self.states[status][pv][species][0])
+                caput(pv+'HIGH', self.states[status][pv][species][1])
+                caput(pv+'LOW', self.states[status][pv][species][2])
+                caput(pv+'HIHI', self.states[status][pv][species][3])
 
 
 

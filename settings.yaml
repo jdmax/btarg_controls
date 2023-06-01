@@ -3,7 +3,6 @@ all_iocs:
     prefix: TGT:BTARG
     log_dir: 'logs'   # path of logs directory
 flow_controller:
-    prefix: FLOW
     module: 'devices.thcd'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.180'
@@ -27,7 +26,6 @@ flow_controller:
 #        - Precool
 #        - Pump_FI
 lakeshore_218_1:
-    prefix: TEMP
     module: 'devices.ls218'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
@@ -40,7 +38,6 @@ lakeshore_218_1:
         - Shield_Warm_TI
         - None
 lakeshore_218_2:
-    prefix: TEMP
     module: 'devices.ls218'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
@@ -50,7 +47,6 @@ lakeshore_218_2:
     channels: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
-    prefix: TEMP
     module: 'devices.ls336'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.36'
@@ -62,7 +58,6 @@ lakeshore_336:
         - None
         - Test1_TI
 omega_1:
-    prefix: TEMP
     module: 'devices.omega'
     autostart: False         # Should IOC Manager try to start this?
     ip: '192.168.1.200'
@@ -72,7 +67,6 @@ omega_1:
     channels:
         - Exhaust
 dat8017-i1:
-    prefix: PRES
     module: 'devices.dat8017'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.149'
@@ -82,7 +76,6 @@ dat8017-i1:
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
 dat8017-i2:
-    prefix: PRES
     module: 'devices.dat8017'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.150'
@@ -92,7 +85,6 @@ dat8017-i2:
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top2_PI: 1
 dat8017-v:
-    prefix: PRES
     module: 'devices.dat8017'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.151'
@@ -102,7 +94,6 @@ dat8017-v:
     channels: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 dat8148:
-    prefix: PRES
     module: 'devices.dat8148'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.152'
@@ -112,7 +103,6 @@ dat8148:
     channels: # Dict of PV names for each read channel of datexel in order
         - Some_DI    # DI: Digital In
 sr-201:
-    prefix: RELAY
     module: 'devices.sr201'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.100'
@@ -123,7 +113,6 @@ sr-201:
         - Flip_VC
         - Flop_VC
 mks937b:
-    prefix: PRES
     module: 'devices.mks937b'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
@@ -134,7 +123,6 @@ mks937b:
     indicators:
         - Some_PI
 ami136:
-    prefix: LEV
     module: 'devices.ami136'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.108'
@@ -144,7 +132,6 @@ ami136:
     indicators:
         - Reservoir_LI
 rigol_dp832:
-    prefix: LEV
     module: 'devices.dp832'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.32'

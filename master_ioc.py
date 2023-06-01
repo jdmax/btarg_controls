@@ -12,7 +12,7 @@ async def main():
     ioc, settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['all_iocs']['prefix'] + ":" + settings[ioc]['prefix']
+    device_name = settings['all_iocs']['prefix']
     builder.SetDeviceName(device_name)
 
     d = DeviceIOC(device_name, settings[ioc], records)
