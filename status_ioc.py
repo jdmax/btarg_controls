@@ -21,12 +21,11 @@ async def main():
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
 
-    #async def loop():
-    #    while True:
-    #       pass
-        #   await d.loop()
+    async def loop():
+        while True:
+           await i.loop()
 
-    #dispatcher(loop)  # put functions to loop in here
+    dispatcher(loop)
     softioc.interactive_ioc(globals())
 
 
@@ -48,6 +47,13 @@ class StatusIOC:
 
         status_list = [[name,i] for i, name in enumerate(self.status)]  # make list of tuples for mbbout call
         species_list = [[name,i] for i, name in enumerate(self.species)]
+        pvlist = []
+        for status in self.states['options']['status']:
+            for pv in self.states[status]:
+                if isinstance(self.states[status][pv][self.states['options']['species'][0]], list):
+                    pvlist.append(pv)
+        self.watchlist = set(pvlist)
+        print(self.watchlist)
 
         self.pvs['status'] = builder.mbbOut('status', *status_list, on_update_name=self.stat_update)
         self.pvs['species'] = builder.mbbOut('species', *species_list, on_update_name=self.stat_update)
@@ -62,13 +68,27 @@ class StatusIOC:
         status = self.states['options']['status'][i]
         species = self.states['options']['species'][i]
 
-        for pv in self.states[status]:  # set alarm values
+        for pv in self.states[status]:  # set values and alarms for this state
             if isinstance(self.states[status][pv][species], list):
-
+                self.watch_list.append(pv)
                 caput(pv+'HIHI', self.states[status][pv][species][0])
                 caput(pv+'HIGH', self.states[status][pv][species][1])
                 caput(pv+'LOW', self.states[status][pv][species][2])
                 caput(pv+'HIHI', self.states[status][pv][species][3])
+            else:
+                caput(pv, self.states[status][pv][species])
+
+    def loop(self):
+        """
+        Loop to monitor for alarms to change states
+        """
+
+        for pv in self.watchlist:
+            camonitor(pv, )
+
+
+
+
 
 
 

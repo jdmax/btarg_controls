@@ -1,17 +1,16 @@
 # Target states with alarms and values for each PV.
 # A list is assumed to be alarms [HIHI,HIGH,LOW,LOLO], a scalar assumed to be a value.
-# None is taken as inf or -inf
 options:   # summary of headers of table below
-    species:
-        - H2
-        - D2
-        - 4He
-        - 3He
     status:
         - Cooldown
         - Empty
         - Full
         - Safe
+    species:
+        - H2
+        - D2
+        - 4He
+        - 3He
 Cooldown:
     Evaporator_TI:
         H2: [400, 400, 23, 22]
