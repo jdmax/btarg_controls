@@ -21,11 +21,6 @@ async def main():
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
 
-    async def loop():
-        while True:
-           await i.loop()
-
-    dispatcher(loop)
     softioc.interactive_ioc(globals())
 
 
@@ -59,7 +54,7 @@ class StatusIOC:
         self.pvs['species'] = builder.mbbOut('species', *species_list, on_update_name=self.stat_update)
 
 
-    def stat_update(self, i, pv):
+    async def stat_update(self, i, pv):
         """
         Multiple Choice PV has changed for the state or species
         """
@@ -70,28 +65,12 @@ class StatusIOC:
 
         for pv in self.states[status]:  # set values and alarms for this state
             if isinstance(self.states[status][pv][species], list):
-                self.watch_list.append(pv)
-                caput(pv+'HIHI', self.states[status][pv][species][0])
-                caput(pv+'HIGH', self.states[status][pv][species][1])
-                caput(pv+'LOW', self.states[status][pv][species][2])
-                caput(pv+'HIHI', self.states[status][pv][species][3])
+                await caput(pv+'.HIHI', self.states[status][pv][species][0])
+                await caput(pv+'.HIGH', self.states[status][pv][species][1])
+                await caput(pv+'.LOW', self.states[status][pv][species][2])
+                await caput(pv+'.HIHI', self.states[status][pv][species][3])
             else:
-                caput(pv, self.states[status][pv][species])
-
-    def loop(self):
-        """
-        Loop to monitor for alarms to change states
-        """
-
-        for pv in self.watchlist:
-            camonitor(pv, )
-
-
-
-
-
-
-
+                await caput(pv, self.states[status][pv][species])
 
 
 if __name__ == "__main__":
