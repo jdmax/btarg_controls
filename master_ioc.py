@@ -12,7 +12,7 @@ async def main():
     ioc, settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['all_iocs']['prefix']
+    device_name = settings['general']['prefix']
     builder.SetDeviceName(device_name)
 
     d = DeviceIOC(device_name, settings[ioc], records)
@@ -77,7 +77,7 @@ def load_settings():
     print(f"Loaded records from {folder}/records.yaml.")
 
     ioc_list = list(settings.keys())
-    ioc_list.remove('all_iocs')
+    ioc_list.remove('general')
 
     if args.i:
         ioc = args.i

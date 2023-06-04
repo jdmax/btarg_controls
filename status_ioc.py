@@ -13,7 +13,7 @@ async def main():
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
 
-    device_name = settings['all_iocs']['prefix'] + ':STAT'
+    device_name = settings['general']['prefix'] + ':STAT'
     builder.SetDeviceName(device_name)
 
     i = StatusIOC(device_name, settings, states)

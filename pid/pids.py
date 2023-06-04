@@ -17,7 +17,7 @@ async def main():
     settings, pid_settings = load_settings()
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     loop = asyncio.get_event_loop()
-    device_name = settings['all_iocs']['prefix'] + ':PID'
+    device_name = settings['general']['prefix'] + ':PID'
     builder.SetDeviceName(device_name)
 
     for pid_name, pdict in pid_settings.items():

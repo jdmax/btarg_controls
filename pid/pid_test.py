@@ -11,7 +11,7 @@ async def main():
     settings = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['all_iocs']['prefix'] + ':PID'
+    device_name = settings['general']['prefix'] + ':PID'
     builder.SetDeviceName(device_name)
 
     p = BoilerControl(device_name)
