@@ -43,11 +43,15 @@ class Device():
         '''If PV has changed, find the correct method to set it on the device'''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         # figure out what type of PV this is, and send it to the right method
-        if '_TC' in pv_name:  # is this a setpoint?
-            value = self.t.set_setpoint(new_value)
-            self.pvs[pv_name].set(value)  # set returned value
-        else:
-            print('Error, control PV not categorized.')
+        try:
+            if '_TC' in pv_name:  # is this a setpoint?
+                value = self.t.set_setpoint(new_value)
+                self.pvs[pv_name].set(value)  # set returned value
+            else:
+                print('Error, control PV not categorized.')
+        except OSError:
+            self.reconnect()
+        return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''

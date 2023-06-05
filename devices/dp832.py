@@ -50,16 +50,19 @@ class Device():
         p = pv_name.split("_")[0]  # pv_name root
         chan = self.channels.index(p) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
-        if 'CC' in pv_name or 'VC' in pv_name:  # is this a current set? Voltage set from settings file
-            values = self.t.set(chan, self.pvs[p + '_VC'].get(), self.pvs[p + '_CC'].get())
-            self.pvs[p + '_VC'].set(values[0])  # set returned voltage
-            self.pvs[p + '_CC'].set(values[1])  # set returned current
-        elif 'Mode' in pv_name:
-            value = self.t.set_state(chan, self.pvs[pv_name].get())
-            self.pvs[pv_name].set(int(value))  # set returned value
-        else:
-            print('Error, control PV not categorized.', pv_name)
-
+        try:
+            if 'CC' in pv_name or 'VC' in pv_name:  # is this a current set? Voltage set from settings file
+                values = self.t.set(chan, self.pvs[p + '_VC'].get(), self.pvs[p + '_CC'].get())
+                self.pvs[p + '_VC'].set(values[0])  # set returned voltage
+                self.pvs[p + '_CC'].set(values[1])  # set returned current
+            elif 'Mode' in pv_name:
+                value = self.t.set_state(chan, self.pvs[pv_name].get())
+                self.pvs[pv_name].set(int(value))  # set returned value
+            else:
+                print('Error, control PV not categorized.', pv_name)
+        except OSError:
+            self.reconnect()
+        return
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:

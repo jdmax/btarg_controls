@@ -150,7 +150,7 @@ zaber_xmcc:
     port: '55551'
     timeout: 1
     delay: 5
-    channels:
+    channels:   # list of "axes" in order. None indicates unused channel.
         - Valve1
         - Valve2
         - Flag

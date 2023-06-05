@@ -61,27 +61,31 @@ class Device():
         p = pv_name.split("_")[0]  # pv_name root
         chan = self.channels.index(p) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
-        if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
-            dict = {}
-            k_list = ['kP', 'kI', 'kD']
-            for k in k_list:
-                dict[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
-            values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
-            [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
-        elif 'SP' in pv_name:  # is this a setpoint?
-            value = self.t.set_setpoint(chan, new_value)
-            self.pvs[pv_name].set(value)  # set returned value
-        elif 'Manual' in pv_name:  # is this a manual out?
-            value = self.t.set_man_heater(chan, new_value)
-            self.pvs[pv_name].set(value)  # set returned value
-        elif 'Mode' in pv_name:
-            value = self.t.set_outmode(chan, new_value, chan, 0)
-            self.pvs[pv_name].set(int(value))  # set returned value
-        elif 'Range' in pv_name:
-            value = self.t.set_range(chan, new_value)
-            self.pvs[pv_name].set(int(value))  # set returned value
-        else:
-            print('Error, control PV not categorized.')
+        try:
+            if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
+                dict = {}
+                k_list = ['kP', 'kI', 'kD']
+                for k in k_list:
+                    dict[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
+                values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
+            elif 'SP' in pv_name:  # is this a setpoint?
+                value = self.t.set_setpoint(chan, new_value)
+                self.pvs[pv_name].set(value)  # set returned value
+            elif 'Manual' in pv_name:  # is this a manual out?
+                value = self.t.set_man_heater(chan, new_value)
+                self.pvs[pv_name].set(value)  # set returned value
+            elif 'Mode' in pv_name:
+                value = self.t.set_outmode(chan, new_value, chan, 0)
+                self.pvs[pv_name].set(int(value))  # set returned value
+            elif 'Range' in pv_name:
+                value = self.t.set_range(chan, new_value)
+                self.pvs[pv_name].set(int(value))  # set returned value
+            else:
+                print('Error, control PV not categorized.')
+        except OSError:
+            self.reconnect()
+        return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''

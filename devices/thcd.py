@@ -52,14 +52,18 @@ class Device():
         p = pv_name.split("_")[0]  # pv_name root
         chan = self.channels.index(p) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
-        if '_FC' in pv_name:
-            value = self.t.set_setpoint(self.pvs[pv_name].get())
-            self.pvs[pv_name].set(value)  # set returned value
-        elif '_Mode' in pv_name:
-            value = self.t.set_mode(self.pvs[pv_name].get())
-            self.pvs[pv_name].set(value)  # set returned value
-        else:
-            print('Error, control PV not categorized.')
+        try:
+            if '_FC' in pv_name:
+                value = self.t.set_setpoint(self.pvs[pv_name].get())
+                self.pvs[pv_name].set(value)  # set returned value
+            elif '_Mode' in pv_name:
+                value = self.t.set_mode(self.pvs[pv_name].get())
+                self.pvs[pv_name].set(value)  # set returned value
+            else:
+                print('Error, control PV not categorized.')
+        except OSError:
+            self.reconnect()
+        return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
