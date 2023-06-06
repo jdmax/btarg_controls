@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-02 22:54:47 by jmaxwell-->
+<!--Saved on 2023-06-06 15:17:10 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="label" version="2.0.0">
@@ -75,7 +75,7 @@
     <name>Polyline_4</name>
     <x>460</x>
     <y>220</y>
-    <width>0</width>
+    <width>1</width>
     <height>120</height>
     <points>
       <point x="0.0" y="120.0">
@@ -102,7 +102,22 @@
     <name>Image</name>
     <x>880</x>
     <y>150</y>
-    <width>0</width>
-    <height>0</height>
+    <width>1</width>
+    <height>1</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>0</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <text>FILL</text>
+    <x>280</x>
+    <y>30</y>
+    <width>260</width>
+    <height>80</height>
   </widget>
 </display>
