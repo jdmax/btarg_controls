@@ -146,12 +146,18 @@ rigol_dp832:
 zaber_xmcc:
     enable: true
     ip: '192.168.1.40'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: False
     port: '55551'
     timeout: 1
     delay: 5
     channels:   # list of "axes" in order. None indicates unused channel.
-        - Valve1
-        - Valve2
-        - Flag
+        Valve1:
+            home: False
+            min: 0
+            max: 500
+        None:
+        Flag:
+            home: True
+            min: -9
+            max: 45
     
