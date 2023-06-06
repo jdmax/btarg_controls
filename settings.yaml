@@ -143,21 +143,15 @@ rigol_dp832:
     channels: # List of channel names in order. None indicates unused channel.
         - None
         - ReservoirHeater
-zaber_xmcc:
-    enable: true
-    ip: '192.168.1.40'
+zaber:
+    module: 'devices.zaber_motor'
     autostart: False
+    ip: '192.168.1.40'
     port: '55551'
     timeout: 1
     delay: 5
     channels:   # list of "axes" in order. None indicates unused channel.
-        Valve1:
-            home: False
-            min: 0
-            max: 500
-        None:
-        Flag:
-            home: True
-            min: -9
-            max: 45
+        - Valve1
+        - None
+        - Flag
     
