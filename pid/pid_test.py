@@ -11,13 +11,19 @@ async def main():
     settings = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    device_name = settings['prefix'] + ':PID'
+    device_name = settings['general']['prefix'] + ':PID'
     builder.SetDeviceName(device_name)
 
     p = BoilerControl(device_name)
 
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
+
+    async def loop():
+        while True:
+            await p.update()
+
+    dispatcher(loop)  # put functions to loop in here
 
     softioc.interactive_ioc(globals())
 
@@ -30,7 +36,8 @@ class BoilerControl():
         '''   '''
 
         self.water_temp = 20
-        self.dt = 0.5
+        self.boiler_power = 5
+        self.dt = 1
         self.in_pv = builder.aIn('Test_Temp')
         setattr(self.in_pv, 'HIHI', 50.0)
         setattr(self.in_pv, 'HHSV', 'MAJOR')
@@ -40,13 +47,17 @@ class BoilerControl():
         setattr(self.in_pv, 'LSV', 'MINOR')
         setattr(self.in_pv, 'LOLO', 10.0)
         setattr(self.in_pv, 'LLSV', 'MAJOR')
-        self.out_pv = builder.aOut('Test_Power', DRVL = 0.0, DRVH = 50.0, on_update=self.update, always_update=True)
+        self.out_pv = builder.aOut('Test_Power', DRVL = 0.0, DRVH = 50.0, on_update=self.set, always_update=True)
+        self.out_pv.set(self.boiler_power)
 
 
-    def update(self, boiler_power):
-        #if boiler_power > 0:
-            # Boiler can only produce heat, not cold
-        self.water_temp += 1 * boiler_power * self.dt
+    def set(self, power):
+        self.boiler_power = power
+
+    async def update(self):
+        await asyncio.sleep(self.dt)
+        self.water_temp += 1 * self.boiler_power * self.dt
+        print(self.water_temp, self.boiler_power)
 
         # Some heat dissipation
         self.water_temp -= 5 * self.dt

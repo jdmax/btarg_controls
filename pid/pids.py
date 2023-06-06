@@ -3,11 +3,8 @@ import asyncio
 import yaml
 import aioca
 from simple_pid import PID
-from threading import Thread
-from time import sleep
 import numpy as np
 import argparse
-import os
 
 
 async def main():
@@ -20,7 +17,7 @@ async def main():
     settings, pid_settings = load_settings()
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     loop = asyncio.get_event_loop()
-    device_name = settings['prefix'] + ':PID'
+    device_name = settings['general']['prefix'] + ':PID'
     builder.SetDeviceName(device_name)
 
     for pid_name, pdict in pid_settings.items():

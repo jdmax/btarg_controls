@@ -1,23 +1,20 @@
 # btarg device settings, YAML
-prefix: TGT:BTARG
-log_dir: 'logs'   # path of logs directory
-states:   # list of state options for target. Needs to match state entries in records.yaml
-    - Empty
-    - Full
-    - Warm
-species:   # list of species options for target
-    - H2
-    - D2
-    - 4He
-    - 3He
-flow_controller1:
-    enable: true            # don't connect to device, use test mode
-    ip: '192.168.1.107'
-    port: '1001'
+# With exception of 'general', each top level key defines a new ioc for that device
+general:
+    prefix: TGT:BTARG
+    log_dir: 'logs'   # path of logs directory
+flow:
+    module: 'devices.thcd'
+    autostart: False          # Should IOC Manager try to start this?
+    ip: '192.168.1.180'
+    port: '101'
     timeout: 2
-    delay: 2                # update delay in seconds
+    delay: 3                # update delay in seconds
     channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
         - Shield
+        - Evaporator
+        - Precool
+        - Pump_FI
 #flow_controller:
 #    enable: true            # don't connect to device, use test mode
 #    ip: '192.168.1.180'
@@ -30,25 +27,29 @@ flow_controller1:
 #        - Precool
 #        - Pump_FI
 lakeshore_218_1:
-    enable: false            
+    module: 'devices.ls218'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
-    port: '1023'    # channel 1 of serial to ethernet
+    port: '1001'    # channel 1 of serial to ethernet
     timeout: 2
     delay: 2
-    indicators:   # List of PV names for each read channel of 218 in order
+    channels:   # List of PV names for each read channel of 218 in order
         - Shield_Cold_TI
         - Shield_Mid_TI
         - Shield_Warm_TI
+        - None
 lakeshore_218_2:
-    enable: false
+    module: 'devices.ls218'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
-    port: '1024'      # channel 2 of serial to ethernet
+    port: '1002'      # channel 2 of serial to ethernet
     timeout: 2
     delay: 2
-    indicators: # List of PV names for each read channel of 218 in order
+    channels: # List of PV names for each read channel of 218 in order
         - Other_TI
 lakeshore_336:
-    enable: true
+    module: 'devices.ls336'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.36'
     port: '7777'
     timeout: 2
@@ -58,89 +59,73 @@ lakeshore_336:
         - None
         - Test1_TI
 omega_1:
-    enable: false            
+    module: 'devices.omega'
+    autostart: False         # Should IOC Manager try to start this?
     ip: '192.168.1.200'
     port: '2002'
     timeout: 15
     delay: 10
-    indicators: # Dict of PV names for each read channel in order, values are calibration factors
-        Exhaust_TI: 1
+    channels:
+        - Exhaust
 dat8017-i1:
-    enable: false
+    module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.149'
     port: '502'
     timeout: 2
     delay: 1
-    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
 dat8017-i2:
-    enable: false
+    module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
     delay: 1
-    indicators:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top2_PI: 1
 dat8017-v:
-    enable: false
+    module: 'devices.dat8017'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.151'
     port: '502'
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels: # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Bot_PI: 1
 dat8148:
-    enable: false
+    module: 'devices.dat8148'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
     delay: 1
-    indicators: # Dict of PV names for each read channel of datexel in order, values are calibration factors
+    channels: # Dict of PV names for each read channel of datexel in order
         - Some_DI    # DI: Digital In
 sr-201:
-    enable: false
+    module: 'devices.sr201'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.100'
     port: '6722'           # TCP control port of relay
     timeout: 2
-    delay: 1
+    delay: 10
     controllers:
         - Flip_VC
         - Flop_VC
 mks937b:
-    enable: false
+    module: 'devices.mks937b'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1025'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
     timeout: 2
-    delay: 1
+    delay: 2
     indicators:
         - Some_PI
-pfeiffer-261:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1001'
-    timeout: 2
-    delay: 5
-    indicators:
-        - Return_PI
-pfeiffer-262:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1002'
-    timeout: 2
-    delay: 5
-    indicators:
-        - Supply_PI
-si9700:
-    enable: false
-    ip: '192.168.1.108'
-    port: '1003'
-    timeout: 2
-    delay: 10
-    indicators:
-        - Heater_HI
 ami136:
-    enable: true
+    module: 'devices.ami136'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.108'
     port: '1004'
     timeout: 1
@@ -148,23 +133,25 @@ ami136:
     indicators:
         - Reservoir_LI
 rigol_dp832:
-    enable: true
+    module: 'devices.dp832'
+    autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.32'
     port: '5555'
     timeout: 2
-    delay: 3
+    delay: 5
     voltage_limit: 30.0
     channels: # List of channel names in order. None indicates unused channel.
         - None
         - ReservoirHeater
-zaber_xmcc:
-    enable: true
+zaber:
+    module: 'devices.zaber_motor'
+    autostart: False
     ip: '192.168.1.40'
     port: '55551'
     timeout: 1
     delay: 5
-    channels:
+    channels:   # list of "axes" in order. None indicates unused channel.
         - Valve1
-        - Valve2
+        - None
         - Flag
     

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-06-06 14:56:20 by jmaxwell-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>Flag Motor Controls</text>
+    <x use_class="true">0</x>
+    <y use_class="true">0</y>
+    <width>550</width>
+    <height>31</height>
+    <font use_class="true">
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <foreground_color use_class="true">
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <transparent use_class="true">true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Postion (degrees):</text>
+    <y>50</y>
+    <width>130</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>pva://TGT:BTARG:Flag_VI</pv_name>
+    <x>150</x>
+    <y>50</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>Set position (degrees):</text>
+    <y>80</y>
+    <width>160</width>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner</name>
+    <pv_name>pva://TGT:BTARG:Flag_VC</pv_name>
+    <x>150</x>
+    <y>80</y>
+    <width>130</width>
+    <minimum>-100.0</minimum>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button</name>
+    <pv_name>pva://TGT:BTARG:Flag_home</pv_name>
+    <x>100</x>
+    <y>120</y>
+    <width>170</width>
+    <off_label>Home</off_label>
+    <on_label>Busy</on_label>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_1</name>
+    <pv_name>pva://TGT:BTARG:Flag_away</pv_name>
+    <x>100</x>
+    <y>170</y>
+    <width>170</width>
+    <off_label>Away</off_label>
+    <on_label>Busy</on_label>
+  </widget>
+</display>
