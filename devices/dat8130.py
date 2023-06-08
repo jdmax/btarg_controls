@@ -84,25 +84,26 @@ class DeviceConnection():
         try:
             self.m =  ModbusClient(host=self.host, port=self.port, unit_id=1, auto_open=True)
         except Exception as e:
-            print(f"Datexel 8017 connection failed on {self.host}: {e}")
+            print(f"Datexel 8130 connection failed on {self.host}: {e}")
 
     def read_all(self):
         '''Read all channels.'''
         try:
-            values = self.m.read_input_registers(40,8)  # read all 8 channels starting at 40
+            values = self.m.read_input_registers(504,8)  # read all 8 channels starting at 40
             return values
 
         except Exception as e:
-            print(f"Datexel 8017 read failed on {self.host}: {e}")
-            raise OSError('8017 read')
+            print(f"Datexel 8130 read failed on {self.host}: {e}")
+            raise OSError('8130 read')
 
 
     def switch(self, channel, state):
-        '''Flip channel to state.'''
+        '''Flip channel to state. DO channels from 0 to 3'''
         try:
-            values = self.m.read_input_registers(40,8)  # read all 8 channels starting at 40
+            self.m.write_single_coil(488+channel, state)
+            values = self.m.read_input_registers(488,4)  # read all 4 channels
             return values
 
         except Exception as e:
-            print(f"Datexel 8017 read failed on {self.host}: {e}")
-            raise OSError('8017 read')
+            print(f"Datexel 8130 write failed on {self.host}: {e}")
+            raise OSError('8130 write')
