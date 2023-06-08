@@ -103,16 +103,30 @@ dat8148:
     delay: 1
     channels: # Dict of PV names for each read channel of datexel in order
         - Some_DI    # DI: Digital In
-sr-201:
-    module: 'devices.sr201'
+dat8130:
+    module: 'devices.dat8130'
     autostart: False          # Should IOC Manager try to start this?
-    ip: '192.168.1.100'
-    port: '6722'           # TCP control port of relay
+    ip: '192.168.1.153'
+    port: '502'
     timeout: 2
-    delay: 10
-    controllers:
-        - Flip_VC
-        - Flop_VC
+    delay: 1
+    channels: # Dict of PV names for each channel. Needs 4 OUT channels first (None to mark unused), then up to 8 IN.
+        - Flip_DO    # DO: Digital In
+        - Flop_DO
+        - None      # DO not used
+        - None
+        - Flip_DI
+        - Flop_DI
+#sr-201:
+#    module: 'devices.sr201'
+#    autostart: False          # Should IOC Manager try to start this?
+#    ip: '192.168.1.100'
+#    port: '6722'           # TCP control port of relay
+#    timeout: 2
+#    delay: 10
+#    controllers:
+#        - Flip_VC
+#        - Flop_VC
 mks937b:
     module: 'devices.mks937b'
     autostart: False          # Should IOC Manager try to start this?

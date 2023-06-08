@@ -2,7 +2,7 @@ from pyModbusTCP.client import ModbusClient
 from softioc import builder
 
 class Device():
-    """Makes library of PVs needed for DAT8017 and provides methods connect them to the device
+    """Makes library of PVs needed for DAT8130 and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
@@ -20,10 +20,12 @@ class Device():
         self.new_reads = {}
         self.calibs = {}
 
-        for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
+        for i, channel in enumerate(settings['channels']):  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
-            self.pvs[channel] = builder.aIn(channel)
-            self.calibs[channel] = settings['channels'][channel]
+            if i < 4:   # Digital OUT channels first
+                self.pvs[channel] = builder.boolOut(channel, on_update_name=self.do_sets)
+            else:    # Digital IN next
+                self.pvs[channel] = builder.aIn(channel)
 
     def connect(self):
         '''Open connection to device'''
@@ -38,8 +40,14 @@ class Device():
         self.connect()
 
     def do_sets(self, new_value, pv):
-        """8017 has no sets"""
-        pass
+        """Set DO state"""
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        chan = str(self.channels.index(pv_name) + 1)
+        try:
+            values = self.t.switch(new_value, chan)
+            self.pvs[pv_name].set(values[int(chan)-1])  # set returned value
+        except OSError:
+            self.reconnect()
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
@@ -80,6 +88,17 @@ class DeviceConnection():
 
     def read_all(self):
         '''Read all channels.'''
+        try:
+            values = self.m.read_input_registers(40,8)  # read all 8 channels starting at 40
+            return values
+
+        except Exception as e:
+            print(f"Datexel 8017 read failed on {self.host}: {e}")
+            raise OSError('8017 read')
+
+
+    def switch(self, channel, state):
+        '''Flip channel to state.'''
         try:
             values = self.m.read_input_registers(40,8)  # read all 8 channels starting at 40
             return values
