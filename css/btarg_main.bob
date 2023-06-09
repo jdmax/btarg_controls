@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-06 15:17:10 by jmaxwell-->
+<!--Saved on 2023-06-09 11:08:25 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>Shield Cold</text>
-    <y>50</y>
+    <y>250</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Cold_TI</pv_name>
     <x>100</x>
-    <y>50</y>
+    <y>250</y>
     <precision>4</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
     <text>Shield Mid</text>
-    <y>80</y>
+    <y>280</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Mid_TI</pv_name>
     <x>100</x>
-    <y>80</y>
+    <y>280</y>
     <show_units>false</show_units>
   </widget>
   <widget type="polygon" version="2.0.0">
     <name>Polygon</name>
     <x>140</x>
-    <y>160</y>
+    <y>360</y>
     <width>1</width>
     <height>1</height>
     <points>
@@ -40,13 +40,13 @@
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Shield Warm</text>
-    <y>110</y>
+    <y>310</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Warm_TI</pv_name>
     <x>100</x>
-    <y>110</y>
+    <y>310</y>
   </widget>
   <widget type="tank" version="2.0.0">
     <name>Tank</name>
@@ -115,9 +115,72 @@
       </action>
     </actions>
     <text>FILL</text>
-    <x>280</x>
-    <y>30</y>
-    <width>260</width>
-    <height>80</height>
+    <x>10</x>
+    <y>20</y>
+    <width>230</width>
+    <height>60</height>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="24.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <x>290</x>
+    <y>20</y>
+    <width>190</width>
+    <height>70</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_4</name>
+    <text>Flop DO</text>
+    <x>490</x>
+    <y>110</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Flip DO</text>
+    <x>490</x>
+    <y>130</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Flop DI</text>
+    <x>490</x>
+    <y>150</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>Flip DI</text>
+    <x>490</x>
+    <y>170</y>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED</name>
+    <pv_name>pva://TGT:BTARG:Flop_DI</pv_name>
+    <x>600</x>
+    <y>150</y>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_2</name>
+    <pv_name>pva://TGT:BTARG:Flip_DI</pv_name>
+    <x>600</x>
+    <y>170</y>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button</name>
+    <pv_name>pva://TGT:BTARG:Flop_DO</pv_name>
+    <x>600</x>
+    <y>100</y>
+    <width>60</width>
+    <height>20</height>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_1</name>
+    <pv_name>pva://TGT:BTARG:Flip_DO</pv_name>
+    <x>600</x>
+    <y>130</y>
+    <width>60</width>
+    <height>20</height>
   </widget>
 </display>
