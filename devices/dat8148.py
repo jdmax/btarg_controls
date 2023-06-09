@@ -2,7 +2,7 @@ from pyModbusTCP.client import ModbusClient
 from softioc import builder
 
 class Device():
-    """Makes library of PVs needed for LS336 and provides methods connect them to the device
+    """Makes library of PVs needed for DAT8148 and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
@@ -36,7 +36,7 @@ class Device():
         self.connect()
 
     def do_sets(self, new_value, pv):
-        """8017 has no sets"""
+        """8148 has no sets"""
         pass
 
     def do_reads(self):
@@ -46,11 +46,13 @@ class Device():
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel] = readings[i] * self.calibs[channel]
+                new_reads[channel] = readings[i]
 
             for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
+            self.reconnect()
+        except TypeError:
             self.reconnect()
         return
 

@@ -2,7 +2,7 @@ from pyModbusTCP.client import ModbusClient
 from softioc import builder
 
 class Device():
-    """Makes library of PVs needed for LS336 and provides methods connect them to the device
+    """Makes library of PVs needed for DAT8017 and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
@@ -54,6 +54,8 @@ class Device():
                 self.pvs[key].set(value)
         except OSError:
             self.reconnect()
+        except TypeError:
+            self.reconnect()
         return
 
 
@@ -74,7 +76,7 @@ class DeviceConnection():
         self.timeout = timeout
 
         try:
-            self.m =  ModbusClient(host=self.host, port=self.port, unit_id=1, auto_open=True)
+            self.m =  ModbusClient(host=self.host, port=int(self.port), unit_id=1, auto_open=True)
         except Exception as e:
             print(f"Datexel 8017 connection failed on {self.host}: {e}")
 
