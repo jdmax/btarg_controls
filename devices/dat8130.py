@@ -28,15 +28,23 @@ class Device():
                 self.pvs[channel] = builder.aIn(channel)
 
     def connect(self):
-        '''Open connection to device'''
+        '''Open connection to device, read status of outs and set to PVs'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
+        try:   # set initial out PVs
+            values = self.t.read_coils()
+            for i, channel in enumerate(self.channels[:4]):  # set all
+                if "None" in channel: continue
+                self.pvs[self.channels[i]].set(values[i])
+        except OSError:
+            self.reconnect()
+
     def reconnect(self):
-        del self.t
         print("Connection failed. Attempting reconnect.")
+        del self.t
         self.connect()
 
     def do_sets(self, new_value, pv):
@@ -50,6 +58,8 @@ class Device():
                 self.pvs[self.channels[i]].set(values[i])
         except OSError:
             self.reconnect()
+        except TypeError:
+            self.reconnect()
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
@@ -62,6 +72,8 @@ class Device():
             for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
+            self.reconnect()
+        except TypeError:
             self.reconnect()
         return
 

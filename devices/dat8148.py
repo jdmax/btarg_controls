@@ -36,7 +36,7 @@ class Device():
         self.connect()
 
     def do_sets(self, new_value, pv):
-        """8048 has no sets"""
+        """8148 has no sets"""
         pass
 
     def do_reads(self):
@@ -46,11 +46,13 @@ class Device():
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel] = readings[i] * self.calibs[channel]
+                new_reads[channel] = readings[i]
 
             for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
+            self.reconnect()
+        except TypeError:
             self.reconnect()
         return
 

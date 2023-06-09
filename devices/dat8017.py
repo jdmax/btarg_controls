@@ -54,6 +54,8 @@ class Device():
                 self.pvs[key].set(value)
         except OSError:
             self.reconnect()
+        except TypeError:
+            self.reconnect()
         return
 
 
