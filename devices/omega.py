@@ -31,8 +31,21 @@ class Device():
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, pv_name in enumerate(self.channels):
+            try:
+                if '_TC' in pv_name:  # is this a setpoint?
+                    self.pvs[pv_name].set(self.t.read_setpoint())  # set returned value
+                else:
+                    print('Error, control PV not categorized.')
+            except OSError:
+                self.reconnect()
+        return
 
     def reconnect(self):
         del self.t
@@ -105,13 +118,21 @@ class DeviceConnection():
                 self.tn.write(bytes(char,'ascii'))     
             sleep(0.5)
             i, match, data = self.tn.expect([self.write_regex], timeout=self.timeout)   # read until carriage return
-            #print('command',  match, data)            
+            #print('command',  match, data)
+            return self.read_setpoint()
+
+        except Exception as e:
+            print(f"Omega read failed on {self.host}: {e}")
+
+    def read_setpoint(self):
+        '''Read back setpoint.'''
+        try:
             for char in "*R01\r\n":  # readback setpoint command
                 sleep(0.1)
                 self.tn.write(bytes(char,'ascii'))          
             i, match, data = self.tn.expect([self.sp_read_regex], timeout=self.timeout)   # read until carriage return
             #print('data', match, data)   # read until carriage return
-            m = self.pid_regex.search(data)
+            m = self.sp_read_regex.search(data)
             values  = [float(x) for x in m.groups()]
             return values[0]
             

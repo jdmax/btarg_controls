@@ -31,9 +31,12 @@ class Device():
         '''Open connection to device, read status of outs and set to PVs'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
+    def read_outs(self):
+        "Read and set OUT PVs at the start of the IOC"
         try:   # set initial out PVs
             values = self.t.read_coils()
             for i, channel in enumerate(self.channels[:4]):  # set all

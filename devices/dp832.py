@@ -36,8 +36,26 @@ class Device():
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, pv_name in enumerate(self.channels):
+            p = pv_name.split("_")[0]  # pv_name root
+            try:
+                if 'CC' in pv_name or 'VC' in pv_name:  # is this a current set? Voltage set from settings file
+                    values = self.t.read_sp(str(i+1))
+                    self.pvs[p + '_VC'].set(values[0])  # set returned voltage
+                    self.pvs[p + '_CC'].set(values[1])  # set returned current
+                elif 'Mode' in pv_name:
+                    value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
+                    self.pvs[pv_name].set(int(value))  # set returned value
+                else:
+                    print('Error, control PV not categorized.', pv_name)
+            except OSError:
+                self.reconnect()
 
     def reconnect(self):
         del self.t
@@ -56,13 +74,14 @@ class Device():
                 self.pvs[p + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[p + '_CC'].set(values[1])  # set returned current
             elif 'Mode' in pv_name:
-                value = self.t.set_state(chan, self.pvs[pv_name].get())
+                value = self.t.read_state(chan)
                 self.pvs[pv_name].set(int(value))  # set returned value
             else:
                 print('Error, control PV not categorized.', pv_name)
         except OSError:
             self.reconnect()
         return
+
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
@@ -141,7 +160,6 @@ class DeviceConnection():
         except Exception as e:
             print(f"DP832 set failed on {self.host}: {e}")
             raise OSError('DP832 set')
-
 
     def read_state(self, channel):
         '''Read output state for given channel.
