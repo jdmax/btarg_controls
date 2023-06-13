@@ -18,10 +18,11 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
         for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
-            self.pvs[channel] = builder.aIn(channel)
+            self.pvs[channel] = builder.aIn(channel, **sevr)
 
     def connect(self):
         '''Open connection to device'''

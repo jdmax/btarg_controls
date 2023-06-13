@@ -22,11 +22,12 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
         for channel in settings['channels']:  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
-            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI")
-            self.pvs[channel+"_VC"] = builder.aOut(channel+"_VC", on_update_name=self.do_sets)
+            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI", **sevr)
+            self.pvs[channel+"_VC"] = builder.aOut(channel+"_VC", on_update_name=self.do_sets, **sevr)
             self.pvs[channel+"_home"] = builder.boolOut(channel+"_home", on_update_name=self.do_sets)
             self.pvs[channel+"_away"] = builder.boolOut(channel+"_away", on_update_name=self.do_sets)
             self.pvs[channel+"_stop"] = builder.boolOut(channel+"_stop", on_update_name=self.do_sets)

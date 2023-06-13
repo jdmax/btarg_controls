@@ -1,24 +1,25 @@
-import asyncio
-from aioca import caget, caput, camonitor, run
+# Import the basic framework components.
 from softioc import softioc, builder, asyncio_dispatcher
+import asyncio
 
-async def main():
-    '''
-    Run PID IOC: load settings, create dispatcher, set name, start loops, do IOC boilerplate
-    '''
-    print('TGT:BTARG:PID:Test_Power', await caget('TGT:BTARG:PID:Test_Power'))
+dispatcher = asyncio_dispatcher.AsyncioDispatcher()
 
-    #dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-    #device_name = 'TEST'
-    #builder.SetDeviceName(device_name)
+builder.SetDeviceName("Test")
 
-    #builder.LoadDatabase()
-    #softioc.iocInit(dispatcher)
+sevs = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
-    #softioc.interactive_ioc(globals())
+ai = builder.aIn('AI', initial_value=5)
+ao = builder.aOut('AO', initial_value=12.45, always_update=True,
+                  on_update=lambda v: ai.set(v))
 
-    temp = await caget('TGT:BTARG:PID:Test_Power')
-    print(temp < 1)
+builder.LoadDatabase()
+softioc.iocInit(dispatcher)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+async def update():
+    while True:
+        ai.set(ai.get() + 1)
+        await asyncio.sleep(1)
+
+dispatcher(update)
+
+softioc.interactive_ioc(globals())

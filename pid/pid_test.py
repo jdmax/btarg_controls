@@ -57,12 +57,12 @@ class BoilerControl():
     async def update(self):
         await asyncio.sleep(self.dt)
         self.water_temp += 1 * self.boiler_power * self.dt
-        print(self.water_temp, self.boiler_power)
+        #print(self.water_temp, self.boiler_power)
 
         # Some heat dissipation
         self.water_temp -= 5 * self.dt
         self.in_pv.set(self.water_temp)
-        print('Temp', self.water_temp)
+        #print('Temp', self.water_temp)
 
 
 def load_settings():

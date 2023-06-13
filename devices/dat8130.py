@@ -19,13 +19,14 @@ class Device():
         self.pvs = {}
         self.new_reads = {}
         self.calibs = {}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
         for i, channel in enumerate(settings['channels']):  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
             if i < 4:   # Digital OUT channels first
-                self.pvs[channel] = builder.boolOut(channel, on_update_name=self.do_sets)
+                self.pvs[channel] = builder.boolOut(channel, **sevr, on_update_name=self.do_sets)
             else:    # Digital IN next
-                self.pvs[channel] = builder.aIn(channel)
+                self.pvs[channel] = builder.aIn(channel, **sevr)
 
     def connect(self):
         '''Open connection to device, read status of outs and set to PVs'''

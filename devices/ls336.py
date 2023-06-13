@@ -20,24 +20,25 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
         mode_list = [['Off', 0], ['Closed Loop', 1], ['Zone', 2], ['Open Loop', 3]]
         range_list = [['Off', 0], ['Low', 1], ['Med', 2], ['High', 3]]
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "_TI" in channel:
-                self.pvs[channel] = builder.aIn(channel)
+                self.pvs[channel] = builder.aIn(channel, **sevr)
             elif "None" in channel:
                 pass
             else:
-                self.pvs[channel + "_TI"] = builder.aIn(channel + "_TI")
-                self.pvs[channel + "_Heater"] = builder.aIn(channel + "_Heater")
+                self.pvs[channel + "_TI"] = builder.aIn(channel + "_TI", **sevr)
+                self.pvs[channel + "_Heater"] = builder.aIn(channel + "_Heater", **sevr)
 
-                self.pvs[channel + "_Manual"] = builder.aOut(channel + "_Manual", on_update_name=self.do_sets)
+                self.pvs[channel + "_Manual"] = builder.aOut(channel + "_Manual", on_update_name=self.do_sets, **sevr)
                 self.pvs[channel + "_kP"] = builder.aOut(channel + "_kP", on_update_name=self.do_sets)
                 self.pvs[channel + "_kI"] = builder.aOut(channel + "_kI", on_update_name=self.do_sets)
                 self.pvs[channel + "_kD"] = builder.aOut(channel + "_kD", on_update_name=self.do_sets)
-                self.pvs[channel + "_SP"] = builder.aOut(channel + "_SP", on_update_name=self.do_sets)
+                self.pvs[channel + "_SP"] = builder.aOut(channel + "_SP", on_update_name=self.do_sets, **sevr)
 
                 self.pvs[channel + "_Mode"] = builder.mbbOut(channel + "_Mode", *mode_list, on_update_name=self.do_sets)
                 self.pvs[channel + "_Range"] = builder.mbbOut(channel + "_Range", *range_list,

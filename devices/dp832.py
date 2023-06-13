@@ -20,14 +20,15 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
-            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI")   # Voltage
-            self.pvs[channel+"_CI"] = builder.aIn(channel+"_CI")   # Current
+            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI", **sevr)   # Voltage
+            self.pvs[channel+"_CI"] = builder.aIn(channel+"_CI", **sevr)   # Current
 
-            self.pvs[channel + "_CC"] = builder.aOut(channel + "_CC", on_update_name=self.do_sets)
-            self.pvs[channel + "_VC"] = builder.aOut(channel + "_VC", on_update_name=self.do_sets)
+            self.pvs[channel + "_CC"] = builder.aOut(channel + "_CC", on_update_name=self.do_sets, **sevr)
+            self.pvs[channel + "_VC"] = builder.aOut(channel + "_VC", on_update_name=self.do_sets, **sevr)
 
             self.pvs[channel + "_Mode"] = builder.boolOut(channel + "_Mode", on_update_name=self.do_sets)
 
