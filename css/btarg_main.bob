@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-12 14:01:44 by jmaxwell-->
+<!--Saved on 2023-06-13 16:36:33 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="polygon" version="2.0.0">
@@ -17,7 +17,7 @@
       </point>
       <point x="250.0" y="220.0">
       </point>
-      <point x="480.0" y="220.0">
+      <point x="440.0" y="220.0">
       </point>
       <point x="480.0" y="260.0">
       </point>
@@ -27,7 +27,7 @@
       </point>
       <point x="480.0" y="320.0">
       </point>
-      <point x="480.0" y="360.0">
+      <point x="440.0" y="360.0">
       </point>
       <point x="250.0" y="360.0">
       </point>
@@ -122,19 +122,6 @@
     </points>
     <arrows>1</arrows>
   </widget>
-  <widget type="meter" version="3.0.0">
-    <name>Meter</name>
-    <x>1050</x>
-    <y>290</y>
-    <width>140</width>
-    <height>80</height>
-    <background_color>
-      <color red="255" green="255" blue="255" alpha="0">
-      </color>
-    </background_color>
-    <show_value>false</show_value>
-    <show_units>false</show_units>
-  </widget>
   <widget type="image" version="2.0.0">
     <name>Image</name>
     <x>880</x>
@@ -146,15 +133,15 @@
     <name>Polygon_2</name>
     <x>850</x>
     <y>350</y>
-    <width>0</width>
-    <height>0</height>
+    <width>1</width>
+    <height>1</height>
   </widget>
   <widget type="polygon" version="2.0.0">
     <name>Polygon_3</name>
     <x>930</x>
     <y>260</y>
-    <width>0</width>
-    <height>0</height>
+    <width>1</width>
+    <height>1</height>
   </widget>
   <widget type="polyline" version="2.0.0">
     <name>Polyline</name>
@@ -180,7 +167,7 @@
       </point>
       <point x="180.0" y="300.0">
       </point>
-      <point x="420.0" y="300.0">
+      <point x="390.0" y="300.0">
       </point>
       <point x="420.0" y="270.0">
       </point>
@@ -190,7 +177,7 @@
       </point>
       <point x="420.0" y="230.0">
       </point>
-      <point x="420.0" y="200.0">
+      <point x="390.0" y="200.0">
       </point>
       <point x="180.0" y="200.0">
       </point>
@@ -210,5 +197,19 @@
       </color>
     </background_color>
     <transparent>true</transparent>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="open_display">
+        <file>omega_heaters.bob</file>
+        <target>window</target>
+        <description>Open Display</description>
+      </action>
+    </actions>
+    <text>Exhaust Heaters</text>
+    <x>440</x>
+    <y>60</y>
+    <width>121</width>
   </widget>
 </display>

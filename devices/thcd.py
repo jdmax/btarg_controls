@@ -22,8 +22,7 @@ class Device():
         self.new_reads = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
 
-        mode_list = [['Off', 0], ['Closed Loop', 1], ['Zone', 2], ['Open Loop', 3]]
-        range_list = [['Off', 0], ['Low', 1], ['Med', 2], ['High', 3]]
+        mode_list = [['Auto', 0], ['Open', 1], ['Closed', 2]]
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "_FI" in channel:

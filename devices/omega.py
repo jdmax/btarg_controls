@@ -37,7 +37,7 @@ class Device():
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
     def read_outs(self):
-        """Read and set OUT PVs at the start of the IOC"""
+        """Read OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
             try:
                 if '_TC' in pv_name:  # is this a setpoint?
@@ -58,7 +58,7 @@ class Device():
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         # figure out what type of PV this is, and send it to the right method
         try:
-            if '_TC' in pv_name:  # is this a setpoint?
+            if '_TC' in pv_name:
                 value = self.t.set_setpoint(new_value)
                 self.pvs[pv_name].set(value)  # set returned value
             else:
@@ -74,7 +74,6 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 new_reads[channel + '_TI'] = self.t.read()
-
             for key, value in new_reads.items():
                 self.pvs[key].set(value)
         except OSError:
