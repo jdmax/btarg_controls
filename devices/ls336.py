@@ -20,7 +20,7 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
-        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
         mode_list = [['Off', 0], ['Closed Loop', 1], ['Zone', 2], ['Open Loop', 3]]
         range_list = [['Off', 0], ['Low', 1], ['Med', 2], ['High', 3]]

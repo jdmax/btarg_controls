@@ -20,7 +20,7 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.new_reads = {}
-        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue

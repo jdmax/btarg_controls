@@ -18,7 +18,7 @@ class Device():
         self.settings = settings
         self.channels = settings['channels']
         self.pvs = {}
-        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR'}
+        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
 
         for channel in settings['channels']:  # set up PVs for each channel
