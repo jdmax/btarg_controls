@@ -1,0 +1,6 @@
+PyYAML~=6.0
+softioc~=4.3.0
+aioca~=1.7
+numpy~=1.25.0
+screenutils~=0.0.1.6.2
+zaber-motion~=4.2.0
