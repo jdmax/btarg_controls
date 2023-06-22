@@ -41,17 +41,17 @@ class Device():
         pass
 
     def do_reads(self):
-        '''Match variables to methods in device driver and get reads from device. Set to PVs.'''
+        """Match variables to methods in device driver and get reads from device. Set to PVs."""
         try:
-            new_reads = {}
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel] = readings[i]
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+                self.pvs[channel].set(readings[i])
+                self.pvs[channel + ".STAT"].set('')
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel + ".STAT"].set('READ')
             self.reconnect()
         except TypeError:
             self.reconnect()
@@ -59,8 +59,8 @@ class Device():
 
 
 class DeviceConnection():
-    '''Handle connection to Datexel 8148 digital input. Unit has 16 digital read channels.
-    '''
+    """Handle connection to Datexel 8148 digital input. Unit has 16 digital read channels.
+    """
 
     def __init__(self, host, port, timeout):
         '''Open connection to DAT8148

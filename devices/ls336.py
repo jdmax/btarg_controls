@@ -71,48 +71,50 @@ class Device():
                 values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
                 [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
             elif 'SP' in pv_name:  # is this a setpoint?
-                value = self.t.set_setpoint(chan, new_value)
-                self.pvs[pv_name].set(value)  # set returned value
+                self.pvs[pv_name].set(self.t.set_setpoint(chan, new_value))  # set returned value
             elif 'Manual' in pv_name:  # is this a manual out?
-                value = self.t.set_man_heater(chan, new_value)
-                self.pvs[pv_name].set(value)  # set returned value
+                self.pvs[pv_name].set(self.t.set_man_heater(chan, new_value))  # set returned value
             elif 'Mode' in pv_name:
-                value = self.t.set_outmode(chan, new_value, chan, 0)
-                self.pvs[pv_name].set(int(value))  # set returned value
+                self.pvs[pv_name].set(int(self.t.set_outmode(chan, new_value, chan, 0)))  # set returned value
             elif 'Range' in pv_name:
-                value = self.t.set_range(chan, new_value)
-                self.pvs[pv_name].set(int(value))  # set returned value
+                self.pvs[pv_name].set(int(self.t.set_range(chan, new_value)))  # set returned value
             else:
                 print('Error, control PV not categorized.')
         except OSError:
+            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
+        else:
+            self.pvs[pv_name + '.STAT'].set('')
         return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            new_reads = {}
             temps = self.t.read_temps()
             for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
                 if "_TI" in channel:
-                    new_reads[channel] = temps[i]
-                elif "None" in channel:
-                    pass
+                    self.pvs[channel].set(temps[i])
+                    self.pvs[channel + '.STAT'].set('')
                 else:
-                    new_reads[channel + '_TI'] = temps[i]
-                    new_reads[channel + '_Heater'] = self.t.read_heater(i + 1)
+                    self.pvs[channel + '_TI'].set(temps[i])
+                    self.pvs[channel + '_TI.STAT'].set('')
+                    self.pvs[channel + '_Heater'].set(self.t.read_heater(i + 1))
                     pids = self.t.read_pid(i + 1)
-                    new_reads[channel + '_kP'] = pids[0]
-                    new_reads[channel + '_kI'] = pids[1]
-                    new_reads[channel + '_kD'] = pids[2]
-                    new_reads[channel + '_Mode'] = int(self.t.read_outmode(i + 1))
-                    new_reads[channel + '_Range'] = int(self.t.read_range(i + 1))
-                    new_reads[channel + '_SP'] = self.t.read_setpoint(i + 1)
-                    new_reads[channel + '_Manual'] = self.t.read_man_heater(i + 1)
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+                    self.pvs[channel + '_kP'].set(pids[0])
+                    self.pvs[channel + '_kI'].set(pids[1])
+                    self.pvs[channel + '_kD'].set(pids[2])
+                    self.pvs[channel + '_Mode'].set(int(self.t.read_outmode(i + 1)))
+                    self.pvs[channel + '_Range'].set(int(self.t.read_range(i + 1)))
+                    self.pvs[channel + '_SP'].set(self.t.read_setpoint(i + 1))
+                    self.pvs[channel + '_Manual'].set(self.t.read_man_heater(i + 1))
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                if "_TI" in channel:   # setting read error on TI only
+                    self.pvs[channel + '.STAT'].set('READ')
+                else:
+                    self.pvs[channel + '_TI.STAT'].set('READ')
             self.reconnect()
         return
 
@@ -172,7 +174,7 @@ class DeviceConnection():
             raise OSError('LS336 pid set')
 
     def read_pid(self, channel):
-        '''Read PID for given channel (1 or 2).'''
+        '''Read PID values for given channel (1 or 2).'''
         try:
             self.tn.write(bytes(f"PID?\n", 'ascii'))
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return

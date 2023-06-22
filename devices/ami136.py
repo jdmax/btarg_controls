@@ -19,8 +19,8 @@ class Device():
         self.channels = settings['channels']
         self.pvs = {}
         self.read_error = False
+        self.write_error = False
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
-
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
@@ -43,25 +43,19 @@ class Device():
         pass
 
     def do_reads(self):
-        """Match variables to methods in device driver and get reads from device"""
-
+        """Match variables to methods in device driver, get reads from device, set to PV"""
         try:
-            new_reads = {}
             levels = self.t.read()
-            for i, channel in enumerate(self.channels):
-                if "None" in channel: continue
-                new_reads[channel] = levels[i]
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
-                if self.read_error: self.pvs[key+".STAT"].set('')
-            self.read_error = False
         except OSError:
-            self.read_error = True
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[key+".STAT"].set('READ')
+                self.pvs[channel + ".STAT"].set('READ')
             self.reconnect()
-        return
+        else:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel].set(levels[i])
+                self.pvs[channel + ".STAT"].set('')
 
 
 class DeviceConnection():

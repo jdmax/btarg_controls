@@ -45,15 +45,15 @@ class Device():
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            new_reads = {}
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel] = readings[i] * self.calibs[channel]
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+                self.pvs[channel].set(readings[i] * self.calibs[channel])
+                self.pvs[channel + ".STAT"].set('')
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel + ".STAT"].set('READ')
             self.reconnect()
         except TypeError:
             self.reconnect()
