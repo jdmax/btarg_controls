@@ -60,7 +60,9 @@ class Device():
             for i, channel in enumerate(self.channels[:4]):  # set all
                 if "None" in channel: continue
                 self.pvs[self.channels[i]].set(values[i])
+                self.pvs[self.channels[i]+".STAT"].set('')
         except OSError:
+            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
         except TypeError:
             self.reconnect()

@@ -77,9 +77,12 @@ class Device():
             elif 'Mode' in pv_name:
                 value = self.t.read_state(chan)
                 self.pvs[pv_name].set(int(value))  # set returned value
+                self.pvs[pv_name + '.STAT'].set('')
             else:
                 print('Error, control PV not categorized.', pv_name)
+            self.pvs[pv_name + '.STAT'].set('')
         except OSError:
+            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
         return
 
@@ -92,10 +95,13 @@ class Device():
                 new_reads[channel+'_VI'], new_reads[channel+'_CI'], power = self.t.read(i+1)
                 new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
                 new_reads[channel+'_Mode'] = self.t.read_state(i+1)
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+            for channel, value in new_reads.items():
+                self.pvs[channel].set(value)
+                self.pvs[channel + '.STAT'].set('')
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel + '.STAT'].set('READ')
             self.reconnect()
         return
 

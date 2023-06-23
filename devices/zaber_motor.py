@@ -51,38 +51,36 @@ class Device():
         chan = self.channels.index(p)
         try:
             if '_VC' in pv_name:  # valve controller commands
-                value = self.t.move_to(chan, new_value)
-                self.pvs[p+"_VI"].set(value)  # set returned value
-            if '_home' in pv_name:
+                self.pvs[p+"_VI"].set(self.t.move_to(chan, new_value))  # set returned value
+            elif '_home' in pv_name:
                 if new_value:
-                    value = self.t.home(chan)
-                    self.pvs[p+"_VI"].set(value)  # set returned value
+                    self.pvs[p+"_VI"].set(self.t.home(chan))  # set returned value
                     self.pvs[p+"_home"].set(False)
-            if '_away' in pv_name:
+            elif '_away' in pv_name:
                 if new_value:
-                    value = self.t.away(chan)
-                    self.pvs[p+"_VI"].set(value)  # set returned value
+                    self.pvs[p+"_VI"].set(self.t.away(chan))  # set returned value
                     self.pvs[p+"_away"].set(False)
-            if '_stop' in pv_name:
+            elif '_stop' in pv_name:
                 if new_value:
-                    value = self.t.stop(chan)
-                    self.pvs[p+"_VI"].set(value)  # set returned value
+                    self.pvs[p+"_VI"].set(self.t.stop(chan))  # set returned value
                     self.pvs[p+"_stop"].set(False)
+            self.pvs[pv_name + '.STAT'].set('')
         except OSError:
+            self.pvs[pv_name+'.STAT'].set('WRITE')
             self.reconnect()
         return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device. Set to PVs.'''
         try:
-            new_reads = {}
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel+"_VI"] = self.t.get_pos(i)
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+                self.pvs[channel+"_VI"].set(self.t.get_pos(i))
+                self.pvs[channel + '_VI.STAT'].set('')
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel + '_VI.STAT'].set('READ')
             self.reconnect()
         return
 

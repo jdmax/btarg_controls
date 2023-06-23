@@ -66,29 +66,29 @@ class Device():
         # figure out what type of PV this is, and send it to the right method
         try:
             if '_FC' in pv_name:
-                value = self.t.set_setpoint(self.pvs[pv_name].get())
-                self.pvs[pv_name].set(value)  # set returned value
+                self.pvs[pv_name].set(self.t.set_setpoint(chan, new_value))
             elif '_Mode' in pv_name:
-                value = self.t.set_mode(self.pvs[pv_name].get())
-                self.pvs[pv_name].set(value)  # set returned value
+                self.pvs[pv_name].set(self.t.set_mode(chan, new_value))
             else:
                 print('Error, control PV not categorized.')
+            self.pvs[pv_name + '.STAT'].set('')
         except OSError:
+            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
         return
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
-            new_reads = {}
             flows = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                new_reads[channel] = flows[i]
-
-            for key, value in new_reads.items():
-                self.pvs[key].set(value)
+                self.pvs[channel].set(flows[i])
+                self.pvs[channel + '.STAT'].set('')
         except OSError:
+            for i, channel in enumerate(self.channels):
+                if "None" in channel: continue
+                self.pvs[channel + '.STAT'].set('READ')
             self.reconnect()
         return
 
