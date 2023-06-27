@@ -3,6 +3,7 @@
 general:
     prefix: TGT:BTARG
     log_dir: 'logs'   # path of logs directory
+    epics_addr_list: '129.57.163.255'
 thcd:   # flow controller interface
     module: 'devices.thcd'
     autostart: False          # Should IOC Manager try to start this?
