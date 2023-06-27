@@ -3,12 +3,18 @@ import asyncio
 import yaml
 import argparse
 import importlib
+import os
 
 
 async def main():
     """
     Run IOC: load settings, create dispatcher, set name, start devices, do boilerplate
     """
+    os.environ['EPICS_CA_ADDR_LIST'] = '129.57.163.255'
+    os.environ['EPICS_CAS_BEACON_ADDR_LIST'] = '129.57.163.255'
+    os.environ['EPICS_CA_AUTO_ADDR_LIST'] = 'NO'
+
+
     ioc, settings, records = load_settings()
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
