@@ -68,7 +68,7 @@ class StatusIOC:
                 await caput(pv+'.HIHI', self.states[status][pv][species][0])
                 await caput(pv+'.HIGH', self.states[status][pv][species][1])
                 await caput(pv+'.LOW', self.states[status][pv][species][2])
-                await caput(pv+'.HIHI', self.states[status][pv][species][3])
+                await caput(pv+'.LOLO', self.states[status][pv][species][3])
             else:
                 await caput(pv, self.states[status][pv][species])
 

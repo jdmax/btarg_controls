@@ -1,7 +1,7 @@
 import asyncio
 from zaber_motion import Units
 from zaber_motion.ascii import Connection
-from softioc import builder
+from softioc import builder, alarm
 from time import sleep
 
 
@@ -64,9 +64,7 @@ class Device():
                 if new_value:
                     self.pvs[p+"_VI"].set(self.t.stop(chan))  # set returned value
                     self.pvs[p+"_stop"].set(False)
-            self.pvs[pv_name + '.STAT'].set('')
         except OSError:
-            self.pvs[pv_name+'.STAT'].set('WRITE')
             self.reconnect()
         return
 
@@ -76,13 +74,21 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.pvs[channel+"_VI"].set(self.t.get_pos(i))
-                self.pvs[channel + '_VI.STAT'].set('')
+                self.remove_alarm(channel + '_VI')
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel + '_VI.STAT'].set('READ')
+                self.set_alarm(channel + '_VI')
             self.reconnect()
         return
+
+    def set_alarm(self, channel):
+        """Set alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=1, alarm=alarm.READ_ALARM)
+
+    def remove_alarm(self, channel):
+        """Remove alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=0, alarm=alarm.NO_ALARM)
 
 
 class DeviceConnection():

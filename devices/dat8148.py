@@ -1,5 +1,5 @@
 from pyModbusTCP.client import ModbusClient
-from softioc import builder
+from softioc import builder, alarm
 
 class Device():
     """Makes library of PVs needed for DAT8148 and provides methods connect them to the device
@@ -47,15 +47,23 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.pvs[channel].set(readings[i])
-                self.pvs[channel + ".STAT"].set('')
+                self.remove_alarm(channel)
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel + ".STAT"].set('READ')
+                self.set_alarm(channel)
             self.reconnect()
         except TypeError:
             self.reconnect()
         return
+
+    def set_alarm(self, channel):
+        """Set alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=1, alarm=alarm.READ_ALARM)
+
+    def remove_alarm(self, channel):
+        """Remove alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=0, alarm=alarm.NO_ALARM)
 
 
 class DeviceConnection():

@@ -1,7 +1,7 @@
 import telnetlib
 import re
 import time
-from softioc import builder
+from softioc import builder, alarm
 
 
 class Device():
@@ -77,12 +77,9 @@ class Device():
             elif 'Mode' in pv_name:
                 value = self.t.read_state(chan)
                 self.pvs[pv_name].set(int(value))  # set returned value
-                self.pvs[pv_name + '.STAT'].set('')
             else:
                 print('Error, control PV not categorized.', pv_name)
-            self.pvs[pv_name + '.STAT'].set('')
         except OSError:
-            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
         return
 
@@ -97,13 +94,21 @@ class Device():
                 new_reads[channel+'_Mode'] = self.t.read_state(i+1)
             for channel, value in new_reads.items():
                 self.pvs[channel].set(value)
-                self.pvs[channel + '.STAT'].set('')
+                self.remove_alarm(channel)
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel + '.STAT'].set('READ')
+                self.set_alarm(channel)
             self.reconnect()
         return
+
+    def set_alarm(self, channel):
+        """Set alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=1, alarm=alarm.READ_ALARM)
+
+    def remove_alarm(self, channel):
+        """Remove alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=0, alarm=alarm.NO_ALARM)
 
 
 class DeviceConnection():

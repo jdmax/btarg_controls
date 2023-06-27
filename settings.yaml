@@ -162,7 +162,7 @@ zaber:
     timeout: 1
     delay: 5
     channels:   # list of "axes" in order. None indicates unused channel.
-        - Valve1
+        - None
         - None
         - Flag
 

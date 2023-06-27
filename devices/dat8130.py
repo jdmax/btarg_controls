@@ -1,5 +1,6 @@
 from pyModbusTCP.client import ModbusClient
-from softioc import builder
+from softioc import builder, alarm
+
 
 class Device():
     """Makes library of PVs needed for DAT8130 and provides methods connect them to the device
@@ -21,11 +22,12 @@ class Device():
         self.calibs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
-        for i, channel in enumerate(settings['channels']):  # set up PVs for each channel, calibrations are values of dict
+        for i, channel in enumerate(
+                settings['channels']):  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
-            if i < 4:   # Digital OUT channels first
+            if i < 4:  # Digital OUT channels first
                 self.pvs[channel] = builder.boolOut(channel, **sevr, on_update_name=self.do_sets)
-            else:    # Digital IN next
+            else:  # Digital IN next
                 self.pvs[channel] = builder.aIn(channel, **sevr)
 
     def connect(self):
@@ -38,7 +40,7 @@ class Device():
 
     def read_outs(self):
         "Read and set OUT PVs at the start of the IOC"
-        try:   # set initial out PVs
+        try:  # set initial out PVs
             values = self.t.read_coils()
             for i, channel in enumerate(self.channels[:4]):  # set all
                 if "None" in channel: continue
@@ -60,9 +62,9 @@ class Device():
             for i, channel in enumerate(self.channels[:4]):  # set all
                 if "None" in channel: continue
                 self.pvs[self.channels[i]].set(values[i])
-                self.pvs[self.channels[i]+".STAT"].set('')
+                self.remove_alarm(channel)
         except OSError:
-            self.pvs[pv_name + '.STAT'].set('WRITE')
+            self.set_alarm(pv_name,'WRITE')
             self.reconnect()
         except TypeError:
             self.reconnect()
@@ -74,15 +76,23 @@ class Device():
             for i, channel in enumerate(self.channels[4:9]):
                 if "None" in channel: continue
                 self.pvs[channel].set(readings[i])
-                self.pvs[channel + ".STAT"].set('')
+                self.remove_alarm(channel)
         except OSError:
             for i, channel in enumerate(self.channels[4:9]):
                 if "None" in channel: continue
-                self.pvs[channel + ".STAT"].set('READ')
+                self.set_alarm(channel)
             self.reconnect()
         except TypeError:
             self.reconnect()
         return
+
+    def set_alarm(self, channel):
+        """Set alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=1, alarm=alarm.READ_ALARM)
+
+    def remove_alarm(self, channel):
+        """Remove alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=0, alarm=alarm.NO_ALARM)
 
 
 class DeviceConnection():
@@ -102,14 +112,14 @@ class DeviceConnection():
         self.timeout = timeout
 
         try:
-            self.m =  ModbusClient(host=self.host, port=int(self.port), unit_id=1, auto_open=True)
+            self.m = ModbusClient(host=self.host, port=int(self.port), unit_id=1, auto_open=True)
         except Exception as e:
             print(f"Datexel 8130 connection failed on {self.host}: {e}")
 
     def read_inputs(self):
         '''Read all channels.'''
         try:
-            values = self.m.read_coils(504,8)  # read all 8 channels starting at 40
+            values = self.m.read_coils(504, 8)  # read all 8 channels starting at 40
             return values
         except Exception as e:
             print(f"Datexel 8130 read failed on {self.host}: {e}")
@@ -118,16 +128,15 @@ class DeviceConnection():
     def read_coils(self):
         '''Read all out channels.'''
         try:
-            return self.m.read_coils(488,4)
+            return self.m.read_coils(488, 4)
         except Exception as e:
             print(f"Datexel 8130 read failed on {self.host}: {e}")
             raise OSError('8130 read')
 
-
     def set_coil(self, num, state):
         '''Flip channel to state. DO channels from 0 to 3'''
         try:
-            self.m.write_single_coil(488+num, state)
+            self.m.write_single_coil(488 + num, state)
             return self.read_coils()
         except Exception as e:
             print(f"Datexel 8130 write failed on {self.host}: {e}")

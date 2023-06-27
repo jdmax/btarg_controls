@@ -1,6 +1,6 @@
 import telnetlib
 import re
-from softioc import builder
+from softioc import builder, alarm
 
 
 class Device():
@@ -81,10 +81,7 @@ class Device():
             else:
                 print('Error, control PV not categorized.')
         except OSError:
-            self.pvs[pv_name + '.STAT'].set('WRITE')
             self.reconnect()
-        else:
-            self.pvs[pv_name + '.STAT'].set('')
         return
 
     def do_reads(self):
@@ -95,10 +92,10 @@ class Device():
                 if "None" in channel: continue
                 if "_TI" in channel:
                     self.pvs[channel].set(temps[i])
-                    self.pvs[channel + '.STAT'].set('')
+                    self.remove_alarm(channel)
                 else:
                     self.pvs[channel + '_TI'].set(temps[i])
-                    self.pvs[channel + '_TI.STAT'].set('')
+                    self.remove_alarm(channel+'_TI')
                     self.pvs[channel + '_Heater'].set(self.t.read_heater(i + 1))
                     pids = self.t.read_pid(i + 1)
                     self.pvs[channel + '_kP'].set(pids[0])
@@ -112,11 +109,19 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 if "_TI" in channel:   # setting read error on TI only
-                    self.pvs[channel + '.STAT'].set('READ')
+                    self.set_alarm(channel)
                 else:
-                    self.pvs[channel + '_TI.STAT'].set('READ')
+                    self.set_alarm(channel + '_TI')
             self.reconnect()
         return
+
+    def set_alarm(self, channel):
+        """Set alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=1, alarm=alarm.READ_ALARM)
+
+    def remove_alarm(self, channel):
+        """Remove alarm and severity for channel"""
+        self.pvs[channel].set_alarm(severity=0, alarm=alarm.NO_ALARM)
 
 
 class DeviceConnection():
