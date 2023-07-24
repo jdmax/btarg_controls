@@ -1,144 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-14 15:46:16 by jmaxwell-->
+<!--Saved on 2023-07-24 11:46:39 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
-  <width>951</width>
-  <height>630</height>
-  <widget type="polygon" version="2.0.0">
-    <name>Polygon_1</name>
-    <x>60</x>
-    <y>160</y>
-    <width>860</width>
-    <height>420</height>
-    <points>
-      <point x="0.0" y="420.0">
-      </point>
-      <point x="0.0" y="0.0">
-      </point>
-      <point x="250.0" y="0.0">
-      </point>
-      <point x="250.0" y="220.0">
-      </point>
-      <point x="540.0" y="220.0">
-      </point>
-      <point x="610.0" y="260.0">
-      </point>
-      <point x="860.0" y="260.0">
-      </point>
-      <point x="860.0" y="320.0">
-      </point>
-      <point x="610.0" y="320.0">
-      </point>
-      <point x="540.0" y="360.0">
-      </point>
-      <point x="250.0" y="360.0">
-      </point>
-      <point x="250.0" y="420.0">
-      </point>
-    </points>
+  <width>1580</width>
+  <height>930</height>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle</name>
+    <x>1150</x>
+    <y>940</y>
+    <width>240</width>
+    <height>110</height>
     <line_color>
-      <color name="Text" red="0" green="0" blue="0">
+      <color red="0" green="0" blue="255" alpha="0">
       </color>
     </line_color>
     <background_color>
-      <color red="255" green="255" blue="255">
+      <color name="Read_Background" red="240" green="240" blue="240">
       </color>
     </background_color>
-  </widget>
-  <widget type="polygon" version="2.0.0">
-    <name>Polygon_4</name>
-    <x>90</x>
-    <y>260</y>
-    <width>820</width>
-    <height>270</height>
-    <points>
-      <point x="0.0" y="270.0">
-      </point>
-      <point x="190.0" y="270.0">
-      </point>
-      <point x="190.0" y="240.0">
-      </point>
-      <point x="500.0" y="240.0">
-      </point>
-      <point x="550.0" y="210.0">
-      </point>
-      <point x="820.0" y="210.0">
-      </point>
-      <point x="820.0" y="170.0">
-      </point>
-      <point x="550.0" y="170.0">
-      </point>
-      <point x="500.0" y="140.0">
-      </point>
-      <point x="190.0" y="140.0">
-      </point>
-      <point x="190.0" y="0.0">
-      </point>
-      <point x="0.0" y="0.0">
-      </point>
-      <point x="0.0" y="140.0">
-      </point>
-    </points>
-    <line_width>2</line_width>
-    <line_color>
-      <color name="MINOR" red="255" green="128" blue="0">
-      </color>
-    </line_color>
-    <background_color>
-      <color name="MINOR" red="255" green="128" blue="0">
-      </color>
-    </background_color>
-    <transparent>true</transparent>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>Shield Cold</text>
-    <x>690</x>
-    <y>520</y>
+    <x>1170</x>
+    <y>950</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Cold_TI</pv_name>
-    <x>790</x>
-    <y>520</y>
+    <x>1270</x>
+    <y>950</y>
     <precision>4</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
     <text>Shield Mid</text>
-    <x>690</x>
-    <y>550</y>
+    <x>1170</x>
+    <y>980</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Mid_TI</pv_name>
-    <x>790</x>
-    <y>550</y>
+    <x>1270</x>
+    <y>980</y>
     <show_units>false</show_units>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Shield Warm</text>
-    <x>690</x>
-    <y>580</y>
+    <x>1170</x>
+    <y>1010</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
     <pv_name>pva://TGT:BTARG:TEMP218:Shield_Warm_TI</pv_name>
-    <x>790</x>
-    <y>580</y>
-  </widget>
-  <widget type="tank" version="2.0.0">
-    <name>Tank</name>
-    <x>130</x>
-    <y>270</y>
-    <width>110</width>
-    <height>130</height>
-    <background_color>
-      <color red="240" green="240" blue="240" alpha="0">
-      </color>
-    </background_color>
-    <scale_visible>false</scale_visible>
+    <x>1270</x>
+    <y>1010</y>
   </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button</name>
@@ -150,104 +67,34 @@
       </action>
     </actions>
     <text>Exhaust Heaters</text>
-    <x>770</x>
-    <y>300</y>
+    <x>1160</x>
+    <y>220</y>
     <width>121</width>
+    <tooltip>$(actions)</tooltip>
   </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_1</name>
     <text>FILL</text>
-    <x>80</x>
-    <y>10</y>
+    <x>200</x>
+    <y>40</y>
     <width>200</width>
     <height>70</height>
-  </widget>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_1</name>
-    <x>270</x>
-    <y>180</y>
-    <width>20</width>
-    <height>50</height>
-    <line_color>
-      <color name="Transparent" red="255" green="255" blue="255" alpha="0">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="255" green="53" blue="28">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_2</name>
-    <x>240</x>
-    <y>180</y>
-    <width>20</width>
-    <height>50</height>
-    <line_color>
-      <color name="Transparent" red="255" green="255" blue="255" alpha="0">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="255" green="53" blue="28">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_3</name>
-    <x>210</x>
-    <y>180</y>
-    <width>20</width>
-    <height>50</height>
-    <line_color>
-      <color name="Transparent" red="255" green="255" blue="255" alpha="0">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="255" green="53" blue="28">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="polyline" version="2.0.0">
-    <name>Polyline</name>
-    <x>420</x>
-    <y>190</y>
-    <width>50</width>
-    <height>140</height>
-    <points>
-      <point x="0.0" y="50.0">
-      </point>
-      <point x="30.0" y="50.0">
-      </point>
-      <point x="30.0" y="140.0">
-      </point>
-      <point x="50.0" y="140.0">
-      </point>
-      <point x="50.0" y="50.0">
-      </point>
-      <point x="50.0" y="0.0">
-      </point>
-    </points>
-    <line_width>4</line_width>
-    <arrows>2</arrows>
+    <tooltip>$(actions)</tooltip>
   </widget>
   <widget type="polyline" version="2.0.0">
     <name>Polyline_2</name>
     <x>410</x>
     <y>170</y>
-    <width>0</width>
-    <height>0</height>
+    <width>1</width>
+    <height>1</height>
   </widget>
-  <widget type="polyline" version="2.0.0">
-    <name>Polyline_3</name>
-    <x>50</x>
-    <y>100</y>
-    <height>200</height>
-    <points>
-      <point x="0.0" y="0.0">
-      </point>
-      <point x="100.0" y="200.0">
-      </point>
-    </points>
-    <arrows>2</arrows>
+  <widget type="picture" version="2.0.0">
+    <name>Picture</name>
+    <file>target_diagram.svg</file>
+    <x>190</x>
+    <y>160</y>
+    <width>1390</width>
+    <height>770</height>
+    <stretch_image>true</stretch_image>
   </widget>
 </display>
