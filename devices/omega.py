@@ -40,10 +40,7 @@ class Device():
         """Read OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
             try:
-                if '_TC' in pv_name:  # is this a setpoint?
-                    self.pvs[pv_name].set(self.t.read_setpoint())  # set returned value
-                else:
-                    print('Error, control PV not categorized.')
+                self.pvs[pv_name+'_TC'].set(self.t.read_setpoint())  # set returned value
             except OSError:
                 self.reconnect()
         return
@@ -72,11 +69,11 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.pvs[channel + '_TI'].set(self.t.read())
-                self.remove_alarm(channel)
+                self.remove_alarm(channel + '_TI')
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.set_alarm(channel)
+                self.set_alarm(channel+ '_TI')
             self.reconnect()
         return
 
@@ -156,7 +153,7 @@ class DeviceConnection():
                 sleep(0.1)
                 self.tn.write(bytes(char,'ascii'))
             i, match, data = self.tn.expect([self.read_regex], timeout=self.timeout)  # read until pattern matched
-            print(match, data)
+            #print(match, data)
             values  = [float(x) for x in match.groups()]
             return values[0]
             
