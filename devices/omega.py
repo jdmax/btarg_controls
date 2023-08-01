@@ -26,7 +26,8 @@ class Device():
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
             self.pvs[channel+'_TI'] = builder.aIn(channel+'_TI', **sevr)
-            self.pvs[channel+'_TC'] = builder.aOut(channel+'_TC', on_update_name=self.do_sets, **sevr)
+            self.pvs[channel+'_SP1'] = builder.aOut(channel+'_SP1', on_update_name=self.do_sets, **sevr)
+            self.pvs[channel+'_SP2'] = builder.aOut(channel+'_SP2', on_update_name=self.do_sets, **sevr)
 
     def connect(self):
         '''Open connection to device'''
@@ -40,7 +41,10 @@ class Device():
         """Read OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
             try:
-                self.pvs[pv_name+'_TC'].set(self.t.read_setpoint())  # set returned value
+                print("setting outs from device")
+                self.pvs[pv_name+'_SP1'].set(self.t.read_setpoint1())  # set returned value
+                self.pvs[pv_name+'_SP2'].set(self.t.read_setpoint2())  # set returned value
+                print("done setting outs from device")
             except OSError:
                 self.reconnect()
         return
@@ -55,8 +59,14 @@ class Device():
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         # figure out what type of PV this is, and send it to the right method
         try:
-            if '_TC' in pv_name:
-                self.pvs[pv_name].set(self.t.set_setpoint(new_value))  # set returned value
+            if '_SP1' in pv_name:
+                new = self.t.set_setpoint1(new_value)
+                print(new, pv_name)
+                self.pvs[pv_name].set(new)  # set returned value
+            if '_SP2' in pv_name:
+                new = self.t.set_setpoint2(new_value)
+                print(new, pv_name)
+                self.pvs[pv_name].set(new)  # set returned value
             else:
                 print('Error, control PV not categorized.')
         except OSError:
@@ -107,40 +117,77 @@ class DeviceConnection():
             
         self.read_regex = re.compile(b'X01(\d+.\d)')   
         self.write_regex = re.compile(b'W01')  
-        self.sp_read_regex = re.compile(b'R01[\d\w]{6}')  
+        self.sp_read_regex = re.compile(b'R01([\d\w]{6})')
+        self.sp2_read_regex = re.compile(b'R02([\d\w]{6})')
         #self.ok_response_regex = re.compile(b'!a!o!\s\s')    
-         
-    def set_setpoint(self, sp):
-        '''Change setpoint 1. Seems to take a long time! Timeout needs to be at least 10 secs.'''  
-        
-        prefix = '*W01'    # write to sp1
-        value = '{:06X}'.format(int(sp)*10+1048576*2)    # hex magic
+
+    def set_setpoint1(self, sp):
+        '''Change setpoint 1. Seems to take a long time! Timeout needs to be at least 10 secs.'''
+
+        prefix = '*W01'  # write to sp1
+        value = '{:06X}'.format(int(sp) * 10 + 1048576 * 2)  # hex magic
+        # comes from an example on github: rval='{:06X}'.format(int(val)*10+1048576*2)
         eol = "\r\n"
-        command = prefix+value+eol
-        try:     
+        command = prefix + value + eol
+        try:
             for char in command:
                 sleep(0.1)
-                self.tn.write(bytes(char,'ascii'))     
+                self.tn.write(bytes(char, 'ascii'))
             sleep(0.5)
-            i, match, data = self.tn.expect([self.write_regex], timeout=self.timeout)   # read until carriage return
-            #print('command',  match, data)
-            return self.read_setpoint()
+            i, match, data = self.tn.expect([self.write_regex], timeout=self.timeout)  # read until carriage return
+            # print('command',  match, data)
+            return self.read_setpoint1()
 
         except Exception as e:
             print(f"Omega read failed on {self.host}: {e}")
 
-    def read_setpoint(self):
+    def set_setpoint2(self, sp):
+        '''Change setpoint 1. Seems to take a long time! Timeout needs to be at least 10 secs.'''
+
+        prefix = '*W02'  # write to sp1
+        value = '{:06X}'.format(int(sp) * 10 + 1048576 * 2)  # hex magic
+        eol = "\r\n"
+        command = prefix + value + eol
+        try:
+            for char in command:
+                sleep(0.1)
+                self.tn.write(bytes(char, 'ascii'))
+            sleep(0.5)
+            i, match, data = self.tn.expect([self.write_regex], timeout=self.timeout)  # read until carriage return
+            # print('command',  match, data)
+            return self.read_setpoint2()
+
+        except Exception as e:
+            print(f"Omega read failed on {self.host}: {e}")
+
+    def read_setpoint1(self):
         '''Read back setpoint.'''
         try:
             for char in "*R01\r\n":  # readback setpoint command
                 sleep(0.1)
-                self.tn.write(bytes(char,'ascii'))          
-            i, match, data = self.tn.expect([self.sp_read_regex], timeout=self.timeout)   # read until carriage return
-            #print('data', match, data)   # read until carriage return
+                self.tn.write(bytes(char, 'ascii'))
+            i, match, data = self.tn.expect([self.sp_read_regex], timeout=self.timeout)  # read until carriage return
+            #print('data1', match, data)   # read until carriage return
             m = self.sp_read_regex.search(data)
-            values  = [float(x) for x in m.groups()]
-            return values[0]
-            
+            new = m.groups()[0]
+            sp = (int(new,16) - 1048576 * 2)/10   # hex magic backwards
+            return sp
+
+        except Exception as e:
+            print(f"Omega read failed on {self.host}: {e}")
+    def read_setpoint2(self):
+        '''Read back setpoint.'''
+        try:
+            for char in "*R02\r\n":  # readback setpoint command
+                sleep(0.1)
+                self.tn.write(bytes(char,'ascii'))
+            i, match, data = self.tn.expect([self.sp2_read_regex], timeout=self.timeout)   # read until carriage return
+            #print('data2', match, data)   # read until carriage return
+            m = self.sp2_read_regex.search(data)
+            new = m.groups()[0]
+            sp = (int(new,16) - 1048576 * 2)/10
+            return sp
+
         except Exception as e:
             print(f"Omega read failed on {self.host}: {e}")
         
