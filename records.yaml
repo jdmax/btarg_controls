@@ -4,19 +4,6 @@ Shield_FI:
         DESC: 'Shield Flow Indicator'
         PREC: 6
         EGU: 'slpm'
-    states:
-        cooldown:
-            ALARMS: [80, 90, 100, 120]
-        condense_H:
-            ALARMS: [10, 15, 25, 30]
-        steady_H:
-            ALARMS: [10, 15, 25, 30]
-        condense_He:
-            ALARMS: [10, 15, 25, 30]
-        steady_He:
-            ALARMS: [10, 15, 25, 30]
-        warmup:
-            ALARMS: [2, 5, 25, 30]
 Shield_FC:
     fields:
         DESC: 'Shield Flow Controller Set Value'
@@ -24,55 +11,11 @@ Shield_FC:
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
-    states:
-        cooldown:
-            VAL: 95
-        condense_H:
-            VAL: 20
-        steady_H:
-            VAL: 20
-        condense_He:
-            VAL: 20
-        steady_He:
-            VAL: 20
-        warmup:
-            VAL: 10
 Evaporator_FI:
     fields:
         DESC: 'Evaporator Flow Indicator'
         PREC: 6
         EGU: 'slpm'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Evaporator_FC:
     fields:
         DESC: 'Evaporator Flow Controller Set Value'
@@ -80,55 +23,11 @@ Evaporator_FC:
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
-    states:
-        cooldown:
-            VAL: 95
-        condense_H:
-            VAL: 20
-        steady_H:
-            VAL: 20
-        condense_He:
-            VAL: 20
-        steady_He:
-            VAL: 20
-        warmup:
-            VAL: 10
 Precool_FI:
     fields:
         DESC: 'Precool Flow Indicator'
         PREC: 6
         EGU: 'slpm'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Precool_FC:
     fields:
         DESC: 'Precool Controller Set Value'
@@ -136,307 +35,46 @@ Precool_FC:
         EGU: 'slpm'
         DRVH: 150
         DRVL: 0
-    states:
-        cooldown:
-            VAL: 95
-        condense_H:
-            VAL: 20
-        steady_H:
-            VAL: 20
-        condense_He:
-            VAL: 20
-        steady_He:
-            VAL: 20
-        warmup:
-            VAL: 10
 Pump_FI:
     fields:
         DESC: 'Pump Flow Indicator'
         PREC: 6
         EGU: 'slpm'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Shield_Cold_TI:
     fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Shield_Mid_TI:
     fields:
         DESC: 'Shield Middle Temperature Indicator'
         PREC: 6
         EGU: 'K'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Shield_Warm_TI:
     fields:
         DESC: 'Shield Warm End Temperature Indicator'
         PREC: 6
         EGU: 'K'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Other_TI:
     fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Other1_TI:
     fields:
         DESC: 'Shield Cold End Temperature Indicator'
         PREC: 6
         EGU: 'K'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Top_PI:
     fields:
         DESC: 'Top Pressure Indicator'
         PREC: 6
         EGU: 'mbar'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Bot_PI:
     fields:
         DESC: 'Bottom Pressure Indicator'
         PREC: 6
         EGU: 'mbar'
-    states:
-        cooldown:
-            HIHI: 120
-            HIGH: 100
-            LOW: 90
-            LOLO: 80
-        condense_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_H:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        condense_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        steady_He:
-            HIHI: 30
-            HIGH: 25
-            LOW: 15
-            LOLO: 10
-        warmup:
-            HIHI: 30
-            HIGH: 25
-            LOW: 5
-            LOLO: 2
 Flip_VC:
     fields:
         DESC: 'Flip Flop Valve 1'
