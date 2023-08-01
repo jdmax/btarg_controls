@@ -61,11 +61,11 @@ class Device():
         try:
             if '_SP1' in pv_name:
                 new = self.t.set_setpoint1(new_value)
-                print(new, pv_name)
+                #print(new, pv_name)
                 self.pvs[pv_name].set(new)  # set returned value
             if '_SP2' in pv_name:
                 new = self.t.set_setpoint2(new_value)
-                print(new, pv_name)
+                #print(new, pv_name)
                 self.pvs[pv_name].set(new)  # set returned value
             else:
                 print('Error, control PV not categorized.')

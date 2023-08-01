@@ -31,6 +31,7 @@ class Device():
             self.pvs[channel+"_home"] = builder.boolOut(channel+"_home", on_update_name=self.do_sets)
             self.pvs[channel+"_away"] = builder.boolOut(channel+"_away", on_update_name=self.do_sets)
             self.pvs[channel+"_stop"] = builder.boolOut(channel+"_stop", on_update_name=self.do_sets)
+            self.pvs[channel+"_zero"] = builder.boolOut(channel+"_zero", on_update_name=self.do_sets)
 
     def connect(self):
         '''Open connection to device'''
@@ -64,6 +65,10 @@ class Device():
                 if new_value:
                     self.pvs[p+"_VI"].set(self.t.stop(chan))  # set returned value
                     self.pvs[p+"_stop"].set(False)
+            elif '_zero' in pv_name:
+                if new_value:
+                    self.pvs[p+"_zero"].set(self.t.set_zero(chan))  # set returned value
+                    self.pvs[p+"_zero"].set(False)
         except OSError:
             self.reconnect()
         return
@@ -119,6 +124,12 @@ class DeviceConnection():
         while self.axes[axis].is_busy():
             sleep(0.2)
         return self.axes[axis].get_position(Units.ANGLE_DEGREES)
+
+    def set_zero(self, axis):   # set this position as encoder zero
+        while self.axes[axis].is_busy():
+            sleep(0.2)
+        self.axes[axis].generic_command('set pos 0')
+        return self.get_pos(axis)
 
     def move_to(self, axis, location):
         self.axes[axis].move_absolute(location, Units.ANGLE_DEGREES)
