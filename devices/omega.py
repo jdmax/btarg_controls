@@ -80,7 +80,7 @@ class Device():
                 if "None" in channel: continue
                 self.pvs[channel + '_TI'].set(self.t.read())
                 self.remove_alarm(channel + '_TI')
-        except OSError:
+        except (OSError, TypeError):
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel+ '_TI')

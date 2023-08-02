@@ -54,7 +54,7 @@ omega_1:
     ip: '192.168.1.200'
     port: '2000'
     timeout: 15
-    delay: 10
+    delay: 5
     channels:
         - Shield_Exhaust
 omega_2:
@@ -63,7 +63,7 @@ omega_2:
     ip: '192.168.1.201'
     port: '2000'
     timeout: 15
-    delay: 10
+    delay: 5
     channels:
         - Evaporator_Exhaust
 omega_3:
@@ -72,7 +72,7 @@ omega_3:
     ip: '192.168.1.202'
     port: '2000'
     timeout: 15
-    delay: 10
+    delay: 5
     channels:
         - Precool_Exhaust
 dat8017-i1:

@@ -83,10 +83,11 @@ class IOCManager:
         """
         Do update for all iocs in config file with autostart set to True.
         """
-        for pv in self.settings.keys():
-            if 'general' in pv: continue
-            if self.settings[pv]['autostart']:
-                self.screen_update(i, pv)
+        for name in self.settings.keys():
+            if 'general' in name: continue
+            if self.settings[name]['autostart']:
+                #self.screen_update(i, pv)
+                self.pvs[name].set(i)
 
     def start_ioc(self, pv_name):
         """
@@ -116,6 +117,7 @@ class IOCManager:
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
 
         self.stop_ioc(pv_name)
+        time.sleep(1)
         self.start_ioc(pv_name)
 
     def kill_ioc(self, pv_name):

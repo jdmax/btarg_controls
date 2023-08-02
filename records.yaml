@@ -121,3 +121,30 @@ Coolant_Manual:
         EGU: '%'
         DRVH: 100
         DRVL: 0
+Shield_Exhaust_TI:
+    fields:
+        DESC: 'Shield Exhaust Heater Temperature'
+        PREC: 4
+        EGU: 'C'
+        HIHI: 50
+        HIGH: 40
+        LOW: 15
+        LOLO: 5
+Evaporator_Exhaust_TI:
+    fields:
+        DESC: 'Evaporator Exhaust Heater Temperature'
+        PREC: 4
+        EGU: 'C'
+        HIHI: 50
+        HIGH: 40
+        LOW: 15
+        LOLO: 5
+Precool_Exhaust_TI:
+    fields:
+        DESC: 'Precool Exhaust Heater Temperature'
+        PREC: 4
+        EGU: 'C'
+        HIHI: 50
+        HIGH: 40
+        LOW: 15
+        LOLO: 5
