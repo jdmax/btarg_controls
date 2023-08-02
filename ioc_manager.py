@@ -15,8 +15,7 @@ async def main():
         settings = yaml.load(f, Loader=yaml.FullLoader)
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
-
-    device_name = settings['prefix'] + ':MAN'
+    device_name = settings['general']['prefix'] + ':MAN'
     builder.SetDeviceName(device_name)
 
     i = IOCManager(device_name, settings)
@@ -86,7 +85,8 @@ class IOCManager:
         """
         for pv in self.settings.keys():
             if 'general' in pv: continue
-            self.screen_update(i, pv)
+            if self.settings[pv]['autostart']:
+                self.screen_update(i, pv)
 
     def start_ioc(self, pv_name):
         """
@@ -140,15 +140,15 @@ class StartThread(Thread):
 
         screen.send_commands('bash')
         screen.send_commands(f'python master_ioc.py -i {self.name}')
-        screen.enable_logs(self.parent.settings['general']['log_dir']+self.name)
+        screen.enable_logs(f"{self.parent.settings['general']['log_dir']}/{self.name}")
         screen.send_commands('softioc.dbl()')
 
         elapsed = 0
         pvs = []
         while True:           # wait until ioc starts to get response
             #print("Waiting for logfile for", self.name)
-            if os.path.getsize(self.parent.settings['general']['log_dir']+self.name) > 10:
-                with open(self.parent.settings['general']['log_dir']+self.name) as f:
+            if os.path.getsize(f"{self.parent.settings['general']['log_dir']}/{self.name}") > 10:
+                with open(f"{self.parent.settings['general']['log_dir']}/{self.name}") as f:
                     for line in f:
                         match = re.search(f"({self.parent.settings['general']['prefix']}.+)\s", line)
                         if match:

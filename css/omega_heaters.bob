@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-14 13:33:19 by jmaxwell-->
+<!--Saved on 2023-08-02 10:34:29 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
-  <width>450</width>
+  <width>560</width>
   <height>170</height>
   <widget type="label" version="2.0.0">
     <name>Label</name>
@@ -70,26 +70,26 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_5</name>
-    <text>Setpoint</text>
+    <text>Setpoint 1</text>
     <x>320</x>
     <y>50</y>
     <width>110</width>
   </widget>
   <widget type="spinner" version="2.0.0">
     <name>Spinner_1</name>
-    <pv_name>pva://TGT:BTARG:Shield_Exhaust_TC</pv_name>
+    <pv_name>pva://TGT:BTARG:Shield_Exhaust_SP1</pv_name>
     <x>320</x>
     <y>70</y>
   </widget>
   <widget type="spinner" version="2.0.0">
     <name>Spinner_2</name>
-    <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_TC</pv_name>
+    <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_SP1</pv_name>
     <x>320</x>
     <y>90</y>
   </widget>
   <widget type="spinner" version="2.0.0">
     <name>Spinner_3</name>
-    <pv_name>pva://TGT:BTARG:Precool_Exhaust_TC</pv_name>
+    <pv_name>pva://TGT:BTARG:Precool_Exhaust_SP1</pv_name>
     <x>320</x>
     <y>110</y>
   </widget>
@@ -98,5 +98,37 @@
     <width>450</width>
     <height>170</height>
     <visible>false</visible>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Setpoint 2</text>
+    <x>450</x>
+    <y>50</y>
+    <width>110</width>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_4</name>
+    <pv_name>pva://TGT:BTARG:Shield_Exhaust_SP2</pv_name>
+    <x>450</x>
+    <y>70</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_5</name>
+    <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_SP2</pv_name>
+    <x>450</x>
+    <y>90</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_6</name>
+    <pv_name>pva://TGT:BTARG:Precool_Exhaust_SP2</pv_name>
+    <x>450</x>
+    <y>110</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>Set points take roughly 10 secs to set.</text>
+    <x>260</x>
+    <y>150</y>
+    <width>280</width>
   </widget>
 </display>
