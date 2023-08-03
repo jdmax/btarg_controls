@@ -1,150 +1,137 @@
 # btarg record database, YAML
 Shield_FI:
-    fields:
-        DESC: 'Shield Flow Indicator'
-        PREC: 6
-        EGU: 'slpm'
+    DESC: 'Shield Flow Indicator'
+    PREC: 6
+    EGU: 'slpm'
 Shield_FC:
-    fields:
-        DESC: 'Shield Flow Controller Set Value'
-        PREC: 6
-        EGU: 'slpm'
-        DRVH: 150
-        DRVL: 0
+    DESC: 'Shield Flow Controller Set Value'
+    PREC: 6
+    EGU: 'slpm'
+    DRVH: 150
+    DRVL: 0
 Evaporator_FI:
-    fields:
-        DESC: 'Evaporator Flow Indicator'
-        PREC: 6
-        EGU: 'slpm'
+    DESC: 'Evaporator Flow Indicator'
+    PREC: 6
+    EGU: 'slpm'
 Evaporator_FC:
-    fields:
-        DESC: 'Evaporator Flow Controller Set Value'
-        PREC: 6
-        EGU: 'slpm'
-        DRVH: 150
-        DRVL: 0
+    DESC: 'Evaporator Flow Controller Set Value'
+    PREC: 6
+    EGU: 'slpm'
+    DRVH: 150
+    DRVL: 0
 Precool_FI:
-    fields:
-        DESC: 'Precool Flow Indicator'
-        PREC: 6
-        EGU: 'slpm'
+    DESC: 'Precool Flow Indicator'
+    PREC: 6
+    EGU: 'slpm'
 Precool_FC:
-    fields:
-        DESC: 'Precool Controller Set Value'
-        PREC: 6
-        EGU: 'slpm'
-        DRVH: 150
-        DRVL: 0
+    DESC: 'Precool Controller Set Value'
+    PREC: 6
+    EGU: 'slpm'
+    DRVH: 150
+    DRVL: 0
 Pump_FI:
-    fields:
-        DESC: 'Pump Flow Indicator'
-        PREC: 6
-        EGU: 'slpm'
+    DESC: 'Pump Flow Indicator'
+    PREC: 6
+    EGU: 'slpm'
 Shield_Cold_TI:
-    fields:
-        DESC: 'Shield Cold End Temperature Indicator'
-        PREC: 6
-        EGU: 'K'
+    DESC: 'Shield Cold End Temperature Indicator'
+    PREC: 6
+    EGU: 'K'
 Shield_Mid_TI:
-    fields:
-        DESC: 'Shield Middle Temperature Indicator'
-        PREC: 6
-        EGU: 'K'
+    DESC: 'Shield Middle Temperature Indicator'
+    PREC: 6
+    EGU: 'K'
 Shield_Warm_TI:
-    fields:
-        DESC: 'Shield Warm End Temperature Indicator'
-        PREC: 6
-        EGU: 'K'
+    DESC: 'Shield Warm End Temperature Indicator'
+    PREC: 6
+    EGU: 'K'
 Other_TI:
-    fields:
-        DESC: 'Shield Cold End Temperature Indicator'
-        PREC: 6
-        EGU: 'K'
+    DESC: 'Shield Cold End Temperature Indicator'
+    PREC: 6
+    EGU: 'K'
 Other1_TI:
-    fields:
-        DESC: 'Shield Cold End Temperature Indicator'
-        PREC: 6
-        EGU: 'K'
+    DESC: 'Shield Cold End Temperature Indicator'
+    PREC: 6
+    EGU: 'K'
 Top_PI:
-    fields:
-        DESC: 'Top Pressure Indicator'
-        PREC: 6
-        EGU: 'mbar'
+    DESC: 'Top Pressure Indicator'
+    PREC: 6
+    EGU: 'mbar'
 Bot_PI:
-    fields:
-        DESC: 'Bottom Pressure Indicator'
-        PREC: 6
-        EGU: 'mbar'
+    DESC: 'Bottom Pressure Indicator'
+    PREC: 6
+    EGU: 'mbar'
 Flip_VC:
-    fields:
-        DESC: 'Flip Flop Valve 1'
-    states:
+    DESC: 'Flip Flop Valve 1'
 Flop_VC:
-    fields:
-        DESC: 'Flip Flop Valve 2'
-    states:
+    DESC: 'Flip Flop Valve 2'
 Some_PI:
-    fields:
-        DESC: 'Some Pressure Indicator'
-    states:
+    DESC: 'Some Pressure Indicator'
 Some_DI:
-    fields:
-        DESC: 'Some Digital Indicator'
-    states:
+    DESC: 'Some Digital Indicator'
 Return_PI:
-    fields:
-        DESC: 'Pressure on Return from Magnet'
-        PREC: 1
-        EGU: 'mbar'
-    states:
+    DESC: 'Pressure on Return from Magnet'
+    PREC: 1
+    EGU: 'mbar'
 Supply_PI:
-    fields:
-        DESC: 'Pressure on Supply to Magnet'
-        PREC: 1
-        EGU: 'mbar'
-    states:
-Heater_HI:
-    fields:
-        DESC: 'Cryocooler Heater Output %'
-        PREC: 2
-        EGU: '%'
-    states:
+    DESC: 'Pressure on Supply to Magnet'
+    PREC: 1
+    EGU: 'mbar'
+Coolant_Heater:
+    DESC: 'Coolant Heater Output'
+    PREC: 2
+    EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Coolant_TI:
-    fields:
-        DESC: ''
-        PREC: 2
-        EGU: 'K'
+    DESC: 'Coolant Temperature'
+    PREC: 4
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Coolant_SP:
+    DESC: 'Coolant Temperature'
+    PREC: 4
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Coolant_Manual:
-    fields:
-        DESC: 'Manual Heater Output'
-        PREC: 4
-        EGU: '%'
-        DRVH: 100
-        DRVL: 0
+    DESC: 'Coolant Manual Heater Output'
+    PREC: 3
+    EGU: '%'
+    DRVH: 100
+    DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_Exhaust_TI:
-    fields:
-        DESC: 'Shield Exhaust Heater Temperature'
-        PREC: 4
-        EGU: 'C'
-        HIHI: 50
-        HIGH: 40
-        LOW: 15
-        LOLO: 5
+    DESC: 'Shield Exhaust Heater Temperature'
+    PREC: 4
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 15
+    LOLO: 5
 Evaporator_Exhaust_TI:
-    fields:
-        DESC: 'Evaporator Exhaust Heater Temperature'
-        PREC: 4
-        EGU: 'C'
-        HIHI: 50
-        HIGH: 40
-        LOW: 15
-        LOLO: 5
+    DESC: 'Evaporator Exhaust Heater Temperature'
+    PREC: 4
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 15
+    LOLO: 5
 Precool_Exhaust_TI:
-    fields:
-        DESC: 'Precool Exhaust Heater Temperature'
-        PREC: 4
-        EGU: 'C'
-        HIHI: 50
-        HIGH: 40
-        LOW: 15
-        LOLO: 5
+    DESC: 'Precool Exhaust Heater Temperature'
+    PREC: 4
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 15
+    LOLO: 5

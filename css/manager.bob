@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-02 10:53:21 by jmaxwell-->
+<!--Saved on 2023-08-03 10:15:59 by jmaxwell-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="label" version="2.0.0">
@@ -75,5 +75,19 @@
     <y>132</y>
     <width>110</width>
     <height>21</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>LS336:</text>
+    <x>20</x>
+    <y>152</y>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box_5</name>
+    <pv_name>TGT:BTARG:MAN:lakeshore_336_control</pv_name>
+    <x>140</x>
+    <y>152</y>
+    <width>110</width>
+    <height>20</height>
   </widget>
 </display>

@@ -53,7 +53,7 @@ class DeviceIOC():
 
         for name, entry in self.device.pvs.items():  # set the attributes of the PV (optional)
             if name in self.records:
-                for field, value in self.records[name]['fields'].items():
+                for field, value in self.records[name].items():
                     setattr(self.device.pvs[name], field, value)
 
     async def loop(self):
