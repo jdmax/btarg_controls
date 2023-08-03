@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-03 10:23:26 by jmaxwell-->
+<!--Saved on 2023-08-03 10:34:30 by jmaxwell-->
 <display version="2.0.0">
-  <name>Display</name>
+  <name>BTarg Controls</name>
   <width>1580</width>
   <height>1080</height>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_1</name>
     <text>FILL</text>
-    <x>200</x>
-    <y>40</y>
-    <width>200</width>
-    <height>70</height>
+    <x>50</x>
+    <y>20</y>
+    <width>110</width>
     <tooltip>$(actions)</tooltip>
-  </widget>
-  <widget type="polyline" version="2.0.0">
-    <name>Polyline_2</name>
-    <x>410</x>
-    <y>170</y>
-    <width>1</width>
-    <height>1</height>
   </widget>
   <widget type="picture" version="2.0.0">
     <name>Picture</name>

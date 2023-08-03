@@ -33,6 +33,11 @@ class Device():
             self.pvs[channel+"_stop"] = builder.boolOut(channel+"_stop", on_update_name=self.do_sets)
             self.pvs[channel+"_zero"] = builder.boolOut(channel+"_zero", on_update_name=self.do_sets)
 
+    # Helper variables: mmbout to set three positions (left, center, right)
+
+
+
+
     def connect(self):
         '''Open connection to device'''
         try:

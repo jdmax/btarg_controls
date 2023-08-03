@@ -46,7 +46,7 @@ lakeshore_336:
     delay: 2
     channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel.
         - Coolant
-        - None
+        - Evaporator
         - Test1_TI
 omega_1:
     module: 'devices.omega'
@@ -166,7 +166,6 @@ zaber:
         - Shutoff
         - None
         - Flag
-
 #sr-201:
 #    module: 'devices.sr201'
 #    autostart: False          # Should IOC Manager try to start this?
