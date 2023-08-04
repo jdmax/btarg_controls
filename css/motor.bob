@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-04 14:50:35 by jmaxwell-->
+<!--Saved on 2023-08-04 14:52:19 by jmaxwell-->
 <display version="2.0.0">
   <name>Motor Expert</name>
+  <width>710</width>
+  <height>300</height>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
@@ -238,5 +240,13 @@
       <y>120</y>
       <width>160</width>
     </widget>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_5</name>
+    <x>670</x>
+    <y>270</y>
+    <width>40</width>
+    <height>30</height>
+    <visible>false</visible>
   </widget>
 </display>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-04 14:50:59 by jmaxwell-->
+<!--Saved on 2023-08-04 14:53:55 by jmaxwell-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1580</width>
@@ -322,7 +322,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>Combo Box</name>
-    <pv_name>pva://TGT:BTARG:Shutoff_locations</pv_name>
+    <pv_name>pva://TGT:BTARG:Flag_locations</pv_name>
     <x>880</x>
     <y>410</y>
     <width>120</width>
@@ -343,5 +343,13 @@
     <width>80</width>
     <height>20</height>
     <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box_1</name>
+    <pv_name>pva://TGT:BTARG:Shutoff_locations</pv_name>
+    <x>880</x>
+    <y>430</y>
+    <width>120</width>
+    <height>20</height>
   </widget>
 </display>
