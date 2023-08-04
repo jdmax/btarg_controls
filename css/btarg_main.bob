@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-03 10:34:30 by jmaxwell-->
+<!--Saved on 2023-08-04 14:50:59 by jmaxwell-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1580</width>
@@ -114,7 +114,7 @@
   </widget>
   <widget type="group" version="2.0.0">
     <name>Group</name>
-    <x>790</x>
+    <x>750</x>
     <y>240</y>
     <width>270</width>
     <height>110</height>
@@ -135,41 +135,52 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_1</name>
-      <text>Shield Cold</text>
+      <text>Cold End:</text>
       <x>20</x>
-      <y>10</y>
+      <y>40</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update</name>
       <pv_name>pva://TGT:BTARG:TEMP218:Shield_Cold_TI</pv_name>
       <x>120</x>
-      <y>10</y>
+      <y>40</y>
       <precision>4</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_2</name>
-      <text>Shield Mid</text>
+      <text>Middle:</text>
       <x>20</x>
-      <y>40</y>
+      <y>60</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_1</name>
       <pv_name>pva://TGT:BTARG:TEMP218:Shield_Mid_TI</pv_name>
       <x>120</x>
-      <y>40</y>
+      <y>60</y>
       <show_units>false</show_units>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_3</name>
-      <text>Shield Warm</text>
+      <text>Warm End:</text>
       <x>20</x>
-      <y>70</y>
+      <y>80</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_2</name>
       <pv_name>pva://TGT:BTARG:TEMP218:Shield_Warm_TI</pv_name>
       <x>120</x>
-      <y>70</y>
+      <y>80</y>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_16</name>
+      <text>Shield Temperature</text>
+      <x>10</x>
+      <y>10</y>
+      <width>170</width>
+      <font>
+        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+        </font>
+      </font>
     </widget>
   </widget>
   <widget type="group" version="2.0.0">
@@ -270,5 +281,67 @@
       <height>20</height>
       <tooltip>$(actions)</tooltip>
     </widget>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_3</name>
+    <x>750</x>
+    <y>370</y>
+    <width>270</width>
+    <height>110</height>
+    <line_color>
+      <color red="0" green="0" blue="255" alpha="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_13</name>
+    <text>Valves</text>
+    <x>760</x>
+    <y>380</y>
+    <width>170</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_14</name>
+    <text>Shutoff:</text>
+    <x>780</x>
+    <y>430</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_15</name>
+    <text>Target Flags:</text>
+    <x>780</x>
+    <y>410</y>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box</name>
+    <pv_name>pva://TGT:BTARG:Shutoff_locations</pv_name>
+    <x>880</x>
+    <y>410</y>
+    <width>120</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_3</name>
+    <actions>
+      <action type="open_display">
+        <file>motor.bob</file>
+        <target>window</target>
+        <description>Open Display</description>
+      </action>
+    </actions>
+    <text>Expert</text>
+    <x>920</x>
+    <y>380</y>
+    <width>80</width>
+    <height>20</height>
+    <tooltip>$(actions)</tooltip>
   </widget>
 </display>

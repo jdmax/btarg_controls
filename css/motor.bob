@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-06-06 14:56:20 by jmaxwell-->
+<!--Saved on 2023-08-04 14:50:35 by jmaxwell-->
 <display version="2.0.0">
-  <name>Display</name>
+  <name>Motor Expert</name>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
-    <text>Flag Motor Controls</text>
+    <text>Motor Controls</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
     <width>550</width>
@@ -20,48 +20,223 @@
     </foreground_color>
     <transparent use_class="true">true</transparent>
   </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_1</name>
-    <text>Postion (degrees):</text>
+  <widget type="group" version="2.0.0">
+    <name>Group</name>
+    <x>10</x>
     <y>50</y>
-    <width>130</width>
+    <width>330</width>
+    <height>230</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_3</name>
+      <width>330</width>
+      <height>230</height>
+      <line_color>
+        <color red="0" green="0" blue="255" alpha="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color name="Read_Background" red="240" green="240" blue="240">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_1</name>
+      <text>Current Position:</text>
+      <x>20</x>
+      <y>40</y>
+      <width>130</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update</name>
+      <pv_name>pva://TGT:BTARG:Flag_VI</pv_name>
+      <x>180</x>
+      <y>40</y>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_2</name>
+      <text>Set Position:</text>
+      <x>20</x>
+      <y>60</y>
+      <width>160</width>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>pva://TGT:BTARG:Flag_VC</pv_name>
+      <x>180</x>
+      <y>60</y>
+      <width>130</width>
+      <minimum>-100.0</minimum>
+    </widget>
+    <widget type="bool_button" version="2.0.0">
+      <name>Boolean Button</name>
+      <pv_name>pva://TGT:BTARG:Flag_home</pv_name>
+      <x>20</x>
+      <y>180</y>
+      <width>130</width>
+      <off_label>Home</off_label>
+      <on_label>Busy</on_label>
+    </widget>
+    <widget type="bool_button" version="2.0.0">
+      <name>Boolean Button_1</name>
+      <pv_name>pva://TGT:BTARG:Flag_away</pv_name>
+      <x>180</x>
+      <y>180</y>
+      <width>130</width>
+      <off_label>Away</off_label>
+      <on_label>Busy</on_label>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_3</name>
+      <text>Target Flags</text>
+      <x>10</x>
+      <y>10</y>
+      <width>130</width>
+      <font>
+        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+        </font>
+      </font>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_4</name>
+      <text>Position 0 Location:</text>
+      <x>20</x>
+      <y>100</y>
+      <width>160</width>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>Text Entry</name>
+      <pv_name>pva://TGT:BTARG:Flag_pos_0</pv_name>
+      <x>180</x>
+      <y>100</y>
+      <width>130</width>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>Text Entry_1</name>
+      <pv_name>pva://TGT:BTARG:Flag_pos_2</pv_name>
+      <x>180</x>
+      <y>140</y>
+      <width>130</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_6</name>
+      <text>Position 2 Location:</text>
+      <x>20</x>
+      <y>140</y>
+      <width>160</width>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>Text Entry_2</name>
+      <pv_name>pva://TGT:BTARG:Flag_pos_1</pv_name>
+      <x>180</x>
+      <y>120</y>
+      <width>130</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_7</name>
+      <text>Position 1 Location:</text>
+      <x>20</x>
+      <y>120</y>
+      <width>160</width>
+    </widget>
   </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update</name>
-    <pv_name>pva://TGT:BTARG:Flag_VI</pv_name>
-    <x>150</x>
+  <widget type="group" version="2.0.0">
+    <name>Group_1</name>
+    <x>360</x>
     <y>50</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_2</name>
-    <text>Set position (degrees):</text>
-    <y>80</y>
-    <width>160</width>
-  </widget>
-  <widget type="spinner" version="2.0.0">
-    <name>Spinner</name>
-    <pv_name>pva://TGT:BTARG:Flag_VC</pv_name>
-    <x>150</x>
-    <y>80</y>
-    <width>130</width>
-    <minimum>-100.0</minimum>
-  </widget>
-  <widget type="bool_button" version="2.0.0">
-    <name>Boolean Button</name>
-    <pv_name>pva://TGT:BTARG:Flag_home</pv_name>
-    <x>100</x>
-    <y>120</y>
-    <width>170</width>
-    <off_label>Home</off_label>
-    <on_label>Busy</on_label>
-  </widget>
-  <widget type="bool_button" version="2.0.0">
-    <name>Boolean Button_1</name>
-    <pv_name>pva://TGT:BTARG:Flag_away</pv_name>
-    <x>100</x>
-    <y>170</y>
-    <width>170</width>
-    <off_label>Away</off_label>
-    <on_label>Busy</on_label>
+    <width>330</width>
+    <height>230</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_4</name>
+      <width>330</width>
+      <height>230</height>
+      <line_color>
+        <color red="0" green="0" blue="255" alpha="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color name="Read_Background" red="240" green="240" blue="240">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_8</name>
+      <text>Current Position:</text>
+      <x>20</x>
+      <y>40</y>
+      <width>130</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>pva://TGT:BTARG:Shutoff_VI</pv_name>
+      <x>180</x>
+      <y>40</y>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_9</name>
+      <text>Set Position:</text>
+      <x>20</x>
+      <y>60</y>
+      <width>160</width>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_1</name>
+      <pv_name>pva://TGT:BTARG:Shutoff_VC</pv_name>
+      <x>180</x>
+      <y>60</y>
+      <width>130</width>
+      <minimum>-100.0</minimum>
+    </widget>
+    <widget type="bool_button" version="2.0.0">
+      <name>Boolean Button_2</name>
+      <pv_name>pva://TGT:BTARG:Shutoff_zero</pv_name>
+      <x>180</x>
+      <y>180</y>
+      <width>130</width>
+      <off_label>Zero</off_label>
+      <on_label>Busy</on_label>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_10</name>
+      <text>Shutoff Valve</text>
+      <x>10</x>
+      <y>10</y>
+      <width>130</width>
+      <font>
+        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+        </font>
+      </font>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_11</name>
+      <text>Position 0 Location:</text>
+      <x>20</x>
+      <y>100</y>
+      <width>160</width>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>Text Entry_3</name>
+      <pv_name>pva://TGT:BTARG:Shutoff_pos_0</pv_name>
+      <x>180</x>
+      <y>100</y>
+      <width>130</width>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>Text Entry_5</name>
+      <pv_name>pva://TGT:BTARG:Shutoff_pos_1</pv_name>
+      <x>180</x>
+      <y>120</y>
+      <width>130</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_13</name>
+      <text>Position 1 Location:</text>
+      <x>20</x>
+      <y>120</y>
+      <width>160</width>
+    </widget>
   </widget>
 </display>
