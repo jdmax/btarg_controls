@@ -31,10 +31,21 @@ class Device():
             self.pvs[channel+"_stop"] = builder.boolOut(channel+"_stop", on_update_name=self.do_sets)
             self.pvs[channel+"_zero"] = builder.boolOut(channel+"_zero", on_update_name=self.do_sets)
 
-    # Helper variables: mmbout to set three positions (left, center, right)
+    # Helper variables: mmbout to set positions
+        for channel, locs in self.settings['locations'].items():
+            list = []
+            for i, name in enumerate(locs.keys()):
+                list.append([name, i])
+                self.pvs[channel+"_pos_"+str(i)] = builder.aOut(channel+"_pos_"+str(i))
+                self.pvs[channel+"_pos_"+str(i)].set(locs[name])
+            self.pvs[channel+"_locations"] = (
+                builder.mbbOut(channel+"_locations", *list, on_update_name=self.set_position))
 
-
-
+    def set_position(self, new_value, pv):
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        channel = pv_name.replace("_locations", '')
+        self.pvs[channel+"_VC"].set(int(self.pvs[channel+"_pos_"+str(new_value)].get()))
+        # set motor to value in position in corresponding PV
 
     def connect(self):
         '''Open connection to device'''

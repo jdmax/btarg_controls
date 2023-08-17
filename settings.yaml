@@ -166,6 +166,14 @@ zaber:
         - Shutoff
         - None
         - Flag
+    locations:    # dict of preset locations (name then degrees from home) defaults for each channel
+        Shutoff:
+            Closed: 0
+            Open: 1440
+        Flag:
+            Left: 15
+            Empty: 30
+            Right: 45
 #sr-201:
 #    module: 'devices.sr201'
 #    autostart: False          # Should IOC Manager try to start this?
