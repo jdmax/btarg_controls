@@ -10,6 +10,10 @@ from threading import Thread
 
 
 async def main():
+    """
+    IOC to manage IOCS. Sets up PVs for each IOC in settings file to allow starting and stopping.
+    Uses Unix Screen to run master_ioc for each device IOC.
+    """
 
     with open('settings.yaml') as f:  # Load settings from YAML config file
         settings = yaml.load(f, Loader=yaml.FullLoader)
@@ -27,7 +31,7 @@ async def main():
 
 class IOCManager:
     """
-    Handles screens which run iocs. Make PVs to control each ioc.
+    Handles screens which run iocs. Makes PVs to control each ioc.
     """
 
     def __init__(self, device_name, settings):

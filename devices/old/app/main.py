@@ -3,7 +3,7 @@ import asyncio
 import yaml
 from collections import ChainMap
 
-from old.flow.flow_ioc import FlowControl
+from devices.old.flow.flow_ioc import FlowControl
 
 
 async def main():
@@ -32,15 +32,15 @@ async def main():
 def load_settings():
     '''Load device settings and records from YAML settings file'''
 
-    with open('../../settings.yaml') as f:                           # Load settings from YAML files
+    with open('../../../settings.yaml') as f:                           # Load settings from YAML files
        settings = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {'settings.yaml'}.")
 
-    with open('../../records.yaml') as f:                           # Load settings from YAML files
+    with open('../../../records.yaml') as f:                           # Load settings from YAML files
        records = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'records.yaml'}.")
 
-    with open('../../pids.yaml') as f:                           # Load pids from YAML files
+    with open('../../../pids.yaml') as f:                           # Load pids from YAML files
        pids = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded records from {'pids.yaml'}.")
     return settings, records, pids

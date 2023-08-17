@@ -7,7 +7,6 @@ class Device():
     Attributes:
         pvs: dict of Process Variables keyed by name
         channels: channels of device
-        new_reads: dict of most recent reads from device to set into PVs
     """
 
     def __init__(self, device_name, settings):
@@ -34,6 +33,7 @@ class Device():
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
     def reconnect(self):
+        '''Delete connection and try again'''
         del self.t
         print("Connection failed. Attempting reconnect.")
         self.connect()

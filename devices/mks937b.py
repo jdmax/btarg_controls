@@ -9,7 +9,6 @@ class Device():
     Attributes:
         pvs: dict of Process Variables keyed by name
         channels: channels of device
-        new_reads: dict of most recent reads from device to set into PVs
     """
 
     def __init__(self, device_name, settings):
@@ -19,7 +18,6 @@ class Device():
         self.settings = settings
         self.channels = settings['channels']
         self.pvs = {}
-        self.new_reads = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
         for channel in settings['channels']:  # set up PVs for each channel

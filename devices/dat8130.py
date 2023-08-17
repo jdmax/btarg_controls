@@ -96,8 +96,7 @@ class Device():
 
 
 class DeviceConnection():
-    """Handle connection to Datexel 8017-V and 8017-I. Communication to both is the same,
-    with the 8 read channels at the same addresses. Difference will be in calibration.
+    """Handle connection to Datexel 8130.
     """
 
     def __init__(self, host, port, timeout):

@@ -56,7 +56,7 @@ class StatusIOC:
 
     async def stat_update(self, i, pv):
         """
-        Multiple Choice PV has changed for the state or species
+        Multiple Choice PV has changed for the state or species. Go through and caput changes from states file.
         """
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         print(i,pv, pv_name)

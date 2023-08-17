@@ -8,7 +8,8 @@ import os
 
 async def main():
     """
-    Run IOC: load settings, create dispatcher, set name, start devices, do boilerplate
+    Run an IOC: load settings, create dispatcher, set name, do boilerplate, loop on device coroutine and start interactive interface
+    Device to be set up comes from command line argument choosing option from settings file
     """
     ioc, settings, records = load_settings()
 
@@ -33,7 +34,7 @@ async def main():
 
 
 class DeviceIOC():
-    """Set up PVs for device IOC, run thread to interact with device
+    """Set up PVs for a given device IOC, run thread to interact with device
     """
 
     def __init__(self, device_name, settings, records):
