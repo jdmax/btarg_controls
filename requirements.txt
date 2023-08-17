@@ -6,3 +6,4 @@ screenutils~=0.0.1.6.2
 zaber-motion~=4.2.0
 pyModbusTCP~=0.2.0
 sphinx
+myst_parser
