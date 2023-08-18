@@ -18,3 +18,4 @@ btarg_controls
    source-devices/omega
    source-devices/thcd
    source-devices/zaber_motor
+   settings
