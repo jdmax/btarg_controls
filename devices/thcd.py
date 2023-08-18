@@ -84,7 +84,10 @@ class Device():
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.set_alarm(channel)
+                if "_FI" in channel:
+                    self.set_alarm(channel)
+                else:
+                    self.set_alarm(channel+"_FI")
             self.reconnect()
         return
 
