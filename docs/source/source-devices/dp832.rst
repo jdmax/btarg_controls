@@ -1,0 +1,7 @@
+dp832 module
+============
+
+.. automodule:: devices.dp832
+   :members:
+   :undoc-members:
+   :show-inheritance:

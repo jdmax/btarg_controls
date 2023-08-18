@@ -1,0 +1,7 @@
+ami136 module
+=============
+
+.. automodule:: devices.ami136
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+ls218 module
+============
+
+.. automodule:: devices.ls218
+   :members:
+   :undoc-members:
+   :show-inheritance:

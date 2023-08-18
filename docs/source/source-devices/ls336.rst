@@ -1,0 +1,7 @@
+ls336 module
+============
+
+.. automodule:: devices.ls336
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -174,24 +174,3 @@ zaber:
             Left: 15
             Empty: 30
             Right: 45
-#sr-201:
-#    module: 'devices.sr201'
-#    autostart: False          # Should IOC Manager try to start this?
-#    ip: '192.168.1.100'
-#    port: '6722'           # TCP control port of relay
-#    timeout: 2
-#    delay: 10
-#    controllers:
-#        - Flip_VC
-#        - Flop_VC
-#flow_controller:
-#    enable: true            # don't connect to device, use test mode
-#    ip: '192.168.1.180'
-#    port: '101'
-#    timeout: 2
-#    delay: 3                # update delay in seconds
-#    channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
-#        - Shield
-#        - Evaporator
-#        - Precool
-#        - Pump_FI

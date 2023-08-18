@@ -1,0 +1,7 @@
+dat8017 module
+==============
+
+.. automodule:: devices.dat8017
+   :members:
+   :undoc-members:
+   :show-inheritance:

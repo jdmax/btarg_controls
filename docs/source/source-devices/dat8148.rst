@@ -1,0 +1,7 @@
+dat8148 module
+==============
+
+.. automodule:: devices.dat8148
+   :members:
+   :undoc-members:
+   :show-inheritance:
