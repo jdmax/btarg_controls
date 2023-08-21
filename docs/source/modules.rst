@@ -6,7 +6,7 @@ btarg_controls
 
    ioc_manager
    master_ioc
-   status_ioc
+   source-devices/status_ioc
    source-devices/ami136
    source-devices/dat8017
    source-devices/dat8130
@@ -19,3 +19,5 @@ btarg_controls
    source-devices/thcd
    source-devices/zaber_motor
    settings
+   states
+   pids_file

@@ -38,6 +38,15 @@ The majority of the required settings for each device are in the :doc:`settings`
 
 The records.yaml file defines default fields for PVs created from the settings.yaml file. All entries in the records file are optional, but allow descriptions, units and starting alarm values to be defined.
 
+Status Changes
+==============
+The :class:`Status IOC <devices.status_ioc>` facilitates the switching of the target state, for instance from cooling down to filling. The status has two multiple choice PVs, ``species`` and ``status``. If either are changed, the IOC will update all the process variables listed in the :doc:`states` ``states.yaml``, performing EPICS puts on each. The states file is organized by state, i.e Cooldown, Empty, Full or Safe. Each entry is a PV to be updated for that state, and each PV has a list of the values for each species. Values that are lists are taken as alarm limits (HIHI, HIGH, LOW, LOLO). The status IOC can be started like any other device IOC using the IOC manager.
+
+
+Software PIDS
+=============
+The :class:`PID IOC <pids>` PID IOC allows software PID control of any EPICS PV using any other PV. The code looks at the :doc:`pids_file` ``pids.yaml`` and creates a new PID coroutine to perform gets and puts to control a PID loop. Any number of PIDs may be created, just restart the PID IOC after changes to the file. The PID IOC can also be controlled from the IOC Manager with its own PV.
+
 
 .. toctree::
    :maxdepth: 2

@@ -51,19 +51,24 @@ class IOCManager:
                                            ("Stop",0),
                                            ("Start",1),
                                            ("Reset",2),
-                                           ("Kill",3),
                                            on_update_name=self.screen_update
                                            )
         self.pv_all = builder.mbbOut('all',
                                        ("Stop",0),
                                        ("Start",1),
                                        ("Reset",2),
-                                       ("Kill",3),
                                        on_update=self.all_screen_update
+                                       )
+        self.pv_pid = builder.mbbOut('pids',
+                                       ("Stop",0),
+                                       ("Start",1),
+                                       ("Reset",2),
+                                       on_update=self.pid_update
                                        )
 
         self.ioc_regex = re.compile(f'{device_name}')
 
+        self.pid_update(1)
 
     def screen_update(self, i, pv):
         """
@@ -80,8 +85,6 @@ class IOCManager:
                 self.start_ioc(pv_name)
         elif i==2:
             self.reset_ioc(pv_name)
-        elif i==3:
-            self.kill_ioc(pv_name)
 
     def all_screen_update(self, i):
         """
@@ -124,11 +127,20 @@ class IOCManager:
         time.sleep(1)
         self.start_ioc(pv_name)
 
-    def kill_ioc(self, pv_name):
-        """
-        Kill screen and ioc running within it.
-        """
-        self.stop_ioc(pv_name)
+    def pid_update(self, i):
+        '''Start and stop the PID IOC '''
+        if i==0:
+            if Screen('pids').exists:
+                subprocess.run(["screen","-XS",'pids',"kill"])
+            self.pv_pid.set(0)
+        elif i==1:
+            screen = Screen('pids', True)
+            screen.send_commands(f'python pid/pids.py')
+        elif i==2:
+            if Screen('pids').exists:
+                subprocess.run(["screen","-XS",'pids',"kill"])
+            screen = Screen('pids', True)
+            screen.send_commands(f'python pid/pids.py')
 
 class StartThread(Thread):
     '''Thread to interact with IOCs in screens. Each thread starts one ioc.'''
