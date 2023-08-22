@@ -1,4 +1,5 @@
 # btarg pid settings, YAML
+# Each entry defines a new PID loop. PV names are in form Prefix:BasePV:outPV
 Test_PID:    # Base PV name
     input: TGT:BTARG:PID:Test_Temp  # PV name of control channels
     output: TGT:BTARG:PID:Test_Power
