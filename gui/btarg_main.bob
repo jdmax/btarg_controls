@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-22 14:49:09 by jmaxwell-->
+<!--Saved on 2023-08-22 14:51:10 by jmaxwell-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1580</width>
@@ -793,5 +793,20 @@
       <height>20</height>
       <tooltip>$(actions)</tooltip>
     </widget>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_7</name>
+    <actions>
+      <action type="open_display">
+        <file>ioc_man.bob</file>
+        <target>replace</target>
+        <description>Open Display</description>
+      </action>
+    </actions>
+    <text>Open IOC Manager</text>
+    <x>60</x>
+    <y>840</y>
+    <width>190</width>
+    <height>40</height>
   </widget>
 </display>
