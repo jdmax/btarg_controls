@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-08-21 15:02:21 by jmaxwell-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>Status Switcher</text>
+    <x use_class="true">0</x>
+    <y use_class="true">0</y>
+    <width>550</width>
+    <height>31</height>
+    <font use_class="true">
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <foreground_color use_class="true">
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <transparent use_class="true">true</transparent>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box</name>
+    <pv_name>TGT:BTARG:status</pv_name>
+    <x>110</x>
+    <y>150</y>
+    <width>260</width>
+    <height>40</height>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box_2</name>
+    <pv_name>TGT:BTARG:species</pv_name>
+    <x>110</x>
+    <y>210</y>
+    <width>260</width>
+    <height>40</height>
+  </widget>
+  <widget type="choice" version="2.0.0">
+    <name>Choice Button</name>
+    <pv_name>TGT:BTARG:species</pv_name>
+    <x>110</x>
+    <y>340</y>
+    <width>250</width>
+    <height>70</height>
+    <items>
+      <item>Item 1</item>
+      <item>Item 2</item>
+    </items>
+  </widget>
+</display>

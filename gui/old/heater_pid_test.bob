@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-04-27 14:14:11 by jmaxwell-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>Heater PID Test with LS336</text>
+    <x use_class="true">0</x>
+    <y use_class="true">0</y>
+    <width>550</width>
+    <height>31</height>
+    <font use_class="true">
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <foreground_color use_class="true">
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <transparent use_class="true">true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Input</text>
+    <y>100</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>pva://TGT:BTARG:TEMP:Coolant_TI</pv_name>
+    <x>100</x>
+    <y>100</y>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>Output</text>
+    <y>80</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>Auto Mode:</text>
+    <y>130</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_4</name>
+    <text>Kp:</text>
+    <y>170</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Ki:</text>
+    <y>190</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Kd:</text>
+    <y>210</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>Min change:</text>
+    <y>230</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_8</name>
+    <text>Max change:</text>
+    <y>250</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner</name>
+    <pv_name>pva://TGT:BTARG:TEMP:Coolant_Manual</pv_name>
+    <x>100</x>
+    <y>80</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_9</name>
+    <text>Setpoint:</text>
+    <y>60</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_1</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_setpoint</pv_name>
+    <x>100</x>
+    <y>60</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="stripchart" version="2.1.0">
+    <name>Strip Chart</name>
+    <x>340</x>
+    <y>31</y>
+    <width>440</width>
+    <height>320</height>
+    <y_axes>
+      <y_axis>
+        <title>Temp</title>
+        <autoscale>false</autoscale>
+        <log_scale>false</log_scale>
+        <minimum>0.0</minimum>
+        <maximum>310.0</maximum>
+        <show_grid>true</show_grid>
+        <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
+      </y_axis>
+      <y_axis>
+        <title>Heater</title>
+        <autoscale>false</autoscale>
+        <log_scale>false</log_scale>
+        <minimum>0.0</minimum>
+        <maximum>100.0</maximum>
+        <show_grid>false</show_grid>
+        <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
+      </y_axis>
+    </y_axes>
+    <traces>
+      <trace>
+        <name>$(traces[0].y_pv)</name>
+        <y_pv>pva://TGT:BTARG:PID:Coolant_PID_setpoint</y_pv>
+        <axis>0</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="0" green="0" blue="255">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>$(traces[1].y_pv)</name>
+        <y_pv>pva://TGT:BTARG:TEMP:Coolant_Manual</y_pv>
+        <axis>1</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="255" green="0" blue="0">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>$(traces[2].y_pv)</name>
+        <y_pv>pva://TGT:BTARG:TEMP:Coolant_TI</y_pv>
+        <axis>0</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="0" green="255" blue="0">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+    </traces>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_2</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_Kp</pv_name>
+    <x>100</x>
+    <y>170</y>
+    <width>130</width>
+    <precision>3</precision>
+    <maximum>300.0</maximum>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_3</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_Ki</pv_name>
+    <x>100</x>
+    <y>190</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_4</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_Kd</pv_name>
+    <x>100</x>
+    <y>210</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_5</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_min_change</pv_name>
+    <x>100</x>
+    <y>230</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_6</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_max_change</pv_name>
+    <x>100</x>
+    <y>250</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_1</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_auto_mode</pv_name>
+    <x>100</x>
+    <y>130</y>
+    <width>130</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Drive low:</text>
+    <y>270</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_11</name>
+    <text>Drive High:</text>
+    <y>290</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_7</name>
+    <pv_name>pva://TGT:BTARG:TEMP:Coolant_Manual.DRVL</pv_name>
+    <x>100</x>
+    <y>270</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_8</name>
+    <pv_name>pva://TGT:BTARG:TEMP:Coolant_Manual.DRVH</pv_name>
+    <x>100</x>
+    <y>290</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_12</name>
+    <text>Sample time:</text>
+    <y>310</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_9</name>
+    <pv_name>pva://TGT:BTARG:PID:Coolant_PID_sample_time</pv_name>
+    <x>100</x>
+    <y>310</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+</display>
