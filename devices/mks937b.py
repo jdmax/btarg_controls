@@ -27,7 +27,8 @@ class Device():
     def connect(self):
         """Open connection to device"""
         try:
-            self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.t = DeviceConnection(self.settings['ip'], self.settings['port'],
+                                      self.settings['address'], self.settings['timeout'])
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
@@ -72,7 +73,7 @@ class DeviceConnection():
         '''Open connection to MKS
         Arguments:
             host: IP address
-        port: Port of device
+            port: Port of device
         '''
         self.host = host
         self.port = port

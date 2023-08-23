@@ -137,7 +137,7 @@ mks937b:
     address: '003'          # serial address set on device
     timeout: 2
     delay: 2
-    indicators:
+    channels:
         - Some_PI
 ami136:
     module: 'devices.ami136'
@@ -146,7 +146,7 @@ ami136:
     port: '1004'
     timeout: 1
     delay: 5
-    indicators:
+    channels:
         - Reservoir_LI
 rigol_dp832:
     module: 'devices.dp832'
