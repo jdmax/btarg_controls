@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-22 14:44:44 by jmaxwell-->
+<!--Saved on 2023-08-23 15:46:29 by poltar-->
 <display version="2.0.0">
-  <name>Display</name>
+  <name>IOC Manager</name>
   <width>400</width>
   <height>660</height>
   <widget type="rectangle" version="2.0.0">

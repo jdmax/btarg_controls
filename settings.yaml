@@ -79,7 +79,7 @@ omega_3:
     delay: 5
     channels:
         - Precool_Exhaust
-dat8017-i1:
+dat8017_i1:
     module: 'devices.dat8017'
     autostart: False
     ip: '192.168.1.149'
@@ -88,7 +88,7 @@ dat8017-i1:
     delay: 1
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top_PI: 1
-dat8017-i2:
+dat8017_i2:
     module: 'devices.dat8017'
     autostart: False
     ip: '192.168.1.150'
@@ -97,7 +97,7 @@ dat8017-i2:
     delay: 1
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
         Top2_PI: 1
-dat8017-v:
+dat8017_v:
     module: 'devices.dat8017'
     autostart: False
     ip: '192.168.1.151'
