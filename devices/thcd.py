@@ -79,8 +79,12 @@ class Device():
             flows = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel].set(flows[i])
-                self.remove_alarm(channel)
+                if "_FI" in channel:
+                    self.pvs[channel].set(flows[i])
+                    self.remove_alarm(channel)
+                else:
+                    self.pvs[channel+"_FI"].set(flows[i])
+                    self.remove_alarm(channel+"_FI")
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue

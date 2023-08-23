@@ -1,5 +1,5 @@
 PyYAML~=6.0
-softioc~=4.3.0
+softioc~=4.4.0
 aioca~=1.7
 numpy~=1.25.0
 screenutils~=0.0.1.6.2

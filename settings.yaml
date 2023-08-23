@@ -24,7 +24,7 @@ lakeshore_218_1:
     module: 'devices.ls218'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
-    port: '1001'    # channel 1 of serial to ethernet
+    port: '1002'    # channel 1 of serial to ethernet
     timeout: 2
     delay: 2
     channels:   # List of PV names for each read channel of 218 in order
@@ -36,7 +36,7 @@ lakeshore_218_2:
     module: 'devices.ls218'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
-    port: '1002'      # channel 2 of serial to ethernet
+    port: '1003'      # channel 2 of serial to ethernet
     timeout: 2
     delay: 2
     channels: # List of PV names for each read channel of 218 in order
@@ -133,7 +133,7 @@ mks937b:
     module: 'devices.mks937b'
     autostart: False          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
-    port: '1025'            # channel 3 of serial to ethernet
+    port: '1001'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
     timeout: 2
     delay: 2
@@ -142,7 +142,7 @@ mks937b:
 ami136:
     module: 'devices.ami136'
     autostart: False          # Should IOC Manager try to start this?
-    ip: '192.168.1.108'
+    ip: '192.168.1.107'
     port: '1004'
     timeout: 1
     delay: 5
