@@ -48,21 +48,21 @@ class IOCManager:
         for name in settings.keys():  # each IOC has controls to start, stop or reset
             if 'general' in name: continue
             self.pvs[name] = builder.mbbOut(name + '_control',
-                                           ("Stop",0),
-                                           ("Start",1),
-                                           ("Reset",2),
+                                           ("Stop",'MINOR'),
+                                           ("Start", 0),
+                                           ("Reset",'MINOR'),
                                            on_update_name=self.screen_update
                                            )
         self.pv_all = builder.mbbOut('all',
-                                       ("Stop",0),
-                                       ("Start",1),
-                                       ("Reset",2),
+                                       ("Stop",'MINOR'),
+                                       ("Start", 0),
+                                       ("Reset",'MINOR'),
                                        on_update=self.all_screen_update
                                        )
         self.pv_pid = builder.mbbOut('pids',
-                                       ("Stop",0),
-                                       ("Start",1),
-                                       ("Reset",2),
+                                       ("Stop",'MINOR'),
+                                       ("Start", 0),
+                                       ("Reset",'MINOR'),
                                        on_update=self.pid_update
                                        )
 

@@ -8,7 +8,7 @@ Welcome to Hall B Cryotarget Control's documentation!
 
 The new Hall B Cryotarget Controls provide an interface between the target instruments, valves and heaters using Python SoftIOCs for EPICS. All the devices that control the target are network enabled, and each device has its own stand-alone SoftIOC to create and set Process Variables which can be set and read from the EPICS network. Any SoftIOC needs only a Telnet connection to its device, so it could be run on any computer on the same network. Each SoftIOC is run via the :class:`Master IOC <master_ioc>` Python script, which accepts a command argument to determine which IOC to start.
 
-Because there are many instruments, and thus many control IOCs, I've written an :class:`IOC Manager <ioc_manager>`, which creates Process Variables to start, stop and kill each or all IOCs. The IOCs and their settings are listed in a :doc:`settings` 'settings.yaml'. This file also determines which IOCs are listed for use in the IOC Manager, and defines process variable names for each channel on a device.
+Because there are many instruments, and thus many control IOCs, I've written an :class:`IOC Manager <ioc_manager>`, which creates Process Variables to start, stop or reset each or all IOCs. The IOCs and their settings are listed in a :doc:`settings` 'settings.yaml'. This file also determines which IOCs are listed for use in the IOC Manager, and defines process variable names for each channel on a device.
 
 The frontend graphical user interface is written in Phoebus CSS. The frontend is independent from the backend device IOCs, and only provides a means for a user to get and set the Process Variables of all the IOCs through EPICS.
 
@@ -33,7 +33,7 @@ The device IOC modules contain the specific code to interact with a given device
 
 Settings Files
 ==============
-The majority of the required settings for each device are in the :doc:`settings` ``settings.yaml``. Each top level entry defines a device which needs an IOC, and it has subentries to give the connection addresses, read delay and timeout. A ``channels`` entry lists ll the channels for that device in order; for intsance the 8 channels of a Lakeshore 218 temperature monitor are listed as names in their order on the device.  In general, each channel defines a Process variable with a corresponding suffix, such as a temperature indicator ``Shield_Cold_TI``. Some channels do not include a suffix, in which case their modules create multiple PVs based on that channel name.
+The majority of the required settings for each device are in the :doc:`settings` ``settings.yaml``. Each top level entry defines a device which needs an IOC, and it has subentries to give the connection addresses, read delay and timeout. A ``channels`` entry lists ll the channels for that device in order; for instance the 8 channels of a Lakeshore 218 temperature monitor are listed as names in their order on the device.  In general, each channel defines a Process variable with a corresponding suffix, such as a temperature indicator ``Shield_Cold_TI``. Some channels do not include a suffix, in which case their modules create multiple PVs based on that channel name.
 
 
 The records.yaml file defines default fields for PVs created from the settings.yaml file. All entries in the records file are optional, but allow descriptions, units and starting alarm values to be defined.
