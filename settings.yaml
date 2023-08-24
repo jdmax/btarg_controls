@@ -10,7 +10,7 @@ status:   # SoftIOC to switch between target states
     delay: 3
 thcd:   # flow controller interface
     module: 'devices.thcd'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.180'
     port: '101'
     timeout: 2
@@ -43,7 +43,7 @@ lakeshore_218_2:
         - Other_TI
 lakeshore_336:
     module: 'devices.ls336'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.36'
     port: '7777'
     timeout: 2

@@ -126,9 +126,9 @@ def load_settings():
         settings = yaml.load(f, Loader=yaml.FullLoader)
     print(f"Loaded device settings from {folder}/settings.yaml.")
 
-    with open(f'{folder}/pids.yaml') as f:  # Load settings from YAML files
+    with open(f'{folder}/pid/pids.yaml') as f:  # Load settings from YAML files
         pids = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"Loaded device settings from {folder}/pids.yaml.")
+    print(f"Loaded device settings from {folder}/pid/pids.yaml.")
 
     return settings, pids
 
