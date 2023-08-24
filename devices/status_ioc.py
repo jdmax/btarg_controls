@@ -23,8 +23,8 @@ class Device():
         self.status = self.states['options']['status']
         self.species = self.states['options']['species']
 
-        status_list = [[name,i] for i, name in enumerate(self.status)]  # make list of tuples for mbbout call
-        species_list = [[name,i] for i, name in enumerate(self.species)]
+        status_list = [[name,0] for i, name in enumerate(self.status)]  # make list of tuples for mbbout call
+        species_list = [[name,0] for i, name in enumerate(self.species)]
         pvlist = []
         for status in self.status:
             for pv in self.states[status]:
