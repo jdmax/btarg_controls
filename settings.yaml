@@ -22,7 +22,7 @@ thcd:   # flow controller interface
         - Pump_FI
 lakeshore_218_1:
     module: 'devices.ls218'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1002'    # channel 1 of serial to ethernet
     timeout: 2
@@ -34,7 +34,7 @@ lakeshore_218_1:
         - None
 lakeshore_218_2:
     module: 'devices.ls218'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1003'      # channel 2 of serial to ethernet
     timeout: 2
@@ -131,7 +131,7 @@ dat8130:
         - Flop_DI
 mks937b:
     module: 'devices.mks937b'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1001'            # channel 3 of serial to ethernet
     address: '003'          # serial address set on device
@@ -141,7 +141,7 @@ mks937b:
         - Some_PI
 ami136:
     module: 'devices.ami136'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1004'
     timeout: 1
@@ -150,7 +150,7 @@ ami136:
         - Reservoir_LI
 rigol_dp832:
     module: 'devices.dp832'
-    autostart: False          # Should IOC Manager try to start this?
+    autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.32'
     port: '5555'
     timeout: 2
@@ -161,7 +161,7 @@ rigol_dp832:
         - ReservoirHeater
 zaber:
     module: 'devices.zaber_motor'
-    autostart: False
+    autostart: True
     ip: '192.168.1.40'
     port: '55551'
     timeout: 1

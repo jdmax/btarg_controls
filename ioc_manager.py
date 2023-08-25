@@ -49,22 +49,25 @@ class IOCManager:
             if 'general' in name: continue
             self.pvs[name] = builder.mbbOut(name + '_control',
                                            ("Stop",'MINOR'),
-                                           ("Start", 0),
+                                           ("Run", 0),
                                            ("Reset",'MINOR'),
                                            on_update_name=self.screen_update
                                            )
+            self.pvs[name].set(0)
         self.pv_all = builder.mbbOut('all',
                                        ("Stop",'MINOR'),
-                                       ("Start", 0),
+                                       ("Run", 0),
                                        ("Reset",'MINOR'),
                                        on_update=self.all_screen_update
                                        )
+        self.pv_all.set(0)
         self.pv_pid = builder.mbbOut('pids',
                                        ("Stop",'MINOR'),
-                                       ("Start", 0),
+                                       ("Run", 0),
                                        ("Reset",'MINOR'),
                                        on_update=self.pid_update
                                        )
+        self.pv_pid.set(0)
 
         self.ioc_regex = re.compile(f'{device_name}')
 
