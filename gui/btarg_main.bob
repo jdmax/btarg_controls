@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-25 11:00:51 by poltar-->
+<!--Saved on 2023-08-25 15:16:47 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -12,97 +12,6 @@
     <width>1110</width>
     <height>650</height>
     <stretch_image>true</stretch_image>
-  </widget>
-  <widget type="group" version="3.0.0">
-    <name>Group</name>
-    <x>720</x>
-    <y>90</y>
-    <width>270</width>
-    <height>110</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_1</name>
-      <width>270</width>
-      <height>110</height>
-      <line_color>
-        <color red="0" green="0" blue="255" alpha="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Read_Background" red="240" green="240" blue="240">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_4</name>
-      <text>Shield:</text>
-      <x>20</x>
-      <y>40</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_3</name>
-      <pv_name>pva://TGT:BTARG:Shield_Exhaust_TI</pv_name>
-      <x>120</x>
-      <y>40</y>
-      <width>80</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_5</name>
-      <text>Evaporator:</text>
-      <x>20</x>
-      <y>60</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_4</name>
-      <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_TI</pv_name>
-      <x>120</x>
-      <y>60</y>
-      <width>80</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_6</name>
-      <text>Precool:</text>
-      <x>20</x>
-      <y>80</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_5</name>
-      <pv_name>pva://TGT:BTARG:Precool_Exhaust_TI</pv_name>
-      <x>120</x>
-      <y>80</y>
-      <width>80</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_7</name>
-      <text>Exhaust Heaters</text>
-      <x>10</x>
-      <y>10</y>
-      <width>170</width>
-      <font>
-        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
-        </font>
-      </font>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button</name>
-      <actions>
-        <action type="open_display">
-          <file>omega_heaters.bob</file>
-          <target>window</target>
-          <description>Open Display</description>
-        </action>
-      </actions>
-      <text>Expert</text>
-      <x>180</x>
-      <y>10</y>
-      <width>80</width>
-      <height>20</height>
-      <tooltip>$(actions)</tooltip>
-    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>Group</name>
@@ -258,10 +167,10 @@
       <wrap_words>false</wrap_words>
     </widget>
     <widget type="action_button" version="3.0.0">
-      <name>Action Button_2</name>
+      <name>Action Button_7</name>
       <actions>
         <action type="open_display">
-          <file>Coolant_PID.bob</file>
+          <file>LS336_PID.bob</file>
           <target>window</target>
           <description>Open Display</description>
         </action>
@@ -373,7 +282,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_7</name>
-      <pv_name>pva://TGT:BTARG:TEMP218:Shield_Cold_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_Cold_TI</pv_name>
       <x>120</x>
       <y>40</y>
       <precision>4</precision>
@@ -386,7 +295,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_8</name>
-      <pv_name>pva://TGT:BTARG:TEMP218:Shield_Mid_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_Mid_TI</pv_name>
       <x>120</x>
       <y>60</y>
       <show_units>false</show_units>
@@ -399,7 +308,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_9</name>
-      <pv_name>pva://TGT:BTARG:TEMP218:Shield_Warm_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_Warm_TI</pv_name>
       <x>120</x>
       <y>80</y>
     </widget>
@@ -556,7 +465,7 @@
       <x>120</x>
       <y>40</y>
       <width>80</width>
-      <precision>4</precision>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_25</name>
@@ -570,7 +479,7 @@
       <x>120</x>
       <y>60</y>
       <width>80</width>
-      <precision>4</precision>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_26</name>
@@ -584,7 +493,7 @@
       <x>120</x>
       <y>80</y>
       <width>80</width>
-      <precision>4</precision>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_27</name>
@@ -694,97 +603,6 @@
     </line_color>
     <arrows>2</arrows>
   </widget>
-  <widget type="group" version="3.0.0">
-    <name>Group_4</name>
-    <x>420</x>
-    <y>90</y>
-    <width>270</width>
-    <height>110</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_7</name>
-      <width>270</width>
-      <height>110</height>
-      <line_color>
-        <color red="0" green="0" blue="255" alpha="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Read_Background" red="240" green="240" blue="240">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_29</name>
-      <text>Shield:</text>
-      <x>20</x>
-      <y>40</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_14</name>
-      <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
-      <x>120</x>
-      <y>40</y>
-      <width>90</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_30</name>
-      <text>Evaporator:</text>
-      <x>20</x>
-      <y>60</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_15</name>
-      <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
-      <x>120</x>
-      <y>60</y>
-      <width>90</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_31</name>
-      <text>Precool:</text>
-      <x>20</x>
-      <y>80</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_16</name>
-      <pv_name>pva://TGT:BTARG:Precool_FI</pv_name>
-      <x>120</x>
-      <y>80</y>
-      <width>90</width>
-      <precision>4</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_32</name>
-      <text>Exhaust Flows</text>
-      <x>10</x>
-      <y>10</y>
-      <width>170</width>
-      <font>
-        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
-        </font>
-      </font>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button_6</name>
-      <actions>
-        <action type="open_display">
-          <file>omega_heaters.bob</file>
-          <target>window</target>
-          <description>Open Display</description>
-        </action>
-      </actions>
-      <text>Expert</text>
-      <x>180</x>
-      <y>10</y>
-      <width>80</width>
-      <height>20</height>
-      <tooltip>$(actions)</tooltip>
-    </widget>
-  </widget>
   <widget type="choice" version="2.0.0">
     <name>Choice Button</name>
     <pv_name>TGT:BTARG:status</pv_name>
@@ -813,5 +631,120 @@
     <width>160</width>
     <height>40</height>
     <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Group</name>
+    <x>420</x>
+    <y>90</y>
+    <width>270</width>
+    <height>110</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_7</name>
+      <width>270</width>
+      <height>110</height>
+      <line_color>
+        <color red="0" green="0" blue="255" alpha="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color name="Read_Background" red="240" green="240" blue="240">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_29</name>
+      <text>Shield:</text>
+      <x>20</x>
+      <y>40</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_14</name>
+      <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
+      <x>100</x>
+      <y>40</y>
+      <width>80</width>
+      <precision>4</precision>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_30</name>
+      <text>Evaporator:</text>
+      <x>20</x>
+      <y>60</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_15</name>
+      <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
+      <x>100</x>
+      <y>60</y>
+      <width>80</width>
+      <precision>4</precision>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_31</name>
+      <text>Precool:</text>
+      <x>20</x>
+      <y>80</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_16</name>
+      <pv_name>pva://TGT:BTARG:Precool_FI</pv_name>
+      <x>100</x>
+      <y>80</y>
+      <width>80</width>
+      <precision>4</precision>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_32</name>
+      <text>Exhaust</text>
+      <x>10</x>
+      <y>10</y>
+      <width>170</width>
+      <font>
+        <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+        </font>
+      </font>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_6</name>
+      <actions>
+        <action type="open_display">
+          <file>exhaust.bob</file>
+          <target>window</target>
+          <description>Open Display</description>
+        </action>
+      </actions>
+      <text>Expert</text>
+      <x>180</x>
+      <y>10</y>
+      <width>80</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_3</name>
+      <pv_name>pva://TGT:BTARG:Shield_Exhaust_TI</pv_name>
+      <x>200</x>
+      <y>40</y>
+      <width>70</width>
+      <precision>1</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_4</name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_TI</pv_name>
+      <x>200</x>
+      <y>60</y>
+      <width>70</width>
+      <precision>1</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_5</name>
+      <pv_name>pva://TGT:BTARG:Precool_Exhaust_TI</pv_name>
+      <x>200</x>
+      <y>80</y>
+      <width>70</width>
+      <precision>1</precision>
+    </widget>
   </widget>
 </display>

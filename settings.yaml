@@ -123,7 +123,7 @@ dat8130:
     timeout: 2
     delay: 1
     channels: # Dict of PV names for each channel. Needs 4 OUT channels first (None to mark unused), then up to 8 IN.
-        - Flip_DO    # DO: Digital In
+        - Flip_DO    # DO: Digital OUT
         - Flop_DO
         - None      # "None" if DO not used
         - None

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-03 10:17:50 by jmaxwell-->
+<!--Saved on 2023-08-25 15:07:11 by poltar-->
 <display version="2.0.0">
-  <name>Display</name>
+  <name>Lakeshore 336 Heater Controls</name>
   <width>580</width>
-  <height>160</height>
+  <height>410</height>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_7</name>
+    <x>20</x>
+    <y>50</y>
+    <width>540</width>
+    <height>170</height>
+    <line_color>
+      <color red="0" green="0" blue="255" alpha="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+  </widget>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
-    <text>Coolant PID Control, Lakeshore 336</text>
+    <text>Lakeshore 336 Heater Controls</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
     <width>550</width>
@@ -25,52 +40,52 @@
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Input:</text>
-    <x>20</x>
-    <y>31</y>
+    <x>30</x>
+    <y>99</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
     <pv_name>pva://TGT:BTARG:Coolant_TI</pv_name>
-    <x>120</x>
-    <y>31</y>
+    <x>130</x>
+    <y>99</y>
     <width>130</width>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
     <text>Heater Output:</text>
-    <x>20</x>
-    <y>71</y>
+    <x>30</x>
+    <y>139</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_5</name>
     <text>Auto Mode:</text>
-    <x>280</x>
-    <y>121</y>
+    <x>290</x>
+    <y>189</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
     <text>Kp:</text>
-    <x>280</x>
-    <y>31</y>
+    <x>290</x>
+    <y>99</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
     <text>Ki:</text>
-    <x>280</x>
-    <y>51</y>
+    <x>290</x>
+    <y>119</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_8</name>
     <text>Kd:</text>
-    <x>280</x>
-    <y>71</y>
+    <x>290</x>
+    <y>139</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Spinner</name>
     <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
-    <x>120</x>
-    <y>71</y>
+    <x>130</x>
+    <y>139</y>
     <width>130</width>
     <format>1</format>
     <precision>3</precision>
@@ -80,14 +95,14 @@
   <widget type="label" version="2.0.0">
     <name>Label_11</name>
     <text>Setpoint:</text>
-    <x>20</x>
-    <y>51</y>
+    <x>30</x>
+    <y>119</y>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_1</name>
     <pv_name>pva://TGT:BTARG:Coolant_SP</pv_name>
-    <x>120</x>
-    <y>51</y>
+    <x>130</x>
+    <y>119</y>
     <width>130</width>
     <format>1</format>
     <precision>3</precision>
@@ -97,8 +112,8 @@
   <widget type="textentry" version="3.0.0">
     <name>Spinner_2</name>
     <pv_name>pva://TGT:BTARG:Coolant_kP</pv_name>
-    <x>380</x>
-    <y>31</y>
+    <x>390</x>
+    <y>99</y>
     <width>150</width>
     <format>1</format>
     <precision>3</precision>
@@ -125,8 +140,8 @@
   <widget type="textentry" version="3.0.0">
     <name>Spinner_3</name>
     <pv_name>pva://TGT:BTARG:Coolant_kI</pv_name>
-    <x>380</x>
-    <y>51</y>
+    <x>390</x>
+    <y>119</y>
     <width>150</width>
     <format>1</format>
     <precision>3</precision>
@@ -136,8 +151,8 @@
   <widget type="textentry" version="3.0.0">
     <name>Spinner_4</name>
     <pv_name>pva://TGT:BTARG:Coolant_kD</pv_name>
-    <x>380</x>
-    <y>71</y>
+    <x>390</x>
+    <y>139</y>
     <width>150</width>
     <format>1</format>
     <precision>3</precision>
@@ -147,36 +162,36 @@
   <widget type="combo" version="2.0.0">
     <name>Boolean Button_1</name>
     <pv_name>pva://TGT:BTARG:Coolant_Mode</pv_name>
-    <x>380</x>
-    <y>121</y>
+    <x>390</x>
+    <y>189</y>
     <width>150</width>
     <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
     <text>Range:</text>
-    <x>20</x>
-    <y>91</y>
+    <x>30</x>
+    <y>159</y>
   </widget>
   <widget type="combo" version="2.0.0">
     <name>Boolean Button_2</name>
     <pv_name>pva://TGT:BTARG:Coolant_Range</pv_name>
-    <x>120</x>
-    <y>91</y>
+    <x>130</x>
+    <y>159</y>
     <width>130</width>
     <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_16</name>
     <text>Manual Heater:</text>
-    <x>20</x>
-    <y>121</y>
+    <x>30</x>
+    <y>189</y>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_10</name>
     <pv_name>pva://TGT:BTARG:Coolant_Manual</pv_name>
-    <x>120</x>
-    <y>121</y>
+    <x>130</x>
+    <y>189</y>
     <width>130</width>
     <format>1</format>
     <precision>3</precision>
@@ -189,5 +204,203 @@
     <height>160</height>
     <visible>false</visible>
     <transparent>true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_9</name>
+    <text>Coolant Controls</text>
+    <x>30</x>
+    <y>60</y>
+    <width>200</width>
+    <font>
+      <font name="Header 2" family="Liberation Sans" style="BOLD" size="18.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_8</name>
+    <x>20</x>
+    <y>240</y>
+    <width>540</width>
+    <height>170</height>
+    <line_color>
+      <color red="0" green="0" blue="255" alpha="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Input:</text>
+    <x>30</x>
+    <y>289</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>pva://TGT:BTARG:Coolant_TI</pv_name>
+    <x>130</x>
+    <y>289</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_12</name>
+    <text>Heater Output:</text>
+    <x>30</x>
+    <y>329</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_13</name>
+    <text>Auto Mode:</text>
+    <x>290</x>
+    <y>379</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_14</name>
+    <text>Kp:</text>
+    <x>290</x>
+    <y>289</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_17</name>
+    <text>Ki:</text>
+    <x>290</x>
+    <y>309</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_18</name>
+    <text>Kd:</text>
+    <x>290</x>
+    <y>329</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Spinner_5</name>
+    <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
+    <x>130</x>
+    <y>329</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <wrap_words>false</wrap_words>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_19</name>
+    <text>Setpoint:</text>
+    <x>30</x>
+    <y>309</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_6</name>
+    <pv_name>pva://TGT:BTARG:Coolant_SP</pv_name>
+    <x>130</x>
+    <y>309</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_7</name>
+    <pv_name>pva://TGT:BTARG:Coolant_kP</pv_name>
+    <x>390</x>
+    <y>289</y>
+    <width>150</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+    <rules>
+      <rule name="On in Closed Mode" prop_id="background_color" out_exp="false">
+        <exp bool_exp="pva://TGT:BTARG:TEMP:Coolant_Mode != ['Closed Loop', 1]">
+          <value>
+            <color name="Read_Background" red="240" green="240" blue="240">
+            </color>
+          </value>
+        </exp>
+        <exp bool_exp="pva://TGT:BTARG:TEMP:Coolant_Mode = ['Closed Loop', 1]">
+          <value>
+            <color name="Write_Background" red="128" green="255" blue="255">
+            </color>
+          </value>
+        </exp>
+        <pv_name>$(pv_name)</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_8</name>
+    <pv_name>pva://TGT:BTARG:Coolant_kI</pv_name>
+    <x>390</x>
+    <y>309</y>
+    <width>150</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_9</name>
+    <pv_name>pva://TGT:BTARG:Coolant_kD</pv_name>
+    <x>390</x>
+    <y>329</y>
+    <width>150</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Boolean Button_3</name>
+    <pv_name>pva://TGT:BTARG:Coolant_Mode</pv_name>
+    <x>390</x>
+    <y>379</y>
+    <width>150</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_20</name>
+    <text>Range:</text>
+    <x>30</x>
+    <y>349</y>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Boolean Button_4</name>
+    <pv_name>pva://TGT:BTARG:Coolant_Range</pv_name>
+    <x>130</x>
+    <y>349</y>
+    <width>130</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_21</name>
+    <text>Manual Heater:</text>
+    <x>30</x>
+    <y>379</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_11</name>
+    <pv_name>pva://TGT:BTARG:Coolant_Manual</pv_name>
+    <x>130</x>
+    <y>379</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_22</name>
+    <text>Condenser Controls</text>
+    <x>30</x>
+    <y>250</y>
+    <width>200</width>
+    <font>
+      <font name="Header 2" family="Liberation Sans" style="BOLD" size="18.0">
+      </font>
+    </font>
   </widget>
 </display>
