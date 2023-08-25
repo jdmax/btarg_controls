@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-25 09:42:37 by poltar-->
+<!--Saved on 2023-08-25 10:18:52 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -601,7 +601,7 @@
       <name>Action Button_5</name>
       <actions>
         <action type="open_display">
-          <file>omega_heaters.bob</file>
+          <file>reservior.bob</file>
           <target>window</target>
           <description>Open Display</description>
         </action>

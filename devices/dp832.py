@@ -42,18 +42,15 @@ class Device():
     def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
-            p = pv_name.split("_")[0]  # pv_name root
+            if "None" in pv_name: continue
             try:
-                if 'CC' in pv_name or 'VC' in pv_name:  # is this a current set? Voltage set from settings file
-                    values = self.t.read_sp(str(i+1))
-                    self.pvs[p + '_VC'].set(values[0])  # set returned voltage
-                    self.pvs[p + '_CC'].set(values[1])  # set returned current
-                elif 'Mode' in pv_name:
-                    value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
-                    self.pvs[pv_name].set(int(value))  # set returned value
-                else:
-                    print('Error, control PV not categorized.', pv_name)
+                values = self.t.read_sp(str(i+1))
+                self.pvs[pv_name + '_VC'].set(values[0])  # set returned voltage
+                self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
+                value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
+                self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
             except OSError:
+                print("Read out error on", pv_name)
                 self.reconnect()
 
     def reconnect(self):
@@ -73,7 +70,7 @@ class Device():
                 self.pvs[p + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[p + '_CC'].set(values[1])  # set returned current
             elif 'Mode' in pv_name:
-                value = self.t.read_state(chan)
+                value = self.t.set_state(chan, new_value)
                 self.pvs[pv_name].set(int(value))  # set returned value
             else:
                 print('Error, control PV not categorized.', pv_name)
@@ -83,21 +80,20 @@ class Device():
 
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
-        try:
-            new_reads = {}
-            for i, channel in enumerate(self.channels):
-                if "None" in channel: continue
+        new_reads = {}
+        for i, channel in enumerate(self.channels):
+            if "None" in channel: continue
+            try:
                 new_reads[channel+'_VI'], new_reads[channel+'_CI'], power = self.t.read(i+1)
                 new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
                 new_reads[channel+'_Mode'] = self.t.read_state(i+1)
-            for channel, value in new_reads.items():
-                self.pvs[channel].set(value)
-                self.remove_alarm(channel)
-        except OSError:
-            for i, channel in enumerate(self.channels):
-                if "None" in channel: continue
-                self.set_alarm(channel)
-            self.reconnect()
+            except OSError:
+                self.set_alarm(channel + "_VI")
+                self.reconnect()
+            else:
+                self.remove_alarm(channel + "_VI")
+        for channel, value in new_reads.items():
+            self.pvs[channel].set(value)
         return
 
     def set_alarm(self, channel):
