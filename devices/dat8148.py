@@ -2,7 +2,7 @@ from pyModbusTCP.client import ModbusClient
 from softioc import builder, alarm
 
 class Device():
-    """Makes library of PVs needed for DAT8148 and provides methods connect them to the device
+    """Makes library of PVs needed for the DAT8148 DIO and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name

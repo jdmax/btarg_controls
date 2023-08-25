@@ -3,7 +3,7 @@ from softioc import builder, alarm
 
 
 class Device():
-    """Makes library of PVs needed for DAT8130 and provides methods connect them to the device
+    """Makes library of PVs needed for the DAT8130 relays and provides methods connect them to the device
 
     Attributes:
         pvs: dict of Process Variables keyed by name
