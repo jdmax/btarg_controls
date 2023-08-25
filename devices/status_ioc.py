@@ -23,8 +23,6 @@ class Device():
         self.status = self.states['options']['status']
         self.species = self.states['options']['species']
 
-        status_list = [[name,0] for i, name in enumerate(self.status)]  # make list of tuples for mbbout call
-        species_list = [[name,0] for i, name in enumerate(self.species)]
         pvlist = []
         for status in self.status:
             for pv in self.states[status]:
@@ -33,8 +31,8 @@ class Device():
         self.watchlist = set(pvlist)
         #print(self.watchlist)
 
-        self.pvs['status'] = builder.mbbOut('status', *status_list, on_update_name=self.stat_update)  # come from states.yaml
-        self.pvs['species'] = builder.mbbOut('species', *species_list, on_update_name=self.stat_update)
+        self.pvs['status'] = builder.mbbOut('status', *self.status, on_update_name=self.stat_update)  # come from states.yaml
+        self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
 
 
     async def stat_update(self, i, pv):

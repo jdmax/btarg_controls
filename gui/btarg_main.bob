@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-24 14:47:16 by poltar-->
+<!--Saved on 2023-08-25 09:42:37 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -515,20 +515,11 @@
     </widget>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>Combo Box_2</name>
-    <pv_name>TGT:BTARG:status</pv_name>
-    <x>20</x>
-    <y>90</y>
-    <width>180</width>
-    <height>40</height>
-    <show_confirm_dialog>true</show_confirm_dialog>
-  </widget>
-  <widget type="combo" version="2.0.0">
     <name>Combo Box_3</name>
     <pv_name>TGT:BTARG:species</pv_name>
     <x>210</x>
-    <y>90</y>
-    <width>180</width>
+    <y>790</y>
+    <width>110</width>
     <height>40</height>
     <show_confirm_dialog>true</show_confirm_dialog>
   </widget>
@@ -797,14 +788,15 @@
   <widget type="choice" version="2.0.0">
     <name>Choice Button</name>
     <pv_name>TGT:BTARG:status</pv_name>
-    <x>350</x>
-    <y>30</y>
-    <width>240</width>
-    <height>50</height>
+    <x>20</x>
+    <y>90</y>
+    <width>360</width>
+    <height>40</height>
     <items>
       <item>Item 1</item>
       <item>Item 2</item>
     </items>
+    <show_confirm_dialog>true</show_confirm_dialog>
   </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_1</name>
@@ -816,9 +808,10 @@
       </action>
     </actions>
     <text>IOC Manager</text>
-    <x>20</x>
+    <x>30</x>
     <y>790</y>
     <width>160</width>
     <height>40</height>
+    <tooltip>$(actions)</tooltip>
   </widget>
 </display>
