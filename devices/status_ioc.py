@@ -1,8 +1,7 @@
 import yaml
 from softioc import builder, alarm
-from aioca import caget, caput, camonitor, connect, CANothing
+import aioca
 import asyncio
-import epics
 
 
 class Device():
@@ -45,18 +44,16 @@ class Device():
         status = self.states['options']['status'][j]
         species = self.states['options']['species'][k]
 
-        await connect("TGT:BTARG:Evaporator_TI.HIHI")
         group = []
         for pv in self.states[status]:  # set values and alarms for this state. Adds all puts to a group and runs concurrently.
             if isinstance(self.states[status][pv][species], list):
-                #group.append(self.try_put(pv+'.HIHI', self.states[status][pv][species][0]))
-                #group.append(self.try_put(pv+'.HIGH', self.states[status][pv][species][1]))
-                #group.append(self.try_put(pv+'.LOW', self.states[status][pv][species][2]))
-                #group.append(self.try_put(pv+'.LOLO', self.states[status][pv][species][3]))
-                await self.try_put(pv+'.HIHI', self.states[status][pv][species][0])
+                group.append(self.try_put(pv+'.HIHI', self.states[status][pv][species][0]))
+                group.append(self.try_put(pv+'.HIGH', self.states[status][pv][species][1]))
+                group.append(self.try_put(pv+'.LOW', self.states[status][pv][species][2]))
+                group.append(self.try_put(pv+'.LOLO', self.states[status][pv][species][3]))
             else:
-                #group.append(self.try_put(pv, self.states[status][pv][species]))
-                await self.try_put(pv, self.states[status][pv][species])
+                group.append(self.try_put(pv, self.states[status][pv][species]))
+                #await self.try_put(pv, self.states[status][pv][species])
         await asyncio.gather(*group)   # Run group concurrently
 
         # write out to file
@@ -66,13 +63,15 @@ class Device():
 
     async def try_put(self, pv, value):
         try:
-            print("epics get", epics.caget(self.device_name + ":" + pv))
-            print("get", await caget(self.device_name + ":" + pv))
-        except CANothing as e:
+            print("get status ", await aioca.caget(self.device_name + ":" + 'status'))
+            print("get status control", await aioca.caget(self.device_name + ":" + 'MAN:status_control'))
+            print("get Evaporator_TI", await aioca.caget(self.device_name + ":" + 'Evaporator_TI'))
+            print("get", await aioca.caget(self.device_name + ":" + pv))
+        except aioca.CANothing as e:
             print("Get error:", e, self.device_name + ":" + pv)
         try:
-            print("success", await caput(self.device_name + ":" + pv, value))
-        except CANothing as e:
+            print("success", await aioca.caput(self.device_name + ":" + pv, value))
+        except aioca.CANothing as e:
             print("Put error:", e, self.device_name + ":" + pv, value)
 
     def connect(self):

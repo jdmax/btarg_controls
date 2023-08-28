@@ -60,7 +60,7 @@ class PIDLoop():
     async def pid_setup(self):
         self.pid = PID()    # set up simple_pid 
         for out in self.outs.keys():   # set all parameters to pid object except the max and min change
-            if not 'change' in out:
+            if 'change' not in out:
                 setattr(self.pid, out, self.pvs[self.pid_name+'_'+out].get())
         try:
             high = await aioca.caget(self.out_pv + '.DRVH')
