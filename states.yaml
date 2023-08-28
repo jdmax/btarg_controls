@@ -67,17 +67,17 @@ Cooldown:
         D2: False
         4He: False
         3He: False
-    Coolant_FI:
+    Evaporator_FI:
         H2: [99, 95, 5, 0]
         D2: [99, 95, 5, 0]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
-    Coolant_FC:
+    Evaporator_FC:
         H2: 90
         D2: 90
         4He: 90
         3He: 90
-    Coolant_PID_auto_mode:
+    Coolant_Mode:
         H2: False
         D2: False
         4He: False
@@ -158,17 +158,17 @@ Empty:
         D2: 30
         4He: 30
         3He: 30
-    Coolant_FI:
+    Evaporator_FI:
         H2: [99, 95, 2, 0]
         D2: [99, 95, 2, 0]
         4He: [99, 95, 2, 0]
         3He: [99, 95, 2, 0]
-    Coolant_PID_auto_mode:
+    Coolant_Mode:
         H2: True
         D2: True
         4He: True
         3He: True
-    Coolant_PID_setpoint:
+    Coolant_SP:
         H2: 28
         D2: 28
         4He: 8
@@ -249,17 +249,17 @@ Full:
         D2: 30
         4He: 30
         3He: 30
-    Coolant_FI:
+    Evaporator_FI:
         H2: [ 99, 95, 2, 0 ]
         D2: [ 99, 95, 2, 0 ]
         4He: [ 99, 95, 2, 0 ]
         3He: [ 99, 95, 2, 0 ]
-    Coolant_PID_auto_mode:
+    Coolant_Mode:
         H2: True
         D2: True
         4He: True
         3He: True
-    Coolant_PID_setpoint:
+    Coolant_SP:
         H2: 17
         D2: 17
         4He: 2.5
@@ -295,12 +295,12 @@ Safe:
         D2: 0
         4He: 0
         3He: 0
-    Coolant_PID_auto_mode:
+    Coolant_Mode:
         H2: False
         D2: False
         4He: False
         3He: False
-    Coolant_FC:
+    Evaporator_FC:
         H2: 0
         D2: 0
         4He: 0

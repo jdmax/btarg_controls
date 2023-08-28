@@ -1,7 +1,8 @@
 import yaml
 from softioc import builder, alarm
-from aioca import caget, caput, camonitor, connect
+from aioca import caget, caput, camonitor, connect, CANothing
 import asyncio
+import epics
 
 
 class Device():
@@ -34,7 +35,6 @@ class Device():
         self.pvs['status'] = builder.mbbOut('status', *self.status, on_update_name=self.stat_update)  # come from states.yaml
         self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
 
-
     async def stat_update(self, i, pv):
         """
         Multiple Choice PV has changed for the state or species. Go through and caput changes from states file.
@@ -45,15 +45,18 @@ class Device():
         status = self.states['options']['status'][j]
         species = self.states['options']['species'][k]
 
+        await connect("TGT:BTARG:Evaporator_TI.HIHI")
         group = []
         for pv in self.states[status]:  # set values and alarms for this state. Adds all puts to a group and runs concurrently.
             if isinstance(self.states[status][pv][species], list):
-                group.append(self.try_put(pv+'.HIHI', self.states[status][pv][species][0]))
-                group.append(self.try_put(pv+'.HIGH', self.states[status][pv][species][1]))
-                group.append(self.try_put(pv+'.LOW', self.states[status][pv][species][2]))
-                group.append(self.try_put(pv+'.LOLO', self.states[status][pv][species][3]))
+                #group.append(self.try_put(pv+'.HIHI', self.states[status][pv][species][0]))
+                #group.append(self.try_put(pv+'.HIGH', self.states[status][pv][species][1]))
+                #group.append(self.try_put(pv+'.LOW', self.states[status][pv][species][2]))
+                #group.append(self.try_put(pv+'.LOLO', self.states[status][pv][species][3]))
+                await self.try_put(pv+'.HIHI', self.states[status][pv][species][0])
             else:
-                group.append(self.try_put(pv, self.states[status][pv][species]))
+                #group.append(self.try_put(pv, self.states[status][pv][species]))
+                await self.try_put(pv, self.states[status][pv][species])
         await asyncio.gather(*group)   # Run group concurrently
 
         # write out to file
@@ -63,9 +66,14 @@ class Device():
 
     async def try_put(self, pv, value):
         try:
-            await caput(pv, value)
-        except Exception as e:
-            print(e)
+            print("epics get", epics.caget(self.device_name + ":" + pv))
+            print("get", await caget(self.device_name + ":" + pv))
+        except CANothing as e:
+            print("Get error:", e, self.device_name + ":" + pv)
+        try:
+            print("success", await caput(self.device_name + ":" + pv, value))
+        except CANothing as e:
+            print("Put error:", e, self.device_name + ":" + pv, value)
 
     def connect(self):
         '''Restore state to last used, or default if none'''
@@ -77,7 +85,6 @@ class Device():
 
         for pv in last:      # set to PVs
             self.pvs[pv].set(last[pv])
-        self.stat_update(0, 'pv')
         print('Restored previous state:', last)
 
     def do_reads(self):
