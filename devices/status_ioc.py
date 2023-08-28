@@ -63,14 +63,7 @@ class Device():
 
     async def try_put(self, pv, value):
         try:
-            print("get status ", await aioca.caget(self.device_name + ":" + 'status'))
-            print("get status control", await aioca.caget(self.device_name + ":" + 'MAN:status_control'))
-            print("get Evaporator_TI", await aioca.caget(self.device_name + ":" + 'Evaporator_TI'))
-            print("get", await aioca.caget(self.device_name + ":" + pv))
-        except aioca.CANothing as e:
-            print("Get error:", e, self.device_name + ":" + pv)
-        try:
-            print("success", await aioca.caput(self.device_name + ":" + pv, value))
+            await aioca.caput(self.device_name + ":" + pv, value)
         except aioca.CANothing as e:
             print("Put error:", e, self.device_name + ":" + pv, value)
 
