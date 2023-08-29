@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-25 15:16:47 by poltar-->
+<!--Saved on 2023-08-29 12:08:16 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -36,39 +36,39 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_1</name>
-      <text>Cold End:</text>
+      <text>Top:</text>
       <x>20</x>
       <y>40</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update</name>
-      <pv_name>pva://TGT:BTARG:Shield_Cold_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_Top_TI</pv_name>
       <x>120</x>
       <y>40</y>
       <precision>4</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_2</name>
-      <text>Middle:</text>
+      <text>Bottom:</text>
       <x>20</x>
       <y>60</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_1</name>
-      <pv_name>pva://TGT:BTARG:Shield_Mid_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_Bottom_TI</pv_name>
       <x>120</x>
       <y>60</y>
       <show_units>false</show_units>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_3</name>
-      <text>Warm End:</text>
+      <text>Downstream:</text>
       <x>20</x>
       <y>80</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_2</name>
-      <pv_name>pva://TGT:BTARG:Shield_Warm_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_DS_TI</pv_name>
       <x>120</x>
       <y>80</y>
     </widget>
@@ -107,7 +107,7 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_8</name>
-      <text>Condenser Heater</text>
+      <text>Evaporator</text>
       <x>10</x>
       <y>10</y>
       <width>170</width>
@@ -124,18 +124,18 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_6</name>
-      <pv_name>pva://TGT:BTARG:Coolant_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_TI</pv_name>
       <x>120</x>
       <y>40</y>
-      <width>130</width>
+      <width>60</width>
       <precision>3</precision>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Spinner_1</name>
       <pv_name>pva://TGT:BTARG:Coolant_SP</pv_name>
       <x>120</x>
-      <y>60</y>
-      <width>130</width>
+      <y>80</y>
+      <width>60</width>
       <background_color>
         <color name="Transparent" red="255" green="255" blue="255" alpha="0">
         </color>
@@ -146,22 +146,22 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_11</name>
-      <text>Setpoint:</text>
+      <text>Exhaust:</text>
       <x>20</x>
       <y>60</y>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_12</name>
-      <text>Heater Output:</text>
+      <text>Heater:</text>
       <x>20</x>
       <y>80</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Spinner_2</name>
       <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
-      <x>120</x>
+      <x>190</x>
       <y>80</y>
-      <width>130</width>
+      <width>60</width>
       <format>1</format>
       <precision>3</precision>
       <wrap_words>false</wrap_words>
@@ -182,6 +182,22 @@
       <height>20</height>
       <tooltip>$(actions)</tooltip>
     </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_18</name>
+      <pv_name>pva://TGT:BTARG:Evaporator_B_TI</pv_name>
+      <x>190</x>
+      <y>40</y>
+      <width>60</width>
+      <precision>3</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_19</name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_TI</pv_name>
+      <x>120</x>
+      <y>60</y>
+      <width>60</width>
+      <precision>3</precision>
+    </widget>
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_3</name>
@@ -200,7 +216,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
-    <text>Valves</text>
+    <text>Motors</text>
     <x>730</x>
     <y>240</y>
     <width>170</width>
@@ -276,45 +292,33 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_10</name>
-      <text>Loop:</text>
+      <text>Cell:</text>
       <x>20</x>
       <y>40</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_7</name>
-      <pv_name>pva://TGT:BTARG:Shield_Cold_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Cell_TI</pv_name>
       <x>120</x>
       <y>40</y>
       <precision>4</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_17</name>
-      <text>Middle:</text>
+      <text>Condenser</text>
       <x>20</x>
       <y>60</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_8</name>
-      <pv_name>pva://TGT:BTARG:Shield_Mid_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:CondenserTI</pv_name>
       <x>120</x>
       <y>60</y>
       <show_units>false</show_units>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>Label_18</name>
-      <text>Warm End:</text>
-      <x>20</x>
-      <y>80</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_9</name>
-      <pv_name>pva://TGT:BTARG:Shield_Warm_TI</pv_name>
-      <x>120</x>
-      <y>80</y>
-    </widget>
-    <widget type="label" version="2.0.0">
       <name>Label_19</name>
-      <text>Target Temperature</text>
+      <text>Target Loop</text>
       <x>10</x>
       <y>10</y>
       <width>170</width>
@@ -367,7 +371,7 @@
       <pv_name>pva://TGT:BTARG:Coolant_TI</pv_name>
       <x>120</x>
       <y>40</y>
-      <width>130</width>
+      <width>60</width>
       <precision>3</precision>
     </widget>
     <widget type="textupdate" version="2.0.0">
@@ -421,6 +425,14 @@
       <width>80</width>
       <height>20</height>
       <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_17</name>
+      <pv_name>pva://TGT:BTARG:Coolant_B_TI</pv_name>
+      <x>190</x>
+      <y>40</y>
+      <width>60</width>
+      <precision>3</precision>
     </widget>
   </widget>
   <widget type="combo" version="2.0.0">
@@ -483,16 +495,16 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_26</name>
-      <text>Temperature:</text>
+      <text>Top:</text>
       <x>20</x>
       <y>80</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_13</name>
-      <pv_name>pva://TGT:BTARG:Precool_Exhaust_TI</pv_name>
-      <x>120</x>
+      <pv_name>pva://TGT:BTARG:Reservoir_Top_TI</pv_name>
+      <x>60</x>
       <y>80</y>
-      <width>80</width>
+      <width>60</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
@@ -521,6 +533,20 @@
       <width>80</width>
       <height>20</height>
       <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_33</name>
+      <text>Bottom:</text>
+      <x>130</x>
+      <y>80</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_20</name>
+      <pv_name>pva://TGT:BTARG:Reservoir_Bottom_TI</pv_name>
+      <x>190</x>
+      <y>80</y>
+      <width>60</width>
+      <precision>2</precision>
     </widget>
   </widget>
   <widget type="label" version="2.0.0">
@@ -746,5 +772,24 @@
       <width>70</width>
       <precision>1</precision>
     </widget>
+  </widget>
+  <widget type="polyline" version="2.0.0">
+    <name>Polyline_6</name>
+    <x>860</x>
+    <y>480</y>
+    <width>150</width>
+    <height>120</height>
+    <points>
+      <point x="0.0" y="0.0">
+      </point>
+      <point x="150.0" y="120.0">
+      </point>
+    </points>
+    <line_width>2</line_width>
+    <line_color>
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <arrows>2</arrows>
   </widget>
 </display>
