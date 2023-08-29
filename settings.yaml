@@ -29,9 +29,13 @@ lakeshore_218_1:
     timeout: 2
     delay: 2
     channels:   # List of PV names for each read channel of 218 in order
-        - Shield_Cold_TI
-        - Shield_Mid_TI
-        - Shield_Warm_TI
+        - Cell_Top_TI
+        - Cell_Bottom_TI
+        - None
+        - None
+        - Shield_DS_TI
+        - Shield_Plate_TI
+        - Evaporator_Exhaust_TI
         - None
 lakeshore_218_2:
     module: 'devices.ls218'
@@ -41,8 +45,14 @@ lakeshore_218_2:
     timeout: 2
     delay: 2
     channels: # List of PV names for each read channel of 218 in order
-        - Evaporator_TI
-        - Condenser_TI
+        - Shield_Top_TI
+        - Shield_Bottom_TI
+        - None
+        - None
+        - Reservoir_Top_TI
+        - Reservoir_Bottom_TI
+        - None
+        - None
 lakeshore_336:
     module: 'devices.ls336'
     autostart: True          # Should IOC Manager try to start this?
@@ -52,8 +62,9 @@ lakeshore_336:
     delay: 2
     channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel.
         - Coolant
-        - Condenser
-        - Test1_TI
+        - Evaporator
+        - CoolantB_TI
+        - EvaporatorB_TI
 omega_1:
     module: 'devices.omega'
     autostart: True         # Should IOC Manager try to start this?
