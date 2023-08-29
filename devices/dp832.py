@@ -81,6 +81,7 @@ class Device():
     def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         new_reads = {}
+        ok = True
         for i, channel in enumerate(self.channels):
             if "None" in channel: continue
             try:
@@ -90,11 +91,12 @@ class Device():
             except OSError:
                 self.set_alarm(channel + "_VI")
                 self.reconnect()
+                ok = False
             else:
                 self.remove_alarm(channel + "_VI")
         for channel, value in new_reads.items():
             self.pvs[channel].set(value)
-        return
+        return ok
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""

@@ -99,7 +99,8 @@ class Device():
                 if "None" in channel: continue
                 self.set_alarm(channel + '_VI')
             self.reconnect()
-        return
+        else:
+            return True
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""

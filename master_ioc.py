@@ -4,6 +4,7 @@ import yaml
 import argparse
 import importlib
 import os
+import datetime
 
 
 async def main():
@@ -21,7 +22,7 @@ async def main():
     device_name = settings['general']['prefix']
     builder.SetDeviceName(device_name)
 
-    d = DeviceIOC(device_name, settings[ioc], records)
+    d = DeviceIOC(device_name, ioc, settings, records)
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
 
@@ -37,7 +38,7 @@ class DeviceIOC():
     """Set up PVs for a given device IOC, run thread to interact with device
     """
 
-    def __init__(self, device_name, settings, records):
+    def __init__(self, device_name, ioc, settings, records):
         '''
         Arguments:
             device_name: name of device for PV prefix
@@ -45,12 +46,15 @@ class DeviceIOC():
             records: dict of record settings
         '''
 
-        self.module = importlib.import_module(settings['module'])
+        self.module = importlib.import_module(settings[ioc]['module'])
         self.records = records
-        self.delay = settings['delay']
+        self.delay = settings[ioc]['delay']
+        self.now = datetime.datetime.now()
 
-        self.device = self.module.Device(device_name, settings)
+        self.device = self.module.Device(device_name, settings[ioc])
         self.device.connect()
+        self.pv_time = builder.aIn(f"MAN:{ioc}_time")
+        self.pv_time.set(datetime.datetime.now().timestamp())
 
         for name, entry in self.device.pvs.items():  # set the attributes of the PV (optional)
             if name in self.records:
@@ -61,7 +65,8 @@ class DeviceIOC():
         """Read indicator PVS from controller channels. Delay time between measurements is in seconds.
          """
         await asyncio.sleep(self.delay)
-        self.device.do_reads()  # get new readings from device and set into PVs
+        if self.device.do_reads():  # get new readings from device and set into PVs
+            self.pv_time.set(datetime.datetime.now().timestamp())   # set time since last update for heartbeat
 
 
 def load_settings():
