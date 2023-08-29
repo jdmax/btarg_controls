@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-23 15:46:29 by poltar-->
+<!--Saved on 2023-08-29 09:43:23 by poltar-->
 <display version="2.0.0">
   <name>IOC Manager</name>
   <width>400</width>
@@ -8,7 +8,7 @@
     <name>Rectangle</name>
     <x>20</x>
     <y>31</y>
-    <width>380</width>
+    <width>350</width>
     <height>629</height>
     <line_color>
       <color name="Transparent" red="255" green="255" blue="255" alpha="0">
@@ -51,36 +51,12 @@
     <y>50</y>
     <width>170</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box</name>
-    <pv_name>pva://TGT:BTARG:MAN:all</pv_name>
-    <x>240</x>
-    <y>50</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_1</name>
-    <pv_name>pva://TGT:BTARG:MAN:thcd_control</pv_name>
-    <x>240</x>
-    <y>139</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Lakeshore 218 #1:</text>
     <x>40</x>
     <y>169</y>
     <width>170</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_2</name>
-    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_1_control</pv_name>
-    <x>240</x>
-    <y>169</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
@@ -89,28 +65,12 @@
     <y>199</y>
     <width>170</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_6</name>
-    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_2_control</pv_name>
-    <x>240</x>
-    <y>199</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_8</name>
     <text>Lakeshore 336:</text>
     <x>40</x>
     <y>229</y>
     <width>170</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_7</name>
-    <pv_name>pva://TGT:BTARG:MAN:lakeshore_336_control</pv_name>
-    <x>240</x>
-    <y>229</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_9</name>
@@ -119,28 +79,12 @@
     <y>259</y>
     <width>190</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_8</name>
-    <pv_name>pva://TGT:BTARG:MAN:omega_1_control</pv_name>
-    <x>240</x>
-    <y>259</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_10</name>
     <text>Omega Heater Controller #2:</text>
     <x>40</x>
     <y>289</y>
     <width>190</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_9</name>
-    <pv_name>pva://TGT:BTARG:MAN:omega_2_control</pv_name>
-    <x>240</x>
-    <y>289</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
@@ -149,28 +93,12 @@
     <y>320</y>
     <width>190</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_11</name>
-    <pv_name>pva://TGT:BTARG:MAN:omega_3_control</pv_name>
-    <x>240</x>
-    <y>320</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
     <text>Datexel Current to Digital #1:</text>
     <x>40</x>
     <y>350</y>
     <width>190</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_12</name>
-    <pv_name>pva://TGT:BTARG:MAN:dat8017_i1_control</pv_name>
-    <x>240</x>
-    <y>350</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_14</name>
@@ -179,36 +107,12 @@
     <y>380</y>
     <width>190</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_13</name>
-    <pv_name>pva://TGT:BTARG:MAN:dat8017_i2_control</pv_name>
-    <x>240</x>
-    <y>380</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
     <text>Datexel Voltage to Digital:</text>
     <x>40</x>
     <y>410</y>
     <width>190</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_14</name>
-    <pv_name>pva://TGT:BTARG:MAN:dat8017_v_control</pv_name>
-    <x>240</x>
-    <y>410</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_15</name>
-    <pv_name>pva://TGT:BTARG:MAN:dat8130_control</pv_name>
-    <x>240</x>
-    <y>440</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_16</name>
@@ -217,28 +121,12 @@
     <y>440</y>
     <width>190</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_16</name>
-    <pv_name>pva://TGT:BTARG:MAN:mks937b_control</pv_name>
-    <x>240</x>
-    <y>470</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_17</name>
     <text>MKS 937b Pressures:</text>
     <x>40</x>
     <y>470</y>
     <width>190</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_17</name>
-    <pv_name>pva://TGT:BTARG:MAN:ami136_control</pv_name>
-    <x>240</x>
-    <y>500</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_18</name>
@@ -247,28 +135,12 @@
     <y>500</y>
     <width>190</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_18</name>
-    <pv_name>pva://TGT:BTARG:MAN:rigol_dp832_control</pv_name>
-    <x>240</x>
-    <y>530</y>
-    <width>140</width>
-    <height>20</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_19</name>
     <text>Rigol Power Supply:</text>
     <x>40</x>
     <y>530</y>
     <width>190</width>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_19</name>
-    <pv_name>pva://TGT:BTARG:MAN:zaber_control</pv_name>
-    <x>240</x>
-    <y>560</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_20</name>
@@ -281,10 +153,10 @@
     <name>Polyline</name>
     <x>60</x>
     <y>90</y>
-    <width>300</width>
+    <width>270</width>
     <height>1</height>
     <points>
-      <point x="300.0" y="0.0">
+      <point x="270.0" y="0.0">
       </point>
       <point x="0.0" y="0.0">
       </point>
@@ -293,14 +165,6 @@
       <color name="Grid" red="128" green="128" blue="128">
       </color>
     </line_color>
-  </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_3</name>
-    <pv_name>pva://TGT:BTARG:MAN:status_control</pv_name>
-    <x>240</x>
-    <y>109</y>
-    <width>140</width>
-    <height>20</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
@@ -313,10 +177,10 @@
     <name>Polyline_1</name>
     <x>60</x>
     <y>600</y>
-    <width>300</width>
-    <height>1</height>
+    <width>270</width>
+    <height>0</height>
     <points>
-      <point x="300.0" y="0.0">
+      <point x="270.0" y="0.0">
       </point>
       <point x="0.0" y="0.0">
       </point>
@@ -333,12 +197,173 @@
     <y>620</y>
     <width>170</width>
   </widget>
-  <widget type="combo" version="2.0.0">
-    <name>Combo Box_4</name>
-    <pv_name>pva://TGT:BTARG:MAN:pids</pv_name>
-    <x>240</x>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button</name>
+    <pv_name>pva://TGT:BTARG:MAN:status_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>109</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="text-symbol" version="2.0.0">
+    <name>Text Symbol</name>
+    <x>460</x>
+    <y>100</y>
+    <width>1</width>
+    <height>1</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_1</name>
+    <pv_name>pva://TGT:BTARG:MAN:thcd_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>139</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_2</name>
+    <pv_name>pva://TGT:BTARG:MAN:all</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>50</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_3</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_1_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>169</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_4</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_2_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>199</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_5</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_336_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>229</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_6</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_1_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>259</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_7</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_2_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>289</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_8</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_3_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>320</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_9</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_i1_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>350</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_10</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_i2_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>380</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_11</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_v_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>410</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_12</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8130_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>440</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_13</name>
+    <pv_name>pva://TGT:BTARG:MAN:mks937b_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>470</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_14</name>
+    <pv_name>pva://TGT:BTARG:MAN:ami136_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>500</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_15</name>
+    <pv_name>pva://TGT:BTARG:MAN:rigol_dp832_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>530</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_16</name>
+    <pv_name>pva://TGT:BTARG:MAN:zaber_control</pv_name>
+    <label></label>
+    <x>270</x>
+    <y>560</y>
+    <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button_17</name>
+    <pv_name>pva://TGT:BTARG:MAN:pidspva://TGT:BTARG:MAN:pids</pv_name>
+    <label></label>
+    <x>270</x>
     <y>620</y>
-    <width>140</width>
-    <height>20</height>
+    <width>60</width>
+    <height>19</height>
   </widget>
 </display>

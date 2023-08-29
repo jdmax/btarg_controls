@@ -52,6 +52,7 @@ class Device():
                 self.set_alarm(channel)
             self.reconnect()
         else:
+            print(levels)
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.pvs[channel].set(levels[i])
@@ -100,6 +101,7 @@ class DeviceConnection():
             ms = self.read_regex.findall(data)
             for m in ms:
                 values.append(float(m))
+            if not values: raise OSError('AMI136 read')
             return values
 
         except Exception as e:
