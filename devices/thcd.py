@@ -93,7 +93,8 @@ class Device():
                 else:
                     self.set_alarm(channel+"_FI")
             self.reconnect()
-        return
+        else:
+            return True
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""

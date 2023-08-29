@@ -7,6 +7,8 @@ import time
 import os.path
 import subprocess
 from threading import Thread
+import aioca
+import datetime
 
 
 async def main():
@@ -23,9 +25,14 @@ async def main():
     builder.SetDeviceName(device_name)
 
     i = IOCManager(device_name, settings)
-
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
+
+    async def loop():
+        while True:
+            await i.heartbeat()
+
+    dispatcher(loop)  # put functions to loop in here
     softioc.interactive_ioc(globals())
 
 
@@ -40,6 +47,7 @@ class IOCManager:
         """
         self.device_name = device_name
         self.settings = settings
+        self.delay = settings['general']['delay']
         self.pvs = {}
         self.screens = {}     # Dict of all screens made for the iocs, keyed by screen name
         self.ioc_pvs = {}  # Dict of lists of all PVs in each screen instance, keyed by screen name
@@ -53,6 +61,9 @@ class IOCManager:
                                            ("Reset",'MINOR'),
                                            on_update_name=self.screen_update
                                            )
+            self.pvs[name+'_hb'] = builder.mbbOut(name+'_hb')
+            #setattr(self.pvs[name+'_hb'], 'HIGH', 10)
+            #setattr(self.pvs[name+'_hb'], 'LOW', 1)
             self.pvs[name].set(0)
         self.pv_all = builder.mbbOut('all',
                                        ("Stop",'MINOR'),
@@ -104,7 +115,7 @@ class IOCManager:
         Start screen to run ioc, then run ioc. Get PV names from IOC after run.
         """
         name = pv_name.replace('_control', '')  # remove suffix from pv name to name screen
-        self.st = StartThread(self, name)
+        self.st = StartThread(self, name, self.screens)
         self.st.daemon = True
         self.st.start()
 
@@ -145,13 +156,30 @@ class IOCManager:
             screen = Screen('pids', True)
             screen.send_commands(f'python pid/pids.py')
 
+    async def heartbeat(self):
+        """Check last time written versus current time for each IOC"""
+        group = []
+        await asyncio.sleep(self.delay)
+        for name in self.screens:
+            group.append(self.time_check(name))
+        await asyncio.gather(*group)
+
+    async def time_check(self, name):
+        try:
+            t = await aioca.caget(f"{self.device_name}:{name}_time")
+            now = datetime.datetime.now().timestamp()
+            self.pvs[name+'_hb'].set(int(now - float(t)))
+        except aioca.CANothing as e:
+            print("Get error:", e, f"{self.device_name}:{name}_time")
+
 class StartThread(Thread):
     '''Thread to interact with IOCs in screens. Each thread starts one ioc.'''
 
-    def __init__(self, parent, name):
+    def __init__(self, parent, name, screens):
         Thread.__init__(self)
         self.parent = parent
         self.name = name
+        self.screens = screens
 
     def run(self):
         '''
@@ -183,6 +211,7 @@ class StartThread(Thread):
                 print(f"Failed to start {self.name} ioc, died waiting on log file after {elapsed} seconds.")
                 break
 
+        self.screens[self.name] = screen
 
 
 

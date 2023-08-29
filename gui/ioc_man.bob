@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-29 09:43:23 by poltar-->
+<!--Saved on 2023-08-29 16:04:59 by poltar-->
 <display version="2.0.0">
   <name>IOC Manager</name>
-  <width>400</width>
+  <width>461</width>
   <height>660</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle</name>
     <x>20</x>
     <y>31</y>
-    <width>350</width>
+    <width>400</width>
     <height>629</height>
     <line_color>
       <color name="Transparent" red="255" green="255" blue="255" alpha="0">
@@ -153,10 +153,10 @@
     <name>Polyline</name>
     <x>60</x>
     <y>90</y>
-    <width>270</width>
+    <width>330</width>
     <height>1</height>
     <points>
-      <point x="270.0" y="0.0">
+      <point x="330.0" y="0.0">
       </point>
       <point x="0.0" y="0.0">
       </point>
@@ -177,10 +177,10 @@
     <name>Polyline_1</name>
     <x>60</x>
     <y>600</y>
-    <width>270</width>
+    <width>330</width>
     <height>0</height>
     <points>
-      <point x="270.0" y="0.0">
+      <point x="330.0" y="0.0">
       </point>
       <point x="0.0" y="0.0">
       </point>
@@ -364,6 +364,141 @@
     <x>270</x>
     <y>620</y>
     <width>60</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_1_hb</pv_name>
+    <x>350</x>
+    <y>169</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Time Since</text>
+    <x>330</x>
+    <y>50</y>
+    <width>90</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>pva://TGT:BTARG:MAN:status_hb</pv_name>
+    <x>350</x>
+    <y>109</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_3</name>
+    <pv_name>pva://TGT:BTARG:MAN:thcd_hb</pv_name>
+    <x>350</x>
+    <y>139</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_4</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_218_2_hb</pv_name>
+    <x>350</x>
+    <y>199</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_5</name>
+    <pv_name>pva://TGT:BTARG:MAN:lakeshore_336_hb</pv_name>
+    <x>350</x>
+    <y>229</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_6</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_1_hb</pv_name>
+    <x>350</x>
+    <y>259</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_7</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_3_hb</pv_name>
+    <x>350</x>
+    <y>320</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_8</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_i2_hb</pv_name>
+    <x>350</x>
+    <y>380</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_9</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_v_hb</pv_name>
+    <x>350</x>
+    <y>410</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_10</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8130_hb</pv_name>
+    <x>350</x>
+    <y>440</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_11</name>
+    <pv_name>pva://TGT:BTARG:MAN:mks937b_hb</pv_name>
+    <x>350</x>
+    <y>470</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_12</name>
+    <pv_name>pva://TGT:BTARG:MAN:rigol_dp832_hb</pv_name>
+    <x>350</x>
+    <y>530</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_13</name>
+    <pv_name>pva://TGT:BTARG:MAN:ami136_hb</pv_name>
+    <x>350</x>
+    <y>500</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_14</name>
+    <pv_name>pva://TGT:BTARG:MAN:dat8017_i1_hb</pv_name>
+    <x>350</x>
+    <y>350</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_15</name>
+    <pv_name>pva://TGT:BTARG:MAN:omega_2_hb</pv_name>
+    <x>350</x>
+    <y>289</y>
+    <width>40</width>
+    <height>19</height>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_16</name>
+    <pv_name>pva://TGT:BTARG:MAN:zaber_hb</pv_name>
+    <x>350</x>
+    <y>560</y>
+    <width>40</width>
     <height>19</height>
   </widget>
 </display>

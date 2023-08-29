@@ -57,6 +57,7 @@ class Device():
                 if "None" in channel: continue
                 self.pvs[channel].set(levels[i])
                 self.remove_alarm(channel)
+            return True
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""
