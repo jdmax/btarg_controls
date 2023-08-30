@@ -81,4 +81,4 @@ class Device():
 
     def do_reads(self):
         '''This IOC doesn't use reads'''
-        pass
+        return True

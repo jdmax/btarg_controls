@@ -126,7 +126,7 @@ class DeviceConnection():
             print(f"THCD connection failed on {self.host}: {e}")
 
         self.read_regex = re.compile(
-            'READ:(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+|!RANGE!),(-*\d+.\d+)|!RANGE!,')
+            'READ:(-*\d+.\d+|!RANGE!|),(-*\d+.\d+|!RANGE!|),(-*\d+.\d+|!RANGE!|),(-*\d+.\d+|!RANGE!|)*,')
         self.set_regex = re.compile('SP(\d) VALUE: (\d+.\d+)')
         self.mode_regex = re.compile('SP(\d) MODE: \((\d)\)')
         self.ok_response_regex = re.compile(b'!a!o!\s\s')
@@ -138,7 +138,13 @@ class DeviceConnection():
             i, match, data = self.tn.expect([self.ok_response_regex], timeout=2)  # read until ok response
             out = data.decode('ascii')
             m = self.read_regex.search(out)
-            values = [float(x) if not 'RANGE' in x else 999 for x in m.groups()]
+            #values = [float(x) if not 'RANGE' in x else 999 for x in m.groups()]
+            values = []
+            for x in m.groups():
+                try:
+                    values.append(float(x))
+                except ValueError as e:
+                    values.append(999)
             return values
 
         except Exception as e:

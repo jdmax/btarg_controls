@@ -21,7 +21,6 @@ thcd:   # flow controller interface
         - Shield
         - Evaporator
         - Precool
-        - Pump_FI
 lakeshore_218_1:
     module: 'devices.ls218'
     autostart: True          # Should IOC Manager try to start this?
@@ -36,7 +35,7 @@ lakeshore_218_1:
         - None
         - Shield_DS_TI
         - Shield_Plate_TI
-        - Evaporator_Exhaust_TI
+        - Evaporator_Out_TI
         - None
 lakeshore_218_2:
     module: 'devices.ls218'
