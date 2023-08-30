@@ -63,10 +63,11 @@ class DeviceIOC():
 
     async def loop(self):
         """Read indicator PVS from controller channels. Delay time between measurements is in seconds.
+        If read is successful, set timestamp PV for IOC.
          """
         await asyncio.sleep(self.delay)
         if self.device.do_reads():  # get new readings from device and set into PVs
-            self.pv_time.set(datetime.datetime.now().timestamp())   # set time since last update for heartbeat
+            self.pv_time.set(datetime.datetime.now().timestamp())   # set time of last successful update
 
 
 def load_settings():
