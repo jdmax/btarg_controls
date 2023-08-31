@@ -41,7 +41,7 @@ class Device():
         """MKS937b has no sets"""
         pass
 
-    def do_reads(self):
+    async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
             pres = self.t.read_all()

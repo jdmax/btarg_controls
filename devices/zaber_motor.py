@@ -24,8 +24,8 @@ class Device():
 
         for channel in settings['channels']:  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
-            self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI", **sevr)
-            self.pvs[channel+"_VC"] = builder.aOut(channel+"_VC", on_update_name=self.do_sets, **sevr)
+            self.pvs[channel+"_MI"] = builder.aIn(channel+"_MI", **sevr)
+            self.pvs[channel+"_MC"] = builder.aOut(channel+"_MC", on_update_name=self.do_sets, **sevr)
             self.pvs[channel+"_home"] = builder.boolOut(channel+"_home", on_update_name=self.do_sets)
             self.pvs[channel+"_away"] = builder.boolOut(channel+"_away", on_update_name=self.do_sets)
             self.pvs[channel+"_stop"] = builder.boolOut(channel+"_stop", on_update_name=self.do_sets)
@@ -44,7 +44,7 @@ class Device():
     def set_position(self, new_value, pv):
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         channel = pv_name.replace("_locations", '')
-        self.pvs[channel+"_VC"].set(int(self.pvs[channel+"_pos_"+str(new_value)].get()))
+        self.pvs[channel+"_MC"].set(int(self.pvs[channel+"_pos_"+str(new_value)].get()))
         # set motor to value in position in corresponding PV
 
     def connect(self):
@@ -65,19 +65,19 @@ class Device():
         p = pv_name.split("_")[0]  # pv_name root
         chan = self.channels.index(p)
         try:
-            if '_VC' in pv_name:  # valve controller commands
-                self.pvs[p+"_VI"].set(self.t.move_to(chan, new_value))  # set returned value
+            if '_MC' in pv_name:  # valve controller commands
+                self.pvs[p+"_MI"].set(self.t.move_to(chan, new_value))  # set returned value
             elif '_home' in pv_name:
                 if new_value:
-                    self.pvs[p+"_VI"].set(self.t.home(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.home(chan))  # set returned value
                     self.pvs[p+"_home"].set(False)
             elif '_away' in pv_name:
                 if new_value:
-                    self.pvs[p+"_VI"].set(self.t.away(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.away(chan))  # set returned value
                     self.pvs[p+"_away"].set(False)
             elif '_stop' in pv_name:
                 if new_value:
-                    self.pvs[p+"_VI"].set(self.t.stop(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.stop(chan))  # set returned value
                     self.pvs[p+"_stop"].set(False)
             elif '_zero' in pv_name:
                 if new_value:
@@ -87,17 +87,17 @@ class Device():
             self.reconnect()
         return
 
-    def do_reads(self):
+    async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device. Set to PVs.'''
         try:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel+"_VI"].set(self.t.get_pos(i))
-                self.remove_alarm(channel + '_VI')
+                self.pvs[channel+"_MI"].set(self.t.get_pos(i))
+                self.remove_alarm(channel + '_MI')
         except OSError:
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.set_alarm(channel + '_VI')
+                self.set_alarm(channel + '_MI')
             self.reconnect()
         else:
             return True

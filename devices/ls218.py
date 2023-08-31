@@ -39,7 +39,7 @@ class Device():
         """LS218 has no sets"""
         pass
 
-    def do_reads(self):
+    async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
             temps = self.t.read_all()

@@ -69,7 +69,7 @@ class Device():
         except TypeError:
             self.reconnect()
 
-    def do_reads(self):
+    async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
             readings = self.t.read_inputs()

@@ -66,7 +66,7 @@ class DeviceIOC():
         If read is successful, set timestamp PV for IOC.
          """
         await asyncio.sleep(self.delay)
-        if self.device.do_reads():  # get new readings from device and set into PVs
+        if await self.device.do_reads():  # get new readings from device and set into PVs
             self.pv_time.set(datetime.datetime.now().timestamp())   # set time of last successful update
 
 

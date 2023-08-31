@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-30 10:42:25 by poltar-->
+<!--Saved on 2023-08-31 15:25:54 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -45,7 +45,7 @@
       <pv_name>pva://TGT:BTARG:Shield_Top_TI</pv_name>
       <x>120</x>
       <y>40</y>
-      <precision>4</precision>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_2</name>
@@ -58,6 +58,7 @@
       <pv_name>pva://TGT:BTARG:Shield_Bottom_TI</pv_name>
       <x>120</x>
       <y>60</y>
+      <precision>2</precision>
       <show_units>false</show_units>
     </widget>
     <widget type="label" version="2.0.0">
@@ -71,6 +72,7 @@
       <pv_name>pva://TGT:BTARG:Shield_DS_TI</pv_name>
       <x>120</x>
       <y>80</y>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_16</name>
@@ -229,7 +231,7 @@
     <name>Label_14</name>
     <text>Shutoff:</text>
     <x>750</x>
-    <y>290</y>
+    <y>310</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
@@ -265,7 +267,7 @@
     <name>Combo Box_1</name>
     <pv_name>pva://TGT:BTARG:Shutoff_locations</pv_name>
     <x>850</x>
-    <y>290</y>
+    <y>310</y>
     <width>120</width>
     <height>20</height>
   </widget>
@@ -301,7 +303,7 @@
       <pv_name>pva://TGT:BTARG:Cell_TI</pv_name>
       <x>120</x>
       <y>40</y>
-      <precision>4</precision>
+      <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_17</name>
@@ -314,6 +316,7 @@
       <pv_name>pva://TGT:BTARG:Condenser_TI</pv_name>
       <x>120</x>
       <y>60</y>
+      <precision>2</precision>
       <show_units>false</show_units>
     </widget>
     <widget type="label" version="2.0.0">
@@ -438,10 +441,14 @@
   <widget type="combo" version="2.0.0">
     <name>Combo Box_3</name>
     <pv_name>TGT:BTARG:species</pv_name>
-    <x>260</x>
-    <y>771</y>
+    <x>200</x>
+    <y>640</y>
     <width>90</width>
-    <height>29</height>
+    <height>20</height>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
     <show_confirm_dialog>true</show_confirm_dialog>
   </widget>
   <widget type="group" version="3.0.0">
@@ -638,7 +645,11 @@
     <x>20</x>
     <y>90</y>
     <width>360</width>
-    <height>31</height>
+    <height>40</height>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
     <items>
       <item>Item 1</item>
       <item>Item 2</item>
@@ -656,7 +667,7 @@
     </actions>
     <text>IOC Manager</text>
     <x>20</x>
-    <y>771</y>
+    <y>790</y>
     <width>160</width>
     <height>29</height>
     <tooltip>$(actions)</tooltip>
@@ -754,7 +765,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_3</name>
       <pv_name>pva://TGT:BTARG:Shield_Exhaust_TI</pv_name>
-      <x>200</x>
+      <x>190</x>
       <y>40</y>
       <width>70</width>
       <precision>1</precision>
@@ -762,7 +773,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_4</name>
       <pv_name>pva://TGT:BTARG:Evaporator_Exhaust_TI</pv_name>
-      <x>200</x>
+      <x>190</x>
       <y>60</y>
       <width>70</width>
       <precision>1</precision>
@@ -770,7 +781,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_5</name>
       <pv_name>pva://TGT:BTARG:Precool_Exhaust_TI</pv_name>
-      <x>200</x>
+      <x>190</x>
       <y>80</y>
       <width>70</width>
       <precision>1</precision>
@@ -779,13 +790,13 @@
   <widget type="polyline" version="2.0.0">
     <name>Polyline_6</name>
     <x>860</x>
-    <y>620</y>
-    <width>140</width>
-    <height>90</height>
+    <y>610</y>
+    <width>160</width>
+    <height>100</height>
     <points>
-      <point x="0.0" y="90.0">
+      <point x="0.0" y="100.0">
       </point>
-      <point x="140.0" y="0.0">
+      <point x="160.0" y="0.0">
       </point>
     </points>
     <line_width>2</line_width>
@@ -799,8 +810,62 @@
   <widget type="label" version="2.0.0">
     <name>Label_34</name>
     <text>Species:</text>
-    <x>200</x>
-    <y>777</y>
+    <x>80</x>
+    <y>640</y>
     <width>70</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_9</name>
+    <pv_name>TGT:BTARG:production</pv_name>
+    <x>200</x>
+    <y>700</y>
+    <width>90</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_35</name>
+    <text>Current State:</text>
+    <x>80</x>
+    <y>700</y>
+    <width>110</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="meter" version="3.0.0">
+    <name>Meter</name>
+    <x>870</x>
+    <y>390</y>
+    <width>0</width>
+    <height>0</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_36</name>
+    <text>Flag State:</text>
+    <x>80</x>
+    <y>670</y>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_21</name>
+    <pv_name>TGT:BTARG:flag_state</pv_name>
+    <x>200</x>
+    <y>670</y>
+    <width>90</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
   </widget>
 </display>

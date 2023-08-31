@@ -38,7 +38,7 @@ class Device():
         """8148 has no sets"""
         pass
 
-    def do_reads(self):
+    async def do_reads(self):
         """Match variables to methods in device driver and get reads from device. Set to PVs."""
         try:
             readings = self.t.read_all()

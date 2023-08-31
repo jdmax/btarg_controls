@@ -23,16 +23,23 @@ class Device():
         self.status = self.states['options']['status']
         self.species = self.states['options']['species']
 
-        pvlist = []
-        for status in self.status:
-            for pv in self.states[status]:
-                #if isinstance(self.states[status][pv][self.species[0]], list):
-                pvlist.append(pv)
-        self.watchlist = set(pvlist)
-        #print(self.watchlist)
+#        pvlist = []
+#        for status in self.status:
+#            for pv in self.states[status]:
+#                #if isinstance(self.states[status][pv][self.species[0]], list):
+#                pvlist.append(pv)
+#        self.watchlist = set(pvlist)
 
         self.pvs['status'] = builder.mbbOut('status', *self.status, on_update_name=self.stat_update)  # come from states.yaml
         self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
+
+        prod_states = ['Empty', 'Full', 'Solid', 'Full+Solid', 'Not Ready']
+        self.pvs['production'] = builder.mbbIn('production', *prod_states)
+
+        flag_states = ['Empty', 'Left', 'Right']
+        self.pvs['flag'] = builder.mbbIn('flag_state', *flag_states)
+
+
 
     async def stat_update(self, i, pv):
         """
@@ -79,6 +86,53 @@ class Device():
             self.pvs[pv].set(last[pv])
         print('Restored previous state:', last)
 
-    def do_reads(self):
-        '''This IOC doesn't use reads'''
-        return True
+    async def do_reads(self):
+        '''Read status from other PVs to determine production status'''
+        try:
+            group = []
+            c = {}    # dict of current status keyed on PV name
+            group.append(self.get(c, 'TGT:BTARG:Cell_TI.STAT'))
+            group.append(self.get(c, 'TGT:BTARG:Condenser_TI.STAT'))
+            group.append(self.get(c, 'TGT:BTARG:Cell_PI.STAT'))
+            group.append(self.get(c, 'TGT:BTARG:Flag_MI'))
+            group.append(self.get(c, 'TGT:BTARG:Flag_pos_1'))   # left flag
+            group.append(self.get(c, 'TGT:BTARG:Flag_pos_2'))   # right flag
+            await asyncio.gather(*group)
+
+            if c['TGT:BTARG:Flag_MI'] + 1 < c['TGT:BTARG:Flag_pos_1']:
+                self.pvs['flag'].set(1)
+            elif c['TGT:BTARG:Flag_MI'] - 1 > c['TGT:BTARG:Flag_pos_2']:
+                self.pvs['flag'].set(2)
+            else:
+                self.pvs['flag'].set(0)
+
+            stat = self.status[self.pvs['status'].get()]
+
+            if c['TGT:BTARG:Cell_PI.STAT'] == 0:
+                if c['TGT:BTARG:Condenser_TI.STAT'] == 0:
+                    if c['TGT:BTARG:Cell_TI.STAT'] == 0:
+                        if self.pvs['flag'].get() == 0:
+                            if 'Empty' in stat:
+                                self.pvs['production'].set(0)  # Empty
+                            elif 'Fill' in stat:
+                                self.pvs['production'].set(1)  # Full
+                        else:
+                            if 'Empty' in stat:
+                                self.pvs['production'].set(2)  # Empty + Solid
+                            elif 'Fill' in stat:
+                                self.pvs['production'].set(3)  # Full + Solid
+            else:
+                self.pvs['production'].set(4)    # Not Ready
+        except aioca.CANothing as e:
+            print("Caget error:", e)
+            self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
+            self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
+        except Exception as e:
+            print("Production status determination error:", e)
+            self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
+            self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
+        else:
+            return True
+    async def get(self, dict, pv):
+        '''Put pv status from aioca get in passed dict'''
+        dict[pv] = await aioca.caget(pv)

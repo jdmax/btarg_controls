@@ -71,7 +71,7 @@ class Device():
             self.reconnect()
         return
 
-    def do_reads(self):
+    async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
         try:
             for i, channel in enumerate(self.channels):

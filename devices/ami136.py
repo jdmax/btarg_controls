@@ -42,7 +42,7 @@ class Device():
         """AMI136 has no sets"""
         pass
 
-    def do_reads(self):
+    async def do_reads(self):
         """Match variables to methods in device driver, get reads from device, set to PV"""
         try:
             levels = self.t.read()
