@@ -12,6 +12,8 @@ Because there are many instruments, and thus many control IOCs, I've written an 
 
 The frontend graphical user interface is written in Phoebus CSS. The frontend is independent from the backend device IOCs, and only provides a means for a user to get and set the Process Variables of all the IOCs through EPICS.
 
+The code is available on GitHub `here <https://github.com/jdmax/btarg_controls>`_.
+
 IOC Manager
 ===========
 The IOC manager is the main script a user will interact with to start the backend software. The :class:`IOC Manager <ioc_manager>` must be run from the command line as ``python ioc_manger.py``. Once run, it enters into a interactive mode that has a few commands to see the PVs, but most interaction with it should be done through its EPICS variables.  The IOC has multiple choice PVs for each device listed in the 'settings.yaml' file, allowing the setting of a PV to perform that action. For instance, a PV ``ami136_control`` will be created with the options Start, Stop, Reset and Kill.

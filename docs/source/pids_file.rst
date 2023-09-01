@@ -1,5 +1,5 @@
 PID Setup File
 =============
 
-.. literalinclude:: ../../pids.yaml
+.. literalinclude:: ../../pid/pids.yaml
    :language: yaml
