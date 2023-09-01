@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-31 15:25:54 by poltar-->
+<!--Saved on 2023-09-01 12:08:47 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -441,7 +441,7 @@
   <widget type="combo" version="2.0.0">
     <name>Combo Box_3</name>
     <pv_name>TGT:BTARG:species</pv_name>
-    <x>200</x>
+    <x>180</x>
     <y>640</y>
     <width>90</width>
     <height>20</height>
@@ -821,8 +821,8 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_9</name>
     <pv_name>TGT:BTARG:production</pv_name>
-    <x>200</x>
-    <y>700</y>
+    <x>180</x>
+    <y>670</y>
     <width>90</width>
     <font>
       <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
@@ -831,27 +831,20 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_35</name>
-    <text>Current State:</text>
+    <text>Cell State:</text>
     <x>80</x>
-    <y>700</y>
+    <y>670</y>
     <width>110</width>
     <font>
       <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
       </font>
     </font>
   </widget>
-  <widget type="meter" version="3.0.0">
-    <name>Meter</name>
-    <x>870</x>
-    <y>390</y>
-    <width>0</width>
-    <height>0</height>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_36</name>
     <text>Flag State:</text>
     <x>80</x>
-    <y>670</y>
+    <y>700</y>
     <font>
       <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
       </font>
@@ -860,8 +853,8 @@
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_21</name>
     <pv_name>TGT:BTARG:flag_state</pv_name>
-    <x>200</x>
-    <y>670</y>
+    <x>180</x>
+    <y>700</y>
     <width>90</width>
     <font>
       <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">

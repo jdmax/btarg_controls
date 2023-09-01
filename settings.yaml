@@ -10,6 +10,7 @@ status:   # SoftIOC to switch between target states
     module: 'devices.status_ioc'
     autostart: True
     delay: 1
+    prod_pv: False   # turn on production status PV
 thcd:   # flow controller interface
     module: 'devices.thcd'
     autostart: True          # Should IOC Manager try to start this?
