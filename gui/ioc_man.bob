@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-01 12:04:06 by poltar-->
+<!--Saved on 2023-09-01 12:19:46 by poltar-->
 <display version="2.0.0">
   <name>IOC Manager</name>
   <width>461</width>
@@ -18,6 +18,8 @@
       <color name="Read_Background" red="240" green="240" blue="240">
       </color>
     </background_color>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label</name>

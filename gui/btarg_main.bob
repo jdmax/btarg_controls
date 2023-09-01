@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-01 12:08:47 by poltar-->
+<!--Saved on 2023-09-01 12:17:34 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -33,6 +33,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_1</name>
@@ -106,6 +108,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_8</name>
@@ -215,6 +219,8 @@
       <color name="Read_Background" red="240" green="240" blue="240">
       </color>
     </background_color>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
@@ -291,6 +297,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_10</name>
@@ -330,6 +338,19 @@
         </font>
       </font>
     </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_38</name>
+      <text>Pressure:</text>
+      <x>20</x>
+      <y>80</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_22</name>
+      <pv_name>pva://TGT:BTARG:Cell_PI</pv_name>
+      <x>120</x>
+      <y>80</y>
+      <precision>2</precision>
+    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>Group_2</name>
@@ -351,6 +372,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_20</name>
@@ -471,6 +494,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_24</name>
@@ -692,6 +717,8 @@
         <color name="Read_Background" red="240" green="240" blue="240">
         </color>
       </background_color>
+      <corner_width>10</corner_width>
+      <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_29</name>
