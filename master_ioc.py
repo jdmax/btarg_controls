@@ -15,8 +15,9 @@ async def main():
     ioc, settings, records = load_settings()
 
     os.environ['EPICS_CA_ADDR_LIST'] = settings['general']['epics_addr_list']
-    os.environ['EPICS_CAS_BEACON_ADDR_LIST'] = settings['general']['epics_addr_list']
+    os.environ['EPICS_CAS_BEACON_ADDR_LIST'] = settings['general']['epics_beacon_addr_list']
     os.environ['EPICS_CA_AUTO_ADDR_LIST'] = 'NO'
+    os.environ['EPICS_CAS_AUTO_BEACON_ADDR_LIST'] = 'NO'
 
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     device_name = settings['general']['prefix']

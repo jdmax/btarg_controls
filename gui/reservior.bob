@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-08-25 10:21:31 by poltar-->
+<!--Saved on 2023-09-01 16:41:04 by poltar-->
 <display version="2.0.0">
   <name>LHe Reservoir Controls</name>
-  <width>300</width>
+  <width>890</width>
   <height>290</height>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_7</name>
+    <x>20</x>
+    <y>120</y>
+    <width>310</width>
+    <height>170</height>
+    <line_color>
+      <color red="0" green="0" blue="255" alpha="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
+  </widget>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
@@ -72,78 +89,6 @@
     <height>170</height>
     <style>3</style>
     <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_7</name>
-      <width>280</width>
-      <height>170</height>
-      <line_color>
-        <color red="0" green="0" blue="255" alpha="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Read_Background" red="240" green="240" blue="240">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_1</name>
-      <text>Heater Current:</text>
-      <x>10</x>
-      <y>50</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update</name>
-      <pv_name>TGT:BTARG:ReservoirHeater_CI</pv_name>
-      <x>150</x>
-      <y>50</y>
-      <width>120</width>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_2</name>
-      <text>Current Set:</text>
-      <x>10</x>
-      <y>70</y>
-    </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner</name>
-      <pv_name>TGT:BTARG:ReservoirHeater_CC</pv_name>
-      <x>150</x>
-      <y>70</y>
-      <width>120</width>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_3</name>
-      <text>Heater Voltage::</text>
-      <x>10</x>
-      <y>90</y>
-      <width>110</width>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_1</name>
-      <pv_name>TGT:BTARG:ReservoirHeater_VI</pv_name>
-      <x>150</x>
-      <y>90</y>
-      <width>120</width>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_4</name>
-      <text>Voltage Set:</text>
-      <x>10</x>
-      <y>110</y>
-    </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner_1</name>
-      <pv_name>TGT:BTARG:ReservoirHeater_VC</pv_name>
-      <x>150</x>
-      <y>110</y>
-      <width>120</width>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_5</name>
-      <text>Heater Mode:</text>
-      <x>10</x>
-      <y>140</y>
-    </widget>
     <widget type="label" version="2.0.0">
       <name>Label_7</name>
       <text>Rigol Power Supply</text>
@@ -156,13 +101,324 @@
         </font>
       </font>
     </widget>
-    <widget type="slide_button" version="2.0.0">
-      <name>Slide Button</name>
-      <pv_name>TGT:BTARG:ReservoirHeater_Mode</pv_name>
-      <label></label>
-      <x>150</x>
-      <y>130</y>
-      <height>40</height>
-    </widget>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_8</name>
+    <x>350</x>
+    <y>80</y>
+    <width>540</width>
+    <height>210</height>
+    <line_color>
+      <color red="0" green="0" blue="255" alpha="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Input:</text>
+    <x>380</x>
+    <y>210</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <x>480</x>
+    <y>210</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_8</name>
+    <text>Output:</text>
+    <x>380</x>
+    <y>170</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_9</name>
+    <text>Auto Mode:</text>
+    <x>380</x>
+    <y>250</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Kp:</text>
+    <x>640</x>
+    <y>130</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_11</name>
+    <text>Ki:</text>
+    <x>640</x>
+    <y>150</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_12</name>
+    <text>Kd:</text>
+    <x>640</x>
+    <y>170</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_13</name>
+    <text>Min change:</text>
+    <x>640</x>
+    <y>190</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_14</name>
+    <text>Max change:</text>
+    <x>640</x>
+    <y>210</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_2</name>
+    <x>480</x>
+    <y>170</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_15</name>
+    <text>Setpoint:</text>
+    <x>380</x>
+    <y>130</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_3</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_setpoint</pv_name>
+    <x>480</x>
+    <y>130</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_4</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_Kp</pv_name>
+    <x>740</x>
+    <y>130</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_5</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_Ki</pv_name>
+    <x>740</x>
+    <y>150</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_6</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_Kd</pv_name>
+    <x>740</x>
+    <y>170</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_7</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_min_change</pv_name>
+    <x>740</x>
+    <y>190</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_8</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_max_change</pv_name>
+    <x>740</x>
+    <y>210</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button_1</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_auto_mode</pv_name>
+    <x>480</x>
+    <y>250</y>
+    <width>130</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_16</name>
+    <text>Drive low:</text>
+    <x>640</x>
+    <y>230</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_17</name>
+    <text>Drive High:</text>
+    <x>640</x>
+    <y>250</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_9</name>
+    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVL</pv_name>
+    <x>740</x>
+    <y>230</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_10</name>
+    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVH</pv_name>
+    <x>740</x>
+    <y>250</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_18</name>
+    <text>Sample time:</text>
+    <x>380</x>
+    <y>230</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Spinner_11</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_sample_time</pv_name>
+    <x>480</x>
+    <y>230</y>
+    <width>130</width>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <vertical_alignment>0</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_19</name>
+    <text>Reservoir Heater</text>
+    <x>360</x>
+    <y>90</y>
+    <width>200</width>
+    <font>
+      <font name="Header 2" family="Liberation Sans" style="BOLD" size="18.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Heater Current:</text>
+    <x>50</x>
+    <y>170</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>TGT:BTARG:ReservoirHeater_CI</pv_name>
+    <x>190</x>
+    <y>170</y>
+    <width>120</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>Current Set:</text>
+    <x>50</x>
+    <y>190</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner</name>
+    <pv_name>TGT:BTARG:ReservoirHeater_CC</pv_name>
+    <x>190</x>
+    <y>190</y>
+    <width>120</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>Heater Voltage::</text>
+    <x>50</x>
+    <y>210</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_1</name>
+    <pv_name>TGT:BTARG:ReservoirHeater_VI</pv_name>
+    <x>190</x>
+    <y>210</y>
+    <width>120</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_4</name>
+    <text>Voltage Set:</text>
+    <x>50</x>
+    <y>230</y>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_1</name>
+    <pv_name>TGT:BTARG:ReservoirHeater_VC</pv_name>
+    <x>190</x>
+    <y>230</y>
+    <width>120</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Heater Mode:</text>
+    <x>50</x>
+    <y>260</y>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button</name>
+    <pv_name>TGT:BTARG:ReservoirHeater_Mode</pv_name>
+    <label></label>
+    <x>190</x>
+    <y>250</y>
+    <height>40</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_20</name>
+    <text>Input PV:</text>
+    <x>380</x>
+    <y>190</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_21</name>
+    <text>Output PV:</text>
+    <x>380</x>
+    <y>150</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_3</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_input</pv_name>
+    <x>480</x>
+    <y>190</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_4</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_PID_output</pv_name>
+    <x>480</x>
+    <y>150</y>
+    <width>130</width>
+    <precision>3</precision>
   </widget>
 </display>

@@ -5,7 +5,8 @@ general:
     log_dir: 'logs'   # path of logs directory
     #epics_addr_list: '129.57.163.255'
     epics_addr_list: '127.255.255.255'
-    delay: 1
+    epics_beacon_addr_list: '127.255.255.255'
+    delay: 0.5
 status:   # SoftIOC to switch between target states
     module: 'devices.status_ioc'
     autostart: True
@@ -99,50 +100,70 @@ dat8017_i1:
     ip: '192.168.1.149'
     port: '502'
     timeout: 2
-    delay: 1
+    delay: 2
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Top_PI: 1
+        Target_Supply_PI: 1
+        Target_Return_PI: 1
+        Shield_Exhaust_PI: 1
+        Precool_Exhaust_PI: 1
+        Evap_Exhaust_PI: 1
 dat8017_i2:
     module: 'devices.dat8017'
     autostart: False
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
-    delay: 1
+    delay: 2
     channels:  # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Top2_PI: 1
+        H2_Tank_PI: 1
+        D2_Tank_PI: 1
+        4He_Tank_PI: 1
+        3He_Tank_PI: 1
 dat8017_v:
     module: 'devices.dat8017'
     autostart: False
     ip: '192.168.1.151'
     port: '502'
     timeout: 2
-    delay: 1
+    delay: 2
     channels: # Dict of PV names for each read channel of datexel in order, values are calibration factors
-        Bot_PI: 1
+        #Bot_PI: 1
 dat8148:
     module: 'devices.dat8148'
     autostart: False
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
-    delay: 1
+    delay: 2
     channels: # Dict of PV names for each read channel of datexel in order
-        - Some_DI    # DI: Digital In
+        - Vacuum_Sw_SP_Fault_DI    # DI: Digital In
+        - Gate_Bypass_Sw_On_DI
+        - Vacuum_Sw_Fault_DI
+        - Vacuum_Sw_Good_DI
+        - None
+        - None
+        - None
+        - None
+        - Vent_Purge_Fault_DI
+        - Vent_Purge_Good_DI
 dat8130:
     module: 'devices.dat8130'
     autostart: False
     ip: '192.168.1.153'
     port: '502'
     timeout: 2
-    delay: 1
+    delay: 2
     channels: # Dict of PV names for each channel. Needs 4 OUT channels first (None to mark unused), then up to 8 IN.
-        - Flip_DO    # DO: Digital OUT
-        - Flop_DO
-        - None      # "None" if DO not used
+        - FlipFlop_DO    # DO: Digital OUT
+        - Gate_DO
+        - Other_DO      # "None" if DO not used
         - None
-        - Flip_DI
-        - Flop_DI
+        - Exhaust_to_Vent_DI   # DI: Digital IN
+        - Exhaust_to_Warm_DI
+        - Gate_Closed_DI
+        - Gate_Open_DI
+        - Other_Closed_DI
+        - Other_Open_DI
 mks937b:
     module: 'devices.mks937b'
     autostart: True          # Should IOC Manager try to start this?
@@ -171,8 +192,8 @@ rigol_dp832:
     delay: 5
     voltage_limit: 30.0
     channels: # List of channel names in order. None indicates unused channel.
-        - None
-        - ReservoirHeater
+        - Reservoir_Heater
+        - Shield_Heater
 zaber:
     module: 'devices.zaber_motor'
     autostart: True

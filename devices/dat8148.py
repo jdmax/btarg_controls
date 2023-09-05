@@ -39,7 +39,8 @@ class Device():
         pass
 
     async def do_reads(self):
-        """Match variables to methods in device driver and get reads from device. Set to PVs."""
+        """Match variables to methods in device driver and get reads from device. Set to PVs.
+        Return true if no exceptions."""
         try:
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):

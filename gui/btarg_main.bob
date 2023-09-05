@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-01 12:17:34 by poltar-->
+<!--Saved on 2023-09-05 14:35:51 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -346,7 +346,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_22</name>
-      <pv_name>pva://TGT:BTARG:Cell_PI</pv_name>
+      <pv_name>pva://TGT:BTARG:Target_Supply_PI</pv_name>
       <x>120</x>
       <y>80</y>
       <precision>2</precision>

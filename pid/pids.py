@@ -53,6 +53,11 @@ class PIDLoop():
             self.pvs[pv_name].set(value)  # put this in try statement to catch errors from epics
             #print(self.pvs[pv_name].name, self.pvs[pv_name].get())
 
+        self.pv_input = builder.aIn(pid_name+'_input')
+        self.pv_input.set(self.in_pv)
+        self.pv_output = builder.aIn(pid_name+'_output')
+        self.pv_output.set(self.out_pv)
+
         self.delay = self.pvs[self.pid_name+'_'+'sample_time'].get()
         self.max_change = self.pvs[self.pid_name+'_'+'max_change'].get()
         self.min_change = self.pvs[self.pid_name+'_'+'min_change'].get()
