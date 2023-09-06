@@ -62,11 +62,11 @@ lakeshore_336:
     port: '7777'
     timeout: 2
     delay: 2
-    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel.
-        - Coolant
-        - Coolant_B_TI
-        - Evaporator
-        - Evaporator_B_TI
+    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel. Value is output channel
+        Coolant: 1
+        Coolant_B_TI: None
+        Evaporator: 2
+        Evaporator_B_TI: None
 omega_1:
     module: 'devices.omega'
     autostart: True         # Should IOC Manager try to start this?

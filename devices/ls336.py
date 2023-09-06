@@ -58,7 +58,8 @@ class Device():
         '''If PV has changed, find the correct method to set it on the device'''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         p = pv_name.split("_")[0]  # pv_name root
-        chan = self.channels.index(p) + 1  # determine what channel we are on
+        #chan = self.channels.index(p) + 1  # determine what channel we are on
+        chan = self.channels[p]
         # figure out what type of PV this is, and send it to the right method
         try:
             if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
