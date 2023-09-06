@@ -52,6 +52,7 @@ class Device():
                     self.pvs[channel].set(readings[i])
                 else:     # do conversion from 4-20 mA to psi using max range calib
                     p = (readings[i]/1000)*(self.calibs[channel]/16) - 25
+                    print("reading", p)
                     self.pvs[channel].set(p)
                 self.remove_alarm(channel)
         except OSError:
