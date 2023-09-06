@@ -50,7 +50,6 @@ class Device():
                 if "None" in channel: continue
                 if isinstance(self.calibs[channel], int):   # do conversion from 4-20 mA to psi using max range calib
                     p = (readings[i]/1000)*(self.calibs[channel]/16) - 25
-                    print("reading", p)
                     self.pvs[channel].set(p)
                 else:
                     self.pvs[channel].set(readings[i])
