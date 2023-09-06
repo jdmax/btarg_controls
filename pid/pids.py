@@ -5,6 +5,7 @@ import aioca
 from simple_pid import PID
 import numpy as np
 import argparse
+import os
 
 
 async def main():
@@ -13,8 +14,11 @@ async def main():
     '''
 
     pids = {}
-    runs = []
     settings, pid_settings = load_settings()
+
+    os.environ['EPICS_CA_ADDR_LIST'] = settings['general']['epics_addr_list']
+    os.environ['EPICS_CA_AUTO_ADDR_LIST'] = 'NO'
+
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
     loop = asyncio.get_event_loop()
     device_name = settings['general']['prefix'] + ':PID'
