@@ -61,7 +61,8 @@ class Device():
                 if "None" in channel: continue
                 self.set_alarm(channel)
             self.reconnect()
-        except TypeError:
+        except TypeError as e:
+            print(e)
             self.reconnect()
         else:
             return True
