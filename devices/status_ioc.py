@@ -37,7 +37,7 @@ class Device():
         self.pvs['production'] = builder.mbbIn('production', *prod_states)
 
         flag_states = ['Empty', 'Left', 'Right']
-        self.pvs['flag'] = builder.mbbIn('flag_state', *flag_states)
+        self.pvs['flag'] = builder.mbbIn('Flag_state', *flag_states)
 
 
 
