@@ -260,7 +260,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_2</name>
-      <pv_name>pva://TGT:BTARG:Coolant_TI</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_TI</pv_name>
       <x>130</x>
       <y>50</y>
       <width>130</width>
@@ -298,7 +298,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Spinner_5</name>
-      <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Heater</pv_name>
       <x>130</x>
       <y>90</y>
       <width>130</width>
@@ -315,7 +315,7 @@
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Spinner_6</name>
-      <pv_name>pva://TGT:BTARG:Coolant_SP</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_SP</pv_name>
       <x>130</x>
       <y>70</y>
       <width>130</width>
@@ -326,7 +326,7 @@
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Spinner_7</name>
-      <pv_name>pva://TGT:BTARG:Coolant_kP</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_kP</pv_name>
       <x>390</x>
       <y>50</y>
       <width>150</width>
@@ -336,13 +336,13 @@
       <vertical_alignment>0</vertical_alignment>
       <rules>
         <rule name="On in Closed Mode" prop_id="background_color" out_exp="false">
-          <exp bool_exp="pva://TGT:BTARG:TEMP:Coolant_Mode != ['Closed Loop', 1]">
+          <exp bool_exp="pva://TGT:BTARG:TEMP:Evaporator_Mode != ['Closed Loop', 1]">
             <value>
               <color name="Read_Background" red="240" green="240" blue="240">
               </color>
             </value>
           </exp>
-          <exp bool_exp="pva://TGT:BTARG:TEMP:Coolant_Mode = ['Closed Loop', 1]">
+          <exp bool_exp="pva://TGT:BTARG:TEMP:Evaporator_Mode = ['Closed Loop', 1]">
             <value>
               <color name="Write_Background" red="128" green="255" blue="255">
               </color>
@@ -354,7 +354,7 @@
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Spinner_8</name>
-      <pv_name>pva://TGT:BTARG:Coolant_kI</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_kI</pv_name>
       <x>390</x>
       <y>70</y>
       <width>150</width>
@@ -365,7 +365,7 @@
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Spinner_9</name>
-      <pv_name>pva://TGT:BTARG:Coolant_kD</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_kD</pv_name>
       <x>390</x>
       <y>90</y>
       <width>150</width>
@@ -376,7 +376,7 @@
     </widget>
     <widget type="combo" version="2.0.0">
       <name>Boolean Button_3</name>
-      <pv_name>pva://TGT:BTARG:Coolant_Mode</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Mode</pv_name>
       <x>390</x>
       <y>140</y>
       <width>150</width>
@@ -390,7 +390,7 @@
     </widget>
     <widget type="combo" version="2.0.0">
       <name>Boolean Button_4</name>
-      <pv_name>pva://TGT:BTARG:Coolant_Range</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Range</pv_name>
       <x>130</x>
       <y>110</y>
       <width>130</width>
@@ -404,7 +404,7 @@
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Spinner_11</name>
-      <pv_name>pva://TGT:BTARG:Coolant_Manual</pv_name>
+      <pv_name>pva://TGT:BTARG:Evaporator_Manual</pv_name>
       <x>130</x>
       <y>140</y>
       <width>130</width>
