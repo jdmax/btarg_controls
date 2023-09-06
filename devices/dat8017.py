@@ -48,7 +48,11 @@ class Device():
             readings = self.t.read_all()
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
-                self.pvs[channel].set(readings[i] * self.calibs[channel])
+                if 'v' in self.calibs[channel]:
+                    self.pvs[channel].set(readings[i])
+                else:     # do conversion from 4-20 mA to psi using max range calib
+                    p = (readings[i]/1000)*(self.calibs[channel]/16) - 25
+                    self.pvs[channel].set(p)
                 self.remove_alarm(channel)
         except OSError:
             for i, channel in enumerate(self.channels):
