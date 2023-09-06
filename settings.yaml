@@ -96,7 +96,7 @@ omega_3:
         - Precool_Exhaust
 dat8017_i1:
     module: 'devices.dat8017'
-    autostart: False
+    autostart: True
     ip: '192.168.1.149'
     port: '502'
     timeout: 2
@@ -109,7 +109,7 @@ dat8017_i1:
         Evap_Exhaust_PI: 1
 dat8017_i2:
     module: 'devices.dat8017'
-    autostart: False
+    autostart: True
     ip: '192.168.1.150'
     port: '502'
     timeout: 2
@@ -130,7 +130,7 @@ dat8017_v:
         #Bot_PI: 1
 dat8148:
     module: 'devices.dat8148'
-    autostart: False
+    autostart: True
     ip: '192.168.1.152'
     port: '502'
     timeout: 2
@@ -148,7 +148,7 @@ dat8148:
         - Vent_Purge_Good_DI
 dat8130:
     module: 'devices.dat8130'
-    autostart: False
+    autostart: True
     ip: '192.168.1.153'
     port: '502'
     timeout: 2
