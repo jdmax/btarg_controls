@@ -64,8 +64,8 @@ lakeshore_336:
     delay: 2
     channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel.
         - Coolant
-        - Evaporator
         - Coolant_B_TI
+        - Evaporator
         - Evaporator_B_TI
 omega_1:
     module: 'devices.omega'
