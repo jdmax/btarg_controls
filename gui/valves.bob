@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-09-06 10:40:55 by poltar-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>Valves</text>
+    <x use_class="true">0</x>
+    <y use_class="true">0</y>
+    <width>550</width>
+    <height>31</height>
+    <font use_class="true">
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <foreground_color use_class="true">
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <transparent use_class="true">true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Flip Flop:</text>
+    <y>50</y>
+  </widget>
+  <widget type="slide_button" version="2.0.0">
+    <name>Slide Button</name>
+    <pv_name>TGT:BTARG:FlipFlop_DO</pv_name>
+    <label></label>
+    <x>90</x>
+    <y>50</y>
+    <width>90</width>
+    <height>20</height>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED</name>
+    <pv_name>TGT:BTARG:Exhaust_to_Vent_DI</pv_name>
+    <x>180</x>
+    <y>50</y>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_1</name>
+    <pv_name>TGT:BTARG:Exhaust_to_Warm_DI</pv_name>
+    <x>240</x>
+    <y>50</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>Supply:</text>
+    <x>40</x>
+    <y>120</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>TGT:BTARG:Target_Supply_PI</pv_name>
+    <x>150</x>
+    <y>120</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>Return:</text>
+    <x>40</x>
+    <y>140</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_1</name>
+    <pv_name>TGT:BTARG:Target_Return_PI</pv_name>
+    <x>150</x>
+    <y>140</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_4</name>
+    <text>Shield Exhaust:</text>
+    <x>40</x>
+    <y>160</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>TGT:BTARG:Shield_Exhaust_PI</pv_name>
+    <x>150</x>
+    <y>160</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Precool Exhaust:</text>
+    <x>40</x>
+    <y>180</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_3</name>
+    <pv_name>TGT:BTARG:Precool_Exhaust_PI</pv_name>
+    <x>150</x>
+    <y>180</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>H2 Tank:</text>
+    <x>40</x>
+    <y>220</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_4</name>
+    <pv_name>TGT:BTARG:H2_Tank_PI</pv_name>
+    <x>150</x>
+    <y>220</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>D2 Tank:</text>
+    <x>40</x>
+    <y>240</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_5</name>
+    <pv_name>TGT:BTARG:D2_Tank_PI</pv_name>
+    <x>150</x>
+    <y>240</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_8</name>
+    <text>4He Tank:</text>
+    <x>40</x>
+    <y>260</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_6</name>
+    <pv_name>TGT:BTARG:4He_Tank_PI</pv_name>
+    <x>150</x>
+    <y>260</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_9</name>
+    <text>3He Tank:</text>
+    <x>40</x>
+    <y>280</y>
+    <width>110</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_7</name>
+    <pv_name>TGT:BTARG:3He_Tank_PI</pv_name>
+    <x>150</x>
+    <y>280</y>
+  </widget>
+</display>
