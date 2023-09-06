@@ -55,7 +55,8 @@ class Device():
                     print("reading", p)
                     self.pvs[channel].set(p)
                 self.remove_alarm(channel)
-        except OSError:
+        except OSError as e:
+            print(e)
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel)
