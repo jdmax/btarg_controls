@@ -96,11 +96,11 @@ class DeviceConnection():
             data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
             m = self.read_regex.search(data)
             values = []
-            for i, x in enumerate(m.groups()):
+            for x in m.groups():
                 try:
-                    values[i] = float(x)
+                    values.append(float(x))
                 except ValueError:
-                    values[i] = 9999
+                    values.append(9999)
             return values
 
         except Exception as e:
