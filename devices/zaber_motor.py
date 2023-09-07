@@ -35,7 +35,7 @@ class Device():
         for channel, locs in self.settings['locations'].items():
             list = []
             for i, name in enumerate(locs.keys()):
-                list.append([name, i])
+                list.append(name)
                 self.pvs[channel+"_pos_"+str(i)] = builder.aOut(channel+"_pos_"+str(i))
                 self.pvs[channel+"_pos_"+str(i)].set(locs[name])
             self.pvs[channel+"_locations"] = (
