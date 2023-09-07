@@ -56,7 +56,7 @@ class Device():
             if "None" in channel: continue
             if "_TI" in channel: continue
             try:
-                pids = self.t.read_pid(i + 1)
+                pids = self.t.read_pid(self.channels[channel])
                 self.pvs[channel + '_kP'].set(pids[0])
                 self.pvs[channel + '_kI'].set(pids[1])
                 self.pvs[channel + '_kD'].set(pids[2])
@@ -181,12 +181,7 @@ class DeviceConnection():
         try:
             print(channel, P, I, D)
             self.tn.write(bytes(f"PID {channel},{P},{I},{D}\n", 'ascii'))
-            self.tn.write(bytes(f"PID?\n", 'ascii'))
-            data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
-            print("data", data)
-            m = self.pid_regex.search(data)
-            values = [float(x) for x in m.groups()]
-            return values
+            return self.read_pid(channel)
 
         except Exception as e:
             print(f"LS336 pid set failed on {self.host}: {e}")
@@ -195,7 +190,7 @@ class DeviceConnection():
     def read_pid(self, channel):
         '''Read PID values for given channel (1 or 2).'''
         try:
-            self.tn.write(bytes(f"PID?\n", 'ascii'))
+            self.tn.write(bytes(f"PID? {channel}\n", 'ascii'))
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
             m = self.pid_regex.search(data)
             values = [float(x) for x in m.groups()]
