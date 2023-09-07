@@ -183,6 +183,7 @@ class DeviceConnection():
             self.tn.write(bytes(f"PID {channel},{P},{I},{D}\n", 'ascii'))
             self.tn.write(bytes(f"PID?\n", 'ascii'))
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
+            print("data", data)
             m = self.pid_regex.search(data)
             values = [float(x) for x in m.groups()]
             return values
