@@ -94,6 +94,7 @@ class DeviceConnection():
             command = "@" + self.address + "PRZ?;FF"  # @003PRZ?;FF
             self.tn.write(bytes(command, 'ascii'))
             data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            print("data", data)
             m = self.read_regex.search(data)
             values = [float(x) for x in m.groups()]
             return values

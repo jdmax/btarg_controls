@@ -69,19 +69,19 @@ class Device():
                 self.pvs[p+"_MI"].set(self.t.move_to(chan, new_value))  # set returned value
             elif '_home' in pv_name:
                 if new_value:
-                    self.pvs[p+"_MI"].set(self.t.home(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.home(chan))
                     self.pvs[p+"_home"].set(False)
             elif '_away' in pv_name:
                 if new_value:
-                    self.pvs[p+"_MI"].set(self.t.away(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.away(chan))
                     self.pvs[p+"_away"].set(False)
             elif '_stop' in pv_name:
                 if new_value:
-                    self.pvs[p+"_MI"].set(self.t.stop(chan))  # set returned value
+                    self.pvs[p+"_MI"].set(self.t.stop(chan))
                     self.pvs[p+"_stop"].set(False)
             elif '_zero' in pv_name:
                 if new_value:
-                    self.pvs[p+"_zero"].set(self.t.set_zero(chan))  # set returned value
+                    self.pvs[p+"_zero"].set(self.t.set_zero(chan))
                     self.pvs[p+"_zero"].set(False)
         except OSError:
             self.reconnect()
