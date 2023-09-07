@@ -16,7 +16,7 @@ class Device():
         '''
         self.device_name = device_name
         self.settings = settings
-        self.channels = settings['channels']
+        self.channels = settings['channels']   # this is a dict keyed on channel name, value is output channel number (1 or 2)
         self.pvs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
@@ -46,8 +46,27 @@ class Device():
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, channel in enumerate(self.channels):
+            if "None" in channel: continue
+            if "_TI" in channel: continue
+            try:
+                pids = self.t.read_pid(i + 1)
+                self.pvs[channel + '_kP'].set(pids[0])
+                self.pvs[channel + '_kI'].set(pids[1])
+                self.pvs[channel + '_kD'].set(pids[2])
+                self.pvs[channel + '_Mode'].set(int(self.t.read_outmode(self.channels[channel])))
+                self.pvs[channel + '_Range'].set(int(self.t.read_range(self.channels[channel])))
+                self.pvs[channel + '_SP'].set(self.t.read_setpoint(self.channels[channel]))
+                self.pvs[channel + '_Manual'].set(self.t.read_man_heater(self.channels[channel]))
+            except OSError as e:
+                print("Error initializing outs.", e)
+                self.reconnect()
 
     def reconnect(self):
         del self.t
@@ -55,19 +74,18 @@ class Device():
         self.connect()
 
     def do_sets(self, new_value, pv):
-        '''If PV has changed, find the correct method to set it on the device'''
+        """If PV has changed, find the correct method to set it on the device"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         p = pv_name.split("_")[0]  # pv_name root
-        #chan = self.channels.index(p) + 1  # determine what channel we are on
         chan = self.channels[p]
         # figure out what type of PV this is, and send it to the right method
         try:
             if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
-                dict = {}
+                d = {}
                 k_list = ['kP', 'kI', 'kD']
                 for k in k_list:
-                    dict[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
-                values = self.t.set_pid(chan, dict['kP'], dict['kI'], dict['kD'])
+                    d[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
+                values = self.t.set_pid(chan, d['kP'], d['kI'], d['kD'])
                 [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
             elif 'SP' in pv_name:  # is this a setpoint?
                 self.pvs[pv_name].set(self.t.set_setpoint(chan, new_value))  # set returned value
@@ -95,17 +113,9 @@ class Device():
                 else:
                     self.pvs[channel + '_TI'].set(temps[i])
                     self.remove_alarm(channel+'_TI')
-                    self.pvs[channel + '_Heater'].set(self.t.read_heater(i + 1))
-                    pids = self.t.read_pid(i + 1)
-                    self.pvs[channel + '_kP'].set(pids[0])
-                    self.pvs[channel + '_kI'].set(pids[1])
-                    self.pvs[channel + '_kD'].set(pids[2])
-                    self.pvs[channel + '_Mode'].set(int(self.t.read_outmode(i + 1)))
-                    self.pvs[channel + '_Range'].set(int(self.t.read_range(i + 1)))
-                    self.pvs[channel + '_SP'].set(self.t.read_setpoint(i + 1))
-                    self.pvs[channel + '_Manual'].set(self.t.read_man_heater(i + 1))
+                    self.pvs[channel + '_Heater'].set(self.t.read_heater(self.channels[channel]))
         except OSError:
-            for i, channel in enumerate(self.channels):
+            for channel in self.channels:
                 if "None" in channel: continue
                 if "_TI" in channel:   # setting read error on TI only
                     self.set_alarm(channel)
