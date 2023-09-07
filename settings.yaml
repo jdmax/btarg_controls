@@ -173,7 +173,8 @@ mks937b:
     timeout: 2
     delay: 2
     channels:
-        - Some_PI
+        - OVC_CC_PI
+        - OVC_Pirani_PI
 ami136:
     module: 'devices.ami136'
     autostart: True          # Should IOC Manager try to start this?

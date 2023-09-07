@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-06 15:36:36 by poltar-->
+<!--Saved on 2023-09-07 14:53:10 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -879,7 +879,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_21</name>
-    <pv_name>TGT:BTARG:flag_state</pv_name>
+    <pv_name>TGT:BTARG:Flag_state</pv_name>
     <x>180</x>
     <y>700</y>
     <width>90</width>
