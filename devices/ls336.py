@@ -85,6 +85,7 @@ class Device():
                 k_list = ['kP', 'kI', 'kD']
                 for k in k_list:
                     d[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
+                print("set", chan, d)
                 values = self.t.set_pid(chan, d['kP'], d['kI'], d['kD'])
                 print("values", values)
                 [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
