@@ -193,8 +193,8 @@ rigol_dp832:
     delay: 5
     voltage_limit: 30.0
     channels: # List of channel names in order. None indicates unused channel.
-        - Reservoir_Heater
-        - Shield_Heater
+        - Reservoir-Heater
+        - Shield-Heater
 zaber:
     module: 'devices.zaber_motor'
     autostart: True
