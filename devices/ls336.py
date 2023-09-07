@@ -179,6 +179,7 @@ class DeviceConnection():
     def set_pid(self, channel, P, I, D):
         '''Setup PID for given channel (1 or 2).'''
         try:
+            print(channel, P, I, D)
             self.tn.write(bytes(f"PID {channel},{P},{I},{D}\n", 'ascii'))
             self.tn.write(bytes(f"PID?\n", 'ascii'))
             data = self.tn.read_until(b'\n', timeout=2).decode('ascii')  # read until carriage return
