@@ -6,7 +6,7 @@ general:
     epics_addr_list: '129.57.86.255'
     #epics_addr_list: '127.255.255.255'
     #epics_beacon_addr_list: '127.255.255.255'
-    delay: 0.5
+    delay: 1
 status:   # SoftIOC to switch between target states
     module: 'devices.status_ioc'
     autostart: True
