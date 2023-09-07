@@ -20,8 +20,8 @@ class Device():
         self.pvs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
-        mode_list = [['Off', 0], ['Closed Loop', 0], ['Zone', 0], ['Open Loop', 0]]
-        range_list = [['Off', 0], ['Low', 0], ['Med', 0], ['High', 0]]
+        mode_list = ['Off', 'Closed Loop', 'Zone', 'Open Loop']
+        range_list = ['Off', 'Low', 'Med', 'High']
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "_TI" in channel:

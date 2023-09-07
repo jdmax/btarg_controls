@@ -30,7 +30,7 @@ class Device():
             else:
                 self.pvs[channel + "_FI"] = builder.aIn(channel + "_FI", **sevr)
                 self.pvs[channel + "_FC"] = builder.aOut(channel + "_FC", on_update_name=self.do_sets, **sevr)
-                self.pvs[channel + "_Mode"] = builder.mbbOut(channel + "_Mode", *mode_list, on_update_name=self.do_sets)
+                self.pvs[channel + "_FMode"] = builder.mbbOut(channel + "_FMode", *mode_list, on_update_name=self.do_sets)
 
     def connect(self):
         """Open connection to device"""
@@ -47,7 +47,7 @@ class Device():
         for i, channel in enumerate(self.settings['channels']):  # set up PVs for each channel
             try:
                 self.pvs[channel+"_FC"].set(sps[i])  # set returned value
-                self.pvs[channel+"_Mode"].set(modes[i])  # set returned value
+                self.pvs[channel+"_FMode"].set(modes[i])  # set returned value
             except OSError:
                 self.reconnect()
 
