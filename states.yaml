@@ -5,7 +5,7 @@ options:   # summary of headers of table below
         - Cooldown
         - Empty
         - Fill
-  #      - Safe
+#        - Safe
     species:
         - H2
         - D2
