@@ -1,10 +1,6 @@
 # btarg record database, YAML
-Shield_FI:
-    DESC: 'Shield Flow Indicator'
-    PREC: 6
-    EGU: 'slpm'
-Shield_FC:
-    DESC: 'Shield Flow Controller Set Value'
+Evaporator_FC:
+    DESC: 'Evaporator Flow Controller Set Value'
     PREC: 6
     EGU: 'slpm'
     DRVH: 200
@@ -13,8 +9,10 @@ Evaporator_FI:
     DESC: 'Evaporator Flow Indicator'
     PREC: 6
     EGU: 'slpm'
-Evaporator_FC:
-    DESC: 'Evaporator Flow Controller Set Value'
+Evaporator_FMode:
+    DESC: 'Evaporator Flow Auto Mode'
+Precool_FC:
+    DESC: 'Precool Controller Set Value'
     PREC: 6
     EGU: 'slpm'
     DRVH: 200
@@ -23,16 +21,20 @@ Precool_FI:
     DESC: 'Precool Flow Indicator'
     PREC: 6
     EGU: 'slpm'
-Precool_FC:
-    DESC: 'Precool Controller Set Value'
+Precool_FMode:
+    DESC: 'Precool Auto Mode'
+Shield_FC:
+    DESC: 'Shield Flow Controller Set Value'
     PREC: 6
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
-Pump_FI:
-    DESC: 'Pump Flow Indicator'
+Shield_FI:
+    DESC: 'Shield Flow Indicator'
     PREC: 6
     EGU: 'slpm'
+Shield_FMode:
+    DESC: 'Shield Flow Auto Mode'
 Shield_Cold_TI:
     DESC: 'Shield Cold End Temperature Indicator'
     PREC: 6
