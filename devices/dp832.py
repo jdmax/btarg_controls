@@ -24,6 +24,7 @@ class Device():
             if "None" in channel: continue
             self.pvs[channel+"_VI"] = builder.aIn(channel+"_VI", **sevr)   # Voltage
             self.pvs[channel+"_CI"] = builder.aIn(channel+"_CI", **sevr)   # Current
+            self.pvs[channel+"_WI"] = builder.aIn(channel+"_WI", **sevr)   # Power in Watts
 
             self.pvs[channel + "_CC"] = builder.aOut(channel + "_CC", on_update_name=self.do_sets, **sevr)
             self.pvs[channel + "_VC"] = builder.aOut(channel + "_VC", on_update_name=self.do_sets, **sevr)
@@ -87,6 +88,7 @@ class Device():
             try:
                 new_reads[channel+'_VI'], new_reads[channel+'_CI'], power = self.t.read(i+1)
                 new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
+                new_reads[channel + '_WI'] = new_reads[channel + '_VI'] * new_reads[channel + '_CI']
                 new_reads[channel+'_Mode'] = self.t.read_state(i+1)
             except OSError:
                 self.set_alarm(channel + "_VI")

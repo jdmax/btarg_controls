@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-08 10:33:32 by poltar-->
+<!--Saved on 2023-09-08 16:29:20 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -41,25 +41,22 @@
       <text>Top:</text>
       <x>20</x>
       <y>40</y>
+      <width>50</width>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update</name>
       <pv_name>pva://TGT:BTARG:Shield_Top_TI</pv_name>
-      <x>120</x>
+      <x>70</x>
       <y>40</y>
+      <width>50</width>
       <precision>2</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_2</name>
-      <text>Bottom:</text>
-      <x>20</x>
-      <y>60</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_1</name>
       <pv_name>pva://TGT:BTARG:Shield_Bottom_TI</pv_name>
-      <x>120</x>
-      <y>60</y>
+      <x>200</x>
+      <y>40</y>
+      <width>50</width>
       <precision>2</precision>
       <show_units>false</show_units>
     </widget>
@@ -67,18 +64,19 @@
       <name>Label_3</name>
       <text>Downstream:</text>
       <x>20</x>
-      <y>80</y>
+      <y>60</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_2</name>
       <pv_name>pva://TGT:BTARG:Shield_DS_TI</pv_name>
       <x>120</x>
-      <y>80</y>
+      <y>60</y>
+      <width>50</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_16</name>
-      <text>Shield Temperature</text>
+      <text>Heat Shield</text>
       <x>10</x>
       <y>10</y>
       <width>170</width>
@@ -86,6 +84,49 @@
         <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
         </font>
       </font>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_2</name>
+      <text>Bottom:</text>
+      <x>130</x>
+      <y>40</y>
+      <width>60</width>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_8</name>
+      <actions>
+        <action type="open_display">
+          <file>shield.bob</file>
+          <target>window</target>
+          <description>Open Display</description>
+        </action>
+      </actions>
+      <text>Expert</text>
+      <x>170</x>
+      <y>10</y>
+      <width>80</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_1</name>
+      <pv_name>pva://TGT:BTARG:Shield-Heater_Mode</pv_name>
+      <x>230</x>
+      <y>80</y>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_37</name>
+      <text>Heater:</text>
+      <x>20</x>
+      <y>80</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_24</name>
+      <pv_name>pva://TGT:BTARG:Shield-Heater_WI</pv_name>
+      <x>80</x>
+      <y>80</y>
+      <width>70</width>
+      <precision>2</precision>
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
@@ -498,31 +539,18 @@
       <corner_height>10</corner_height>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>Label_24</name>
-      <text>Level:</text>
-      <x>20</x>
-      <y>40</y>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_11</name>
-      <pv_name>pva://TGT:BTARG:Reservoir_LI</pv_name>
-      <x>120</x>
-      <y>40</y>
-      <width>80</width>
-      <precision>2</precision>
-    </widget>
-    <widget type="label" version="2.0.0">
       <name>Label_26</name>
       <text>Top:</text>
       <x>20</x>
-      <y>60</y>
+      <y>40</y>
+      <width>40</width>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_13</name>
       <pv_name>pva://TGT:BTARG:Reservoir_Top_TI</pv_name>
-      <x>120</x>
-      <y>60</y>
-      <width>80</width>
+      <x>70</x>
+      <y>40</y>
+      <width>50</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
@@ -555,15 +583,50 @@
     <widget type="label" version="2.0.0">
       <name>Label_33</name>
       <text>Bottom:</text>
-      <x>20</x>
-      <y>80</y>
+      <x>130</x>
+      <y>40</y>
+      <width>60</width>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_20</name>
       <pv_name>pva://TGT:BTARG:Reservoir_Bottom_TI</pv_name>
-      <x>120</x>
+      <x>200</x>
+      <y>40</y>
+      <width>50</width>
+      <precision>2</precision>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_24</name>
+      <text>Level:</text>
+      <x>20</x>
+      <y>60</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_11</name>
+      <pv_name>pva://TGT:BTARG:Reservoir_LI</pv_name>
+      <x>70</x>
+      <y>60</y>
+      <width>50</width>
+      <precision>2</precision>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED</name>
+      <pv_name>pva://TGT:BTARG:Reservoir-Heater_Mode</pv_name>
+      <x>230</x>
       <y>80</y>
-      <width>80</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_25</name>
+      <text>Heater:</text>
+      <x>20</x>
+      <y>80</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_23</name>
+      <pv_name>pva://TGT:BTARG:Reservoir-Heater_WI</pv_name>
+      <x>80</x>
+      <y>80</y>
+      <width>60</width>
       <precision>2</precision>
     </widget>
   </widget>
