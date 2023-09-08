@@ -154,13 +154,13 @@ class IOCManager:
         elif i==1:
             screen = Screen('pids', True)
             screen.send_commands(f'python pid/pids.py')
-            screen.enable_logs(f"{self.settings['general']['log_dir']}/{self.name}")
+            screen.enable_logs(f"{self.settings['general']['log_dir']}/pids")
         elif i==2:
             if Screen('pids').exists:
                 subprocess.run(["screen","-XS",'pids',"kill"])
             screen = Screen('pids', True)
             screen.send_commands(f'python pid/pids.py')
-            screen.enable_logs(f"{self.settings['general']['log_dir']}/{self.name}")
+            screen.enable_logs(f"{self.settings['general']['log_dir']}/pids")
 
     async def heartbeat(self):
         """Check last time written versus current time for each IOC"""
