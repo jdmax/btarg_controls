@@ -129,7 +129,7 @@ def load_settings():
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--Settings", help = "Settings files folder")
     args = parser.parse_args()
-    folder = args.Settings if args.Settings else '..'   # default is directory above
+    folder = args.Settings if args.Settings else '.'   # default is directory above
 
     with open(f'{folder}/settings.yaml') as f:  # Load settings from YAML files
         settings = yaml.load(f, Loader=yaml.FullLoader)
