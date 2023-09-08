@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-08 14:33:07 by poltar-->
+<!--Saved on 2023-09-08 15:53:55 by poltar-->
 <display version="2.0.0">
   <name>LHe Reservoir Controls</name>
   <width>890</width>
@@ -106,7 +106,7 @@
     <name>Rectangle_8</name>
     <x>350</x>
     <y>80</y>
-    <width>540</width>
+    <width>600</width>
     <height>210</height>
     <line_color>
       <color red="0" green="0" blue="255" alpha="0">
@@ -127,9 +127,10 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
+    <pv_name>pva://TGT:BTARG:Reservoir_LI</pv_name>
     <x>480</x>
     <y>210</y>
-    <width>130</width>
+    <width>240</width>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
@@ -147,38 +148,39 @@
   <widget type="label" version="2.0.0">
     <name>Label_10</name>
     <text>Kp:</text>
-    <x>640</x>
+    <x>750</x>
     <y>130</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_11</name>
     <text>Ki:</text>
-    <x>640</x>
+    <x>750</x>
     <y>150</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
     <text>Kd:</text>
-    <x>640</x>
+    <x>750</x>
     <y>170</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
     <text>Min change:</text>
-    <x>640</x>
+    <x>750</x>
     <y>190</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_14</name>
     <text>Max change:</text>
-    <x>640</x>
+    <x>750</x>
     <y>210</y>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_2</name>
+    <pv_name>pva://TGT:BTARG:Reservoir-Heater_CC</pv_name>
     <x>480</x>
     <y>170</y>
-    <width>130</width>
+    <width>240</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -192,10 +194,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_3</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_setpoint</pv_name>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_setpoint</pv_name>
     <x>480</x>
     <y>130</y>
-    <width>130</width>
+    <width>240</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -203,10 +205,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_4</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_Kp</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_Kp</pv_name>
+    <x>850</x>
     <y>130</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -214,10 +216,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_5</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_Ki</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_Ki</pv_name>
+    <x>850</x>
     <y>150</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -225,10 +227,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_6</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_Kd</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_Kd</pv_name>
+    <x>850</x>
     <y>170</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -236,10 +238,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_7</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_min_change</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_min_change</pv_name>
+    <x>850</x>
     <y>190</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -247,10 +249,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_8</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_max_change</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_max_change</pv_name>
+    <x>850</x>
     <y>210</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -258,7 +260,7 @@
   </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button_1</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_auto_mode</pv_name>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_auto_mode</pv_name>
     <x>480</x>
     <y>250</y>
     <width>130</width>
@@ -267,21 +269,21 @@
   <widget type="label" version="2.0.0">
     <name>Label_16</name>
     <text>Drive low:</text>
-    <x>640</x>
+    <x>750</x>
     <y>230</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_17</name>
     <text>Drive High:</text>
-    <x>640</x>
+    <x>750</x>
     <y>250</y>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_9</name>
-    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVL</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:Reservoir-Heater_CC.DRVL</pv_name>
+    <x>850</x>
     <y>230</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -289,10 +291,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_10</name>
-    <pv_name>pva://TGT:BTARG:PID:Test_Power.DRVH</pv_name>
-    <x>740</x>
+    <pv_name>pva://TGT:BTARG:Reservoir-Heater_CC.DRVH</pv_name>
+    <x>850</x>
     <y>250</y>
-    <width>130</width>
+    <width>80</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -306,10 +308,10 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Spinner_11</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_sample_time</pv_name>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_sample_time</pv_name>
     <x>480</x>
     <y>230</y>
-    <width>130</width>
+    <width>240</width>
     <format>1</format>
     <precision>3</precision>
     <show_units>false</show_units>
@@ -407,18 +409,18 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_3</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_input</pv_name>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_input</pv_name>
     <x>480</x>
     <y>190</y>
-    <width>130</width>
+    <width>240</width>
     <precision>3</precision>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_4</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_PID_output</pv_name>
+    <pv_name>pva://TGT:BTARG:PID:Reservoir_PID_output</pv_name>
     <x>480</x>
     <y>150</y>
-    <width>130</width>
+    <width>240</width>
     <precision>3</precision>
   </widget>
 </display>
