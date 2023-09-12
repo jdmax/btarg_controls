@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-12 10:33:15 by poltar-->
+<!--Saved on 2023-09-12 15:19:53 by poltar-->
 <display version="2.0.0">
   <name>IOC Manager</name>
-  <width>461</width>
-  <height>660</height>
+  <width>450</width>
+  <height>690</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle</name>
     <x>20</x>
@@ -356,7 +356,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
-    <text>Last Update</text>
+    <text>Last Update:</text>
     <x>330</x>
     <y>50</y>
     <width>90</width>
@@ -496,5 +496,13 @@
     <y>410</y>
     <width>40</width>
     <height>19</height>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_1</name>
+    <x>420</x>
+    <y>660</y>
+    <width>30</width>
+    <height>30</height>
+    <visible>false</visible>
   </widget>
 </display>

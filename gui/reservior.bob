@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-08 16:06:54 by poltar-->
+<!--Saved on 2023-09-12 15:15:44 by poltar-->
 <display version="2.0.0">
   <name>LHe Reservoir Controls</name>
-  <width>890</width>
-  <height>290</height>
+  <width>980</width>
+  <height>320</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
     <y>120</y>
     <width>310</width>
     <height>170</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
@@ -27,7 +28,7 @@
     <text>LHe Reservoir Controls</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
-    <width>280</width>
+    <width>550</width>
     <height>31</height>
     <font use_class="true">
       <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
@@ -108,8 +109,9 @@
     <y>80</y>
     <width>600</width>
     <height>210</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
@@ -422,5 +424,13 @@
     <y>150</y>
     <width>240</width>
     <precision>3</precision>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle</name>
+    <x>950</x>
+    <y>290</y>
+    <width>30</width>
+    <height>30</height>
+    <visible>false</visible>
   </widget>
 </display>

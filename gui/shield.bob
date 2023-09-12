@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-08 16:06:40 by poltar-->
+<!--Saved on 2023-09-12 15:15:03 by poltar-->
 <display version="2.0.0">
   <name>Heat Shield Controls</name>
-  <width>890</width>
-  <height>290</height>
+  <width>980</width>
+  <height>320</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
     <y>120</y>
     <width>310</width>
     <height>170</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
@@ -66,8 +67,9 @@
     <y>80</y>
     <width>600</width>
     <height>210</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
@@ -425,5 +427,13 @@
     <x>30</x>
     <y>70</y>
     <width>60</width>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle</name>
+    <x>950</x>
+    <y>290</y>
+    <width>30</width>
+    <height>30</height>
+    <visible>false</visible>
   </widget>
 </display>

@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-01 12:19:26 by poltar-->
+<!--Saved on 2023-09-12 15:17:30 by poltar-->
 <display version="2.0.0">
   <name>Lakeshore 336 Heater Controls</name>
-  <width>580</width>
-  <height>410</height>
+  <width>610</width>
+  <height>460</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
     <y>50</y>
     <width>560</width>
     <height>180</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
       <color name="Read_Background" red="240" green="240" blue="240">
       </color>
     </background_color>
-    <corner_width>20</corner_width>
-    <corner_height>20</corner_height>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_8</name>
@@ -27,16 +28,17 @@
     <y>250</y>
     <width>560</width>
     <height>180</height>
+    <line_width>2</line_width>
     <line_color>
-      <color red="0" green="0" blue="255" alpha="0">
+      <color name="Button_Background" red="210" green="210" blue="210">
       </color>
     </line_color>
     <background_color>
       <color name="Read_Background" red="240" green="240" blue="240">
       </color>
     </background_color>
-    <corner_width>20</corner_width>
-    <corner_height>20</corner_height>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label</name>
@@ -424,5 +426,13 @@
         </font>
       </font>
     </widget>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_1</name>
+    <x>580</x>
+    <y>430</y>
+    <width>30</width>
+    <height>30</height>
+    <visible>false</visible>
   </widget>
 </display>
