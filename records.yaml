@@ -35,26 +35,72 @@ Shield_FI:
     EGU: 'slpm'
 Shield_FMode:
     DESC: 'Shield Flow Auto Mode'
-Shield_Cold_TI:
-    DESC: 'Shield Cold End Temperature Indicator'
-    PREC: 6
+Cell_Top_TI:
+    DESC: 'Target Cell Top Temperature Indicator'
+    PREC: 5
     EGU: 'K'
-Shield_Mid_TI:
-    DESC: 'Shield Middle Temperature Indicator'
-    PREC: 6
+Cell_Bottom_TI:
+    DESC: 'Target Cell Bottom/Condenser Temperature Indicator'
+    PREC: 5
     EGU: 'K'
-Shield_Warm_TI:
-    DESC: 'Shield Warm End Temperature Indicator'
-    PREC: 6
+Evaporator_Out_TI:
+    DESC: 'Evaporator Exit Temperature Indicator'
+    PREC: 5
     EGU: 'K'
-Other_TI:
-    DESC: 'Shield Cold End Temperature Indicator'
-    PREC: 6
+Shield_DS_TI:
+    DESC: 'Downstream Heat Shield Temperature Indicator'
+    PREC: 5
     EGU: 'K'
-Other1_TI:
-    DESC: 'Shield Cold End Temperature Indicator'
-    PREC: 6
+Shield_Plate_TI:
+    DESC: 'Heat Shield Plate End Temperature Indicator'
+    PREC: 5
     EGU: 'K'
+Reservoir_Bottom_TI:
+    DESC: 'Helium Reservoir Bottom Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+Reservoir_Top_TI:
+    DESC: 'Helium Reservoir Top Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+Shield_Bottom_TI:
+    DESC: 'Reservoir Heat Shield Bottom Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+Shield_Top_TI:
+    DESC: 'Reservoir Heat Shield Top Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+Coolant_B_TI:
+    DESC: 'Coolant Gas Reserve Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Coolant_Heater:
+    DESC: 'Coolant Heater Output'
+    PREC: 3
+    EGU: '%'
+Coolant_TI:
+    DESC: 'Coolant Temperature Indicator'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Coolant_SP:
+    DESC: 'Coolant Setpoint'
+    PREC: 5
+    EGU: 'K'
+Coolant_Manual:
+    DESC: 'Coolant Manual Heater Output'
+    PREC: 3
+    EGU: '%'
+    DRVH: 100
+    DRVL: 0
 Top_PI:
     DESC: 'Top Pressure Indicator'
     PREC: 6
@@ -79,40 +125,7 @@ Supply_PI:
     DESC: 'Pressure on Supply to Magnet'
     PREC: 1
     EGU: 'mbar'
-Coolant_Heater:
-    DESC: 'Coolant Heater Output'
-    PREC: 2
-    EGU: '%'
-    HIHI: Inf
-    HIGH: Inf
-    LOW: -Inf
-    LOLO: -Inf
-Coolant_TI:
-    DESC: 'Coolant Temperature'
-    PREC: 4
-    EGU: 'K'
-    HIHI: Inf
-    HIGH: Inf
-    LOW: -Inf
-    LOLO: -Inf
-Coolant_SP:
-    DESC: 'Coolant Temperature'
-    PREC: 4
-    EGU: 'K'
-    HIHI: Inf
-    HIGH: Inf
-    LOW: -Inf
-    LOLO: -Inf
-Coolant_Manual:
-    DESC: 'Coolant Manual Heater Output'
-    PREC: 3
-    EGU: '%'
-    DRVH: 100
-    DRVL: 0
-    HIHI: Inf
-    HIGH: Inf
-    LOW: -Inf
-    LOLO: -Inf
+
 Shield_Exhaust_TI:
     DESC: 'Shield Exhaust Heater Temperature'
     PREC: 4

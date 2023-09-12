@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-12 16:03:25 by poltar-->
+<!--Saved on 2023-09-12 16:07:15 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -441,7 +441,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_13</name>
       <pv_name>pva://TGT:BTARG:Reservoir_Top_TI</pv_name>
-      <x>340</x>
+      <x>350</x>
       <y>40</y>
       <width>50</width>
       <precision>2</precision>
@@ -467,9 +467,9 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_20</name>
       <pv_name>pva://TGT:BTARG:Reservoir_Bottom_TI</pv_name>
-      <x>490</x>
+      <x>480</x>
       <y>40</y>
-      <width>50</width>
+      <width>70</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
@@ -481,7 +481,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_11</name>
       <pv_name>pva://TGT:BTARG:Reservoir_LI</pv_name>
-      <x>340</x>
+      <x>350</x>
       <y>60</y>
       <width>50</width>
       <precision>2</precision>
@@ -501,7 +501,7 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_23</name>
       <pv_name>pva://TGT:BTARG:Reservoir-Heater_WI</pv_name>
-      <x>340</x>
+      <x>350</x>
       <y>80</y>
       <width>50</width>
       <precision>2</precision>
@@ -606,9 +606,9 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_1</name>
       <pv_name>pva://TGT:BTARG:Shield_Bottom_TI</pv_name>
-      <x>220</x>
+      <x>210</x>
       <y>40</y>
-      <width>60</width>
+      <width>70</width>
       <precision>2</precision>
       <show_units>false</show_units>
     </widget>
