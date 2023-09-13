@@ -205,8 +205,8 @@ Shield_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 5
-    LOLO: 0
+    LOW: 15
+    LOLO: 5
 Evaporator_Exhaust_SP1:
     DESC: 'Evaporator Exhaust Setpoint 1'
     PREC: 5
@@ -221,8 +221,8 @@ Evaporator_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 5
-    LOLO: 0
+    LOW: 15
+    LOLO: 5
 Precool_Exhaust_SP1:
     DESC: 'Precool Exhaust Setpoint 1'
     PREC: 5
@@ -237,8 +237,8 @@ Precool_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 5
-    LOLO: 0
+    LOW: 15
+    LOLO: 5
 Evap_Exhaust_PI:
     DESC: 'Evaporator Exhaust Pressure'
     PREC: 6
@@ -379,35 +379,35 @@ Reservoir-Heater_CI:
     DESC: 'Reservoir Heater Current'
     PREC: 6
     EGU: 'A'
-Return_PI:
-    DESC: 'Pressure on Return from Magnet'
-    PREC: 1
-    EGU: 'mbar'
-Supply_PI:
-    DESC: 'Pressure on Supply to Magnet'
-    PREC: 1
-    EGU: 'mbar'
-Shield_Exhaust_TI:
-    DESC: 'Shield Exhaust Heater Temperature'
-    PREC: 4
-    EGU: 'C'
-    HIHI: 50
-    HIGH: 40
-    LOW: 15
-    LOLO: 5
-Evaporator_Exhaust_TI:
-    DESC: 'Evaporator Exhaust Heater Temperature'
-    PREC: 4
-    EGU: 'C'
-    HIHI: 50
-    HIGH: 40
-    LOW: 15
-    LOLO: 5
-Precool_Exhaust_TI:
-    DESC: 'Precool Exhaust Heater Temperature'
-    PREC: 4
-    EGU: 'C'
-    HIHI: 50
-    HIGH: 40
-    LOW: 15
-    LOLO: 5
+Reservoir-Heater_VC:
+    DESC: 'Reservoir Heater Voltage Set'
+    PREC: 6
+    EGU: 'V'
+Reservoir-Heater_VI:
+    DESC: 'Reservoir Heater Voltage'
+    PREC: 6
+    EGU: 'V'
+Reservoir-Heater_WI:
+    DESC: 'Reservoir Heater Power'
+    PREC: 6
+    EGU: 'W'
+Shield-Heater_CC:
+    DESC: 'Shield Heater Current Set'
+    PREC: 6
+    EGU: 'A'
+Shield-Heater_CI:
+    DESC: 'Shield Heater Current'
+    PREC: 6
+    EGU: 'A'
+Shield-Heater_VC:
+    DESC: 'Shield Heater Voltage Set'
+    PREC: 6
+    EGU: 'V'
+Shield-Heater_VI:
+    DESC: 'Shield Heater Voltage'
+    PREC: 6
+    EGU: 'V'
+Shield-Heater_WI:
+    DESC: 'Shield Heater Power'
+    PREC: 6
+    EGU: 'W'
