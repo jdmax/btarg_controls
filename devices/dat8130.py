@@ -20,7 +20,8 @@ class Device():
         self.pvs = {}
         self.new_reads = {}
         self.calibs = {}
-        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
+        #sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
+        sevr = {'DISP': '0'}
 
         for i, channel in enumerate(
                 settings['channels']):  # set up PVs for each channel, calibrations are values of dict
