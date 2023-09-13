@@ -95,7 +95,6 @@ class DeviceConnection():
             self.tn.write(bytes(command, 'ascii'))
             data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
             m = self.read_regex.search(data)
-            print(data)
             values = []
             for x in m.groups():
                 if 'ATM' in x:
@@ -107,7 +106,6 @@ class DeviceConnection():
                         values.append(float(x))
                     except ValueError:
                         values.append(9999)
-            print(values)
             return values
 
         except Exception as e:
