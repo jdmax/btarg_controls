@@ -1,4 +1,4 @@
-from softioc import softioc, builder, asyncio_dispatcher
+from softioc import softioc, builder, asyncio_dispatcher, alarm
 import asyncio
 import yaml
 import argparse
@@ -60,7 +60,12 @@ class DeviceIOC():
         for name, entry in self.device.pvs.items():  # set the attributes of the PV (optional)
             if name in self.records:
                 for field, value in self.records[name].items():
-                    setattr(self.device.pvs[name], field, value)
+                    if 'NO_ALARM' in value:
+                        setattr(self.device.pvs[name], field, alarm.NO_ALARM)
+                    if 'MINOR_ALARM' in value:
+                        setattr(self.device.pvs[name], field, alarm.MINOR_ALARM)
+                    else:
+                        setattr(self.device.pvs[name], field, value)
 
     async def loop(self):
         """Read indicator PVS from controller channels. Delay time between measurements is in seconds.
