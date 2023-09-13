@@ -20,7 +20,7 @@ class Device():
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
-            self.pvs[channel] = builder.boolIn(channel, **sevr)
+            self.pvs[channel] = builder.boolIn(channel)
 
     def connect(self):
         '''Open connection to device'''
