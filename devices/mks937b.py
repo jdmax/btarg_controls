@@ -100,6 +100,8 @@ class DeviceConnection():
             for x in m.groups():
                 if 'ATM' in x:
                     values.append(760.0)
+                elif 'LO<' in x:
+                    values.append(0.0)
                 else:
                     try:
                         values.append(float(x))
