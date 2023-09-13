@@ -313,21 +313,72 @@ H2_Tank_PI:
     LOLO: -Inf
 Gate_Bypass_Sw_On_DI:
     DESC: 'Gate Bypass Switch'
-#    ZSV:  0
-#    OSV:  0
+    ZSV:  'NO_ALARM'
+    OSV:  'NO_ALARM'
 Vacuum_Sw_Fault_DI:
     DESC: 'Vacuum Switch Fault'
-#    ZSV:  0
-#    OSV:  2
+    ZSV:  'NO_ALARM'
+    OSV:  'MAJOR'
 Vacuum_Sw_Good_DI:
     DESC: 'Vacuum Switch OK'
+    OSV:  'NO_ALARM'
+    ZSV:  'MAJOR'
+Vacuum_Sw_SP_Fault_DI:
+    DESC: 'Vacuum Switch OK'
     ZSV:  'NO_ALARM'
+    OSV:  'MAJOR'
+Vent_Purge_Fault_DI:
+    DESC: 'Vent Purge Fault'
+    ZSV:  'NO_ALARM'
+    OSV:  'MAJOR'
+Vent_Purge_Good_DI:
+    DESC: 'Vent Purge OK'
+    OSV:  'NO_ALARM'
+    ZSV:  'MAJOR'
+Exhaust_to_Vent_DI:
+    DESC: 'Exhaust to Vent'
     OSV:  'MINOR'
-Flip_VC:
-    DESC: 'Flip Flop Valve 1'
-    ZSV:
-Flop_VC:
-    DESC: 'Flip Flop Valve 2'
+    ZSV:  'NO_ALARM'
+Exhaust_to_Warm_DI:
+    DESC: 'Exhaust to Warm Return'
+    ZSV:  'MINOR'
+    OSV:  'NO_ALARM'
+FlipFlop_DO:
+    DESC: 'Flip Flop Valve'
+Gate_Closed_DI:
+    DESC: 'Gate Valve Closed'
+    OSV:  'MINOR'
+    ZSV:  'NO_ALARM'
+Gate_DO:
+    DESC: 'Gate Valve'
+Gate_Open_DI:
+    DESC: 'Gate Valve Open'
+    ZSV:  'MINOR'
+    OSV:  'NO_ALARM'
+OVC_CC_PI:
+    DESC: 'OVC Cold Cathode Pressure'
+    PREC: 6
+    EGU: 'torr'
+OVC_Pirani_PI:
+    DESC: 'OVC Pirani Pressure'
+    PREC: 6
+    EGU: 'torr'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Reservoir_LI:
+    DESC: 'Reservoir Liquid Level'
+    PREC: 4
+    EGU: '%'
+Reservoir-Heater_CC:
+    DESC: 'Reservoir Heater Current Set'
+    PREC: 6
+    EGU: 'A'
+Reservoir-Heater_CI:
+    DESC: 'Reservoir Heater Current'
+    PREC: 6
+    EGU: 'A'
 Return_PI:
     DESC: 'Pressure on Return from Magnet'
     PREC: 1
