@@ -100,9 +100,9 @@ class DeviceConnection():
             for x in m.groups():
                 try:
                     values.append(float(x))
-                    print(float(x))
                 except ValueError:
                     values.append(9999)
+            print(values)
             return values
 
         except Exception as e:
