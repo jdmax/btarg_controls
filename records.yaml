@@ -127,6 +127,10 @@ Coolant_Heater:
     DESC: 'Coolant Heater Output'
     PREC: 3
     EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Coolant_Manual:
     DESC: 'Coolant Manual Heater Output'
     PREC: 3
@@ -157,6 +161,10 @@ Evaporator_Heater:
     DESC: 'Evaporator Heater Output'
     PREC: 3
     EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Evaporator_Manual:
     DESC: 'Evaporator Manual Heater Output'
     PREC: 3
