@@ -95,7 +95,6 @@ class DeviceConnection():
             self.tn.write(bytes(command, 'ascii'))
             data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
             m = self.read_regex.search(data)
-            print(data)
             values = []
             for x in m.groups():
                 try:
