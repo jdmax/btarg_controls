@@ -263,6 +263,54 @@ Shield_Exhaust_PI:
     HIGH: Inf
     LOW: -Inf
     LOLO: -Inf
+Target_Return_PI:
+    DESC: 'Target Return Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Target_Supply_PI:
+    DESC: 'Target Supply Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+3He_Tank_PI:
+    DESC: '3He Tank Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+4He_Tank_PI:
+    DESC: '4He Tank Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+D2_Tank_PI:
+    DESC: 'D2 Tank Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+H2_Tank_PI:
+    DESC: 'H2 TankPressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Flip_VC:
     DESC: 'Flip Flop Valve 1'
 Flop_VC:

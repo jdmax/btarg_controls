@@ -28,7 +28,7 @@ class Device():
             if i < 4:  # Digital OUT channels first
                 self.pvs[channel] = builder.boolOut(channel, on_update_name=self.do_sets)
             else:  # Digital IN next
-                self.pvs[channel] = builder.aIn(channel, **sevr)
+                self.pvs[channel] = builder.boolIn(channel, **sevr)
 
     def connect(self):
         '''Open connection to device, read status of outs and set to PVs'''
