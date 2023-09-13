@@ -98,9 +98,9 @@ class DeviceConnection():
             print(data)
             values = []
             for x in m.groups():
-                print(x)
                 try:
                     values.append(float(x))
+                    print(float(x))
                 except ValueError:
                     values.append(9999)
             return values
