@@ -98,10 +98,13 @@ class DeviceConnection():
             print(data)
             values = []
             for x in m.groups():
-                try:
-                    values.append(float(x))
-                except ValueError:
-                    values.append(9999)
+                if 'ATM' in x:
+                    values.append(760.0)
+                else:
+                    try:
+                        values.append(float(x))
+                    except ValueError:
+                        values.append(9999)
             print(values)
             return values
 
