@@ -16,11 +16,12 @@ class Device():
         self.settings = settings
         self.channels = settings['channels']
         self.pvs = {}
-        sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
+        #sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
+        sevr = {'DISP': '0'}
 
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
-            self.pvs[channel] = builder.boolIn(channel)
+            self.pvs[channel] = builder.boolIn(channel, **sevr)
 
     def connect(self):
         '''Open connection to device'''
