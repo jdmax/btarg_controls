@@ -9,6 +9,10 @@ Evaporator_FI:
     DESC: 'Evaporator Flow'
     PREC: 6
     EGU: 'slpm'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Evaporator_FMode:
     DESC: 'Evaporator Flow Auto Mode'
 Precool_FC:
@@ -21,6 +25,10 @@ Precool_FI:
     DESC: 'Precool Flow'
     PREC: 6
     EGU: 'slpm'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Precool_FMode:
     DESC: 'Precool Auto Mode'
 Shield_FC:
@@ -39,38 +47,74 @@ Cell_Top_TI:
     DESC: 'Target Cell Top Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Cell_Bottom_TI:
     DESC: 'Target Cell BottomTemperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Evaporator_Out_TI:
     DESC: 'Evaporator Exit Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_DS_TI:
     DESC: 'Downstream Heat Shield Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_Plate_TI:
     DESC: 'Heat Shield Plate End Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir_Bottom_TI:
     DESC: 'Helium Reservoir Bottom Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir_Top_TI:
     DESC: 'Helium Reservoir Top Temperature'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_Bottom_TI:
     DESC: 'Reservoir Heat Shield Bottom Temp'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_Top_TI:
     DESC: 'Reservoir Heat Shield Top Temp'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Coolant_B_TI:
     DESC: 'Coolant Gas Reserve Temp'
     PREC: 5
@@ -83,40 +127,138 @@ Coolant_Heater:
     DESC: 'Coolant Heater Output'
     PREC: 3
     EGU: '%'
-Coolant_TI:
-    DESC: 'Coolant Temperature Indicator'
-    PREC: 5
-    EGU: 'K'
-    HIHI: Inf
-    HIGH: Inf
-    LOW: -Inf
-    LOLO: -Inf
-Coolant_SP:
-    DESC: 'Coolant Setpoint'
-    PREC: 5
-    EGU: 'K'
 Coolant_Manual:
     DESC: 'Coolant Manual Heater Output'
     PREC: 3
     EGU: '%'
     DRVH: 100
     DRVL: 0
+Coolant_SP:
+    DESC: 'Coolant Setpoint'
+    PREC: 5
+    EGU: 'K'
+Coolant_TI:
+    DESC: 'Coolant Temperature'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Evaporator_B_TI:
+    DESC: 'Evaporator Reserve Temp'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Evaporator_Heater:
+    DESC: 'Evaporator Heater Output'
+    PREC: 3
+    EGU: '%'
+Evaporator_Manual:
+    DESC: 'Evaporator Manual Heater Output'
+    PREC: 3
+    EGU: '%'
+    DRVH: 100
+    DRVL: 0
+Evaporator_SP:
+    DESC: 'Evaporator Setpoint'
+    PREC: 5
+    EGU: 'K'
+Evaporator_TI:
+    DESC: 'Evaporator Temperature'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Top_PI:
     DESC: 'Top Pressure Indicator'
     PREC: 6
     EGU: 'mbar'
-Bot_PI:
-    DESC: 'Bottom Pressure Indicator'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Shield_Exhaust_SP1:
+    DESC: 'Shield Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Shield_Exhaust_SP2:
+    DESC: 'Shield Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Shield_Exhaust_TI:
+    DESC: 'Shield Exhaust Temperature'
+    PREC: 5
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 5
+    LOLO: 0
+Evaporator_Exhaust_SP1:
+    DESC: 'Evaporator Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Evaporator_Exhaust_SP2:
+    DESC: 'Evaporator Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Evaporator_Exhaust_TI:
+    DESC: 'Evaporator Exhaust Temperature'
+    PREC: 5
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 5
+    LOLO: 0
+Precool_Exhaust_SP1:
+    DESC: 'Precool Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Precool_Exhaust_SP2:
+    DESC: 'Precool Exhaust Setpoint 1'
+    PREC: 5
+    EGU: 'C'
+Precool_Exhaust_TI:
+    DESC: 'Precool Exhaust Temperature'
+    PREC: 5
+    EGU: 'C'
+    HIHI: 50
+    HIGH: 40
+    LOW: 5
+    LOLO: 0
+Evap_Exhaust_PI:
+    DESC: 'Evaporator Exhaust Pressure'
     PREC: 6
-    EGU: 'mbar'
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Precool_Exhaust_PI:
+    DESC: 'Precool Exhaust Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Shield_Exhaust_PI:
+    DESC: 'Shield Exhaust Pressure'
+    PREC: 6
+    EGU: 'psi'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Flip_VC:
     DESC: 'Flip Flop Valve 1'
 Flop_VC:
     DESC: 'Flip Flop Valve 2'
-Some_PI:
-    DESC: 'Some Pressure Indicator'
-Some_DI:
-    DESC: 'Some Digital Indicator'
 Return_PI:
     DESC: 'Pressure on Return from Magnet'
     PREC: 1
@@ -125,7 +267,6 @@ Supply_PI:
     DESC: 'Pressure on Supply to Magnet'
     PREC: 1
     EGU: 'mbar'
-
 Shield_Exhaust_TI:
     DESC: 'Shield Exhaust Heater Temperature'
     PREC: 4
