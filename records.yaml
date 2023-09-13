@@ -321,7 +321,7 @@ Vacuum_Sw_Fault_DI:
 #    OSV:  2
 Vacuum_Sw_Good_DI:
     DESC: 'Vacuum Switch OK'
-    ZSV:  '2'
+    ZSV:  'MINOR_ALARM'
 #    OSV:  0
 Flip_VC:
     DESC: 'Flip Flop Valve 1'
