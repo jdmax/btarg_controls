@@ -311,8 +311,21 @@ H2_Tank_PI:
     HIGH: Inf
     LOW: -Inf
     LOLO: -Inf
+Gate_Bypass_Sw_On_DI:
+    DESC: 'Gate Bypass Switch'
+    ZSV:  0
+    OSV:  0
+Vacuum_Sw_Fault_DI:
+    DESC: 'Vacuum Switch Fault'
+    ZSV:  0
+    OSV:  2
+Vacuum_Sw_Good_DI:
+    DESC: 'Vacuum Switch OK'
+    ZSV:  2
+    OSV:  0
 Flip_VC:
     DESC: 'Flip Flop Valve 1'
+    ZSV:
 Flop_VC:
     DESC: 'Flip Flop Valve 2'
 Return_PI:
