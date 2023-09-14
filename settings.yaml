@@ -47,12 +47,12 @@ lakeshore_218_2:
     timeout: 2
     delay: 2
     channels: # List of PV names for each read channel of 218 in order
-        - Shield_Top_TI
-        - Shield_Bottom_TI
-        - None
-        - None
         - Reservoir_Top_TI
         - Reservoir_Bottom_TI
+        - None
+        - None
+        - Shield_Top_TI
+        - Shield_Bottom_TI
         - None
         - None
 lakeshore_336:
