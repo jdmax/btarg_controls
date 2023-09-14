@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-12 10:59:17 by poltar-->
+<!--Saved on 2023-09-13 21:08:26 by poltar-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="rectangle" version="2.0.0">
@@ -50,7 +50,7 @@
     <label></label>
     <x>150</x>
     <y>100</y>
-    <width>90</width>
+    <width>50</width>
     <height>20</height>
   </widget>
   <widget type="led" version="2.0.0">
@@ -308,5 +308,18 @@
       <color name="STOP" red="255" green="0" blue="0">
       </color>
     </on_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>WR:</text>
+    <x>202</x>
+    <y>100</y>
+    <width>30</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>Vent:</text>
+    <x>260</x>
+    <y>70</y>
   </widget>
 </display>

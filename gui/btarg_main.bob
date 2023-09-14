@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-13 14:13:08 by poltar-->
+<!--Saved on 2023-09-13 21:24:41 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -180,7 +180,8 @@
       <x>150</x>
       <y>60</y>
       <width>60</width>
-      <precision>3</precision>
+      <format>2</format>
+      <precision>2</precision>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_29</name>
@@ -219,7 +220,7 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_41</name>
-      <text>Gate:</text>
+      <text>Gate Valve:</text>
       <x>20</x>
       <y>40</y>
     </widget>
@@ -332,7 +333,7 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_32</name>
-      <text>Exhaust</text>
+      <text>Coolant Exhausts</text>
       <x>10</x>
       <y>10</y>
       <width>170</width>
@@ -964,9 +965,9 @@
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_8</name>
       <pv_name>pva://TGT:BTARG:Cell_Bottom_TI</pv_name>
-      <x>220</x>
+      <x>205</x>
       <y>140</y>
-      <width>60</width>
+      <width>80</width>
       <precision>2</precision>
       <show_units>false</show_units>
     </widget>
@@ -982,7 +983,7 @@
       <pv_name>pva://TGT:BTARG:Cell_Top_TI</pv_name>
       <x>70</x>
       <y>140</y>
-      <width>50</width>
+      <width>60</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
@@ -994,7 +995,7 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_19</name>
-      <text>Target Loop</text>
+      <text>Target</text>
       <x>10</x>
       <y>110</y>
       <width>170</width>
@@ -1005,16 +1006,16 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_38</name>
-      <text>Pressure:</text>
+      <text>Supply:</text>
       <x>20</x>
       <y>160</y>
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_22</name>
       <pv_name>pva://TGT:BTARG:Target_Supply_PI</pv_name>
-      <x>120</x>
+      <x>70</x>
       <y>160</y>
-      <width>90</width>
+      <width>70</width>
       <precision>2</precision>
     </widget>
     <widget type="label" version="2.0.0">
@@ -1050,6 +1051,20 @@
       </line_color>
       <arrows>2</arrows>
       <arrow_length>10</arrow_length>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_50</name>
+      <text>Return:</text>
+      <x>150</x>
+      <y>160</y>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_31</name>
+      <pv_name>pva://TGT:BTARG:Target_Return_PI</pv_name>
+      <x>205</x>
+      <y>160</y>
+      <width>80</width>
+      <precision>2</precision>
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
@@ -1105,13 +1120,14 @@
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_14</name>
-      <text>Shutoff:</text>
+      <text>Coolant Shutoff:</text>
       <x>20</x>
       <y>80</y>
+      <width>150</width>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_45</name>
-      <text>Flip Flop:</text>
+      <text>Helium Return:</text>
       <x>20</x>
       <y>40</y>
     </widget>
@@ -1169,5 +1185,36 @@
       <y>80</y>
       <width>80</width>
     </widget>
+  </widget>
+  <widget type="polyline" version="2.0.0">
+    <name>Polyline</name>
+    <x>310</x>
+    <y>70</y>
+    <width>0</width>
+    <height>0</height>
+    <points>
+      <point x="0.0" y="0.0">
+      </point>
+    </points>
+  </widget>
+  <widget type="polyline" version="2.0.0">
+    <name>Polyline_1</name>
+    <x>370</x>
+    <y>50</y>
+    <width>0</width>
+    <height>10</height>
+  </widget>
+  <widget type="polyline" version="2.0.0">
+    <name>Polyline_2</name>
+    <x>340</x>
+    <y>60</y>
+    <width>0</width>
+    <height>0</height>
+  </widget>
+  <widget type="polyline" version="2.0.0">
+    <name>Polyline_7</name>
+    <x>330</x>
+    <y>20</y>
+    <width>40</width>
   </widget>
 </display>
