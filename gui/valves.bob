@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-14 09:33:38 by poltar-->
+<!--Saved on 2023-09-14 15:38:19 by poltar-->
 <display version="2.0.0">
-  <name>Display</name>
+  <name>Valve Controls</name>
+  <width>740</width>
+  <height>380</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
@@ -308,7 +310,7 @@
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_5</name>
     <x>700</x>
-    <y>270</y>
+    <y>290</y>
     <width>40</width>
     <height>30</height>
     <visible>false</visible>
