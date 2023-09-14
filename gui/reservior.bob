@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-12 15:15:44 by poltar-->
+<!--Saved on 2023-09-13 22:44:47 by poltar-->
 <display version="2.0.0">
   <name>LHe Reservoir Controls</name>
   <width>980</width>
@@ -129,7 +129,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_2</name>
-    <pv_name>pva://TGT:BTARG:Reservoir_LI</pv_name>
+    <pv_name>pva://TGT:BTARG:Reservoir_Bottom_TI</pv_name>
     <x>480</x>
     <y>210</y>
     <width>240</width>
