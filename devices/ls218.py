@@ -92,6 +92,7 @@ class DeviceConnection():
             self.tn.write(bytes(f"KRDG? 0\n",'ascii'))     # 0 means it will return all channels
             data = self.tn.read_until(b'\n', timeout = 2).decode('ascii')   # read until carriage return
             ms = self.read_regex.findall(data)
+            print(data)
             for m in ms:
                 values.append(float(m))
             return values
