@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-13 21:08:26 by poltar-->
+<!--Saved on 2023-09-14 09:33:38 by poltar-->
 <display version="2.0.0">
   <name>Display</name>
   <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_6</name>
+    <name>Rectangle_7</name>
     <x>20</x>
     <y>50</y>
-    <width>330</width>
-    <height>250</height>
+    <width>350</width>
+    <height>140</height>
+    <line_width>2</line_width>
+    <line_color>
+      <color name="Button_Background" red="210" green="210" blue="210">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="Read_Background" red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <corner_width>10</corner_width>
+    <corner_height>10</corner_height>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_6</name>
+    <x>20</x>
+    <y>210</y>
+    <width>350</width>
+    <height>170</height>
     <line_width>2</line_width>
     <line_color>
       <color name="Button_Background" red="210" green="210" blue="210">
@@ -41,50 +59,50 @@
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>Flip Flop:</text>
-    <x>50</x>
-    <y>100</y>
+    <x>40</x>
+    <y>90</y>
   </widget>
   <widget type="slide_button" version="2.0.0">
     <name>Slide Button</name>
     <pv_name>TGT:BTARG:FlipFlop_DO</pv_name>
     <label></label>
-    <x>150</x>
-    <y>100</y>
-    <width>50</width>
+    <x>170</x>
+    <y>90</y>
+    <width>30</width>
     <height>20</height>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_1</name>
     <pv_name>TGT:BTARG:Exhaust_to_Warm_DI</pv_name>
-    <x>230</x>
-    <y>100</y>
+    <x>180</x>
+    <y>120</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_10</name>
     <text>Gate:</text>
-    <x>50</x>
-    <y>160</y>
+    <x>40</x>
+    <y>280</y>
   </widget>
   <widget type="slide_button" version="2.0.0">
     <name>Slide Button_1</name>
     <pv_name>TGT:BTARG:Gate_DO</pv_name>
     <label></label>
-    <x>150</x>
-    <y>160</y>
+    <x>140</x>
+    <y>280</y>
     <width>90</width>
     <height>20</height>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_2</name>
     <pv_name>TGT:BTARG:Gate_Open_DI</pv_name>
-    <x>230</x>
-    <y>160</y>
+    <x>220</x>
+    <y>280</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_3</name>
     <pv_name>TGT:BTARG:Gate_Closed_DI</pv_name>
-    <x>270</x>
-    <y>160</y>
+    <x>260</x>
+    <y>280</y>
     <off_color>
       <color red="88" green="0" blue="0">
       </color>
@@ -97,21 +115,21 @@
   <widget type="label" version="2.0.0">
     <name>Label_11</name>
     <text>Vacuum SP Fault:</text>
-    <x>50</x>
-    <y>190</y>
+    <x>40</x>
+    <y>340</y>
     <width>130</width>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_5</name>
     <pv_name>TGT:BTARG:Vacuum_Sw_Good_DI</pv_name>
-    <x>230</x>
-    <y>220</y>
+    <x>220</x>
+    <y>310</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_6</name>
     <pv_name>TGT:BTARG:Vacuum_Sw_Fault_DI</pv_name>
-    <x>270</x>
-    <y>220</y>
+    <x>260</x>
+    <y>310</y>
     <off_color>
       <color red="88" green="0" blue="0">
       </color>
@@ -124,15 +142,15 @@
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
     <text>Vacuum Switch:</text>
-    <x>50</x>
-    <y>220</y>
+    <x>40</x>
+    <y>310</y>
     <width>130</width>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_7</name>
     <pv_name>TGT:BTARG:Vacuum_Sw_SP_Fault_DI</pv_name>
-    <x>270</x>
-    <y>190</y>
+    <x>260</x>
+    <y>340</y>
     <off_color>
       <color red="88" green="0" blue="0">
       </color>
@@ -145,14 +163,14 @@
   <widget type="led" version="2.0.0">
     <name>LED_8</name>
     <pv_name>TGT:BTARG:Vent_Purge_Good_DI</pv_name>
-    <x>230</x>
-    <y>130</y>
+    <x>180</x>
+    <y>150</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_9</name>
     <pv_name>TGT:BTARG:Vent_Purge_Fault_DI</pv_name>
-    <x>270</x>
-    <y>130</y>
+    <x>230</x>
+    <y>150</y>
     <off_color>
       <color red="88" green="0" blue="0">
       </color>
@@ -164,15 +182,15 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_13</name>
-    <text>Vent Purge:</text>
-    <x>50</x>
-    <y>130</y>
+    <text>Vent Purge Status:</text>
+    <x>40</x>
+    <y>150</y>
     <width>130</width>
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_4</name>
-    <x>20</x>
-    <y>320</y>
+    <x>390</x>
+    <y>50</y>
     <width>330</width>
     <height>250</height>
     <line_width>2</line_width>
@@ -189,9 +207,9 @@
   </widget>
   <widget type="group" version="3.0.0">
     <name>Group_1</name>
-    <x>20</x>
-    <y>320</y>
-    <width>330</width>
+    <x>390</x>
+    <y>50</y>
+    <width>350</width>
     <height>230</height>
     <style>3</style>
     <transparent>true</transparent>
@@ -289,37 +307,83 @@
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_5</name>
-    <x>330</x>
-    <y>540</y>
+    <x>700</x>
+    <y>270</y>
     <width>40</width>
     <height>30</height>
     <visible>false</visible>
   </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_10</name>
-    <pv_name>TGT:BTARG:Exhaust_to_Vent_DI</pv_name>
-    <x>270</x>
-    <y>100</y>
-    <off_color>
-      <color red="88" green="0" blue="0">
-      </color>
-    </off_color>
-    <on_color>
-      <color name="STOP" red="255" green="0" blue="0">
-      </color>
-    </on_color>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
-    <text>WR:</text>
-    <x>202</x>
-    <y>100</y>
-    <width>30</width>
+    <text>Return to ESR:</text>
+    <x>40</x>
+    <y>120</y>
+    <width>150</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
-    <text>Vent:</text>
-    <x>260</x>
-    <y>70</y>
+    <text>Vent to ATM:</text>
+    <x>230</x>
+    <y>120</y>
+    <width>90</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_18</name>
+    <text>Vent Return</text>
+    <x>30</x>
+    <y>60</y>
+    <width>130</width>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_4</name>
+    <pv_name>TGT:BTARG:Exhaust_to_Vent_DI</pv_name>
+    <x>330</x>
+    <y>120</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_19</name>
+    <text>Outer Vacuum Chamber</text>
+    <x>30</x>
+    <y>220</y>
+    <width>150</width>
+    <height>1</height>
+    <font>
+      <font name="Header 3" family="Liberation Sans" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_28</name>
+    <pv_name>pva://TGT:BTARG:OVC_CC_PI</pv_name>
+    <x>140</x>
+    <y>250</y>
+    <width>60</width>
+    <format>2</format>
+    <precision>2</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_29</name>
+    <pv_name>pva://TGT:BTARG:OVC_Pirani_PI</pv_name>
+    <x>290</x>
+    <y>250</y>
+    <width>60</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_44</name>
+    <text>Cold Cathode:</text>
+    <x>40</x>
+    <y>250</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_45</name>
+    <text>Pirani:</text>
+    <x>230</x>
+    <y>250</y>
+    <width>70</width>
   </widget>
 </display>

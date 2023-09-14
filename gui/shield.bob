@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-12 15:15:03 by poltar-->
+<!--Saved on 2023-09-14 10:52:52 by poltar-->
 <display version="2.0.0">
   <name>Heat Shield Controls</name>
   <width>980</width>
-  <height>320</height>
+  <height>620</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
@@ -431,9 +431,75 @@
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle</name>
     <x>950</x>
-    <y>290</y>
+    <y>590</y>
     <width>30</width>
     <height>30</height>
     <visible>false</visible>
+  </widget>
+  <widget type="stripchart" version="2.1.0">
+    <name>Strip Chart</name>
+    <x>20</x>
+    <y>310</y>
+    <width>930</width>
+    <height>290</height>
+    <y_axes>
+      <y_axis>
+        <title>Y</title>
+        <autoscale>true</autoscale>
+        <log_scale>false</log_scale>
+        <minimum>0.0</minimum>
+        <maximum>100.0</maximum>
+        <show_grid>false</show_grid>
+        <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
+      </y_axis>
+    </y_axes>
+    <traces>
+      <trace>
+        <name>Shield Temperature</name>
+        <y_pv>pva://TGT:BTARG:Shield_Top_TI</y_pv>
+        <axis>0</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="0" green="0" blue="255">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>Heater Output</name>
+        <y_pv>pva://TGT:BTARG:Shield-Heater_CC</y_pv>
+        <axis>0</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="255" green="0" blue="0">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>Setpoint</name>
+        <y_pv>pva://TGT:BTARG:PID:Shield_PID_setpoint</y_pv>
+        <axis>0</axis>
+        <trace_type>2</trace_type>
+        <color>
+          <color red="0" green="255" blue="0">
+          </color>
+        </color>
+        <line_width>2</line_width>
+        <point_type>0</point_type>
+        <point_size>10</point_size>
+        <visible>true</visible>
+      </trace>
+    </traces>
   </widget>
 </display>
