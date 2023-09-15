@@ -107,7 +107,6 @@ class Device():
                     self.pvs['flag'].set(2)
                 else:
                     self.pvs['flag'].set(0)
-                print(c['TGT:BTARG:Flag_MI'], c['TGT:BTARG:Flag_pos_1'], c['TGT:BTARG:Flag_pos_2'])
 
                 stat = self.status[self.pvs['status'].get()]
 
