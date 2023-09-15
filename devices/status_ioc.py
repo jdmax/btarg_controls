@@ -92,9 +92,10 @@ class Device():
             try:
                 group = []
                 c = {}    # dict of current status keyed on PV name
-                group.append(self.a_get(c, 'TGT:BTARG:Cell_TI.STAT'))
-                group.append(self.a_get(c, 'TGT:BTARG:Condenser_TI.STAT'))
-                group.append(self.a_get(c, 'TGT:BTARG:Cell_PI.STAT'))
+                full_status = []
+                for pvname in self.settings['full_status']:
+                    group.append(self.a_get(c, pvname+'.STAT'))
+                    full_status.append(pvname+'.STAT')
                 group.append(self.a_get(c, 'TGT:BTARG:Flag_MI'))
                 group.append(self.a_get(c, 'TGT:BTARG:Flag_pos_1'))   # left flag
                 group.append(self.a_get(c, 'TGT:BTARG:Flag_pos_2'))   # right flag
@@ -110,19 +111,21 @@ class Device():
 
                 stat = self.status[self.pvs['status'].get()]
 
-                if c['TGT:BTARG:Cell_PI.STAT'] == 0:
-                    if c['TGT:BTARG:Condenser_TI.STAT'] == 0:
-                        if c['TGT:BTARG:Cell_TI.STAT'] == 0:
-                            if self.pvs['flag'].get() == 0:
-                                if 'Empty' in stat:
-                                    self.pvs['production'].set(0)  # Empty
-                                elif 'Fill' in stat:
-                                    self.pvs['production'].set(1)  # Full
-                            else:
-                                if 'Empty' in stat:
-                                    self.pvs['production'].set(2)  # Empty + Solid
-                                elif 'Fill' in stat:
-                                    self.pvs['production'].set(3)  # Full + Solid
+                not_alarming = True
+                for pv in full_status:
+                    if not c[pv] == 0:
+                        not_alarming = False
+                if not_alarming:
+                    if self.pvs['flag'].get() == 0:
+                        if 'Empty' in stat:
+                            self.pvs['production'].set(0)  # Empty
+                        elif 'Fill' in stat:
+                            self.pvs['production'].set(1)  # Full
+                    else:
+                        if 'Empty' in stat:
+                            self.pvs['production'].set(2)  # Empty + Solid
+                        elif 'Fill' in stat:
+                            self.pvs['production'].set(3)  # Full + Solid
                 else:
                     self.pvs['production'].set(4)    # Not Ready
             except aioca.CANothing as e:

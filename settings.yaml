@@ -12,6 +12,10 @@ status:   # SoftIOC to switch between target states
     autostart: True
     delay: 1
     prod_pv: True   # turn on production status PV
+    full_status:    # list of PVs that indicate full state when all not alarming
+        - TGT:BTARG:Cell_Top_TI
+        - TGT:BTARG:Cell_Bottom_TI
+        - TGT:BTARG:Target_Supply_PI
 thcd:   # flow controller interface
     module: 'devices.thcd'
     autostart: True          # Should IOC Manager try to start this?
