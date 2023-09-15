@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-14 15:38:19 by poltar-->
+<!--Saved on 2023-09-15 16:06:03 by poltar-->
 <display version="2.0.0">
   <name>Valve Controls</name>
-  <width>740</width>
-  <height>380</height>
+  <width>730</width>
+  <height>410</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_7</name>
     <x>20</x>
@@ -193,7 +193,7 @@
     <name>Rectangle_4</name>
     <x>390</x>
     <y>50</y>
-    <width>330</width>
+    <width>300</width>
     <height>250</height>
     <line_width>2</line_width>
     <line_color>
@@ -211,7 +211,6 @@
     <name>Group_1</name>
     <x>390</x>
     <y>50</y>
-    <width>350</width>
     <height>230</height>
     <style>3</style>
     <transparent>true</transparent>
@@ -240,13 +239,12 @@
       <pv_name>pva://TGT:BTARG:Shutoff_MC</pv_name>
       <x>180</x>
       <y>60</y>
-      <width>130</width>
       <minimum>-100.0</minimum>
     </widget>
     <widget type="bool_button" version="2.0.0">
       <name>Boolean Button_2</name>
       <pv_name>pva://TGT:BTARG:Shutoff_zero</pv_name>
-      <x>180</x>
+      <x>150</x>
       <y>200</y>
       <width>130</width>
       <off_label>Zero</off_label>
@@ -275,14 +273,12 @@
       <pv_name>pva://TGT:BTARG:Shutoff_pos_0</pv_name>
       <x>180</x>
       <y>120</y>
-      <width>130</width>
     </widget>
     <widget type="textentry" version="3.0.0">
       <name>Text Entry_5</name>
       <pv_name>pva://TGT:BTARG:Shutoff_pos_1</pv_name>
       <x>180</x>
       <y>140</y>
-      <width>130</width>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label_16</name>
@@ -296,7 +292,6 @@
       <pv_name>pva://TGT:BTARG:Shutoff_locations</pv_name>
       <x>180</x>
       <y>80</y>
-      <width>130</width>
       <height>20</height>
     </widget>
     <widget type="label" version="2.0.0">
@@ -309,8 +304,8 @@
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_5</name>
-    <x>700</x>
-    <y>290</y>
+    <x>690</x>
+    <y>380</y>
     <width>40</width>
     <height>30</height>
     <visible>false</visible>

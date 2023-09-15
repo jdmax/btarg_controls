@@ -52,7 +52,7 @@ Cell_Top_TI:
     LOW: -Inf
     LOLO: -Inf
 Cell_Bottom_TI:
-    DESC: 'Target Cell BottomTemperature'
+    DESC: 'Target Cell Bottom'
     PREC: 5
     EGU: 'K'
     HIHI: Inf
