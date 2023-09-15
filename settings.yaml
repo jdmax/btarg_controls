@@ -212,6 +212,6 @@ zaber:
             Closed: 0
             Open: 1440
         Flag:
-            Left: 15
-            Empty: 30
-            Right: 45
+            Empty: 21
+            Left: -9
+            Right: 48
