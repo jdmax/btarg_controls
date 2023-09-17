@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-15 16:47:52 by poltar-->
+<!--Saved on 2023-09-17 11:55:44 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -867,7 +867,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Spinner_4</name>
-    <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
+    <pv_name>pva://TGT:BTARG:Coolant_Heater_W</pv_name>
     <x>540</x>
     <y>469</y>
     <width>150</width>
@@ -948,7 +948,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Spinner_2</name>
-    <pv_name>pva://TGT:BTARG:Coolant_Heater</pv_name>
+    <pv_name>pva://TGT:BTARG:Coolant_Heater_W</pv_name>
     <x>860</x>
     <y>469</y>
     <width>150</width>
