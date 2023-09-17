@@ -31,6 +31,7 @@ class Device():
             else:
                 self.pvs[channel + "_TI"] = builder.aIn(channel + "_TI", **sevr)
                 self.pvs[channel + "_Heater"] = builder.aIn(channel + "_Heater", **sevr)
+                self.pvs[channel + "_Heater_W"] = builder.aIn(channel + "_Heater_W", **sevr)
 
                 self.pvs[channel + "_Manual"] = builder.aOut(channel + "_Manual", on_update_name=self.do_sets, **sevr)
                 self.pvs[channel + "_kP"] = builder.aOut(channel + "_kP", on_update_name=self.do_sets)
@@ -113,7 +114,9 @@ class Device():
                 else:
                     self.pvs[channel + '_TI'].set(temps[i])
                     self.remove_alarm(channel+'_TI')
-                    self.pvs[channel + '_Heater'].set(self.t.read_heater(self.channels[channel]))
+                    heat = self.t.read_heater(self.channels[channel])
+                    self.pvs[channel + '_Heater'].set(heat)
+                    self.pvs[channel + '_Heater_W'].set(self.calc_heater_power(channel,heat))
         except OSError:
             for channel in self.channels:
                 if "None" in channel: continue
@@ -124,6 +127,22 @@ class Device():
             self.reconnect()
         else:
             return True
+
+    def calc_heater_power(self, channel, percent):
+        p_range = self.pvs[channel + '_Range'].get()
+        if p_range == 0:
+            return 0
+        decade = p_range - 3
+        nominal, real = self.settings['heater_resistance'][self.channels[channel] - 1]
+        voltage = 50
+        if self.channels[channel] == 1:
+            current = 2 if (nominal == 25) else 1
+        else:
+            current = 1.41 if (nominal == 25) else 1
+        pc = current * current * real
+        pv = voltage * voltage / real
+        p_limit = pc if pc < pv else pv    # power limit from resistance and setting
+        return p_limit * 10**decade * percent/100
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""

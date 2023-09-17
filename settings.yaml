@@ -71,6 +71,9 @@ lakeshore_336:
         Coolant_B_TI: None
         Evaporator: 2
         Evaporator_B_TI: None
+    heater_resistance:  # Heaters for channels 1 and 2. First element is nominal as set (25 or 50), second is true as measured.
+        - [25, 24]
+        - [50, 58]
 omega_1:
     module: 'devices.omega'
     autostart: True         # Should IOC Manager try to start this?
