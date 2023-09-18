@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-17 11:55:44 by poltar-->
+<!--Saved on 2023-09-18 13:30:39 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -10,12 +10,10 @@
   </grid_color>
   <widget type="picture" version="2.0.0">
     <name>Picture</name>
-    <file>target_diagram.svg</file>
-    <x>20</x>
-    <y>121</y>
-    <width>1110</width>
-    <height>650</height>
-    <stretch_image>true</stretch_image>
+    <file>target_diagram.png</file>
+    <y>50</y>
+    <width>1130</width>
+    <height>800</height>
   </widget>
   <widget type="combo" version="2.0.0">
     <name>Combo Box_3</name>
