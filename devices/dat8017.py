@@ -23,7 +23,7 @@ class Device():
         for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
-            self.calibs[channel] = settings['channels'][channel]
+            self.calibs[channel] = settings['calibration'][channel]
 
     def connect(self):
         '''Open connection to device'''

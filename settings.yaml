@@ -112,6 +112,12 @@ dat8017_i1:
     timeout: 2
     delay: 2
     channels:  # Dict of PV names for each read channel of datexel in order, values are psi gauge range for calibration
+        - Target_Supply_PI
+        - Target_Return_PI
+        - Shield_Exhaust_PI
+        - Precool_Exhaust_PI
+        - Evap_Exhaust_PI
+    calibration:
         Target_Supply_PI: 100
         Target_Return_PI: 100
         Shield_Exhaust_PI: 100
@@ -125,6 +131,11 @@ dat8017_i2:
     timeout: 2
     delay: 2
     channels:  # Dict of PV names for each read channel of datexel in order, values are psi gauge range for calibration
+        - H2_Tank_PI
+        - D2_Tank_PI
+        - 4He_Tank_PI
+        - 3He_Tank_PI
+    calibration:
         H2_Tank_PI: 100
         D2_Tank_PI: 100
         4He_Tank_PI: 100
