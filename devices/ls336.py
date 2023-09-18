@@ -57,7 +57,7 @@ class Device():
         pc = current * current * real
         pv = voltage * voltage / real
         p_limit = pc if pc < pv else pv  # power limit from resistance and setting
-        print(p_limit)
+        print("Channel 1 power limit: ",p_limit)
         return p_limit
 
     def connect(self):
@@ -137,7 +137,7 @@ class Device():
                     if decade == -3:  # "off" range
                         power = 0
                     else:
-                        power = self.p_limit[self.channels[channel]] * 10 ** decade * heat / 100
+                        power = self.p_limit[self.channels[channel]] * 10**decade * heat / 100
                     self.pvs[channel + '_Heater_W'].set(power)
         except OSError:
             for channel in self.channels:
