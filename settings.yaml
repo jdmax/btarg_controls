@@ -67,10 +67,10 @@ lakeshore_336:
     timeout: 2
     delay: 2
     channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel. Value is output channel
-        -Coolant
-        -Coolant_B_TI
-        -Evaporator
-        -Evaporator_B_TI
+        - Coolant
+        - Coolant_B_TI
+        - Evaporator
+        - Evaporator_B_TI
     out_channels:
         Coolant: 1
         Evaporator: 2

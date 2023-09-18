@@ -32,6 +32,7 @@ class Device():
             elif "None" in channel:
                 pass
             else:
+                print(channel)
                 self.pvs[channel + "_TI"] = builder.aIn(channel + "_TI", **sevr)
                 self.pvs[channel + "_Heater"] = builder.aIn(channel + "_Heater", **sevr)
                 self.pvs[channel + "_Heater_W"] = builder.aIn(channel + "_Heater_W", **sevr)
