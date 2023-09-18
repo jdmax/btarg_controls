@@ -118,7 +118,7 @@ class Device():
                     self.pvs[channel + '_Heater'].set(heat)
                     p_range = self.pvs[channel + '_Range'].get()
                     nominal, real = self.settings['heater_resistance'][channel - 1]
-                    power = self.calc_heater_power(channel, heat, p_range, nominal, real)
+                    power = self.calc_heater_power(int(channel), heat, p_range, nominal, real)
                     self.pvs[channel + '_Heater_W'].set(power)
                     print(self.calc_heater_power(1, 50, 1))
         except OSError:
