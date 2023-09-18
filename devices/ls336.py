@@ -106,7 +106,7 @@ class Device():
                 d = {}
                 k_list = ['kP', 'kI', 'kD']
                 for k in k_list:
-                    d[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
+                    d[k] = self.pvs[pv + "_" + k].get()  # read pvs to send to device
                 values = self.t.set_pid(out_channel, d['kP'], d['kI'], d['kD'])
                 [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
             elif 'SP' in pv_name:  # is this a setpoint?
