@@ -136,7 +136,7 @@ class Device():
         if p_range == 0:
             return 0
         decade = p_range - 3
-        nominal, real = self.settings['heater_resistance'][self.channels[channel] - 1]
+        nominal, real = self.settings['heater_resistance'][self.channels[channel- 1]]
         voltage = 50
         if self.channels[channel] == 1:
             current = 2 if (nominal == 25) else 1
