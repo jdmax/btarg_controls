@@ -23,6 +23,8 @@ class Device():
         mode_list = ['Off', 'Closed Loop', 'Zone', 'Open Loop']
         range_list = ['Off', 'Low', 'Med', 'High']
 
+        self.p_limit = [self.calc_heater_power_limit(1), self.calc_heater_power_limit(2)]  # LS336 power limits per channel
+
         for channel in settings['channels']:  # set up PVs for each channel
             if "_TI" in channel:
                 self.pvs[channel] = builder.aIn(channel, **sevr)
@@ -42,6 +44,21 @@ class Device():
                 self.pvs[channel + "_Mode"] = builder.mbbOut(channel + "_Mode", *mode_list, on_update_name=self.do_sets)
                 self.pvs[channel + "_Range"] = builder.mbbOut(channel + "_Range", *range_list,
                                                               on_update_name=self.do_sets)
+
+    def calc_heater_power_limit(self, channel):
+        """Calculate power limit for to LS336 heater channel. Needs the channel, and nominal (25 or 50 ohm) and
+        real heater resistance from settings file. """
+        nominal, real = self.settings['heater_resistance'][int(channel) - 1]
+        voltage = 50
+        if channel == 1:
+            current = 2 if (nominal == 25) else 1
+        else:
+            current = 1.41 if (nominal == 25) else 1
+        pc = current * current * real
+        pv = voltage * voltage / real
+        p_limit = pc if pc < pv else pv  # power limit from resistance and setting
+        print(p_limit)
+        return p_limit
 
     def connect(self):
         '''Open connection to device'''
@@ -116,11 +133,12 @@ class Device():
                     self.remove_alarm(channel+'_TI')
                     heat = self.t.read_heater(self.channels[channel])
                     self.pvs[channel + '_Heater'].set(heat)
-                    p_range = self.pvs[channel + '_Range'].get()
-                    nominal, real = self.settings['heater_resistance'][channel - 1]
-                    power = self.calc_heater_power(int(channel), heat, p_range, nominal, real)
+                    decade = self.pvs[channel + '_Range'].get() - 3
+                    if decade == -3:  # "off" range
+                        power = 0
+                    else:
+                        power = self.p_limit[self.channels[channel]] * 10 ** decade * heat / 100
                     self.pvs[channel + '_Heater_W'].set(power)
-                    print(self.calc_heater_power(1, 50, 1))
         except OSError:
             for channel in self.channels:
                 if "None" in channel: continue
@@ -132,21 +150,6 @@ class Device():
         else:
             return True
 
-    def calc_heater_power(self, channel, percent, p_range, nominal, real):
-        """Calculate power to LS336 heater in W. Needs power in percent, range, and the nominal (25 or 50 ohm) and
-        real heater resistance. Range is int, with 3 = high, 0 = off."""
-        if p_range == 0:
-            return 0
-        decade = p_range - 3
-        voltage = 50
-        if self.channels[channel] == 1:
-            current = 2 if (nominal == 25) else 1
-        else:
-            current = 1.41 if (nominal == 25) else 1
-        pc = current * current * real
-        pv = voltage * voltage / real
-        p_limit = pc if pc < pv else pv    # power limit from resistance and setting
-        return p_limit * 10**decade * percent/100
 
     def set_alarm(self, channel):
         """Set alarm and severity for channel"""
