@@ -20,7 +20,7 @@ class Device():
         self.calibs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
-        for channel in settings['channels'].keys():  # set up PVs for each channel, calibrations are values of dict
+        for channel in settings['channels']:  # set up PVs for each channel, calibrations are values of dict
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
             self.calibs[channel] = settings['calibration'][channel]
