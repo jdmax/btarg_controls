@@ -117,7 +117,9 @@ class Device():
                     heat = self.t.read_heater(self.channels[channel])
                     self.pvs[channel + '_Heater'].set(heat)
                     p_range = self.pvs[channel + '_Range'].get()
-                    self.pvs[channel + '_Heater_W'].set(self.calc_heater_power(channel, heat, p_range))
+                    nominal, real = self.settings['heater_resistance'][channel - 1]
+                    power = self.calc_heater_power(channel, heat, p_range, nominal, real)
+                    self.pvs[channel + '_Heater_W'].set(power)
                     print(self.calc_heater_power(1, 50, 1))
         except OSError:
             for channel in self.channels:
@@ -130,13 +132,12 @@ class Device():
         else:
             return True
 
-    def calc_heater_power(self, channel, percent, p_range):
-        """Calculate power to LS336 heater in W. Needs power in percent, range, and the nominal and real heater
-        resistance. Range is int, with 3 = high, 0 = off."""
+    def calc_heater_power(self, channel, percent, p_range, nominal, real):
+        """Calculate power to LS336 heater in W. Needs power in percent, range, and the nominal (25 or 50 ohm) and
+        real heater resistance. Range is int, with 3 = high, 0 = off."""
         if p_range == 0:
             return 0
         decade = p_range - 3
-        nominal, real = self.settings['heater_resistance'][self.channels[channel- 1]]
         voltage = 50
         if self.channels[channel] == 1:
             current = 2 if (nominal == 25) else 1
