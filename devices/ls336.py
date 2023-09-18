@@ -16,7 +16,8 @@ class Device():
         '''
         self.device_name = device_name
         self.settings = settings
-        self.channels = settings['channels']   # this is a dict keyed on channel name, value is output channel number (1 or 2)
+        self.channels = settings['channels']   # this is a list of channels in order
+        self.out_channels = settings['out_channels']   # this is a list of channels in order
         self.pvs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
@@ -73,15 +74,16 @@ class Device():
         for i, channel in enumerate(self.channels):
             if "None" in channel: continue
             if "_TI" in channel: continue
+            out_channel = self.out_channels[channel]
             try:
-                pids = self.t.read_pid(self.channels[channel])
+                pids = self.t.read_pid(out_channel)
                 self.pvs[channel + '_kP'].set(pids[0])
                 self.pvs[channel + '_kI'].set(pids[1])
                 self.pvs[channel + '_kD'].set(pids[2])
-                self.pvs[channel + '_Mode'].set(int(self.t.read_outmode(self.channels[channel])))
-                self.pvs[channel + '_Range'].set(int(self.t.read_range(self.channels[channel])))
-                self.pvs[channel + '_SP'].set(self.t.read_setpoint(self.channels[channel]))
-                self.pvs[channel + '_Manual'].set(self.t.read_man_heater(self.channels[channel]))
+                self.pvs[channel + '_Mode'].set(int(self.t.read_outmode(out_channel)))
+                self.pvs[channel + '_Range'].set(int(self.t.read_range(out_channel)))
+                self.pvs[channel + '_SP'].set(self.t.read_setpoint(out_channel))
+                self.pvs[channel + '_Manual'].set(self.t.read_man_heater(out_channel))
             except OSError as e:
                 print("Error initializing outs.", e)
                 self.reconnect()
@@ -94,8 +96,9 @@ class Device():
     def do_sets(self, new_value, pv):
         """If PV has changed, find the correct method to set it on the device"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
-        p = pv_name.split("_")[0]  # pv_name root
-        chan = self.channels[p]
+        pv = pv_name.split("_")[0]  # pv_name root
+        out_channel = self.out_channels[pv]
+        in_channel = self.channels.index(pv) + 1
         # figure out what type of PV this is, and send it to the right method
         try:
             if 'kP' in pv_name or 'kI' in pv_name or 'kD' in pv_name:  # is this a PID control record?
@@ -103,16 +106,16 @@ class Device():
                 k_list = ['kP', 'kI', 'kD']
                 for k in k_list:
                     d[k] = self.pvs[p + "_" + k].get()  # read pvs to send to device
-                values = self.t.set_pid(chan, d['kP'], d['kI'], d['kD'])
+                values = self.t.set_pid(out_channel, d['kP'], d['kI'], d['kD'])
                 [self.pvs[p + "_" + k].set(values[i]) for i, k in enumerate(k_list)]  # set values read back
             elif 'SP' in pv_name:  # is this a setpoint?
-                self.pvs[pv_name].set(self.t.set_setpoint(chan, new_value))  # set returned value
+                self.pvs[pv_name].set(self.t.set_setpoint(out_channel, new_value))  # set returned value
             elif 'Manual' in pv_name:  # is this a manual out?
-                self.pvs[pv_name].set(self.t.set_man_heater(chan, new_value))  # set returned value
+                self.pvs[pv_name].set(self.t.set_man_heater(out_channel, new_value))  # set returned value
             elif 'Mode' in pv_name:
-                self.pvs[pv_name].set(int(self.t.set_outmode(chan, new_value, chan, 0)))  # set returned value
+                self.pvs[pv_name].set(int(self.t.set_outmode(out_channel, new_value, in_channel, 0)))  # set returned value
             elif 'Range' in pv_name:
-                self.pvs[pv_name].set(int(self.t.set_range(chan, new_value)))  # set returned value
+                self.pvs[pv_name].set(int(self.t.set_range(out_channel, new_value)))  # set returned value
             else:
                 print('Error, control PV not categorized.')
         except OSError:
@@ -131,13 +134,13 @@ class Device():
                 else:
                     self.pvs[channel + '_TI'].set(temps[i])
                     self.remove_alarm(channel+'_TI')
-                    heat = self.t.read_heater(self.channels[channel])
+                    heat = self.t.read_heater(i + 1)
                     self.pvs[channel + '_Heater'].set(heat)
                     decade = self.pvs[channel + '_Range'].get() - 3
                     if decade == -3:  # "off" range
                         power = 0
                     else:
-                        power = self.p_limit[self.channels[channel]] * 10**decade * heat / 100
+                        power = self.p_limit[self.out_channels[channel]] * 10**decade * heat / 100
                     self.pvs[channel + '_Heater_W'].set(power)
         except OSError:
             for channel in self.channels:
