@@ -61,11 +61,18 @@ class Device():
         for i, channel in enumerate(self.channels):
             if "None" in channel: continue
             try:
-                self.pvs[channel + "_MC"].set(self.t.get_pos(i))
+                pos = self.t.get_pos(i)
+                self.pvs[channel + "_MC"].set(pos)
                 self.pvs[channel + "_home"].set(False)
                 self.pvs[channel + "_away"].set(False)
                 self.pvs[channel + "_stop"].set(False)
                 self.pvs[channel + "_zero"].set(False)
+                if pos < channel+"_pos_1" + 1:
+                    self.pvs[channel+"_locations"].set(1)
+                elif pos > channel+"_pos_2" - 1:
+                    self.pvs[channel+"_locations"].set(2)
+                else:
+                    self.pvs[channel+"_locations"].set(0)
             except OSError as e:
                 print("Error initializing outs.", e)
                 self.reconnect()
