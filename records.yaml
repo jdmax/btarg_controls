@@ -451,6 +451,14 @@ Shutoff_MI:
     HIGH: Inf
     LOW: -Inf
     LOLO: -Inf
+Shutoff_pos_0:
+    DESC: 'Shutoff Valve Position 0 Set'
+    PREC: 4
+    EGU: '°'
+Shutoff_pos_1:
+    DESC: 'Shutoff Valve Position 1 Set'
+    PREC: 4
+    EGU: '°'
 Flag_MC:
     DESC: 'Shutoff Valve Set'
     PREC: 4
@@ -467,3 +475,15 @@ Flag_MI:
     HIGH: Inf
     LOW: -Inf
     LOLO: -Inf
+Flag_pos_0:
+    DESC: 'Flag Valve Position 0 Set'
+    PREC: 4
+    EGU: '°'
+Flag_pos_1:
+    DESC: 'Flag Valve Position 1 Set'
+    PREC: 4
+    EGU: '°'
+Flag_pos_2:
+    DESC: 'Flag Valve Position 2 Set'
+    PREC: 4
+    EGU: '°'
