@@ -149,6 +149,10 @@ Coolant_SP:
     DESC: 'Coolant Setpoint'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Coolant_TI:
     DESC: 'Coolant Temperature'
     PREC: 5
@@ -191,6 +195,10 @@ Evaporator_SP:
     DESC: 'Evaporator Setpoint'
     PREC: 5
     EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Evaporator_TI:
     DESC: 'Evaporator Temperature'
     PREC: 5
