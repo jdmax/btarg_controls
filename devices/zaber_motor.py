@@ -34,10 +34,11 @@ class Device():
     # Helper variables: mmbout to set positions
         for channel, locs in self.settings['locations'].items():
             list = []
-            for i, name in enumerate(locs.keys()):
+            for i, loc in enumerate(locs):
+                name, pos = loc
                 list.append(name)
                 self.pvs[channel+"_pos_"+str(i)] = builder.aOut(channel+"_pos_"+str(i))
-                self.pvs[channel+"_pos_"+str(i)].set(locs[name])
+                self.pvs[channel+"_pos_"+str(i)].set(pos)
             self.pvs[channel+"_locations"] = (
                 builder.mbbOut(channel+"_locations", *list, on_update_name=self.set_position))
 
