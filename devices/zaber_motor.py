@@ -68,9 +68,9 @@ class Device():
                 self.pvs[channel + "_stop"].set(False)
                 self.pvs[channel + "_zero"].set(False)
                 try:
-                    if pos < self.pvs[channel+"_pos_1"].get() + 1:
+                    if self.pvs[channel+"_pos_1"].get() - 4 < pos < self.pvs[channel+"_pos_1"].get() + 4:
                         self.pvs[channel+"_locations"].set(1)
-                    elif pos > self.pvs[channel+"_pos_2"].get() - 1:
+                    elif self.pvs[channel+"_pos_2"].get() - 4 < pos < self.pvs[channel+"_pos_2"].get() + 4:
                         self.pvs[channel+"_locations"].set(2)
                     else:
                         self.pvs[channel+"_locations"].set(0)

@@ -230,8 +230,8 @@ zaber:
         - Flag
     locations:    # dict of preset locations (name then degrees from home) defaults for each channel
         Shutoff:
-            - [Closed, 0]
             - [Open, 1440]
+            - [Closed, 0]
         Flag:
             - [Empty, 21]
             - [Cu-Sn, -9]
