@@ -427,3 +427,15 @@ Shield-Heater_WI:
     DESC: 'Shield Heater Power'
     PREC: 6
     EGU: 'W'
+Shutoff_MC:
+    DESC: 'Shutoff Valve Set'
+    PREC: 6
+    EGU: '°'
+Shutoff_MI:
+    DESC: 'Shutoff Valve Position'
+    PREC: 6
+    EGU: '°'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
