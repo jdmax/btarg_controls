@@ -52,8 +52,23 @@ class Device():
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
+            self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, channel in enumerate(self.channels):
+            if "None" in channel: continue
+            try:
+                self.pvs[channel + "_MC"].set(self.t.get_pos(i))
+                self.pvs[channel + "_home"].set(False)
+                self.pvs[channel + "_away"].set(False)
+                self.pvs[channel + "_stop"].set(False)
+                self.pvs[channel + "_zero"].set(False)
+            except OSError as e:
+                print("Error initializing outs.", e)
+                self.reconnect()
 
     def reconnect(self):
         del self.t
