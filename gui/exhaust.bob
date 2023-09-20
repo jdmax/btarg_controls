@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-13 22:20:57 by poltar-->
+<!--Saved on 2023-09-20 13:51:54 by poltar-->
 <display version="2.0.0">
   <name>Exhaust Controls</name>
   <width>600</width>
-  <height>380</height>
+  <height>360</height>
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <class>TITLE</class>
@@ -314,7 +314,7 @@
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_1</name>
     <x>570</x>
-    <y>350</y>
+    <y>330</y>
     <width>30</width>
     <height>30</height>
     <visible>false</visible>
