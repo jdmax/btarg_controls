@@ -24,8 +24,8 @@ thcd:   # flow controller interface
     timeout: 2
     delay: 3                # update delay in seconds
     channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
-        - Shield
-        - Precool
+        - Res_Shield
+        - Tgt_Shield
         - Evaporator
 lakeshore_218_1:
     module: 'devices.ls218'
