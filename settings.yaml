@@ -25,8 +25,8 @@ thcd:   # flow controller interface
     delay: 3                # update delay in seconds
     channels:   # List of PV names for each read channel. If FI is suffix, only one PV made. Others make three: FI, FC, Mode
         - Shield
-        - Evaporator
         - Precool
+        - Evaporator
 lakeshore_218_1:
     module: 'devices.ls218'
     autostart: True          # Should IOC Manager try to start this?
