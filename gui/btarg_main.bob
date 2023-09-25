@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-23 20:56:07 by poltar-->
+<!--Saved on 2023-09-25 13:58:50 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -1118,28 +1118,28 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_53</name>
-    <text>Shield:</text>
+    <text>Beam Current:</text>
     <x>440</x>
     <y>60</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_32</name>
-    <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
-    <x>500</x>
+    <pv_name>pva://scaler_calc1a</pv_name>
+    <x>560</x>
     <y>60</y>
-    <width>110</width>
+    <width>130</width>
     <precision>1</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_54</name>
-    <text>Evap:</text>
+    <text>Buffer Dewar:</text>
     <x>440</x>
     <y>80</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_33</name>
     <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
-    <x>500</x>
+    <x>560</x>
     <y>80</y>
     <width>130</width>
     <precision>1</precision>
@@ -1243,51 +1243,6 @@
     <width>80</width>
     <precision>2</precision>
   </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_55</name>
-    <text>Shield:</text>
-    <x>650</x>
-    <y>40</y>
-    <width>150</width>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_38</name>
-    <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
-    <x>710</x>
-    <y>40</y>
-    <width>120</width>
-    <precision>1</precision>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_56</name>
-    <text>Evap:</text>
-    <x>650</x>
-    <y>60</y>
-    <width>150</width>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_39</name>
-    <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
-    <x>710</x>
-    <y>60</y>
-    <width>120</width>
-    <precision>1</precision>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_57</name>
-    <text>Precool:</text>
-    <x>650</x>
-    <y>80</y>
-    <width>150</width>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_40</name>
-    <pv_name>pva://TGT:BTARG:Precool_FI</pv_name>
-    <x>710</x>
-    <y>80</y>
-    <width>120</width>
-    <precision>1</precision>
-  </widget>
   <widget type="polyline" version="2.0.0">
     <name>Polyline_3</name>
     <x>296</x>
@@ -1306,47 +1261,5 @@
     </line_color>
     <arrows>2</arrows>
     <arrow_length>10</arrow_length>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_58</name>
-    <text>Shield:</text>
-    <x>850</x>
-    <y>40</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_44</name>
-    <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
-    <x>910</x>
-    <y>40</y>
-    <width>90</width>
-    <precision>1</precision>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_59</name>
-    <text>Evap:</text>
-    <x>850</x>
-    <y>60</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_45</name>
-    <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
-    <x>910</x>
-    <y>60</y>
-    <width>90</width>
-    <precision>1</precision>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_60</name>
-    <text>Precool:</text>
-    <x>850</x>
-    <y>80</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_46</name>
-    <pv_name>pva://TGT:BTARG:Precool_FI</pv_name>
-    <x>910</x>
-    <y>80</y>
-    <width>90</width>
-    <precision>1</precision>
   </widget>
 </display>
