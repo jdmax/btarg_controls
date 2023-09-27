@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-27 12:54:27 by poltar-->
+<!--Saved on 2023-09-27 15:03:22 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -73,6 +73,7 @@
     <items>
       <item>Item 1</item>
       <item>Item 2</item>
+      <item>Item 3</item>
     </items>
     <show_confirm_dialog>true</show_confirm_dialog>
     <confirm_message>Are you sure you want to do this?</confirm_message>
