@@ -65,7 +65,7 @@ class Device():
         try:
             if '_FC' in pv_name:
                 self.pvs[pv_name].set(self.t.set_setpoint(chan, new_value))
-            elif '_Mode' in pv_name:
+            elif '_FMode' in pv_name:
                 self.pvs[pv_name].set(self.t.set_mode(chan, new_value))
             else:
                 print('Error, control PV not categorized.')
