@@ -6,6 +6,7 @@ from simple_pid import PID
 import numpy as np
 import argparse
 import os
+import datetime
 
 
 async def main():
@@ -87,6 +88,7 @@ class PIDLoop():
         pv_name = pv.replace(self.device_name+':'+self.pid_name+'_', '')   # remove device and pid name from PV to get bare out name
         self.update[pv_name] = True
 
+
     async def run_pid(self):
         while True:
             await asyncio.sleep(self.delay)
@@ -112,7 +114,8 @@ class PIDLoop():
                 self.last_output = self.pid._last_output
             inp = await aioca.caget(self.in_pv)
             output = self.pid(inp)
-            print("last, out, in:", self.last_output, output, inp)
+            now = datetime.datetime.now().strftime('%H:%M:%S')
+            print("time, last, out, in:", str(now), self.last_output, output, inp)
             if self.pid.auto_mode:
                 if abs(self.last_output - output) > self.max_change:   # check max and min change and alter output if needed
                     output = self.last_output - self.max_change * np.sign(self.last_output - output)
