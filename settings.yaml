@@ -203,7 +203,7 @@ ami136:
     ip: '192.168.1.107'
     port: '1004'
     timeout: 1
-    delay: 5
+    delay: 2
     channels:
         - Reservoir_LI
 rigol_dp832:
