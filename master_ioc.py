@@ -54,7 +54,7 @@ class DeviceIOC():
         self.now = datetime.datetime.now()
 
         self.device = self.module.Device(device_name, settings[ioc])
-        #self.device.connect()
+        #self.device.connect()  Now done async
         self.pv_time = builder.aIn(f"MAN:{ioc}_time")
         self.pv_time.set(datetime.datetime.now().timestamp())
 

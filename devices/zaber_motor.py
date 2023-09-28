@@ -48,15 +48,15 @@ class Device():
         self.pvs[channel+"_MC"].set(int(self.pvs[channel+"_pos_"+str(new_value)].get()))
         # set motor to value in position in corresponding PV
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
-            self.read_outs()
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def read_outs(self):
+    async def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
         for i, channel in enumerate(self.channels):
             if "None" in channel: continue
@@ -79,14 +79,14 @@ class Device():
 
             except OSError as e:
                 print("Error initializing outs.", e)
-                self.reconnect()
+                await self.reconnect()
 
-    def reconnect(self):
+    async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
-    def do_sets(self, new_value, pv):
+    async def do_sets(self, new_value, pv):
         """Set Zaber MCC states"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         p = pv_name.split("_")[0]  # pv_name root
@@ -113,7 +113,7 @@ class Device():
                     self.pvs[p+"_zero"].set(self.t.set_zero(chan))
                     self.pvs[p+"_zero"].set(False)
         except OSError:
-            self.reconnect()
+            await self.reconnect()
         return
 
     async def do_reads(self):
@@ -127,7 +127,7 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel + '_MI')
-            self.reconnect()
+            await self.reconnect()
         else:
             return True
 

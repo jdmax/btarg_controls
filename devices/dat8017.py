@@ -25,18 +25,18 @@ class Device():
             self.pvs[channel] = builder.aIn(channel, **sevr)
             self.calibs[channel] = settings['calibration'][channel]
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def reconnect(self):
+    async def reconnect(self):
         '''Delete connection and try again'''
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
     def do_sets(self, new_value, pv):
         """8017 has no sets"""
@@ -59,10 +59,10 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel)
-            self.reconnect()
+            await self.reconnect()
         except TypeError as e:
             print(e)
-            self.reconnect()
+            await self.reconnect()
         else:
             return True
 

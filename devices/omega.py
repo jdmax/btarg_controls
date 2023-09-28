@@ -27,15 +27,15 @@ class Device():
             self.pvs[channel+'_SP1'] = builder.aOut(channel+'_SP1', on_update_name=self.do_sets, **sevr)
             self.pvs[channel+'_SP2'] = builder.aOut(channel+'_SP2', on_update_name=self.do_sets, **sevr)
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
-            self.read_outs()
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def read_outs(self):
+    async def read_outs(self):
         """Read OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
             try:
@@ -44,15 +44,15 @@ class Device():
                 self.pvs[pv_name+'_SP2'].set(self.t.read_setpoint2())  # set returned value
                 print("done setting outs from device")
             except OSError:
-                self.reconnect()
+                await self.reconnect()
         return
 
-    def reconnect(self):
+    async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
-    def do_sets(self, new_value, pv):
+    async def do_sets(self, new_value, pv):
         '''If PV has changed, find the correct method to set it on the device'''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         # figure out what type of PV this is, and send it to the right method
@@ -68,7 +68,7 @@ class Device():
             else:
                 print('Error, control PV not categorized.')
         except OSError:
-            self.reconnect()
+            await self.reconnect()
         return
 
     async def do_reads(self):
@@ -82,7 +82,7 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel+ '_TI')
-            self.reconnect()
+            await self.reconnect()
         else:
             return True
 

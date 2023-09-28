@@ -31,15 +31,15 @@ class Device():
             else:  # Digital IN next
                 self.pvs[channel] = builder.boolIn(channel, **sevr)
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device, read status of outs and set to PVs'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
-            self.read_outs()
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def read_outs(self):
+    async def read_outs(self):
         "Read and set OUT PVs at the start of the IOC"
         try:  # set initial out PVs
             values = self.t.read_coils()
@@ -47,14 +47,14 @@ class Device():
                 if "None" in channel: continue
                 self.pvs[self.channels[i]].set(values[i])
         except OSError:
-            self.reconnect()
+            await self.reconnect()
 
-    def reconnect(self):
+    async def reconnect(self):
         print("Connection failed. Attempting reconnect.")
         del self.t
-        self.connect()
+        await self.connect()
 
-    def do_sets(self, new_value, pv):
+    async def do_sets(self, new_value, pv):
         """Set DO state"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         num = self.channels.index(pv_name)
@@ -66,9 +66,9 @@ class Device():
                 self.remove_alarm(channel)
         except OSError:
             self.set_alarm(pv_name,'WRITE')
-            self.reconnect()
+            await self.reconnect()
         except TypeError:
-            self.reconnect()
+            await self.reconnect()
 
     async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
@@ -82,9 +82,9 @@ class Device():
             for i, channel in enumerate(self.channels[4:9]):
                 if "None" in channel: continue
                 self.set_alarm(channel)
-            self.reconnect()
+            await self.reconnect()
         except TypeError:
-            self.reconnect()
+            await self.reconnect()
         else:
             return True
 
