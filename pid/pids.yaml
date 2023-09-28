@@ -8,7 +8,7 @@ Reservoir_PID:    # Base PV name
         Kp: 1.0
         Ki: 0.1
         Kd: 0.0
-        sample_time: 2
+        sample_time: 1
         setpoint: 20.0
         min_change: 0.01
         max_change: 10.0

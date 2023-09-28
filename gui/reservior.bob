@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-28 15:28:29 by poltar-->
+<!--Saved on 2023-09-28 19:01:14 by poltar-->
 <display version="2.0.0">
   <name>LHe Reservoir Controls</name>
   <width>980</width>
@@ -426,6 +426,19 @@
           </color>
         </color>
       </y_axis>
+      <y_axis>
+        <title>Y 1</title>
+        <autoscale>false</autoscale>
+        <log_scale>false</log_scale>
+        <minimum>0.0</minimum>
+        <maximum>3.0</maximum>
+        <show_grid>false</show_grid>
+        <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
+      </y_axis>
     </y_axes>
     <traces>
       <trace>
@@ -444,8 +457,8 @@
       </trace>
       <trace>
         <name>Heater Output</name>
-        <y_pv>pva://TGT:BTARG:PID:Reservoir_PID_output</y_pv>
-        <axis>0</axis>
+        <y_pv>pva://TGT:BTARG:Reservoir-Heater_CC</y_pv>
+        <axis>1</axis>
         <trace_type>2</trace_type>
         <color>
           <color red="255" green="0" blue="0">
