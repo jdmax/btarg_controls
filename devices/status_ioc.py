@@ -51,6 +51,8 @@ class Device():
         status = self.states['options']['status'][j]
         species = self.states['options']['species'][k]
 
+        print("Changing status to", status, species)
+
         group = []
         for pv in self.states[status]:  # set values and alarms for this state. Adds all puts to a group and runs concurrently.
             if isinstance(self.states[status][pv][species], list):
