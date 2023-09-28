@@ -17,7 +17,7 @@ class Device():
         self.device_name = device_name
         self.settings = settings
         self.channels = settings['channels']   # this is a list of channels in order
-        self.out_channels = settings['out_channels']   # this is a list of channels in order
+        self.out_channels = settings['out_channels']   # dcit keyed on channel name of output channel
         self.pvs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
@@ -141,7 +141,7 @@ class Device():
                     if decade == -3:  # "off" range
                         power = 0
                     else:
-                        power = self.p_limit[self.out_channels[channel]] * 10**decade * heat / 100
+                        power = self.p_limit[self.out_channels[channel] - 1] * 10**decade * heat / 100
                     self.pvs[channel + '_Heater_W'].set(power)
         except OSError:
             for channel in self.channels:
