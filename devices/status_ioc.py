@@ -88,7 +88,7 @@ class Device():
 
         for pv in last:      # set to PVs
             self.pvs[pv].set(last[pv])
-        asyncio.sleep(10)
+        await asyncio.sleep(10)
         await self.stat_update(0, 'pv')
 
         print('Restored previous state:', last)
