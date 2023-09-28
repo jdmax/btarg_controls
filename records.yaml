@@ -15,13 +15,13 @@ Evaporator_FI:
     LOLO: -Inf
 Evaporator_FMode:
     DESC: 'Evaporator Flow Auto Mode'
-Precool_FC:
+Tgt-Shield_FC:
     DESC: 'Precool Controller Set Value'
     PREC: 6
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
-Precool_FI:
+Tgt-Shield_FI:
     DESC: 'Precool Flow'
     PREC: 6
     EGU: 'slpm'
@@ -29,19 +29,19 @@ Precool_FI:
     HIGH: Inf
     LOW: -Inf
     LOLO: -Inf
-Precool_FMode:
+Tgt-Shield_FMode:
     DESC: 'Precool Auto Mode'
-Shield_FC:
+Res-Shield_FC:
     DESC: 'Shield Flow Controller Set'
     PREC: 6
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
-Shield_FI:
+Res-Shield_FI:
     DESC: 'Shield Flow Indicator'
     PREC: 6
     EGU: 'slpm'
-Shield_FMode:
+Res-Shield_FMode:
     DESC: 'Shield Flow Auto Mode'
 Cell_Top_TI:
     DESC: 'Target Cell Top Temperature'
