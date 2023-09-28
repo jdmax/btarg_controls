@@ -88,9 +88,7 @@ class Device():
 
         for pv in last:      # set to PVs
             self.pvs[pv].set(last[pv])
-
-        print(self.device_name + ":status", self.pvs['status'].get())
-        await aioca.caput(self.device_name + ":status", self.pvs['status'].get())
+        await self.stat_update(0, 'pv')
 
         print('Restored previous state:', last)
 
