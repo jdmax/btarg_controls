@@ -59,7 +59,7 @@ class Device():
         pc = current * current * real
         pv = voltage * voltage / real
         p_limit = pc if pc < pv else pv  # power limit from resistance and setting
-        print("Channel 1 power limit: ",p_limit)
+        print(f"Channel {channel} power limit: {p_limit}")
         return p_limit
 
     async def connect(self):
