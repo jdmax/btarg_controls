@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-25 14:59:17 by poltar-->
+<!--Saved on 2023-09-28 11:17:58 by poltar-->
 <display version="2.0.0">
   <name>Target Controls</name>
   <width>360</width>
-  <height>540</height>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_8</name>
     <x>20</x>
     <y>50</y>
     <width>310</width>
-    <height>170</height>
+    <height>210</height>
     <line_width>2</line_width>
     <line_color>
       <color name="Button_Background" red="210" green="210" blue="210">
@@ -136,7 +135,7 @@
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_9</name>
     <x>20</x>
-    <y>240</y>
+    <y>280</y>
     <width>310</width>
     <height>290</height>
     <line_width>2</line_width>
@@ -154,7 +153,7 @@
   <widget type="group" version="3.0.0">
     <name>Group</name>
     <x>20</x>
-    <y>240</y>
+    <y>280</y>
     <width>310</width>
     <height>230</height>
     <style>3</style>
@@ -239,7 +238,7 @@
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_10</name>
     <x>330</x>
-    <y>530</y>
+    <y>570</y>
     <width>30</width>
     <height>30</height>
     <visible>false</visible>
@@ -248,7 +247,7 @@
     <name>Boolean Button</name>
     <pv_name>pva://TGT:BTARG:Flag_home</pv_name>
     <x>120</x>
-    <y>480</y>
+    <y>520</y>
     <width>110</width>
     <off_label>Home</off_label>
     <on_label>Busy</on_label>
@@ -257,42 +256,57 @@
     <name>Label_43</name>
     <text>Empty Location:</text>
     <x>40</x>
-    <y>380</y>
+    <y>420</y>
     <width>160</width>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry</name>
     <pv_name>pva://TGT:BTARG:Flag_pos_0</pv_name>
     <x>200</x>
-    <y>380</y>
+    <y>420</y>
     <width>110</width>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry_1</name>
     <pv_name>pva://TGT:BTARG:Flag_pos_2</pv_name>
     <x>200</x>
-    <y>420</y>
+    <y>460</y>
     <width>110</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_44</name>
     <text>Right Flag Location:</text>
     <x>40</x>
-    <y>420</y>
+    <y>460</y>
     <width>160</width>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry_2</name>
     <pv_name>pva://TGT:BTARG:Flag_pos_1</pv_name>
     <x>200</x>
-    <y>400</y>
+    <y>440</y>
     <width>110</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_45</name>
     <text>Left Flag Location:</text>
     <x>40</x>
-    <y>400</y>
+    <y>440</y>
     <width>160</width>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>Combo Box_1</name>
+    <pv_name>TGT:BTARG:status</pv_name>
+    <x>180</x>
+    <y>220</y>
+    <width>110</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Status:</text>
+    <x>50</x>
+    <y>220</y>
+    <width>110</width>
   </widget>
 </display>

@@ -70,6 +70,8 @@ class Device():
         with open('last.yaml', 'w') as f:  # Dump this setting to file
             yaml.dump(last, f)
 
+        print("Change done.", status, species)
+
     async def try_put(self, pv, value):
         try:
             await aioca.caput(self.device_name + ":" + pv, value)
