@@ -88,7 +88,7 @@ class Device():
 
         for pv in last:      # set to PVs
             self.pvs[pv].set(last[pv])
-        await self.stat_update(0, 'pv')
+        #await self.stat_update(0, 'pv')
 
         print('Restored previous state:', last)
 
