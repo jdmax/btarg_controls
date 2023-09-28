@@ -78,7 +78,7 @@ class Device():
         except aioca.CANothing as e:
             print("Put error:", e, self.device_name + ":" + pv, value)
 
-    def connect(self):
+    async def connect(self):
         '''Restore state to last used, or default if none'''
         try:
             with open('last.yaml') as f:  # Load last settings from yaml
