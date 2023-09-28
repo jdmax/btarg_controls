@@ -57,7 +57,7 @@ Cooldown:
         D2: 90
         4He: 90
         3He: 90
-    Shield_PID_auto_mode:
+    PID:Shield_PID_auto_mode:
         H2: False
         D2: False
         4He: False
@@ -128,12 +128,12 @@ Empty:
         D2: [99, 40, 4, 0]
         4He: [99, 40, 4, 0]
         3He: [99, 40, 4, 0]
-    Shield_PID_auto_mode:
+    PID:Shield_PID_auto_mode:
         H2: True
         D2: True
         4He: True
         3He: True
-    Shield_PID_setpoint:
+    PID:Shield_PID_setpoint:
         H2: 30
         D2: 30
         4He: 30
@@ -204,12 +204,12 @@ Fill:
         D2: [ 99, 40, 4, 0 ]
         4He: [ 99, 40, 4, 0 ]
         3He: [ 99, 40, 4, 0 ]
-    Shield_PID_auto_mode:
+    PID:Shield_PID_auto_mode:
         H2: True
         D2: True
         4He: True
         3He: True
-    Shield_PID_setpoint:
+    PID:Shield_PID_setpoint:
         H2: 30
         D2: 30
         4He: 30
@@ -240,7 +240,7 @@ Fill:
         4He: 90
         3He: 90
 Safe:
-    Shield_PID_auto_mode:
+    PID:Shield_PID_auto_mode:
         H2: False
         D2: False
         4He: False
@@ -260,7 +260,7 @@ Safe:
         D2: 0
         4He: 0
         3He: 0
-    Reservoir-Heater_PID_auto_mode:
+    PID:Reservoir_PID_auto_mode:
         H2: False
         D2: False
         4He: False
