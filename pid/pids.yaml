@@ -5,8 +5,8 @@ Reservoir_PID:    # Base PV name
     output: TGT:BTARG:Reservoir-Heater_CC
     outs:   # key is name, value is starting value
         auto_mode: False   # key names match simple_pid attribute names
-        Kp: -50
-        Ki: -5
+        Kp: -0.1
+        Ki: -0.1
         Kd: -0.1
         sample_time: 2
         setpoint: 20.0
