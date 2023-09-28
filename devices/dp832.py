@@ -152,6 +152,7 @@ class DeviceConnection():
             command = f":MEASURE:ALL? CH{channel}\n"
             self.tn.write(bytes(command, 'ascii'))   # Reading
             data = self.tn.read_until(b'\n', timeout=self.timeout).decode('ascii')  # read until carriage return
+            print(data)
             m = self.read_sp_regex.search(data)
             values = [float(x) for x in m.groups()]
             return values   # return voltage, current as list
