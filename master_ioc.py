@@ -24,7 +24,7 @@ async def main():
     builder.SetDeviceName(device_name)
 
     d = DeviceIOC(device_name, ioc, settings, records)
-    await d.device.connect()
+    await d.connect()
     builder.LoadDatabase()
     softioc.iocInit(dispatcher)
 
@@ -54,7 +54,6 @@ class DeviceIOC():
         self.now = datetime.datetime.now()
 
         self.device = self.module.Device(device_name, settings[ioc])
-        #self.device.connect()  Now done async
         self.pv_time = builder.aIn(f"MAN:{ioc}_time")
         self.pv_time.set(datetime.datetime.now().timestamp())
 
@@ -70,6 +69,9 @@ class DeviceIOC():
         await asyncio.sleep(self.delay)
         if await self.device.do_reads():  # get new readings from device and set into PVs
             self.pv_time.set(datetime.datetime.now().timestamp())   # set time of last successful update
+
+    async def connect(self):
+        await self.device.connect()
 
 
 def load_settings():
