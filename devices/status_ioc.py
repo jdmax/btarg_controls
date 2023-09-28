@@ -85,8 +85,7 @@ class Device():
             last = {'status': 0, 'species': 0}
 
         for pv in last:      # set to PVs
-            self.pvs[pv].set(last[pv])
-        self.stat_update(0, "pv")
+            self.pvs[pv].set(last[pv], process=True)
         print('Restored previous state:', last)
 
     async def do_reads(self):
