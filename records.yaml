@@ -1,13 +1,13 @@
 # btarg record database, YAML
 Evaporator_FC:
     DESC: 'Evaporator Flow Controller Set'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
 Evaporator_FI:
     DESC: 'Evaporator Flow'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
     HIHI: Inf
     HIGH: Inf
@@ -17,13 +17,13 @@ Evaporator_FMode:
     DESC: 'Evaporator Flow Auto Mode'
 Precool_FC:
     DESC: 'Precool Controller Set Value'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
 Precool_FI:
     DESC: 'Precool Flow'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
     HIHI: Inf
     HIGH: Inf
@@ -33,19 +33,19 @@ Precool_FMode:
     DESC: 'Precool Auto Mode'
 Shield_FC:
     DESC: 'Shield Flow Controller Set'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
 Shield_FI:
     DESC: 'Shield Flow Indicator'
-    PREC: 6
+    PREC: 2
     EGU: 'slpm'
 Shield_FMode:
     DESC: 'Shield Flow Auto Mode'
 Cell_Top_TI:
     DESC: 'Target Cell Top Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -53,7 +53,7 @@ Cell_Top_TI:
     LOLO: -Inf
 Cell_Bottom_TI:
     DESC: 'Target Cell Bottom Temp'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -61,7 +61,7 @@ Cell_Bottom_TI:
     LOLO: -Inf
 Evaporator_Out_TI:
     DESC: 'Evaporator Exit Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -69,7 +69,7 @@ Evaporator_Out_TI:
     LOLO: -Inf
 Shield_DS_TI:
     DESC: 'Downstream Heat Shield Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -77,7 +77,7 @@ Shield_DS_TI:
     LOLO: -Inf
 Shield_Plate_TI:
     DESC: 'Heat Shield Plate End Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -85,7 +85,7 @@ Shield_Plate_TI:
     LOLO: -Inf
 Reservoir_Bottom_TI:
     DESC: 'Helium Reservoir Bottom Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -93,7 +93,7 @@ Reservoir_Bottom_TI:
     LOLO: -Inf
 Reservoir_Top_TI:
     DESC: 'Helium Reservoir Top Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -101,7 +101,7 @@ Reservoir_Top_TI:
     LOLO: -Inf
 Shield_Bottom_TI:
     DESC: 'Reservoir Heat Shield Bottom Temp'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -109,7 +109,7 @@ Shield_Bottom_TI:
     LOLO: -Inf
 Shield_Top_TI:
     DESC: 'Reservoir Heat Shield Top Temp'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -117,7 +117,7 @@ Shield_Top_TI:
     LOLO: -Inf
 Coolant_B_TI:
     DESC: 'Coolant Gas Reserve Temp'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -125,7 +125,7 @@ Coolant_B_TI:
     LOLO: -Inf
 Coolant_Heater:
     DESC: 'Coolant Heater Output'
-    PREC: 3
+    PREC: 1
     EGU: '%'
     HIHI: Inf
     HIGH: Inf
@@ -141,7 +141,7 @@ Coolant_Heater_W:
     LOLO: -Inf
 Coolant_Manual:
     DESC: 'Coolant Manual Heater Output'
-    PREC: 3
+    PREC: 1
     EGU: '%'
     DRVH: 100
     DRVL: 0
@@ -155,7 +155,7 @@ Coolant_SP:
     LOLO: -Inf
 Coolant_TI:
     DESC: 'Coolant Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -163,7 +163,7 @@ Coolant_TI:
     LOLO: -Inf
 Evaporator_B_TI:
     DESC: 'Evaporator Reserve Temp'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -171,7 +171,7 @@ Evaporator_B_TI:
     LOLO: -Inf
 Evaporator_Heater:
     DESC: 'Evaporator Heater Output'
-    PREC: 3
+    PREC: 1
     EGU: '%'
     HIHI: Inf
     HIGH: Inf
@@ -187,13 +187,13 @@ Evaporator_Heater_W:
     LOLO: -Inf
 Evaporator_Manual:
     DESC: 'Evaporator Manual Heater Output'
-    PREC: 3
+    PREC: 1
     EGU: '%'
     DRVH: 100
     DRVL: 0
 Evaporator_SP:
     DESC: 'Evaporator Setpoint'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -201,7 +201,7 @@ Evaporator_SP:
     LOLO: -Inf
 Evaporator_TI:
     DESC: 'Evaporator Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'K'
     HIHI: Inf
     HIGH: Inf
@@ -209,7 +209,7 @@ Evaporator_TI:
     LOLO: -Inf
 Top_PI:
     DESC: 'Top Pressure Indicator'
-    PREC: 6
+    PREC: 2
     EGU: 'mbar'
     HIHI: Inf
     HIGH: Inf
@@ -217,15 +217,15 @@ Top_PI:
     LOLO: -Inf
 Shield_Exhaust_SP1:
     DESC: 'Shield Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Shield_Exhaust_SP2:
     DESC: 'Shield Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Shield_Exhaust_TI:
     DESC: 'Shield Exhaust Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
     HIHI: 50
     HIGH: 40
@@ -233,15 +233,15 @@ Shield_Exhaust_TI:
     LOLO: 5
 Evaporator_Exhaust_SP1:
     DESC: 'Evaporator Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Evaporator_Exhaust_SP2:
     DESC: 'Evaporator Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Evaporator_Exhaust_TI:
     DESC: 'Evaporator Exhaust Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
     HIHI: 50
     HIGH: 40
@@ -249,15 +249,15 @@ Evaporator_Exhaust_TI:
     LOLO: 5
 Precool_Exhaust_SP1:
     DESC: 'Precool Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Precool_Exhaust_SP2:
     DESC: 'Precool Exhaust Setpoint 1'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
 Precool_Exhaust_TI:
     DESC: 'Precool Exhaust Temperature'
-    PREC: 5
+    PREC: 2
     EGU: 'C'
     HIHI: 50
     HIGH: 40
@@ -265,7 +265,7 @@ Precool_Exhaust_TI:
     LOLO: 5
 Evap_Exhaust_PI:
     DESC: 'Evaporator Exhaust Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -273,7 +273,7 @@ Evap_Exhaust_PI:
     LOLO: -Inf
 Precool_Exhaust_PI:
     DESC: 'Precool Exhaust Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -281,7 +281,7 @@ Precool_Exhaust_PI:
     LOLO: -Inf
 Shield_Exhaust_PI:
     DESC: 'Shield Exhaust Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -289,7 +289,7 @@ Shield_Exhaust_PI:
     LOLO: -Inf
 Target_Return_PI:
     DESC: 'Target Return Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -297,7 +297,7 @@ Target_Return_PI:
     LOLO: -Inf
 Target_Supply_PI:
     DESC: 'Target Supply Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -305,7 +305,7 @@ Target_Supply_PI:
     LOLO: -Inf
 3He_Tank_PI:
     DESC: '3He Tank Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -313,7 +313,7 @@ Target_Supply_PI:
     LOLO: -Inf
 4He_Tank_PI:
     DESC: '4He Tank Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -321,7 +321,7 @@ Target_Supply_PI:
     LOLO: -Inf
 D2_Tank_PI:
     DESC: 'D2 Tank Pressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -329,7 +329,7 @@ D2_Tank_PI:
     LOLO: -Inf
 H2_Tank_PI:
     DESC: 'H2 TankPressure'
-    PREC: 6
+    PREC: 2
     EGU: 'psi'
     HIHI: Inf
     HIGH: Inf
@@ -393,55 +393,55 @@ OVC_Pirani_PI:
     LOLO: -Inf
 Reservoir_LI:
     DESC: 'Reservoir Liquid Level'
-    PREC: 4
+    PREC: 2
     EGU: '%'
 Reservoir-Heater_CC:
     DESC: 'Reservoir Heater Current Set'
-    PREC: 6
+    PREC: 3
     EGU: 'A'
     DRVH: 1.2
     DRVL: 0
 Reservoir-Heater_CI:
     DESC: 'Reservoir Heater Current'
-    PREC: 6
+    PREC: 3
     EGU: 'A'
 Reservoir-Heater_VC:
     DESC: 'Reservoir Heater Voltage Set'
-    PREC: 6
+    PREC: 3
     EGU: 'V'
 Reservoir-Heater_VI:
     DESC: 'Reservoir Heater Voltage'
-    PREC: 6
+    PREC: 3
     EGU: 'V'
 Reservoir-Heater_WI:
     DESC: 'Reservoir Heater Power'
-    PREC: 6
+    PREC: 3
     EGU: 'W'
 Shield-Heater_CC:
     DESC: 'Shield Heater Current Set'
-    PREC: 6
+    PREC: 3
     EGU: 'A'
-    DRVH: 3.0
+    DRVH: 2.0
     DRVL: 0
 Shield-Heater_CI:
     DESC: 'Shield Heater Current'
-    PREC: 6
+    PREC: 3
     EGU: 'A'
 Shield-Heater_VC:
     DESC: 'Shield Heater Voltage Set'
-    PREC: 6
+    PREC: 3
     EGU: 'V'
 Shield-Heater_VI:
     DESC: 'Shield Heater Voltage'
-    PREC: 6
+    PREC: 3
     EGU: 'V'
 Shield-Heater_WI:
     DESC: 'Shield Heater Power'
-    PREC: 6
+    PREC: 3
     EGU: 'W'
 Shutoff_MC:
     DESC: 'Shutoff Valve Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
     HIHI: Inf
     HIGH: Inf
@@ -449,7 +449,7 @@ Shutoff_MC:
     LOLO: -Inf
 Shutoff_MI:
     DESC: 'Shutoff Valve Position'
-    PREC: 4
+    PREC: 2
     EGU: '°'
     HIHI: Inf
     HIGH: Inf
@@ -457,15 +457,15 @@ Shutoff_MI:
     LOLO: -Inf
 Shutoff_pos_0:
     DESC: 'Shutoff Valve Position 0 Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
 Shutoff_pos_1:
     DESC: 'Shutoff Valve Position 1 Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
 Flag_MC:
     DESC: 'Shutoff Valve Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
     HIHI: Inf
     HIGH: Inf
@@ -473,7 +473,7 @@ Flag_MC:
     LOLO: -Inf
 Flag_MI:
     DESC: 'Shutoff Valve Position'
-    PREC: 4
+    PREC: 2
     EGU: '°'
     HIHI: Inf
     HIGH: Inf
@@ -481,13 +481,13 @@ Flag_MI:
     LOLO: -Inf
 Flag_pos_0:
     DESC: 'Flag Valve Position 0 Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
 Flag_pos_1:
     DESC: 'Flag Valve Position 1 Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
 Flag_pos_2:
     DESC: 'Flag Valve Position 2 Set'
-    PREC: 4
+    PREC: 2
     EGU: '°'
