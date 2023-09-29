@@ -399,7 +399,7 @@ Reservoir-Heater_CC:
     DESC: 'Reservoir Heater Current Set'
     PREC: 6
     EGU: 'A'
-    DRVH: 1.5
+    DRVH: 1.2
     DRVL: 0
 Reservoir-Heater_CI:
     DESC: 'Reservoir Heater Current'
