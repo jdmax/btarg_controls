@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-28 16:04:35 by poltar-->
+<!--Saved on 2023-09-28 22:35:40 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1150</width>
@@ -303,7 +303,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_14</name>
-      <pv_name>pva://TGT:BTARG:Res-Shield_FI</pv_name>
+      <pv_name>pva://TGT:BTARG:Shield_FI</pv_name>
       <x>80</x>
       <y>40</y>
       <width>70</width>
@@ -390,7 +390,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_16</name>
-      <pv_name>pva://TGT:BTARG:Tgt-Shield_FI</pv_name>
+      <pv_name>pva://TGT:BTARG:Precool_FI</pv_name>
       <x>80</x>
       <y>60</y>
       <width>70</width>
