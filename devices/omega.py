@@ -114,7 +114,7 @@ class DeviceConnection():
         except Exception as e:
             print(f"Omega connection failed on {self.host}: {e}")
             
-        self.read_regex = re.compile(b'X01(\d+.\d)')   
+        self.read_regex = re.compile(b'X01(-?\d+\.\d)')
         self.write_regex = re.compile(b'W01')  
         self.sp_read_regex = re.compile(b'R01([\d\w]{6})')
         self.sp2_read_regex = re.compile(b'R02([\d\w]{6})')
