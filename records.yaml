@@ -41,6 +41,10 @@ Shield_FI:
     DESC: 'Shield Flow Indicator'
     PREC: 2
     EGU: 'slpm'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_FMode:
     DESC: 'Shield Flow Auto Mode'
 Cell_Top_TI:
