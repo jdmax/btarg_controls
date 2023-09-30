@@ -32,15 +32,15 @@ class Device():
             self.pvs[channel + "_Mode"] = builder.boolOut(channel + "_Mode", on_update_name=self.do_sets)
 
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
-            self.read_outs()
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def read_outs(self):
+    async def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
         for i, pv_name in enumerate(self.channels):
             if "None" in pv_name: continue
@@ -52,14 +52,14 @@ class Device():
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
             except OSError:
                 print("Read out error on", pv_name)
-                self.reconnect()
+                await self.reconnect()
 
-    def reconnect(self):
+    async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
-    def do_sets(self, new_value, pv):
+    async def do_sets(self, new_value, pv):
         """Set PVs values to device"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         p = pv_name.split("_")[0]  # pv_name root
@@ -76,7 +76,7 @@ class Device():
             else:
                 print('Error, control PV not categorized.', pv_name)
         except OSError:
-            self.reconnect()
+            await self.reconnect()
         return
 
     async def do_reads(self):
@@ -92,7 +92,7 @@ class Device():
                 new_reads[channel+'_Mode'] = self.t.read_state(i+1)
             except OSError:
                 self.set_alarm(channel + "_VI")
-                self.reconnect()
+                await self.reconnect()
                 ok = False
             else:
                 self.remove_alarm(channel + "_VI")

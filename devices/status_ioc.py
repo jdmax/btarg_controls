@@ -51,6 +51,8 @@ class Device():
         status = self.states['options']['status'][j]
         species = self.states['options']['species'][k]
 
+        print("Changing status to", status, species)
+
         group = []
         for pv in self.states[status]:  # set values and alarms for this state. Adds all puts to a group and runs concurrently.
             if isinstance(self.states[status][pv][species], list):
@@ -68,13 +70,15 @@ class Device():
         with open('last.yaml', 'w') as f:  # Dump this setting to file
             yaml.dump(last, f)
 
+        print("Change done.", status, species)
+
     async def try_put(self, pv, value):
         try:
             await aioca.caput(self.device_name + ":" + pv, value)
         except aioca.CANothing as e:
             print("Put error:", e, self.device_name + ":" + pv, value)
 
-    def connect(self):
+    async def connect(self):
         '''Restore state to last used, or default if none'''
         try:
             with open('last.yaml') as f:  # Load last settings from yaml
@@ -84,6 +88,9 @@ class Device():
 
         for pv in last:      # set to PVs
             self.pvs[pv].set(last[pv])
+        #await asyncio.sleep(10)
+        #await self.stat_update(0, 'pv')  Not sure why this breaks shit
+
         print('Restored previous state:', last)
 
     async def do_reads(self):

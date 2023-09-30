@@ -17,7 +17,7 @@ class Device():
         self.device_name = device_name
         self.settings = settings
         self.channels = settings['channels']   # this is a list of channels in order
-        self.out_channels = settings['out_channels']   # this is a list of channels in order
+        self.out_channels = settings['out_channels']   # dcit keyed on channel name of output channel
         self.pvs = {}
         sevr = {'HHSV': 'MAJOR', 'HSV': 'MINOR', 'LSV': 'MINOR', 'LLSV': 'MAJOR', 'DISP': '0'}
 
@@ -59,18 +59,18 @@ class Device():
         pc = current * current * real
         pv = voltage * voltage / real
         p_limit = pc if pc < pv else pv  # power limit from resistance and setting
-        print("Channel 1 power limit: ",p_limit)
+        print(f"Channel {channel} power limit: {p_limit}")
         return p_limit
 
-    def connect(self):
+    async def connect(self):
         '''Open connection to device'''
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
-            self.read_outs()
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def read_outs(self):
+    async def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
         for i, channel in enumerate(self.channels):
             if "None" in channel: continue
@@ -87,14 +87,14 @@ class Device():
                 self.pvs[channel + '_Manual'].set(self.t.read_man_heater(out_channel))
             except OSError as e:
                 print("Error initializing outs.", e)
-                self.reconnect()
+                await self.reconnect()
 
-    def reconnect(self):
+    async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
-    def do_sets(self, new_value, pv):
+    async def do_sets(self, new_value, pv):
         """If PV has changed, find the correct method to set it on the device"""
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         pv = pv_name.split("_")[0]  # pv_name root
@@ -120,7 +120,7 @@ class Device():
             else:
                 print('Error, control PV not categorized.')
         except OSError:
-            self.reconnect()
+            await self.reconnect()
         return
 
     async def do_reads(self):
@@ -141,7 +141,7 @@ class Device():
                     if decade == -3:  # "off" range
                         power = 0
                     else:
-                        power = self.p_limit[self.out_channels[channel]] * 10**decade * heat / 100
+                        power = self.p_limit[self.out_channels[channel] - 1] * 10**decade * heat / 100
                     self.pvs[channel + '_Heater_W'].set(power)
         except OSError:
             for channel in self.channels:

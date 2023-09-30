@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-09-17 11:55:06 by poltar-->
+<!--Saved on 2023-09-23 20:30:06 by poltar-->
 <display version="2.0.0">
   <name>Lakeshore 336 Heater Controls</name>
   <width>610</width>
@@ -127,7 +127,7 @@
       <y>90</y>
       <width>70</width>
       <format>1</format>
-      <precision>1</precision>
+      <precision>3</precision>
       <wrap_words>false</wrap_words>
     </widget>
     <widget type="label" version="2.0.0">
@@ -254,7 +254,7 @@
       <y>90</y>
       <width>80</width>
       <format>1</format>
-      <precision>2</precision>
+      <precision>3</precision>
       <wrap_words>false</wrap_words>
     </widget>
   </widget>

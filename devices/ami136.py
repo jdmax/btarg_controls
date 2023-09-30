@@ -26,17 +26,17 @@ class Device():
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
 
-    def connect(self):
+    async def connect(self):
         """Open connection to device"""
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'], self.settings['timeout'])
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
 
-    def reconnect(self):
+    async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
-        self.connect()
+        await self.connect()
 
     def do_sets(self, new_value, pv):
         """AMI136 has no sets"""
@@ -50,7 +50,7 @@ class Device():
             for i, channel in enumerate(self.channels):
                 if "None" in channel: continue
                 self.set_alarm(channel)
-            self.reconnect()
+            await self.reconnect()
         else:
             print(levels)
             for i, channel in enumerate(self.channels):
