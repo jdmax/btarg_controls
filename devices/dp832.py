@@ -164,7 +164,7 @@ class DeviceConnection():
         '''Set current and voltage for given channel'''
         try:
             self.tn.write(bytes(f":APPLY CH{channel},{voltage},{current}\n", 'ascii'))
-            time.sleep(0.2)
+            time.sleep(0.5)
             return self.read_sp(channel)   # return voltage, current as list
 
         except Exception as e:
