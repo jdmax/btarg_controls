@@ -195,7 +195,7 @@ class DeviceConnection():
         out = 'ON' if state else 'OFF'
         try:
             self.tn.write(bytes(f":OUTPUT CH{channel},{out}\n", 'ascii'))
-            time.sleep(0.2)
+            time.sleep(0.5)
             return self.read_state(channel)
         except Exception as e:
             print(f"DP832 out set failed on {self.host}: {e}")
