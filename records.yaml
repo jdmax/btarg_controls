@@ -383,6 +383,10 @@ OVC_CC_PI:
     DESC: 'OVC Cold Cathode Pressure'
     PREC: 6
     EGU: 'torr'
+    HIHI: 1.0E-3
+    HIGH: 1.0E-4
+    LOW: 1.0E-8
+    LOLO: 1.0E-9
 OVC_Pirani_PI:
     DESC: 'OVC Pirani Pressure'
     PREC: 6
