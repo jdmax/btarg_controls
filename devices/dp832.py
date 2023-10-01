@@ -163,9 +163,12 @@ class DeviceConnection():
     def set(self, channel, voltage, current):
         '''Set current and voltage for given channel'''
         try:
+            print(f"Set: APPLY CH{channel},{voltage},{current}")
             self.tn.write(bytes(f":APPLY CH{channel},{voltage},{current}\n", 'ascii'))
             time.sleep(0.5)
-            return self.read_sp(channel)   # return voltage, current as list
+            out = self.read_sp(channel)
+            print("Out:", out)
+            return out   # return voltage, current as list
 
         except Exception as e:
             print(f"DP832 set failed on {self.host}: {e}")
