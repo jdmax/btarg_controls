@@ -50,8 +50,7 @@ class Device():
                 print(pv_name, values)
                 self.pvs[pv_name + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
-                print(i+1, self.pvs[pv_name].get())
-                value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
+                value = self.t.read_state(str(i+1))
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
                 print(pv_name, value)
             except OSError:
