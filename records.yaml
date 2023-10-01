@@ -403,50 +403,94 @@ Reservoir_LI:
     DESC: 'Reservoir Liquid Level'
     PREC: 2
     EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir-Heater_CC:
     DESC: 'Reservoir Heater Current Set'
     PREC: 3
     EGU: 'A'
     DRVH: 1.2
     DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir-Heater_CI:
     DESC: 'Reservoir Heater Current'
     PREC: 3
     EGU: 'A'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir-Heater_VC:
     DESC: 'Reservoir Heater Voltage Set'
     PREC: 3
     EGU: 'V'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir-Heater_VI:
     DESC: 'Reservoir Heater Voltage'
     PREC: 3
     EGU: 'V'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Reservoir-Heater_WI:
     DESC: 'Reservoir Heater Power'
     PREC: 3
     EGU: 'W'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield-Heater_CC:
     DESC: 'Shield Heater Current Set'
     PREC: 3
     EGU: 'A'
     DRVH: 2.0
     DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield-Heater_CI:
     DESC: 'Shield Heater Current'
     PREC: 3
     EGU: 'A'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield-Heater_VC:
     DESC: 'Shield Heater Voltage Set'
     PREC: 3
     EGU: 'V'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield-Heater_VI:
     DESC: 'Shield Heater Voltage'
     PREC: 3
     EGU: 'V'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield-Heater_WI:
     DESC: 'Shield Heater Power'
     PREC: 3
     EGU: 'W'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shutoff_MC:
     DESC: 'Shutoff Valve Set'
     PREC: 2
