@@ -39,7 +39,6 @@ class Device():
             await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
-            print(self.t)
 
     async def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
@@ -51,6 +50,7 @@ class Device():
                 self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
                 value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
+                print(pv_name, value)
             except OSError:
                 print("Read out error on", pv_name)
                 await self.reconnect()
