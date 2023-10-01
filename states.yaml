@@ -47,12 +47,12 @@ Cooldown:
         D2: [1E-3, 1E-4, 1E-8, 1E-9]
         4He: [1E-3, 1E-4, 1E-8, 1E-9]
         3He: [1E-3, 1E-3, 1E-8, 1E-9]
-    Res-Shield_FI:
+    Shield_FI:
         H2: [99, 95, 5, 0]
         D2: [99, 95, 5, 0]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
-    Res-Shield_FC:
+    Shield_FC:
         H2: 90
         D2: 90
         4He: 90
@@ -77,12 +77,12 @@ Cooldown:
         D2: False
         4He: False
         3He: False
-    Tgt-Shield_FI:
+    Precool_FI:
         H2: [99, 95, 5, 0]
         D2: [99, 95, 5, 0]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
-    Tgt-Shield_FC:
+    Precool_FC:
         H2: 90
         D2: 90
         4He: 90
@@ -123,7 +123,7 @@ Empty:
         D2: [1E-3, 1E-4, 1E-8, 1E-9]
         4He: [1E-3, 1E-4, 1E-8, 1E-9]
         3He: [1E-3, 1E-3, 1E-8, 1E-9]
-    Res-Shield_FI:
+    Shield_FI:
         H2: [99, 40, 4, 0]
         D2: [99, 40, 4, 0]
         4He: [99, 40, 4, 0]
@@ -153,12 +153,12 @@ Empty:
         D2: 28
         4He: 8
         3He: 8
-    Tgt-Shield_FI:
+    Precool_FI:
         H2: [99, 95, 2, 0]
         D2: [99, 95, 2, 0]
         4He: [99, 95, 2, 0]
         3He: [99, 95, 2, 0]
-    Tgt-Shield_FC:
+    Precool_FC:
         H2: 90
         D2: 90
         4He: 90
@@ -199,7 +199,7 @@ Fill:
         D2: [1E-3, 1E-4, 1E-8, 1E-9]
         4He: [1E-3, 1E-4, 1E-8, 1E-9]
         3He: [1E-3, 1E-3, 1E-8, 1E-9]
-    Res-Shield_FI:
+    Shield_FI:
         H2: [ 99, 40, 4, 0 ]
         D2: [ 99, 40, 4, 0 ]
         4He: [ 99, 40, 4, 0 ]
@@ -229,12 +229,12 @@ Fill:
         D2: 17
         4He: 2.5
         3He: 2.5
-    Tgt-Shield_FI:
+    Precool_FI:
         H2: [ 99, 95, 2, 0 ]
         D2: [ 99, 95, 2, 0 ]
         4He: [ 99, 95, 2, 0 ]
         3He: [ 99, 95, 2, 0 ]
-    Tgt-Shield_FC:
+    Precool_FC:
         H2: 90
         D2: 90
         4He: 90
@@ -245,7 +245,7 @@ Safe:
         D2: False
         4He: False
         3He: False
-    Res-Shield_FC:
+    Shield_FC:
         H2: 0
         D2: 0
         4He: 0
@@ -265,7 +265,7 @@ Safe:
         D2: False
         4He: False
         3He: False
-    Tgt-Shield_FC:
+    Precool_FC:
         H2: 0
         D2: 0
         4He: 0
