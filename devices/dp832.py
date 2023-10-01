@@ -45,14 +45,11 @@ class Device():
         for i, pv_name in enumerate(self.channels):
             if "None" in pv_name: continue
             try:
-                print(pv_name, i)
                 values = self.t.read_sp(str(i+1))
-                print(pv_name, values)
                 self.pvs[pv_name + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
                 value = self.t.read_state(str(i+1))
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
-                print(pv_name, value)
             except OSError:
                 print("Read out error on", pv_name)
                 await self.reconnect()
