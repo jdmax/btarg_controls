@@ -39,6 +39,7 @@ class Device():
             await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+            print(self.t)
 
     async def read_outs(self):
         """Read and set OUT PVs at the start of the IOC"""
