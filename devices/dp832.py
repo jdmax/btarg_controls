@@ -47,8 +47,10 @@ class Device():
             try:
                 print(pv_name, i)
                 values = self.t.read_sp(str(i+1))
+                print(pv_name, values)
                 self.pvs[pv_name + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
+                print(i+1, self.pvs[pv_name].get())
                 value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
                 print(pv_name, value)
@@ -89,9 +91,9 @@ class Device():
             if "None" in channel: continue
             try:
                 new_reads[channel+'_VI'], new_reads[channel+'_CI'], power = self.t.read(i+1)
-                new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
+                #new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
                 new_reads[channel + '_WI'] = new_reads[channel + '_VI'] * new_reads[channel + '_CI']
-                new_reads[channel+'_Mode'] = self.t.read_state(i+1)
+                #new_reads[channel+'_Mode'] = self.t.read_state(i+1)
             except OSError:
                 self.set_alarm(channel + "_VI")
                 await self.reconnect()
