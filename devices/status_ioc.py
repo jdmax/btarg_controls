@@ -117,6 +117,7 @@ class Device():
                 spec = self.species[self.pvs['species'].get()]
 
                 for pv in self.states['options']['thresholds'][spec]['Standby']:
+                    print(pv, pv[0], curr[pv], pv[1])
                     if pv[0] < curr[pv] < pv[1]:   # if any of these are between values, send to standby
                         await aioca.caput('TGT:BTARG:status', '6')  # Set to standby
 
@@ -154,8 +155,6 @@ class Device():
                     self.pvs['production'].set(0)    # Not Ready
 
                 # Add check for standby state
-
-
             except aioca.CANothing as e:
                 print("Caget error:", e)
                 self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
