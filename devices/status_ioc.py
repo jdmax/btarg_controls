@@ -34,7 +34,7 @@ class Device():
         self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
 
         prod_states = ['Not Ready', 'Emptying', 'Empty', 'Filling', 'Full']
-        self.pvs['production'] = builder.mbbIn('Cell_production', *prod_states)
+        self.pvs['production'] = builder.mbbIn('production', *prod_states)
 
         flag_states = ['Empty', 'Cu-Sn', 'Carbon']
         self.pvs['flag'] = builder.mbbIn('Flag_state', *flag_states)
