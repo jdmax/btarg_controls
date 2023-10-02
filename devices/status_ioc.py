@@ -123,9 +123,9 @@ class Device():
 
                 satisfied = True
                 if "Emptying" in stat or "Empty" in stat:
-                    for pv in self.states['options']['thresholds'][spec]['Empty']:  # go through all relevant pvs to determine if any are alarming
-                        print(pv, pv[0], curr[pv], pv[1])
-                        if not pv[0] < curr[pv] < pv[1]:   # Is this one alarming? If not 0, then yes it is.
+                    for pv, list in self.states['options']['thresholds'][spec]['Empty'].items():  # go through all relevant pvs to determine if any are alarming
+                        print(pv, list[0], curr[pv], list[1])
+                        if not list[0] < curr[pv] < list[1]:   # Is this one alarming? If not 0, then yes it is.
                             satisfied = False
                 elif "Filling" in stat or "Full" in stat:
                     for pv in self.states['options']['thresholds'][spec]['Full']:  # go through all relevant pvs to determine if any are alarming
