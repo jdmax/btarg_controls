@@ -122,7 +122,7 @@ class Device():
                     pv_name = pv.replace(self.device_name + ':', '')
                     limits = self.states[stat][pv_name][spec]
                     print(limits[1], curr[pv], limits[2])
-                    if limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
+                    if not limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
                         satisfied = False
                 print("satisfied?", satisfied)
                 if 'Empty' in stat:
