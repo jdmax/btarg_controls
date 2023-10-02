@@ -121,10 +121,8 @@ class Device():
                 for pv in self.settings['full_status']:  # go through all relevant pvs to determine if any are alarming
                     pv_name = pv.replace(self.device_name + ':', '')
                     limits = self.states[stat][pv_name][spec]
-                    print(limits[1], curr[pv], limits[2])
                     if not limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
                         satisfied = False
-                print("satisfied?", satisfied)
                 if 'Empty' in stat:
                     if satisfied:
                         self.pvs['production'].set(2)  # Empty
