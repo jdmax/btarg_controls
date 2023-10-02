@@ -116,7 +116,7 @@ class Device():
                     self.pvs['flag'].set(0)
 
                 stat = self.status[self.pvs['status'].get()]
-                spec = self.status[self.pvs['species'].get()]
+                spec = self.species[self.pvs['species'].get()]
                 print(stat, spec)
                 satisfied = True
                 for pv in self.settings['full_status']:  # go through all relevant pvs to determine if any are alarming
