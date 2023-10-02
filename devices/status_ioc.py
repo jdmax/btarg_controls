@@ -116,7 +116,7 @@ class Device():
                     self.pvs['flag'].set(0)
 
                 stat = self.status[self.pvs['status'].get()]
-
+                print(stat)
                 not_alarming = True
                 for pv in full_status:  # go through all relevant pvs to determine if any are alarming
                     if not c[pv] == 0:   # Is this one alarming? If not 0, then yes it is.

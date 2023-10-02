@@ -231,6 +231,11 @@ Fill:  # "Fill" alarms are same as Full. Difference is flows and setpoints. When
         D2: 1
         4He: 1
         3He: 1
+    Shield_FC:
+        H2: 10
+        D2: 10
+        4He: 10
+        3He: 10
     Precool_FI:
         H2: [ 99, 95, 2, 0 ]
         D2: [ 99, 95, 2, 0 ]
