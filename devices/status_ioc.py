@@ -124,6 +124,7 @@ class Device():
                     print(curr[pv], limits)
                     if limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
                         satisfied = False
+                print("satisfied?", satisfied)
                 if 'Empty' in stat:
                     if satisfied:
                         self.pvs['production'].set(2)  # Empty
