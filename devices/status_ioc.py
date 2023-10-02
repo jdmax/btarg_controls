@@ -122,8 +122,8 @@ class Device():
                 for pv in self.settings['full_status']:  # go through all relevant pvs to determine if any are alarming
                     pv_name = pv.replace(self.device_name + ':', '')
                     limits = self.states[stat][pv_name][spec]
-                    print(stat, spec, pv_name, limits)
-                    if limits[1] > curr[pv_name] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
+                    print(curr)
+                    if limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
                         satisfied = False
                 if 'Empty' in stat:
                     if satisfied:
