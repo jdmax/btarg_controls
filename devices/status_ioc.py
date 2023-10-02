@@ -33,8 +33,8 @@ class Device():
         self.pvs['status'] = builder.mbbOut('status', *self.status, on_update_name=self.stat_update)  # come from states.yaml
         self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
 
-        prod_states = ['Empty', 'Full', 'Solid', 'Full+Solid', 'Not Ready']
-        self.pvs['production'] = builder.mbbIn('production', *prod_states)
+        prod_states = ['Not Ready', 'Emptying', 'Empty', 'Filling', 'Full']
+        self.pvs['production'] = builder.mbbIn('Cell_production', *prod_states)
 
         flag_states = ['Empty', 'Cu-Sn', 'Carbon']
         self.pvs['flag'] = builder.mbbIn('Flag_state', *flag_states)
@@ -118,22 +118,24 @@ class Device():
                 stat = self.status[self.pvs['status'].get()]
 
                 not_alarming = True
-                for pv in full_status:
-                    if not c[pv] == 0:
+                for pv in full_status:  # go through all relevant pvs to determine if any are alarming
+                    if not c[pv] == 0:   # Is this one alarming? If not 0, then yes it is.
                         not_alarming = False
-                if not_alarming:
-                    if self.pvs['flag'].get() == 0:
-                        if 'Empty' in stat:
-                            self.pvs['production'].set(0)  # Empty
-                        elif 'Fill' in stat:
-                            self.pvs['production'].set(1)  # Full
+                if 'Empty' in stat:
+                    if not_alarming:
+                        self.pvs['production'].set(2)  # Empty
                     else:
-                        if 'Empty' in stat:
-                            self.pvs['production'].set(2)  # Empty + Solid
-                        elif 'Fill' in stat:
-                            self.pvs['production'].set(3)  # Full + Solid
+                        self.pvs['production'].set(1)  # Emptying
+                elif 'Fill' in stat:
+                    if not_alarming:  # if not alarming, then we have reached full condition
+                        await aioca.caput('TGT:BTARG:status', '3')  # If "Fill" is not alarming, then it has reached "Full."
+                    else:
+                        self.pvs['production'].set(3)  # Filling
+                elif 'Full' in stat:
+                    if not_alarming:  # if not alarming, then we have reached full condition
+                        self.pvs['production'].set(4)  # Full
                 else:
-                    self.pvs['production'].set(4)    # Not Ready
+                    self.pvs['production'].set(0)    # Not Ready
             except aioca.CANothing as e:
                 print("Caget error:", e)
                 self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
