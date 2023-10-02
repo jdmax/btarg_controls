@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2023-10-02 10:55:34 by poltar-->
+<!--Saved on 2023-10-02 11:12:02 by poltar-->
 <display version="2.0.0">
   <name>BTarg Controls</name>
   <width>1090</width>
@@ -1333,16 +1333,54 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_33</name>
-    <pv_name>pva://TGT:BTARG:Evaporator_FI</pv_name>
-    <x>910</x>
+    <pv_name>pva://PI8210</pv_name>
+    <x>850</x>
     <y>60</y>
-    <width>130</width>
+    <width>60</width>
     <precision>1</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_58</name>
-    <text>Liquid Level:</text>
+    <text>Level:</text>
+    <x>930</x>
+    <y>60</y>
+    <width>50</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_37</name>
+    <pv_name>pva://LL8210</pv_name>
+    <x>990</x>
+    <y>60</y>
+    <width>60</width>
+    <precision>1</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_59</name>
+    <text>In:</text>
     <x>780</x>
     <y>80</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_38</name>
+    <pv_name>pva://TD8210</pv_name>
+    <x>850</x>
+    <y>80</y>
+    <width>60</width>
+    <precision>1</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_39</name>
+    <pv_name>pva://TD8211</pv_name>
+    <x>990</x>
+    <y>80</y>
+    <width>60</width>
+    <precision>1</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_60</name>
+    <text>Out:</text>
+    <x>930</x>
+    <y>80</y>
+    <width>50</width>
   </widget>
 </display>
