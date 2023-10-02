@@ -116,7 +116,7 @@ class Device():
                 stat = self.status[self.pvs['status'].get()]
                 spec = self.species[self.pvs['species'].get()]
 
-                for pv in self.states['options']['thresholds'][spec]['Standby'].items():
+                for pv, l in self.states['options']['thresholds'][spec]['Standby'].items():
                     print(pv, l, l[0], curr[pv], l[1])
                     if l[0] < curr[pv] < l[1]:   # if any of these are between values, send to standby
                         await aioca.caput('TGT:BTARG:status', '6')  # Set to standby
