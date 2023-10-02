@@ -108,9 +108,9 @@ class Device():
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_2'))   # right flag
                 await asyncio.gather(*group)
 
-                if c['TGT:BTARG:Flag_MI'] < curr['TGT:BTARG:Flag_pos_1'] + 1:
+                if curr['TGT:BTARG:Flag_MI'] < curr['TGT:BTARG:Flag_pos_1'] + 1:
                     self.pvs['flag'].set(1)
-                elif c['TGT:BTARG:Flag_MI'] > curr['TGT:BTARG:Flag_pos_2'] - 1:
+                elif curr['TGT:BTARG:Flag_MI'] > curr['TGT:BTARG:Flag_pos_2'] - 1:
                     self.pvs['flag'].set(2)
                 else:
                     self.pvs['flag'].set(0)
