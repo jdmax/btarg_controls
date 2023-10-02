@@ -134,6 +134,8 @@ class Device():
                 elif 'Full' in stat:
                     if not_alarming:  # if not alarming, then we have reached full condition
                         self.pvs['production'].set(4)  # Full
+                    else:
+                        self.pvs['production'].set(0)    # Not Ready, something is awry
                 else:
                     self.pvs['production'].set(0)    # Not Ready
             except aioca.CANothing as e:
