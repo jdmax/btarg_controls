@@ -116,11 +116,12 @@ class Device():
                     self.pvs['flag'].set(0)
 
                 stat = self.status[self.pvs['status'].get()]
+                spec = self.status[self.pvs['species'].get()]
                 print(stat)
                 satisfied = True
                 for pv in self.settings['full_status']:  # go through all relevant pvs to determine if any are alarming
                     pv_name = pv.replace(self.device_name + ':', '')
-                    limits = self.states[stat][pv_name]
+                    limits = self.states[stat][spec][pv_name]
                     print(stat, pv_name, limits)
                     if limits[1] > curr[pv_name] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
                         satisfied = False
