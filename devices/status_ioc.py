@@ -99,10 +99,8 @@ class Device():
             try:
                 group = []
                 curr = {}    # dict of current status keyed on PV name
-                #full_status = []
                 for pvname in self.settings['full_status']:
                     group.append(self.a_get(curr, pvname))
-                #    full_status.append(pvname)
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_MI'))
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_1'))   # left flag
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_2'))   # right flag
@@ -117,20 +115,34 @@ class Device():
 
                 stat = self.status[self.pvs['status'].get()]
                 spec = self.species[self.pvs['species'].get()]
+
+                for pv in self.states['options']['thresholds'][spec]['Standby']:
+                    if pv[0] < curr[pv] < pv[1]:   # if any of these are between values, send to standby
+                        await aioca.caput('TGT:BTARG:status', '6')  # Set to standby
+
                 satisfied = True
-                for pv in self.settings['full_status']:  # go through all relevant pvs to determine if any are alarming
-                    pv_name = pv.replace(self.device_name + ':', '')
-                    limits = self.states[stat][pv_name][spec]
-                    if not limits[1] > curr[pv] > limits[2]:   # Is this one alarming? If not 0, then yes it is.
-                        satisfied = False
+                if "Emptying" in stat or "Empty" in stat:
+                    for pv in self.states['options']['thresholds'][spec]['Empty']:  # go through all relevant pvs to determine if any are alarming
+                        print(pv, pv[0], curr[pv], pv[1])
+                        if not pv[0] < curr[pv] < pv[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
+                elif "Filling" in stat or "Full" in stat:
+                    for pv in self.states['options']['thresholds'][spec]['Full']:  # go through all relevant pvs to determine if any are alarming
+                        if not pv[0] < curr[pv] < pv[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
                 if 'Empty' in stat:
                     if satisfied:
                         self.pvs['production'].set(2)  # Empty
                     else:
+                        self.pvs['production'].set(0)    # Not Ready, something is awry
+                elif 'Emptying' in stat:
+                    if satisfied:
+                        await aioca.caput('TGT:BTARG:status', '2')  # Set to empty
+                    else:
                         self.pvs['production'].set(1)  # Emptying
-                elif 'Fill' in stat:
+                elif 'Filling' in stat:
                     if satisfied:  # if not alarming, then we have reached full condition
-                        await aioca.caput('TGT:BTARG:status', '3')  # If "Fill" is not alarming, then it has reached "Full."
+                        await aioca.caput('TGT:BTARG:status', '4')  # Set to full
                     else:
                         self.pvs['production'].set(3)  # Filling
                 elif 'Full' in stat:
@@ -140,14 +152,18 @@ class Device():
                         self.pvs['production'].set(0)    # Not Ready, something is awry
                 else:
                     self.pvs['production'].set(0)    # Not Ready
+
+                # Add check for standby state
+
+
             except aioca.CANothing as e:
                 print("Caget error:", e)
                 self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
                 self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
-            #except Exception as e:
-            #    print("Production status determination error:", e)
-            #    self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
-            #    self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
+            except Exception as e:
+                print("Production status determination error:", e)
+                self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
+                self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
 
         return True
 
