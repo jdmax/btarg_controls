@@ -5,6 +5,10 @@ Evaporator_FC:
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Evaporator_FI:
     DESC: 'Evaporator Flow'
     PREC: 2
@@ -21,6 +25,10 @@ Precool_FC:
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Precool_FI:
     DESC: 'Precool Flow'
     PREC: 2
@@ -37,6 +45,10 @@ Shield_FC:
     EGU: 'slpm'
     DRVH: 200
     DRVL: 0
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
 Shield_FI:
     DESC: 'Shield Flow Indicator'
     PREC: 2

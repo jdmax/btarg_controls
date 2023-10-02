@@ -280,8 +280,8 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Cell_Top_TI:
-        H2: [ 33, 32, 19, 18 ]
-        D2: [ 33, 32, 19, 18 ]
+        H2: [ 45, 43, 19, 18 ]
+        D2: [ 45, 43, 19, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Target_Supply_PI:
