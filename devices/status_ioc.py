@@ -144,10 +144,10 @@ class Device():
                 print("Caget error:", e)
                 self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
                 self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
-            except Exception as e:
-                print("Production status determination error:", e)
-                self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
-                self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
+            #except Exception as e:
+            #    print("Production status determination error:", e)
+            #    self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)
+            #    self.pvs['flag'].set_alarm(severity=2, alarm=alarm.STATE_ALARM)
 
         return True
 
