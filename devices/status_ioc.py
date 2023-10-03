@@ -129,6 +129,7 @@ class Device():
                     for pv, l in self.states['options']['thresholds'][spec]['Full'].items():  # go through all relevant pvs to determine if any are alarming
                         if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
                             satisfied = False
+
                 if 'Empty' in stat:
                     if satisfied:
                         self.pvs['production'].set(2)  # Empty

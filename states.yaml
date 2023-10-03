@@ -29,7 +29,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [28, 300]
                 TGT:BTARG:Target_Supply_PI: [20, 23]
             Full:
-                TGT:BTARG:Cell_Top_TI: [16, 24.5]
+                TGT:BTARG:Cell_Top_TI: [16, 24.7]
                 TGT:BTARG:Target_Supply_PI: [16, 19]
             Standby:
                 TGT:BTARG:Cell_Bottom_TI: [0, 17]
@@ -85,11 +85,6 @@ Cooldown:
         D2: [99, 95, 5, 0]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
-    Evaporator_FC:
-        H2: 70
-        D2: 70
-        4He: 70
-        3He: 70
     Coolant_Mode:
         H2: False
         D2: False
@@ -100,7 +95,17 @@ Cooldown:
         D2: [99, 95, 5, 0]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
+        H2: 70
+        D2: 70
+        4He: 70
+        3He: 70
+    Evaporator_FC:
         H2: 70
         D2: 70
         4He: 70
@@ -162,8 +167,8 @@ Emptying:
         4He: 1
         3He: 1
     Evaporator_SP:
-        H2: 30
-        D2: 30
+        H2: 40
+        D2: 40
         4He: 2.5
         3He: 2.5
     Evaporator_Mode:
@@ -176,6 +181,11 @@ Emptying:
         D2: [99, 95, 2, 0]
         4He: [99, 95, 2, 0]
         3He: [99, 95, 2, 0]
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
         H2: 50
         D2: 50
@@ -243,8 +253,8 @@ Empty:
         4He: 1
         3He: 1
     Evaporator_SP:
-        H2: 30
-        D2: 30
+        H2: 40
+        D2: 40
         4He: 2.5
         3He: 2.5
     Evaporator_Mode:
@@ -257,6 +267,11 @@ Empty:
         D2: [99, 95, 2, 0]
         4He: [99, 95, 2, 0]
         3He: [99, 95, 2, 0]
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
         H2: 50
         D2: 50
@@ -334,16 +349,16 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         D2: 1
         4He: 1
         3He: 1
-    Shield_FC:
-        H2: 10
-        D2: 10
-        4He: 10
-        3He: 10
     Precool_FI:
         H2: [ 99, 95, 2, 0 ]
         D2: [ 99, 95, 2, 0 ]
         4He: [ 99, 95, 2, 0 ]
         3He: [ 99, 95, 2, 0 ]
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
         H2: 50
         D2: 50
@@ -412,7 +427,7 @@ Full:
         3He: True
     Evaporator_SP:
         H2: 21
-        D2: 22
+        D2: 24
         4He: 2.5
         3He: 2.5
     Evaporator_Mode:
@@ -425,6 +440,11 @@ Full:
         D2: [ 99, 95, 2, 0 ]
         4He: [ 99, 95, 2, 0 ]
         3He: [ 99, 95, 2, 0 ]
+    Shield_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
         H2: 50
         D2: 50
@@ -507,10 +527,10 @@ Standby:
         4He: [99, 95, 2, 0]
         3He: [99, 95, 2, 0]
     Shield_FC:
-        H2: 10
-        D2: 10
-        4He: 10
-        3He: 10
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
     Precool_FC:
         H2: 20
         D2: 20
