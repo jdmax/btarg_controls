@@ -23,7 +23,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Top_TI: [16, 24.7]
                 TGT:BTARG:Target_Supply_PI: [16, 22]
             Standby:  # any of these being true changes to standby
-                TGT:BTARG:Cell_Bottom_TI: [0, 17]
+                TGT:BTARG:Cell_Bottom_TI: [0, 18]
         D2:
             Empty:
                 TGT:BTARG:Cell_Bottom_TI: [28, 300]
@@ -32,7 +32,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Top_TI: [16, 24.8]
                 TGT:BTARG:Target_Supply_PI: [16, 19]
             Standby:
-                TGT:BTARG:Cell_Bottom_TI: [0, 17]
+                TGT:BTARG:Cell_Bottom_TI: [0, 24]
 
 Cooldown:
     Evaporator_TI:
