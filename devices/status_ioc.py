@@ -136,6 +136,7 @@ class Device():
                     else:
                         self.pvs['production'].set(0)    # Not Ready, something is awry
                 elif 'Emptying' in stat:
+                    print("Emptying")
                     if satisfied:
                         await aioca.caput('TGT:BTARG:status', '2')  # Set to empty
                     else:
@@ -151,6 +152,7 @@ class Device():
                     else:
                         self.pvs['production'].set(0)    # Not Ready, something is awry
                 else:
+                    print("Not Ready", stat)
                     self.pvs['production'].set(0)    # Not Ready
 
                 # Add check for standby state
