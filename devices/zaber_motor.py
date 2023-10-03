@@ -93,7 +93,7 @@ class Device():
         chan = self.channels.index(p)
         try:
             if '_MC' in pv_name:  # valve controller commands
-                if self.settings[p]['check_home']:
+                if self.settings['check_home'][p]:
                     self.pvs[p+"_MI"].set(self.t.home(chan))
                 self.pvs[p+"_MI"].set(self.t.move_to(chan, new_value))  # set returned value
             elif '_home' in pv_name:
