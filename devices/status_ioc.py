@@ -129,18 +129,17 @@ class Device():
                     for pv, l in self.states['options']['thresholds'][spec]['Full'].items():  # go through all relevant pvs to determine if any are alarming
                         if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
                             satisfied = False
-                print("Start", stat)
-                if 'Empty' in stat:
-                    if satisfied:
-                        self.pvs['production'].set(2)  # Empty
-                    else:
-                        self.pvs['production'].set(0)    # Not Ready, something is awry
-                elif 'Emptying' in stat:
-                    print("Emptying")
+
+                if 'Emptying' in stat:
                     if satisfied:
                         await aioca.caput('TGT:BTARG:status', '2')  # Set to empty
                     else:
                         self.pvs['production'].set(1)  # Emptying
+                elif 'Empty' in stat:
+                    if satisfied:
+                        self.pvs['production'].set(2)  # Empty
+                    else:
+                        self.pvs['production'].set(0)    # Not Ready, something is awry
                 elif 'Filling' in stat:
                     if satisfied:  # if not alarming, then we have reached full condition
                         await aioca.caput('TGT:BTARG:status', '4')  # Set to full
@@ -152,7 +151,6 @@ class Device():
                     else:
                         self.pvs['production'].set(0)    # Not Ready, something is awry
                 else:
-                    print("Not Ready", stat)
                     self.pvs['production'].set(0)    # Not Ready
 
                 # Add check for standby state
