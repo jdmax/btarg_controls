@@ -32,7 +32,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Top_TI: [16, 24.8]
                 TGT:BTARG:Target_Supply_PI: [16, 19]
             Standby:
-                TGT:BTARG:Cell_Bottom_TI: [0, 24]
+                TGT:BTARG:Cell_Bottom_TI: [0, 19]
 
 Cooldown:
     Evaporator_TI:
@@ -563,6 +563,11 @@ Safe:
         4He: False
         3He: False
     Precool_FC:
+        H2: 0
+        D2: 0
+        4He: 0
+        3He: 0
+    Reservoir-Heater_Mode:
         H2: 0
         D2: 0
         4He: 0
