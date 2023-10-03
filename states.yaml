@@ -20,7 +20,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [28, 300]
                 TGT:BTARG:Target_Supply_PI: [16, 22]
             Full:
-                TGT:BTARG:Cell_Top_TI: [16, 24.65]
+                TGT:BTARG:Cell_Top_TI: [16, 24.7]
                 TGT:BTARG:Target_Supply_PI: [16, 22]
             Standby:  # any of these being true changes to standby
                 TGT:BTARG:Cell_Bottom_TI: [0, 17]
