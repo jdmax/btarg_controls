@@ -45,6 +45,9 @@ class Device():
     def set_position(self, new_value, pv):
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         channel = pv_name.replace("_locations", '')
+        chan = self.channels.index(channel)
+        if self.settings['check_home'][channel]:
+            self.pvs[channel + "_MI"].set(self.t.home(chan))
         self.pvs[channel+"_MC"].set(int(self.pvs[channel+"_pos_"+str(new_value)].get()))
         # set motor to value in position in corresponding PV
 
@@ -93,8 +96,6 @@ class Device():
         chan = self.channels.index(p)
         try:
             if '_MC' in pv_name:  # valve controller commands
-                if self.settings['check_home'][p]:
-                    self.pvs[p+"_MI"].set(self.t.home(chan))
                 self.pvs[p+"_MI"].set(self.t.move_to(chan, new_value))  # set returned value
             elif '_home' in pv_name:
                 if new_value:
