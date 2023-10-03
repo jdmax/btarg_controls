@@ -372,7 +372,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
 Full:
     Evaporator_TI:
         H2: [ 23, 22, 19, 18 ]
-        D2: [ 23, 22, 19, 18 ]
+        D2: [ 25, 24.5, 19, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Cell_Bottom_TI:
@@ -387,7 +387,7 @@ Full:
         3He: [ 5, 4, 2, 0 ]
     Target_Supply_PI:
         H2: [ 25, 22, 20, 19 ]
-        D2: [ 25, 22, 20, 19 ]
+        D2: [ 25, 22, 18, 17 ]
         4He: [ 33, 31, 16, 15 ]
         3He: [ 90, 70, 30, 0]
     Reservoir_LI:
