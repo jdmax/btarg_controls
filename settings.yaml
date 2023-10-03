@@ -238,4 +238,4 @@ zaber:
             - [Carbon, 48]
     check_home:    # should it run the home routine before each move
         Shutoff: False
-        Flag: True
+        Flag: False

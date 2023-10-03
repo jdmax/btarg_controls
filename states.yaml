@@ -248,8 +248,8 @@ Empty:
         4He: 1
         3He: 1
     Evaporator_SP:
-        H2: 40
-        D2: 40
+        H2: 30
+        D2: 30
         4He: 2.5
         3He: 2.5
     Evaporator_Mode:
