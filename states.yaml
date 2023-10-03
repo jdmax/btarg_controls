@@ -29,7 +29,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [28, 300]
                 TGT:BTARG:Target_Supply_PI: [20, 23]
             Full:
-                TGT:BTARG:Cell_Top_TI: [16, 24.7]
+                TGT:BTARG:Cell_Top_TI: [16, 24.8]
                 TGT:BTARG:Target_Supply_PI: [16, 19]
             Standby:
                 TGT:BTARG:Cell_Bottom_TI: [0, 17]
@@ -377,7 +377,7 @@ Full:
         3He: [ 5, 4, 2, 0 ]
     Cell_Top_TI:
         H2: [ 22, 21.5, 19, 18 ]
-        D2: [ 26, 24.5, 23.8, 18 ]
+        D2: [ 26, 24.8, 23.8, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Target_Supply_PI:
