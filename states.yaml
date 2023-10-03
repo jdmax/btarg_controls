@@ -199,12 +199,12 @@ Empty:
         3He: [15, 12, 6, 5]
     Cell_Bottom_TI:
         H2: [50, 45, 28, 27]
-        D2: [50, 45, 28, 27]
+        D2: [55, 50, 28, 27]
         4He: [15, 12, 6, 5]
         3He: [15, 12, 6, 5]
     Cell_Top_TI:
         H2: [50, 45, 26, 25]
-        D2: [50, 45, 26, 25]
+        D2: [55, 50, 26, 25]
         4He: [15, 12, 6, 5]
         3He: [15, 12, 6, 5]
     Target_Supply_PI:
@@ -286,7 +286,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         3He: [ 5, 4, 2, 0 ]
     Cell_Bottom_TI:
         H2: [ 33, 32, 19, 18 ]
-        D2: [ 33, 32, 19, 18 ]
+        D2: [ 44, 42, 19, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Cell_Top_TI:
