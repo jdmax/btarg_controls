@@ -99,7 +99,7 @@ class Device():
             try:
                 group = []
                 curr = {}    # dict of current status keyed on PV name
-                for pvname in self.settings['full_status']:
+                for pvname in self.settings['full_status']:   # read PVs need to determine conditions
                     group.append(self.a_get(curr, pvname))
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_MI'))
                 group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_1'))   # left flag
@@ -120,16 +120,22 @@ class Device():
                     if l[0] < curr[pv] < l[1]:   # if any of these are between values, send to standby
                         await aioca.caput('TGT:BTARG:status', '5')  # Set to standby
 
+                # Check to see if the applicable conditions are satisfied
                 satisfied = True
                 if "Emptying" in stat or "Empty" in stat:
-                    for pv, l in self.states['options']['thresholds'][spec]['Empty'].items():  # go through all relevant pvs to determine if any are alarming
+                    for pv, l in self.states['options']['thresholds'][spec]['Empty'].items():  # go through all relevant pvs
                         if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
                             satisfied = False
-                elif "Filling" in stat or "Full" in stat:
-                    for pv, l in self.states['options']['thresholds'][spec]['Full'].items():  # go through all relevant pvs to determine if any are alarming
+                elif "Filling" in stat:
+                    for pv, l in self.states['options']['thresholds'][spec]['Filling'].items():  # go through all relevant pvs
+                        if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
+                elif "Full" in stat:
+                    for pv, l in self.states['options']['thresholds'][spec]['Full'].items():  # go through all relevant pvs
                         if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
                             satisfied = False
 
+                # Applying states and changes based on conditions
                 if 'Emptying' in stat:
                     if satisfied:
                         await aioca.caput('TGT:BTARG:status', '2')  # Set to empty
