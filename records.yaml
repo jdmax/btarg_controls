@@ -425,8 +425,8 @@ OVC_CC_PI:
     EGU: 'torr'
     HIHI: 1.0E-3
     HIGH: 1.0E-4
-    LOW: 1.0E-8
-    LOLO: 1.0E-9
+    LOW: -Inf
+    LOLO: -Inf
 OVC_Pirani_PI:
     DESC: 'OVC Pirani Pressure'
     PREC: 6
