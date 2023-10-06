@@ -147,12 +147,12 @@ class Device():
                     else:
                         self.pvs['production'].set(0)    # Not Ready, something is awry
                 elif 'Filling' in stat:
-                    if satisfied:  # if not alarming, then we have reached full condition
+                    if satisfied:  # if satisfied, then we have reached full condition
                         await aioca.caput('TGT:BTARG:status', '4')  # Set to full
                     else:
                         self.pvs['production'].set(3)  # Filling
                 elif 'Full' in stat:
-                    if satisfied:  # if not alarming, then we have reached full condition
+                    if satisfied:
                         self.pvs['production'].set(4)  # Full
                     else:
                         self.pvs['production'].set(0)    # Not Ready, something is awry
