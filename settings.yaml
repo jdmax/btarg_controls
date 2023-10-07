@@ -234,7 +234,7 @@ zaber:
             - [Closed, 0]
         Flag:
             - [Empty, 21]
-            - [Cu-Sn, -9]
+            - [Cu-Sn, -6]
             - [Carbon, 48]
     check_home:    # should it run the home routine before each move
         Shutoff: False
