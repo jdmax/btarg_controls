@@ -277,7 +277,7 @@ Evaporator_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: -5
+    LOW: -8
     LOLO: -10
 Precool_Exhaust_SP1:
     DESC: 'Precool Exhaust Setpoint 1'
