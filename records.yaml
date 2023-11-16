@@ -301,8 +301,8 @@ Precool_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 0
-    LOLO: -5
+    LOW: -5
+    LOLO: -10
 Evap_Exhaust_PI:
     DESC: 'Evaporator Exhaust Pressure'
     PREC: 2
