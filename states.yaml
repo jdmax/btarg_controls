@@ -401,7 +401,7 @@ Full:
         4He: True
         3He: True
     Evaporator_SP:
-        H2: 21
+        H2: 20
         D2: 24
         4He: 2.5
         3He: 2.5
