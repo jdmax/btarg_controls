@@ -190,7 +190,7 @@ mks937b:
     autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1001'            # channel 3 of serial to ethernet
-    address: '003'          # serial address set on device
+    address: '003'          # serial address set on device, must be 3 digits
     timeout: 2
     delay: 2
     channels:

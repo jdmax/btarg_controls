@@ -87,6 +87,7 @@ class DeviceConnection():
             print(f"MKS 937B connection failed on {self.host}: {e}")
 
         self.read_regex = re.compile('ACK(.*)\s(.*)\s(.*)\s(.*)\s(.*)\s(.*);FF')
+        self.read_power_regex = re.compile('ACK([ON|OFF]);FF')
 
     def read_all(self):
         '''Read pressures for all channels.'''
@@ -111,3 +112,36 @@ class DeviceConnection():
         except Exception as e:
             print(f"MKS 937B read failed on {self.host}: {e}")
             raise OSError('MKS 937B read')
+
+    def read_power(self, channel):
+        '''Read sensor power status for given channel. channel can be 1, 3 or 5'''
+        try:
+            command = f"@{self.address}CP{channel}?;FF"
+            self.tn.write(bytes(command, 'ascii'))
+            data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            m = self.read_power_regex.search(data)
+            if 'ON' in m.groups()[0]:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(f"MKS 937B power read failed on {self.host}: {e}")
+            raise OSError('MKS 937B power read')
+
+    def set_power(self, channel, value):
+        '''Set sensor power status for given channel. channel can be 1, 3 or 5'''
+        power = "ON" if value else "OFF"
+        try:
+            command = f"@{self.address}CP{channel}!{power};FF"
+            self.tn.write(bytes(command, 'ascii'))
+            data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            m = self.read_power_regex.search(data)
+            if 'ON' in m.groups()[0]:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(f"MKS 937B power set failed on {self.host}: {e}")
+            raise OSError('MKS 937B power set')
