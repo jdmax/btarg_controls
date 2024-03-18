@@ -87,7 +87,7 @@ class DeviceConnection():
             print(f"MKS 937B connection failed on {self.host}: {e}")
 
         self.read_regex = re.compile('ACK(.*)\s(.*)\s(.*)\s(.*)\s(.*)\s(.*);FF')
-        self.read_power_regex = re.compile('ACK([ON|OFF]);FF')
+        self.read_power_regex = re.compile('ACK(ON|OFF);FF')
 
     def read_all(self):
         '''Read pressures for all channels.'''
