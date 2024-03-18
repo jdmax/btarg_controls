@@ -20,10 +20,10 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [28, 300]
                 TGT:BTARG:Target_Supply_PI: [16, 22]
             Filling:     # When to stop filling
-                TGT:BTARG:Cell_Top_TI: [16, 24.8]
-                TGT:BTARG:Target_Supply_PI: [16, 18.8]
+                TGT:BTARG:Cell_Top_TI: [16, 21.7]
+                TGT:BTARG:Target_Supply_PI: [16, 19.2]
             Full:   # Are we still full?
-                TGT:BTARG:Cell_Top_TI: [16, 24.7]
+                TGT:BTARG:Cell_Top_TI: [16, 22.2]
                 TGT:BTARG:Target_Supply_PI: [16, 22]
             Standby:  # any of these being true changes to standby
                 TGT:BTARG:Cell_Bottom_TI: [0, 18]
@@ -61,8 +61,8 @@ Cooldown:
         4He: [90, 70, 30, 0]
         3He: [90, 70, 30, 0]
     Reservoir_LI:
-        H2: [90, 70, 30, 0]
-        D2: [90, 70, 30, 0]
+        H2: [90, 70, -1, -2]
+        D2: [90, 70, -1, -2]
         4He: [90, 70, 30, 0]
         3He: [90, 70, 30, 0]
     Evaporator_Out_TI:
@@ -76,8 +76,8 @@ Cooldown:
         4He: [99, 95, 0, 0]
         3He: [99, 95, 0, 0]
     Evaporator_FI:
-        H2: [99, 95, 5, 0]
-        D2: [99, 95, 5, 0]
+        H2: [99, 95, -1, -2]
+        D2: [99, 95, -1, -2]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
     Coolant_Mode:
@@ -86,8 +86,8 @@ Cooldown:
         4He: False
         3He: False
     Precool_FI:
-        H2: [99, 95, 5, 0]
-        D2: [99, 95, 5, 0]
+        H2: [99, 95, -1, -2]
+        D2: [99, 95, -1, -2]
         4He: [99, 95, 5, 0]
         3He: [99, 95, 5, 0]
     Shield_FC:
@@ -107,7 +107,7 @@ Cooldown:
         3He: 70
 Emptying:
     Evaporator_TI:
-        H2: [34, 32, 29, 28]
+        H2: [44, 42, 22, 21]
         D2: [44, 42, 23, 22]
         4He: [15, 12, 6, 5]
         3He: [15, 12, 6, 5]
@@ -132,7 +132,7 @@ Emptying:
         4He: [90, 70, 30, 20]
         3He: [90, 70, 30, 20]
     Evaporator_Out_TI:
-        H2: [37, 35, 23, 22]
+        H2: [37, 35, 20.5, 20]
         D2: [55, 50, 23, 22]
         4He: [25, 20, 6, 5]
         3He: [25, 20, 6, 5]
@@ -188,7 +188,7 @@ Emptying:
         3He: 65
 Empty:
     Evaporator_TI:
-        H2: [34, 32, 29, 28]
+        H2: [44, 42, 24, 22]
         D2: [44, 43, 24, 22]
         4He: [15, 12, 6, 5]
         3He: [15, 12, 6, 5]
@@ -203,7 +203,7 @@ Empty:
         4He: [15, 12, 6, 5]
         3He: [15, 12, 6, 5]
     Target_Supply_PI:
-        H2: [23, 22, 20.7, 20]
+        H2: [23, 22, 18.9, 18.5]
         D2: [23, 22, 19.5, 19]
         4He: [90, 70, 30, 0]
         3He: [90, 70, 30, 0]
@@ -213,7 +213,7 @@ Empty:
         4He: [90, 70, 30, 20]
         3He: [90, 70, 30, 20]
     Evaporator_Out_TI:
-        H2: [37, 35, 23, 22]
+        H2: [50, 48, 22, 21]
         D2: [50, 48, 23, 22]
         4He: [25, 20, 6, 5]
         3He: [25, 20, 6, 5]
@@ -285,7 +285,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Target_Supply_PI:
-        H2: [ 25, 22, 20, 19 ]
+        H2: [ 25, 22, 17.75, 17 ]
         D2: [ 25, 22, 18.5, 17.5 ]
         4He: [ 33, 31, 16, 15 ]
         3He: [ 90, 70, 30, 0]
@@ -295,7 +295,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         4He: [ 90, 70, 30, 20 ]
         3He: [ 90, 70, 30, 20 ]
     Evaporator_Out_TI:
-        H2: [ 35, 32, 23, 22 ]
+        H2: [ 48, 46, 22, 21 ]
         D2: [ 48, 46, 23, 22 ]
         4He: [ 25, 20, 6, 5 ]
         3He: [ 25, 20, 6, 5 ]
@@ -357,16 +357,16 @@ Full:
         3He: [ 5, 4, 2, 0 ]
     Cell_Bottom_TI:
         H2: [ 23, 22, 19, 18 ]
-        D2: [ 26, 24.5, 21, 18 ]
+        D2: [ 26, 24.5, 20, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Cell_Top_TI:
-        H2: [ 22, 21.5, 19, 18 ]
-        D2: [ 26, 24.8, 23.8, 18 ]
+        H2: [ 22.5, 22, 19, 18 ]
+        D2: [ 26, 25, 23.8, 18 ]
         4He: [ 5, 4, 2, 0 ]
         3He: [ 5, 4, 2, 0 ]
     Target_Supply_PI:
-        H2: [ 25, 22, 20, 19 ]
+        H2: [ 25, 22, 17.75, 17 ]
         D2: [ 25, 22, 18, 17 ]
         4He: [ 33, 31, 16, 15 ]
         3He: [ 90, 70, 30, 0]
@@ -376,7 +376,7 @@ Full:
         4He: [ 90, 70, 30, 20 ]
         3He: [ 90, 70, 30, 20 ]
     Evaporator_Out_TI:
-        H2: [ 35, 32, 23, 22 ]
+        H2: [ 35, 32, 22, 21 ]
         D2: [ 35, 32, 23, 22 ]
         4He: [ 25, 20, 6, 5 ]
         3He: [ 25, 20, 6, 5 ]
@@ -401,7 +401,7 @@ Full:
         4He: True
         3He: True
     Evaporator_SP:
-        H2: 21
+        H2: 19.5
         D2: 24
         4He: 2.5
         3He: 2.5
@@ -457,7 +457,7 @@ Standby:
         4He: [90, 70, 30, 20]
         3He: [90, 70, 30, 20]
     Evaporator_Out_TI:
-        H2: [37, 35, 23, 22]
+        H2: [37, 35, 22, 21]
         D2: [37, 35, 23, 22]
         4He: [25, 20, 6, 5]
         3He: [25, 20, 6, 5]
