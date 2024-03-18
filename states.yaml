@@ -347,7 +347,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         3He: 50
     Evaporator_FC:
         H2: 75
-        D2: 85
+        D2: 80
         4He: 65
         3He: 65
 Full:
