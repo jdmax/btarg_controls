@@ -59,8 +59,8 @@ class Device():
         # figure out what type of PV this is, and send it to the right method
         print("Sets:", pv, pv_name, chan)
         try:
-            if '_DI' in pv_name:
-                self.pvs[pv_name].set(self.t.set_power(chan, new_value))
+            if '_DI' in pv:
+                self.pvs[pv_name + "_DI"].set(self.t.set_power(chan, new_value))
             else:
                 print('Error, control PV not categorized.')
         except OSError:
