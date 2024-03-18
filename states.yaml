@@ -33,7 +33,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [30, 300]
                 TGT:BTARG:Target_Supply_PI: [21, 23]
             Filling:     # When to stop filling
-                TGT:BTARG:Cell_Top_TI: [16, 24.8]
+                TGT:BTARG:Cell_Top_TI: [16, 25.0]
                 TGT:BTARG:Target_Supply_PI: [16, 19.25]
             Full:        # Are we still full?
                 TGT:BTARG:Cell_Top_TI: [16, 24.6]
