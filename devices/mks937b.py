@@ -54,6 +54,7 @@ class Device():
         '''If PV has changed, find the correct method to set it on the device'''
         pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
         #p = pv_name.split("_")[0]  # pv_name root
+        pv_name = pv_name.replace('_DI', '')  # remove DI if that's in PV name
         chan = self.channels.index(pv_name) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
         print("Sets:", pv, pv_name, chan)
