@@ -57,7 +57,7 @@ class Device():
         pv_name = pv_name.replace('_DI', '')  # remove DI if that's in PV name
         chan = self.channels.index(pv_name) + 1  # determine what channel we are on
         # figure out what type of PV this is, and send it to the right method
-        print("Sets:", pv, pv_name, chan)
+        #print("Sets:", pv, pv_name, chan)
         try:
             if '_DI' in pv:
                 self.pvs[pv_name + "_DI"].set(self.t.set_power(chan, new_value))
