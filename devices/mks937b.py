@@ -24,7 +24,7 @@ class Device():
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
             if 'CC' in channel:   # Cold cathode channels need DI for off/on
-                self.pvs[channel + '_DI'] = builder.boolOut(channel + '_DI')
+                self.pvs[channel + '_DI'] = builder.boolOut(channel + '_DI', on_update_name=self.do_sets)
 
     async def connect(self):
         """Open connection to device"""
