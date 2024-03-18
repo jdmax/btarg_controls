@@ -151,6 +151,7 @@ class DeviceConnection():
                 return False
 
         except Exception as e:
+            print(data)
             print(f"MKS 937B power read failed on {self.host}: {e}")
             raise OSError('MKS 937B power read')
 
