@@ -149,7 +149,7 @@ Emptying:
         3He: [99, 95, 2, 0]
     Coolant_SP:
         H2: 14
-        D2: 14
+        D2: 18
         4He: 2.5
         3He: 2.5
     Coolant_Mode:
