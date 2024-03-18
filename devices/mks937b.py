@@ -23,23 +23,47 @@ class Device():
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
+            if 'CC' in channel:   # Cold cathode channels need DI for off/on
+                self.pvs[channel + '_DI'] = builder.aIn(channel + '_DI', **sevr)
 
     async def connect(self):
         """Open connection to device"""
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'],
                                       self.settings['address'], self.settings['timeout'])
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    async def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, channel in enumerate(self.settings['channels']):  # set up PVs for each channel
+            if 'CC' in channel:
+                try:
+                    power_status = self.t.read_power(i+1)
+                    self.pvs[channel+"_DI"].set(power_status)  # set returned value
+                except OSError:
+                    await self.reconnect()
 
     async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
         await self.connect()
 
-    def do_sets(self, new_value, pv):
-        """MKS937b has no sets"""
-        pass
+    async def do_sets(self, new_value, pv):
+        '''If PV has changed, find the correct method to set it on the device'''
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        #p = pv_name.split("_")[0]  # pv_name root
+        chan = self.channels.index(pv_name) + 1  # determine what channel we are on
+        # figure out what type of PV this is, and send it to the right method
+        try:
+            if '_DI' in pv_name:
+                self.pvs[pv_name].set(self.t.set_power(chan, new_value))
+            else:
+                print('Error, control PV not categorized.')
+        except OSError:
+            await self.reconnect()
+        return
 
     async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
