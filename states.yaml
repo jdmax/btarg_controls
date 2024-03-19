@@ -149,7 +149,7 @@ Emptying:
         3He: [99, 95, 2, 0]
     Coolant_SP:
         H2: 14
-        D2: 18
+        D2: 18.7
         4He: 2.5
         3He: 2.5
     Coolant_Mode:
@@ -230,7 +230,7 @@ Empty:
         3He: [99, 95, 2, 0]
     Coolant_SP:
         H2: 14
-        D2: 18
+        D2: 18.7
         4He: 2.5
         3He: 2.5
     Coolant_Mode:
@@ -312,7 +312,7 @@ Filling:  # "Fill" alarms are same as Full. Difference is flows and setpoints. W
         3He: [ 99, 95, 2, 0 ]
     Coolant_SP:
         H2: 14
-        D2: 18
+        D2: 18.7
         4He: 2.5
         3He: 2.5
     Coolant_Mode:
@@ -393,7 +393,7 @@ Full:
         3He: [ 99, 95, 2, 0 ]
     Coolant_SP:
         H2: 14
-        D2: 18
+        D2: 18.7
         4He: 2.5
         3He: 2.5
     Coolant_Mode:
