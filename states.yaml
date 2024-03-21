@@ -30,7 +30,7 @@ options:   # summary of headers of table below
                 TGT:BTARG:Cell_Bottom_TI: [0, 18]
         D2:
             Empty:  #all must be true to go to this state
-                TGT:BTARG:Cell_Bottom_TI: [30, 300]
+                TGT:BTARG:Cell_Bottom_TI: [28, 300]
                 TGT:BTARG:Target_Supply_PI: [21, 23]
             Filling:     # When to stop filling
                 TGT:BTARG:Cell_Top_TI: [16, 25.1]
