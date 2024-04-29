@@ -277,8 +277,8 @@ Evaporator_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 0
-    LOLO: -5
+    LOW: -8
+    LOLO: -10
 Precool_Exhaust_SP1:
     DESC: 'Precool Exhaust Setpoint 1'
     PREC: 2
@@ -301,8 +301,8 @@ Precool_Exhaust_TI:
     EGU: 'C'
     HIHI: 50
     HIGH: 40
-    LOW: 0
-    LOLO: -5
+    LOW: -5
+    LOLO: -10
 Evap_Exhaust_PI:
     DESC: 'Evaporator Exhaust Pressure'
     PREC: 2
@@ -425,8 +425,8 @@ OVC_CC_PI:
     EGU: 'torr'
     HIHI: 1.0E-3
     HIGH: 1.0E-4
-    LOW: 1.0E-8
-    LOLO: 1.0E-9
+    LOW: -Inf
+    LOLO: -Inf
 OVC_Pirani_PI:
     DESC: 'OVC Pirani Pressure'
     PREC: 6
@@ -579,3 +579,79 @@ Flag_pos_2:
     DESC: 'Flag Valve Position 2 Set'
     PREC: 2
     EGU: '°'
+Motor_Heater:
+    DESC: 'Motor Heater Output'
+    PREC: 1
+    EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Motor_Heater_W:
+    DESC: 'Motor Heater Output Watts'
+    PREC: 3
+    EGU: 'W'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Motor_Manual:
+    DESC: 'Motor Manual Heater Output'
+    PREC: 1
+    EGU: '%'
+    DRVH: 100
+    DRVL: 0
+Motor_SP:
+    DESC: 'Motor Setpoint'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Motor_TI:
+    DESC: 'Motor Temperature'
+    PREC: 2
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Potentiometer_Heater:
+    DESC: 'Potentiometer Heater Output'
+    PREC: 1
+    EGU: '%'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Potentiometer_Heater_W:
+    DESC: 'Potentiometer Heater Output Watts'
+    PREC: 3
+    EGU: 'W'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Potentiometer_Manual:
+    DESC: 'Potentiometer Manual Heater Output'
+    PREC: 1
+    EGU: '%'
+    DRVH: 100
+    DRVL: 0
+Potentiometer_SP:
+    DESC: 'Potentiometer Setpoint'
+    PREC: 5
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
+Potentiometer_TI:
+    DESC: 'Potentiometer Temperature'
+    PREC: 2
+    EGU: 'K'
+    HIHI: Inf
+    HIGH: Inf
+    LOW: -Inf
+    LOLO: -Inf
