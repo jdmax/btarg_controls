@@ -5,7 +5,7 @@
   <update_period>3.0</update_period>
   <scroll_step>5</scroll_step>
   <scroll>true</scroll>
-  <start>-1 hours</start>
+  <start>-30 minutes</start>
   <end>now</end>
   <archive_rescale>STAGGER</archive_rescale>
   <foreground>
