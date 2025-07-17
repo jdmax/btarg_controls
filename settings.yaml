@@ -77,6 +77,22 @@ lakeshore_336:
     heater_resistance:  # Heaters for channels 1 and 2. First element is nominal as set (25 or 50), second is true as measured.
         - [25, 24]
         - [50, 58]
+lakeshore_336_val:
+    module: 'devices.ls336_val'
+    autostart: True          # Should IOC Manager try to start this?
+    ip: '192.168.1.117'
+    port: '7777'
+    timeout: 2
+    delay: 2
+    channels: # List of channel names in order. If TI is suffix, only one PV is made; for others all PID PVS are made. None indicates an empty channel. Value is output channel
+        - Motor
+        - Potentiometer
+    out_channels:
+        Motor: 1
+        Potentiometer: 2
+    heater_resistance:  # Heaters for channels 1 and 2. First element is nominal as set (25 or 50), second is true as measured from Lakeshore and third is heater resistance (excluding cables).
+        - [25, 9, 4.17] # 4.17 for the heaters
+        - [50, 71, 52] # 52 for the heater
 omega_1:
     module: 'devices.omega'
     autostart: True         # Should IOC Manager try to start this?
@@ -131,8 +147,8 @@ dat8017_i2:
     timeout: 2
     delay: 2
     channels:  # List of PV names for each read channel of datexel in order
-        - H2_Tank_PI
         - D2_Tank_PI
+        - H2_Tank_PI
         - 4He_Tank_PI
         - 3He_Tank_PI
     calibration: # psi gauge range for calibration
@@ -190,7 +206,7 @@ mks937b:
     autostart: True          # Should IOC Manager try to start this?
     ip: '192.168.1.107'
     port: '1001'            # channel 3 of serial to ethernet
-    address: '003'          # serial address set on device
+    address: '003'          # serial address set on device, must be 3 digits
     timeout: 2
     delay: 2
     channels:
@@ -234,8 +250,8 @@ zaber:
             - [Closed, 0]
         Flag:
             - [Empty, 21]
-            - [Cu-Sn, -9]
-            - [Carbon, 48]
+            - [Cu-Sn, -6]
+            - [Carbon, 52]
     check_home:    # should it run the home routine before each move
         Shutoff: False
         Flag: True

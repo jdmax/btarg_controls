@@ -48,7 +48,7 @@ class Device():
                 values = self.t.read_sp(str(i+1))
                 self.pvs[pv_name + '_VC'].set(values[0])  # set returned voltage
                 self.pvs[pv_name + '_CC'].set(values[1])  # set returned current
-                value = self.t.set_state(str(i+1), self.pvs[pv_name].get())
+                value = self.t.read_state(str(i+1))
                 self.pvs[pv_name + '_Mode'].set(int(value))  # set returned value
             except OSError:
                 print("Read out error on", pv_name)
@@ -87,9 +87,9 @@ class Device():
             if "None" in channel: continue
             try:
                 new_reads[channel+'_VI'], new_reads[channel+'_CI'], power = self.t.read(i+1)
-                new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
+                #new_reads[channel+'_VC'], new_reads[channel+'_CC'] = self.t.read_sp(i+1)
                 new_reads[channel + '_WI'] = new_reads[channel + '_VI'] * new_reads[channel + '_CI']
-                new_reads[channel+'_Mode'] = self.t.read_state(i+1)
+                #new_reads[channel+'_Mode'] = self.t.read_state(i+1)
             except OSError:
                 self.set_alarm(channel + "_VI")
                 await self.reconnect()
@@ -163,9 +163,12 @@ class DeviceConnection():
     def set(self, channel, voltage, current):
         '''Set current and voltage for given channel'''
         try:
+            print(f"Set: APPLY CH{channel},{voltage},{current}")
             self.tn.write(bytes(f":APPLY CH{channel},{voltage},{current}\n", 'ascii'))
-            time.sleep(0.2)
-            return self.read_sp(channel)   # return voltage, current as list
+            time.sleep(0.5)
+            out = self.read_sp(channel)
+            print("Out:", out)
+            return out   # return voltage, current as list
 
         except Exception as e:
             print(f"DP832 set failed on {self.host}: {e}")
@@ -195,7 +198,7 @@ class DeviceConnection():
         out = 'ON' if state else 'OFF'
         try:
             self.tn.write(bytes(f":OUTPUT CH{channel},{out}\n", 'ascii'))
-            time.sleep(0.2)
+            time.sleep(0.5)
             return self.read_state(channel)
         except Exception as e:
             print(f"DP832 out set failed on {self.host}: {e}")

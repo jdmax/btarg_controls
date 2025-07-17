@@ -1,3 +1,4 @@
+# J. Maxwell 2023
 from screenutils import Screen
 import yaml
 from softioc import softioc, builder, asyncio_dispatcher
@@ -152,14 +153,11 @@ class IOCManager:
                 Screen('pids').send_commands(f'exit')
                 subprocess.run(["screen","-XS",'pids',"kill"])
             self.pv_pid.set(0)
-        elif i==1:
-            screen = Screen('pids', True)
-            Screen('pids').send_commands(f'python pid/pids.py')
-            screen.enable_logs(f"{self.settings['general']['log_dir']}/pids")
-        elif i==2:
+        elif i==1 or i==2:
             if Screen('pids').exists:
                 Screen('pids').send_commands(f'exit')
                 subprocess.run(["screen","-XS",'pids',"kill"])
+                time.sleep(1)
             screen = Screen('pids', True)
             screen.send_commands(f'python pid/pids.py')
             screen.enable_logs(f"{self.settings['general']['log_dir']}/pids")

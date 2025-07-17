@@ -1,3 +1,4 @@
+# J. Maxwell 2023
 import yaml
 from softioc import builder, alarm
 import aioca
@@ -33,7 +34,7 @@ class Device():
         self.pvs['status'] = builder.mbbOut('status', *self.status, on_update_name=self.stat_update)  # come from states.yaml
         self.pvs['species'] = builder.mbbOut('species', *self.species, on_update_name=self.stat_update)
 
-        prod_states = ['Empty', 'Full', 'Solid', 'Full+Solid', 'Not Ready']
+        prod_states = ['Not Ready', 'Emptying', 'Empty', 'Filling', 'Full']
         self.pvs['production'] = builder.mbbIn('production', *prod_states)
 
         flag_states = ['Empty', 'Cu-Sn', 'Carbon']
@@ -98,42 +99,68 @@ class Device():
         if self.settings['prod_pv']:
             try:
                 group = []
-                c = {}    # dict of current status keyed on PV name
-                full_status = []
-                for pvname in self.settings['full_status']:
-                    group.append(self.a_get(c, pvname+'.STAT'))
-                    full_status.append(pvname+'.STAT')
-                group.append(self.a_get(c, 'TGT:BTARG:Flag_MI'))
-                group.append(self.a_get(c, 'TGT:BTARG:Flag_pos_1'))   # left flag
-                group.append(self.a_get(c, 'TGT:BTARG:Flag_pos_2'))   # right flag
+                curr = {}    # dict of current status keyed on PV name
+                for pvname in self.settings['full_status']:   # read PVs need to determine conditions
+                    group.append(self.a_get(curr, pvname))
+                group.append(self.a_get(curr, 'TGT:BTARG:Flag_MI'))
+                group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_1'))   # left flag
+                group.append(self.a_get(curr, 'TGT:BTARG:Flag_pos_2'))   # right flag
                 await asyncio.gather(*group)
 
-                if c['TGT:BTARG:Flag_MI'] < c['TGT:BTARG:Flag_pos_1'] + 1:
+                if curr['TGT:BTARG:Flag_MI'] < curr['TGT:BTARG:Flag_pos_1'] + 1:
                     self.pvs['flag'].set(1)
-                elif c['TGT:BTARG:Flag_MI'] > c['TGT:BTARG:Flag_pos_2'] - 1:
+                elif curr['TGT:BTARG:Flag_MI'] > curr['TGT:BTARG:Flag_pos_2'] - 1:
                     self.pvs['flag'].set(2)
                 else:
                     self.pvs['flag'].set(0)
 
                 stat = self.status[self.pvs['status'].get()]
+                spec = self.species[self.pvs['species'].get()]
 
-                not_alarming = True
-                for pv in full_status:
-                    if not c[pv] == 0:
-                        not_alarming = False
-                if not_alarming:
-                    if self.pvs['flag'].get() == 0:
-                        if 'Empty' in stat:
-                            self.pvs['production'].set(0)  # Empty
-                        elif 'Fill' in stat:
-                            self.pvs['production'].set(1)  # Full
+                for pv, l in self.states['options']['thresholds'][spec]['Standby'].items():
+                    if l[0] < curr[pv] < l[1]:   # if any of these are between values, send to standby
+                        await aioca.caput('TGT:BTARG:status', '5')  # Set to standby
+
+                # Check to see if the applicable conditions are satisfied
+                satisfied = True
+                if "Emptying" in stat or "Empty" in stat:
+                    for pv, l in self.states['options']['thresholds'][spec]['Empty'].items():  # go through all relevant pvs
+                        if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
+                elif "Filling" in stat:
+                    for pv, l in self.states['options']['thresholds'][spec]['Filling'].items():  # go through all relevant pvs
+                        if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
+                elif "Full" in stat:
+                    for pv, l in self.states['options']['thresholds'][spec]['Full'].items():  # go through all relevant pvs
+                        if not l[0] < curr[pv] < l[1]:   # Is this one alarming? If not 0, then yes it is.
+                            satisfied = False
+
+                # Applying states and changes based on conditions
+                if 'Emptying' in stat:
+                    if satisfied:
+                        await aioca.caput('TGT:BTARG:status', '2')  # Set to empty
                     else:
-                        if 'Empty' in stat:
-                            self.pvs['production'].set(2)  # Empty + Solid
-                        elif 'Fill' in stat:
-                            self.pvs['production'].set(3)  # Full + Solid
+                        self.pvs['production'].set(1)  # Emptying
+                elif 'Empty' in stat:
+                    if satisfied:
+                        self.pvs['production'].set(2)  # Empty
+                    else:
+                        self.pvs['production'].set(0)    # Not Ready, something is awry
+                elif 'Filling' in stat:
+                    if satisfied:  # if satisfied, then we have reached full condition
+                        await aioca.caput('TGT:BTARG:status', '4')  # Set to full
+                    else:
+                        self.pvs['production'].set(3)  # Filling
+                elif 'Full' in stat:
+                    if satisfied:
+                        self.pvs['production'].set(4)  # Full
+                    else:
+                        self.pvs['production'].set(0)    # Not Ready, something is awry
                 else:
-                    self.pvs['production'].set(4)    # Not Ready
+                    self.pvs['production'].set(0)    # Not Ready
+
+                # Add check for standby state
             except aioca.CANothing as e:
                 print("Caget error:", e)
                 self.pvs['production'].set(4, severity=2, alarm=alarm.STATE_ALARM)

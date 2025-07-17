@@ -23,23 +23,49 @@ class Device():
         for channel in settings['channels']:  # set up PVs for each channel
             if "None" in channel: continue
             self.pvs[channel] = builder.aIn(channel, **sevr)
+            if 'CC' in channel:   # Cold cathode channels need DI for off/on
+                self.pvs[channel + '_DI'] = builder.boolOut(channel + '_DI', on_update_name=self.do_sets)
 
     async def connect(self):
         """Open connection to device"""
         try:
             self.t = DeviceConnection(self.settings['ip'], self.settings['port'],
                                       self.settings['address'], self.settings['timeout'])
+            await self.read_outs()
         except Exception as e:
             print(f"Failed connection on {self.settings['ip']}, {e}")
+
+    async def read_outs(self):
+        """Read and set OUT PVs at the start of the IOC"""
+        for i, channel in enumerate(self.settings['channels']):  # set up PVs for each channel
+            if 'CC' in channel:
+                try:
+                    power_status = self.t.read_power(i+1)
+                    self.pvs[channel+"_DI"].set(power_status)  # set returned value
+                except OSError:
+                    await self.reconnect()
 
     async def reconnect(self):
         del self.t
         print("Connection failed. Attempting reconnect.")
         await self.connect()
 
-    def do_sets(self, new_value, pv):
-        """MKS937b has no sets"""
-        pass
+    async def do_sets(self, new_value, pv):
+        '''If PV has changed, find the correct method to set it on the device'''
+        pv_name = pv.replace(self.device_name + ':', '')  # remove device name from PV to get bare pv_name
+        #p = pv_name.split("_")[0]  # pv_name root
+        pv_name = pv_name.replace('_DI', '')  # remove DI if that's in PV name
+        chan = self.channels.index(pv_name) + 1  # determine what channel we are on
+        # figure out what type of PV this is, and send it to the right method
+        #print("Sets:", pv, pv_name, chan)
+        try:
+            if '_DI' in pv:
+                self.pvs[pv_name + "_DI"].set(self.t.set_power(chan, new_value))
+            else:
+                print('Error, control PV not categorized.')
+        except OSError:
+            await self.reconnect()
+        return
 
     async def do_reads(self):
         '''Match variables to methods in device driver and get reads from device'''
@@ -87,6 +113,7 @@ class DeviceConnection():
             print(f"MKS 937B connection failed on {self.host}: {e}")
 
         self.read_regex = re.compile('ACK(.*)\s(.*)\s(.*)\s(.*)\s(.*)\s(.*);FF')
+        self.read_power_regex = re.compile('ACK(ON|OFF);FF')
 
     def read_all(self):
         '''Read pressures for all channels.'''
@@ -111,3 +138,37 @@ class DeviceConnection():
         except Exception as e:
             print(f"MKS 937B read failed on {self.host}: {e}")
             raise OSError('MKS 937B read')
+
+    def read_power(self, channel):
+        '''Read sensor power status for given channel. channel can be 1, 3 or 5'''
+        try:
+            command = f"@{self.address}CP{channel}?;FF"
+            self.tn.write(bytes(command, 'ascii'))
+            data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            m = self.read_power_regex.search(data)
+            if 'ON' in m.groups()[0]:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(data)
+            print(f"MKS 937B power read failed on {self.host}: {e}")
+            raise OSError('MKS 937B power read')
+
+    def set_power(self, channel, value):
+        '''Set sensor power status for given channel. channel can be 1, 3 or 5'''
+        power = "ON" if value else "OFF"
+        try:
+            command = f"@{self.address}CP{channel}!{power};FF"
+            self.tn.write(bytes(command, 'ascii'))
+            data = self.tn.read_until(b';FF', timeout=self.timeout).decode('ascii')
+            m = self.read_power_regex.search(data)
+            if 'ON' in m.groups()[0]:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(f"MKS 937B power set failed on {self.host}: {e}")
+            raise OSError('MKS 937B power set')
